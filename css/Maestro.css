@@ -1,0 +1,60 @@
+#fondo{
+       background-color:white;
+      
+}
+#contenedor{
+      width: 990px;
+      border:outset 2px lightgrey;
+      margin: 0px auto;
+      height:590px;
+      position:relative;
+      top: 0px;
+      left: 0px;
+}
+#logo{
+      color: #FFFFFF;
+      width: 210px;     
+      height: 130px;
+      float:left;
+      background-color: #778CB3;
+      position:absolute;
+}
+#logo_imagen{
+       width: 210px;
+       height: 130px;
+}
+#contenido
+{
+      width: 775px;
+      height:560px;
+      background-color:lightskyblue;
+      right:1px;
+      float:right;
+      position:absolute;
+    top: 0px;
+}
+#menulateral{
+      color: black;
+      background-color:lightblue;
+      width: 210px;     
+      height: 430px;
+      float:left;
+      position:absolute;
+      top:130px;
+      left: 1px;
+}
+#panelmenu
+{
+      height: 320px;
+      width: 205px;
+      border:inset 2px lightgrey;
+     
+}
+#pie
+{
+      height: 25px;
+      width: 1000px;
+      position:absolute;
+      float:left;
+      bottom:0px;
+}

@@ -1,0 +1,49 @@
+﻿ .etiquetas{ 
+                font-family:Arial;
+                font-size:14px;
+                font-weight:bold;
+                color:black;
+                text-align: right;
+}
+  .etiquetasmensaje{ 
+                font-family:Arial;
+                font-size:18px;
+                font-weight:bold;
+                color:red;         
+                text-transform: uppercase;      
+           }
+  .etiquetasmensajeerror {
+                font-family:Arial;
+                font-size:12px;
+                font-weight:bold;
+                color:red;         
+                text-transform: uppercase;      
+           }
+ .cajastextoparametro{
+                font-family:Arial;
+                font-size:14px;
+                font-weight:bold;
+                text-transform: uppercase;
+ }
+
+ .cajastexto{
+                font-family:Arial;
+                font-size:14px;
+                text-transform: uppercase;
+                color:black
+ }
+ .cajastextonumerico{
+                font-family:Arial;
+                font-size:14px;
+                text-transform: uppercase;
+                text-align:right;
+                color:black
+ }
+ .tablas{
+                border: outset #FFCC00; 
+                padding: 2px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                width: 990px;
+                height: 0px;
+}
