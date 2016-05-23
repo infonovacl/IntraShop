@@ -1,27 +1,36 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" AutoEventWireup="false" CodeFile="Cliente.aspx.vb" Inherits="MenuPrincipal" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Cliente - Copy.aspx.vb" Inherits="MenuPrincipal" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-      <link href="css/EstilosShop.css" rel="stylesheet" />
-<body>
-  
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="css/EstilosShop.css" rel="stylesheet" />
+     <style type="text/css">
+        .auto-style1 {
+            width: 165px;
+        }
+    </style>
+    </head>
+<body style="width: 982px; height: 4px;">
+    <form id="form1" runat="server">
     <div>
     
         <table class="tablas">
             <tr>
-                <td class="auto-style3" style="width: 2997px; height: 1px;">
+                <td class="auto-style3">
                     <asp:Label ID="Label1" runat="server" Text="Rut Cliente :" CssClass="cajastextoparametro"></asp:Label>
 &nbsp;
                     <asp:TextBox ID="TXT_RutCliente" runat="server" Height="16px" CssClass="cajastextoparametro" Width="73px">9608468</asp:TextBox>
                     &nbsp;<asp:Label ID="Label26" runat="server" Text="-" CssClass="cajastextoparametro"></asp:Label>
 &nbsp;<asp:TextBox ID="TextBox2" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro">4</asp:TextBox>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" CssClass="botones" />
+                    <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" />
 &nbsp;&nbsp;
-                    <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="BTN_Buscar0" runat="server" Text="LIMPIAR" />
                 </td>
-                <td class="auto-style3" style="width: 1020px; height: 1px;">
-                    <asp:TextBox ID="TXT_Apellidos" runat="server" Width="260px" CssClass="cajastextoparametro">ALEJANDRO BERNARDO GROSS ERGAS</asp:TextBox>
+                <td class="auto-style2">
+                    <asp:TextBox ID="TXT_Apellidos" runat="server" Width="430px" CssClass="cajastextoparametro">ALEJANDRO BERNARDO GROSS ERGAS</asp:TextBox>
                 </td>
             </tr>
         </table>
@@ -64,7 +73,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="TXT_Fecha" runat="server" CssClass="cajastexto" Width="100px">11-04-2013</asp:TextBox>
-                        </td>
+                        *</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
@@ -149,7 +158,7 @@
                         <asp:Label ID="Label16" runat="server" Text="Calle " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td class="auto-style5">
-                    <asp:TextBox ID="TXT_DireccCalle" runat="server" Width="220px" CssClass="cajastexto">BUSTOS</asp:TextBox>
+                    <asp:TextBox ID="TXT_DireccCalle" runat="server" Width="250px" CssClass="cajastexto">BUSTOS</asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label19" runat="server" Text="Número " CssClass="etiquetas"></asp:Label>
@@ -175,13 +184,13 @@
                         <asp:Label ID="Label17" runat="server" Text="Villa " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td class="auto-style5">
-                    <asp:TextBox ID="TXT_DireccVilla" runat="server" Width="220px" CssClass="cajastexto">LAS ARAUCARIAS</asp:TextBox>
+                    <asp:TextBox ID="TXT_DireccVilla" runat="server" Width="250px" CssClass="cajastexto">LAS ARAUCARIAS</asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label20" runat="server" Text="Región " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td colspan="3">
-                    <asp:TextBox ID="TXT_DireccRegion" runat="server" Width="220px" CssClass="cajastexto">R. METROPOLITANA</asp:TextBox>
+                    <asp:TextBox ID="TXT_DireccRegion" runat="server" Width="260px" CssClass="cajastexto">R. METROPOLITANA</asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label24" runat="server" Text="Teléfono Celular " CssClass="etiquetas"></asp:Label>
@@ -195,13 +204,13 @@
                         <asp:Label ID="Label18" runat="server" Text="Altura " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td class="auto-style5">
-                    <asp:TextBox ID="TXT_DireccAltura" runat="server" Width="220px" CssClass="cajastexto">MANQUEHUE</asp:TextBox>
+                    <asp:TextBox ID="TXT_DireccAltura" runat="server" Width="250px" CssClass="cajastexto">MANQUEHUE</asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label21" runat="server" Text="Comuna " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td colspan="3">
-                    <asp:TextBox ID="TXT_DireccComuna" runat="server" Width="220px" CssClass="cajastexto">COMUNA</asp:TextBox>
+                    <asp:TextBox ID="TXT_DireccComuna" runat="server" Width="260px" CssClass="cajastexto">COMUNA</asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label25" runat="server" Text="Tarjeta Entregada " CssClass="etiquetas"></asp:Label>
@@ -258,7 +267,7 @@
         <div>
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
-            <ajaxToolkit:TabContainer ID="Tab_Consultas" runat="server" ActiveTabIndex="7" BorderColor="#FFCC00" BorderStyle="Outset" Height="170px" Width="772px">
+            <ajaxToolkit:TabContainer ID="Tab_Consultas" runat="server" ActiveTabIndex="7" BorderColor="#FFCC00" BorderStyle="Outset" Height="200px" Width="985px">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -348,7 +357,6 @@
             </ajaxToolkit:TabContainer>
             <br />
         </div>
+    </form>
     </body>
-</asp:Content>
-
-
+</html>

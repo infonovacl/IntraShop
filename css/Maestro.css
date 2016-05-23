@@ -26,8 +26,8 @@
 #contenido
 {
       width: 775px;
-      height:560px;
-      background-color:lightskyblue;
+      height:589px;
+      background-color:whitesmoke;
       right:1px;
       float:right;
       position:absolute;
@@ -37,7 +37,7 @@
       color: black;
       background-color:lightblue;
       width: 210px;     
-      height: 430px;
+      height: 415px;
       float:left;
       position:absolute;
       top:130px;
@@ -45,16 +45,17 @@
 }
 #panelmenu
 {
-      height: 320px;
+      height: 310px;
       width: 205px;
       border:inset 2px lightgrey;
      
 }
 #pie
 {
-      height: 25px;
-      width: 1000px;
+      height: 40px;
+      width: 212px;
       position:absolute;
       float:left;
-      bottom:0px;
+      bottom:3px;
+    left: 0px;
 }

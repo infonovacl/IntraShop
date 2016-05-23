@@ -13,8 +13,10 @@
             width: 94%;
         }
         .auto-style2 {
-            width: 49%;
-            height: 0px;
+            width: 100%;
+        }
+        .auto-style3 {
+            width: 42px;
         }
     </style>
     </head>
@@ -59,11 +61,10 @@
                           </table>
                           <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
                           <br />
-                          <asp:Panel ID="panelmenu" runat="server" BackColor="White">
-                              <asp:TreeView ID="TreeViewMenu" runat="server" ExpandDepth="1" ImageSet="Arrows" Width="198px">
-                                  <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                          <asp:Panel ID="panelmenu" runat="server" BackColor="White" ScrollBars="Vertical">
+                              <asp:TreeView ID="TreeViewMenu" runat="server" ExpandDepth="1" Width="185px" Font-Size=10pt>
                                   <Nodes>
-                                      <asp:TreeNode Text="Cliente" Value="Cliente">
+                                      <asp:TreeNode Text="Cliente" Value="Cliente" NavigateUrl="~/Cliente.aspx">
                                           <asp:TreeNode Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
                                           <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
                                               <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
@@ -86,9 +87,6 @@
                                       </asp:TreeNode>
                                       <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
                                   </Nodes>
-                                  <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="0px" />
-                                  <ParentNodeStyle Font-Bold="False" />
-                                  <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
                               </asp:TreeView>
                           </asp:Panel>
                       </asp:Panel>
@@ -96,17 +94,19 @@
          <div id ="pie" runat="server">
                       <table class="auto-style2">
                           <tr>
-                              <td>
+                              <td class="auto-style3">
                                   <asp:Label ID="Label4" runat="server" CssClass="etiquetas" Text="Usuario"></asp:Label>
                               </td>
                               <td>
-                                  <asp:Label ID="LBL_Usuario" runat="server" CssClass="etiquetas" Text="CLAUDIO MIRANDA ASTUDILLO"></asp:Label>
+                                  <asp:Label ID="Label5" runat="server" CssClass="etiquetas" Text="Label"></asp:Label>
                               </td>
-                              <td>
+                          </tr>
+                          <tr>
+                              <td class="auto-style3">
                                   <asp:Label ID="Label6" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
                               </td>
                               <td>
-                                  <asp:Label ID="Label7" runat="server" CssClass="etiquetas" Text="QUILLOTA"></asp:Label>
+                                  <asp:Label ID="Label7" runat="server" CssClass="etiquetas" Text="Label"></asp:Label>
                               </td>
                           </tr>
                       </table>
