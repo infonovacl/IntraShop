@@ -5,11 +5,9 @@
 #contenedor{
       width: 990px;
       border:outset 2px lightgrey;
-      margin: 0px auto;
+      margin: auto;
       height:590px;
       position:relative;
-      top: 0px;
-      left: 0px;
 }
 #logo{
       color: #FFFFFF;
@@ -31,8 +29,7 @@
       right:1px;
       float:right;
       position:absolute;
-    top: 0px;
-}
+  }
 #menulateral{
       color: black;
       background-color:lightblue;
@@ -48,7 +45,13 @@
       height: 310px;
       width: 205px;
       border:inset 2px lightgrey;
-     
+      background-color:white;
+}
+#panellogin
+{
+      height: 200px;
+      width: 205px;
+      border:inset 2px lightgrey;
 }
 #pie
 {
@@ -57,5 +60,4 @@
       position:absolute;
       float:left;
       bottom:3px;
-    left: 0px;
 }

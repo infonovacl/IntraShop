@@ -9,15 +9,14 @@
     <link href="css/EstilosShop.css" rel="stylesheet" />
     <style type="text/css">
 
-        .auto-style1 {
-            width: 94%;
-        }
         .auto-style2 {
             width: 100%;
         }
         .auto-style3 {
             width: 42px;
         }
+        .panellogin {}
+        .panelmenu {}
     </style>
     </head>
 <body>
@@ -30,41 +29,43 @@
         </asp:ContentPlaceHolder>
          </div>
          <div id ="menulateral" runat="server">
-                      <asp:Panel ID="Panel_Login" runat="server" Height="108px" Width="210px">
-                          <table class="auto-style1">
-                              <tr>
-                                  <td>
-                                      <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
-                                  </td>
-                                  <td>
-                                      <asp:TextBox ID="TXT_Usuario" runat="server" Width="75px">13992731-1</asp:TextBox>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>
-                                      <asp:Label ID="Label2" runat="server" CssClass="etiquetas" Text="Contraseña"></asp:Label>
-                                  </td>
-                                  <td>
-                                      <asp:TextBox ID="TXT_Contraseña" runat="server" TextMode="Password" Width="75px"></asp:TextBox>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td colspan="2">
-                                      <asp:Label ID="LBL_MensajeLogin" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td colspan="2">
-                                      <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
-                                  </td>
-                              </tr>
-                          </table>
-                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                          <br />
-                          <asp:Panel ID="panelmenu" runat="server" BackColor="White" ScrollBars="Vertical">
-                              <asp:TreeView ID="TreeViewMenu" runat="server" ExpandDepth="1" Width="185px" Font-Size=10pt>
+            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" Height="104px">
+                <table class="tablalogin" >
+                    <tr>
+                        <td style="text-align: left">
+                            <asp:Label ID="Label8" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TXT_Usuario" runat="server" Width="75px">13992731-1</asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <asp:Label ID="Label9" runat="server" CssClass="etiquetas" Text="Contraseña"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TXT_Contraseña" runat="server" TextMode="Password" Width="75px"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <asp:Label ID="LBL_MensajeLogin" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="height: 30px">
+                            <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
+                        </td>
+                    </tr>
+                </table>
+                <br />
+            </asp:Panel>
+             <br />
+            &nbsp;<asp:Panel ID="Panel_Menu" runat="server" ScrollBars="Vertical" Visible="False" CssClass="panelmenu" BackColor="White" Height="210px">
+                              <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
+                              <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="0" Font-Size="10pt" Height="16px" NodeWrap="True" Width="185px">
                                   <Nodes>
-                                      <asp:TreeNode Text="Cliente" Value="Cliente" NavigateUrl="~/Cliente.aspx">
+                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Cliente" Value="Cliente">
                                           <asp:TreeNode Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
                                           <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
                                               <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
@@ -89,7 +90,6 @@
                                   </Nodes>
                               </asp:TreeView>
                           </asp:Panel>
-                      </asp:Panel>
                       </div>
          <div id ="pie" runat="server">
                       <table class="auto-style2">

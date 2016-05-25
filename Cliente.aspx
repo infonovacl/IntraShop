@@ -2,8 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
       <link href="css/EstilosShop.css" rel="stylesheet" />
-<body>
-  
     <div>
     
         <table class="tablas">
@@ -258,7 +256,7 @@
         <div>
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
-            <ajaxToolkit:TabContainer ID="Tab_Consultas" runat="server" ActiveTabIndex="7" BorderColor="#FFCC00" BorderStyle="Outset" Height="170px" Width="772px">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server" ActiveTabIndex="7" BorderColor="#FFCC00" BorderStyle="Outset" Height="170px" Width="772px">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -345,10 +343,9 @@
                         SBIF
                     </HeaderTemplate>
                 </ajaxToolkit:TabPanel>
-            </ajaxToolkit:TabContainer>
+            </ajaxtoolkit:tabcontainer>
             <br />
         </div>
-    </body>
 </asp:Content>
 
 

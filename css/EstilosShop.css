@@ -24,7 +24,7 @@
                 font-size:10px;
                 font-weight:bold;
                 text-transform: uppercase;
-                margin-left: 0px;
+               
 }
 
  .cajastexto{
@@ -47,6 +47,11 @@
                 margin-bottom: 2px;
                 width: 775px;
                 height: 1px;
+}
+  .tablalogin{
+                margin-left: auto;
+                margin-right: auto;
+    width: 209px;
 }
  .botones{
      width:70px;
