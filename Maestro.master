@@ -55,7 +55,7 @@
                     <tr>
                         <td colspan="2" style="height: 30px">
                             <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
-                            &nbsp;v.1.3</td>
+                            &nbsp;v.1.4</td>
                     </tr>
                 </table>
                 <br />
