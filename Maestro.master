@@ -23,7 +23,7 @@
     <form id="fondo" runat="server">
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
-             <img id="logo_imagen" src="Imagenes/familyshop_logo.jpg" /></div>
+             </div>
          <div id ="contenido" runat="server">
                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">   
         </asp:ContentPlaceHolder>
@@ -55,7 +55,7 @@
                     <tr>
                         <td colspan="2" style="height: 30px">
                             <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
-                            &nbsp;v.1.1</td>
+                        </td>
                     </tr>
                 </table>
                 <br />
@@ -63,8 +63,7 @@
              <br />
             &nbsp;<asp:Panel ID="Panel_Menu" runat="server" ScrollBars="Vertical" Visible="False" CssClass="panelmenu" BackColor="White" Height="210px">
                               <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                              <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="0" Font-Size="10pt" Height="16px" NodeWrap="True" Width="190px" ImageSet="WindowsHelp">
-                                  <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+                              <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="0" Font-Size="10pt" Height="16px" NodeWrap="True" Width="185px">
                                   <Nodes>
                                       <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Cliente" Value="Cliente">
                                           <asp:TreeNode Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
@@ -89,9 +88,6 @@
                                       </asp:TreeNode>
                                       <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
                                   </Nodes>
-                                  <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
-                                  <ParentNodeStyle Font-Bold="False" />
-                                  <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px" />
                               </asp:TreeView>
                           </asp:Panel>
                       </div>
@@ -102,7 +98,7 @@
                                   <asp:Label ID="Label4" runat="server" CssClass="etiquetas" Text="Usuario"></asp:Label>
                               </td>
                               <td>
-                                  <asp:Label ID="Label5" runat="server" CssClass="etiquetas" Text="Label"></asp:Label>
+                                  <asp:Label ID="LBL_Usuario" runat="server" CssClass="etiquetas"></asp:Label>
                               </td>
                           </tr>
                           <tr>
@@ -110,7 +106,7 @@
                                   <asp:Label ID="Label6" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
                               </td>
                               <td>
-                                  <asp:Label ID="Label7" runat="server" CssClass="etiquetas" Text="Label"></asp:Label>
+                                  <asp:Label ID="LBL_Tienda" runat="server" CssClass="etiquetas"></asp:Label>
                               </td>
                           </tr>
                       </table>
