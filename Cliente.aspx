@@ -9,7 +9,7 @@
                 <td class="auto-style3" style="width: 2997px; height: 1px;">
                     <asp:Label ID="Label1" runat="server" Text="Rut Cliente :" CssClass="cajastextoparametro"></asp:Label>
 &nbsp;
-                    <asp:TextBox ID="TXT_RutCliente" runat="server" Height="16px" CssClass="cajastextoparametro" Width="73px">9608468</asp:TextBox>
+                    <asp:TextBox ID="TXT_RutCliente" runat="server" CssClass="cajastextoparametro" Width="73px">9608468</asp:TextBox>
                     &nbsp;<asp:Label ID="Label26" runat="server" Text="-" CssClass="cajastextoparametro"></asp:Label>
 &nbsp;<asp:TextBox ID="TextBox2" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro">4</asp:TextBox>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,7 +41,7 @@
                         <asp:Label ID="Label4" runat="server" Text="Folio Contrato " CssClass="etiquetas"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="TXT_FolioContrato" runat="server" CssClass="cajastexto" Height="16px" Width="100px">63137</asp:TextBox>
+                        <asp:TextBox ID="TXT_FolioContrato" runat="server" CssClass="cajastexto" Width="100px">63137</asp:TextBox>
                     </td>
                     <td>
                         <asp:Label ID="Label6" runat="server" Text="Última Mantención " CssClass="etiquetas"></asp:Label>
@@ -227,7 +227,7 @@
                     <td>
                         <asp:Label ID="LBL_Vencimiento5" runat="server" CssClass="etiquetas"></asp:Label>
                     </td>
-                    <td class="auto-style1">
+                    <td>
                         <asp:Label ID="LBL_Vencimiento6" runat="server" CssClass="etiquetas"></asp:Label>
                     </td>
                 </tr>
@@ -247,14 +247,16 @@
                     <td>
                         <asp:TextBox ID="TextBox7" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
                     </td>
-                    <td class="auto-style1">
+                    <td>
                         <asp:TextBox ID="TextBox8" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
                     </td>
                 </tr>
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server" ActiveTabIndex="0" BorderColor="#FFCC00" BorderStyle="Outset" Height="171px" Width="772px" ScrollBars="Auto">
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server" ActiveTabIndex="12" BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="772px">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -342,8 +344,6 @@
                     </HeaderTemplate>
                 </ajaxToolkit:TabPanel>
             </ajaxtoolkit:tabcontainer>
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
-            </asp:ScriptManager>
             <br />
         </div>
 </asp:Content>

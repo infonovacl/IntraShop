@@ -22,27 +22,29 @@
  .cajastextoparametro{
                 font-family:Arial;
                 font-size:10px;
+                height:10px;
                 font-weight:bold;
-                text-transform: uppercase;
-               
+                text-transform: uppercase;               
 }
 
  .cajastexto{
                 font-family:Arial;
                 font-size:10px;
+                height:10px;
                 text-transform: uppercase;
-                color:black
+                color:black;
  }
  .cajastextonumerico{
                 font-family:Arial;
                 font-size:10px;
                 text-transform: uppercase;
                 text-align:right;
-                color:black
+                color:black;
+                height:10px;
  }
  .tablas{
-                border: outset #FFCC00; 
-                padding: 1px;
+                border: 1px outset #FFCC00; 
+             
                 margin-top: 2px;
                 margin-bottom: 2px;
                 width: 775px;
@@ -51,8 +53,8 @@
   .tablalogin{
                 margin-left: auto;
                 margin-right: auto;
-    width: 209px;
+                width: 209px;
 }
  .botones{
-     width:70px;
+                width:75px;
  }
