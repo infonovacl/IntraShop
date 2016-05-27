@@ -2,7 +2,7 @@
        background-color:white;
       
 }
-#contenedor{
+.contenedor{
       width: 990px;
       border:outset 2px lightgrey;
       margin: auto;
