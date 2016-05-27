@@ -19,8 +19,5 @@ Partial Class Maestro
         Me.TVM_Principal.ExpandAll()
 
     End Sub
-    Protected Sub TVM_Principal_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TVM_Principal.SelectedNodeChanged
-
-    End Sub
 End Class
 

@@ -2,7 +2,7 @@
        background-color:white;
       
 }
-.contenedor{
+#contenedor{
       width: 990px;
       border:outset 2px lightgrey;
       margin: auto;
@@ -38,6 +38,7 @@
       float:left;
       position:absolute;
       top:130px;
+	  height=104px;
 }
 #panelmenu
 {
