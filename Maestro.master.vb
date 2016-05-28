@@ -1,6 +1,14 @@
 ﻿
 Partial Class Maestro
     Inherits System.Web.UI.MasterPage
+    Public Property PropertyMasterTextBox2() As TextBox
+        Get
+            Return TXT_RutMaster
+        End Get
+        Set(value As TextBox)
+            TXT_RutMaster = value
+        End Set
+    End Property
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
     End Sub
@@ -18,6 +26,27 @@ Partial Class Maestro
         'Me.TVM_Principal_Load("")
         Me.TVM_Principal.ExpandAll()
 
+    End Sub
+    Protected Sub TVM_Principal_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TVM_Principal.SelectedNodeChanged
+        'MsgBox(Me.TVM_Principal.SelectedNode.Value)
+        'TextBox t = (TextBox)cph_body.FindControl("txtOrigin"); 
+        'Me.LBL_RutCliente.Text = (Me.ContentPlaceHolder1.FindControl("TXT_RutCliente"),textbox)
+        'Dim mpContentPlaceHolder As ContentPlaceHolder
+        ' Dim mpTextBox As TextBox
+        'mpContentPlaceHolder =
+        'CType(Master.FindControl("ContentPlaceHolder1"),
+        'ContentPlaceHolder)
+        ' If Not mpContentPlaceHolder Is Nothing Then
+        Try
+            'Me.TXT_RutMaster.Text = Me.ContentPlaceHolder1.FindControl("TXT_RutCliente") As textbox
+            Me.TXT_RutMaster.Text = Master.FindControl("ContentPlaceHolder1").FindControl("TXT_RutCliente").ToString
+        Catch ex As exception
+        End Try
+
+        'If Not mpTextBox Is Nothing Then
+        ' mpTextBox.Text = "TextBox found!"
+        'End If
+        'End If
     End Sub
 End Class
 

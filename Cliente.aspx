@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" AutoEventWireup="false" CodeFile="Cliente.aspx.vb" Inherits="MenuPrincipal" %>
+<%@ MasterType virtualpath="~/Maestro.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
       <link href="css/EstilosShop.css" rel="stylesheet" />

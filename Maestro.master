@@ -21,6 +21,7 @@
     <form id="fondo" runat="server">
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
+             <asp:TextBox ID="TXT_RutMaster" runat="server"></asp:TextBox>
              </div>
          <div id ="contenido" runat="server">
                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">   
@@ -53,7 +54,7 @@
                     <tr>
                         <td colspan="2" style="height: 30px">
                             <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
-                            &nbsp;v.1.5</td>
+                            &nbsp;v.1.5<br /> </td>
                     </tr>
                 </table>
                 <br />
@@ -64,8 +65,8 @@
                               <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="0" Font-Size="10pt" Height="16px" NodeWrap="True" Width="190px" ImageSet="WindowsHelp">
                                   <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                                   <Nodes>
-                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Cliente" Value="Cliente">
-                                          <asp:TreeNode Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
+                                      <asp:TreeNode Text="Cliente" Value="Cliente">
+                                          <asp:TreeNode Text="Tarjeta" Value="Tarjeta" NavigateUrl="~/Cliente.aspx"></asp:TreeNode>
                                           <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
                                               <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
                                               <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
