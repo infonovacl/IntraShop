@@ -255,15 +255,25 @@
             </table>
         </div>
         <div>
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
-            </asp:ScriptManager>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server" ActiveTabIndex="12" BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="772px">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="772px" AutoPostBack="True">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Label ID="Label27" runat="server" Text="ESTADOS"></asp:Label>
+                        <asp:Panel ID="Panel1" runat="server" Height="134px">
+                            <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Height="16px"  Width="746px" EmptyDataText="No hay resultados en busqueda">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Fecha" />
+                                    <asp:BoundField HeaderText="Hora" />
+                                    <asp:BoundField HeaderText="Cód." />
+                                    <asp:BoundField HeaderText="Estado Nuevo" />
+                                    <asp:BoundField HeaderText="Cód." />
+                                    <asp:BoundField HeaderText="Estado Antiguo" />
+                                    <asp:BoundField HeaderText="Operador" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel2" ID="TabPanel2">
@@ -308,6 +318,20 @@
                     <HeaderTemplate>
                         Comentarios
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" EmptyDataText="No se encontraron Registros" Height="17px" ShowHeaderWhenEmpty="True" Width="755px">
+                            <Columns>
+                                <asp:BoundField HeaderText="Plan" />
+                                <asp:BoundField HeaderText="Fecha / Hora" />
+                                <asp:BoundField HeaderText="Caja" />
+                                <asp:BoundField HeaderText="Nro. Comporb." />
+                                <asp:BoundField HeaderText="Cuotas" />
+                                <asp:BoundField HeaderText="Monto Compra" />
+                                <asp:BoundField HeaderText="Monto a Pagar" />
+                                <asp:BoundField HeaderText="Estado" />
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel10" runat="server" HeaderText="TabPanel10">
                     <HeaderTemplate>

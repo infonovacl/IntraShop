@@ -39,7 +39,8 @@ Partial Class Maestro
         ' If Not mpContentPlaceHolder Is Nothing Then
         Try
             'Me.TXT_RutMaster.Text = Me.ContentPlaceHolder1.FindControl("TXT_RutCliente") As textbox
-            Me.TXT_RutMaster.Text = Master.FindControl("ContentPlaceHolder1").FindControl("TXT_RutCliente").ToString
+            MsgBox(Me.TXT_RutMaster.Text)
+            MsgBox(Me.TVM_Principal.SelectedNode.Value)
         Catch ex As exception
         End Try
 

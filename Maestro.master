@@ -21,10 +21,10 @@
     <form id="fondo" runat="server">
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
-             <asp:TextBox ID="TXT_RutMaster" runat="server"></asp:TextBox>
+             <asp:TextBox ID="TXT_RutMaster" runat="server" Width="91px"></asp:TextBox>
              </div>
          <div id ="contenido" runat="server">
-               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">   
+               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">                 
         </asp:ContentPlaceHolder>
          </div>
          <div id ="menulateral" runat="server">
@@ -54,45 +54,52 @@
                     <tr>
                         <td colspan="2" style="height: 30px">
                             <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
-                            &nbsp;v.1.5<br /> </td>
+                            &nbsp;v.1.6<br /> </td>
                     </tr>
                 </table>
                 <br />
             </asp:Panel>
+             <asp:ScriptManager ID="ScriptManager1" runat="server">
+             </asp:ScriptManager>
              <br />
-            &nbsp;<asp:Panel ID="Panel_Menu" runat="server" ScrollBars="Vertical" Visible="False" CssClass="panelmenu" BackColor="White" Height="210px">
-                              <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                              <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="0" Font-Size="10pt" Height="16px" NodeWrap="True" Width="190px" ImageSet="WindowsHelp">
-                                  <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
-                                  <Nodes>
-                                      <asp:TreeNode Text="Cliente" Value="Cliente">
-                                          <asp:TreeNode Text="Tarjeta" Value="Tarjeta" NavigateUrl="~/Cliente.aspx"></asp:TreeNode>
-                                          <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
-                                              <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
-                                              <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
-                                              <asp:TreeNode Text="Adicionales" Value="Adicionales"></asp:TreeNode>
-                                          </asp:TreeNode>
-                                          <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente">
-                                              <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos"></asp:TreeNode>
-                                              <asp:TreeNode Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos"></asp:TreeNode>
-                                              <asp:TreeNode Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro"></asp:TreeNode>
-                                              <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo"></asp:TreeNode>
-                                              <asp:TreeNode Text="Cambio Día Pago" Value="Cambio Día Pago"></asp:TreeNode>
-                                              <asp:TreeNode Text="Revisa Verificación" Value="Revisa Verificación"></asp:TreeNode>
-                                              <asp:TreeNode Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
-                                          </asp:TreeNode>
-                                          <asp:TreeNode Text="Consultas" Value="Consultas">
-                                              <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago"></asp:TreeNode>
-                                              <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza"></asp:TreeNode>
-                                          </asp:TreeNode>
-                                      </asp:TreeNode>
-                                      <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
-                                  </Nodes>
-                                  <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
-                                  <ParentNodeStyle Font-Bold="False" />
-                                  <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px" />
-                              </asp:TreeView>
-                          </asp:Panel>
+             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                 <ContentTemplate>
+                     <asp:Panel ID="Panel_Menu" runat="server" BackColor="White" CssClass="panelmenu" Height="210px" ScrollBars="Vertical" Visible="False">
+                         <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
+                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px">
+                             <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+                             <Nodes>
+                                 <asp:TreeNode Text="Cliente" Value="Cliente">
+                                     <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
+                                     <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
+                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
+                                         <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
+                                         <asp:TreeNode Text="Adicionales" Value="Adicionales"></asp:TreeNode>
+                                     </asp:TreeNode>
+                                     <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente">
+                                         <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos"></asp:TreeNode>
+                                         <asp:TreeNode Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos"></asp:TreeNode>
+                                         <asp:TreeNode Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro"></asp:TreeNode>
+                                         <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo"></asp:TreeNode>
+                                         <asp:TreeNode Text="Cambio Día Pago" Value="Cambio Día Pago"></asp:TreeNode>
+                                         <asp:TreeNode Text="Revisa Verificación" Value="Revisa Verificación"></asp:TreeNode>
+                                         <asp:TreeNode Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
+                                     </asp:TreeNode>
+                                     <asp:TreeNode Text="Consultas" Value="Consultas">
+                                         <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago"></asp:TreeNode>
+                                         <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza"></asp:TreeNode>
+                                     </asp:TreeNode>
+                                 </asp:TreeNode>
+                                 <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
+                             </Nodes>
+                             <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
+                             <ParentNodeStyle Font-Bold="False" />
+                             <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px" />
+                         </asp:TreeView>
+                     </asp:Panel>
+                 </ContentTemplate>
+             </asp:UpdatePanel>
+             <br />
                       </div>
          <div id ="pie" runat="server">
                       <table class="auto-style2">
