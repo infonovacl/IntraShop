@@ -15,20 +15,21 @@
         .auto-style3 {
             width: 42px;
         }
-         </style>
+        .panellogin {}
+        .panelmenu {}
+    </style>
     </head>
 <body>
     <form id="fondo" runat="server">
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
-             <asp:TextBox ID="TXT_RutMaster" runat="server"></asp:TextBox>
              </div>
          <div id ="contenido" runat="server">
                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">   
         </asp:ContentPlaceHolder>
          </div>
          <div id ="menulateral" runat="server">
-            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin">
+            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" Height="104px">
                 <table class="tablalogin" >
                     <tr>
                         <td style="text-align: left">
@@ -54,7 +55,7 @@
                     <tr>
                         <td colspan="2" style="height: 30px">
                             <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
-                            &nbsp;v.1.5<br /> </td>
+                            &nbsp;v.1.4</td>
                     </tr>
                 </table>
                 <br />
@@ -65,8 +66,8 @@
                               <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="0" Font-Size="10pt" Height="16px" NodeWrap="True" Width="190px" ImageSet="WindowsHelp">
                                   <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                                   <Nodes>
-                                      <asp:TreeNode Text="Cliente" Value="Cliente">
-                                          <asp:TreeNode Text="Tarjeta" Value="Tarjeta" NavigateUrl="~/Cliente.aspx"></asp:TreeNode>
+                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Cliente" Value="Cliente">
+                                          <asp:TreeNode Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
                                           <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
                                               <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
                                               <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
