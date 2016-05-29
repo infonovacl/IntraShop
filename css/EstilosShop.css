@@ -1,25 +1,38 @@
-﻿ .etiquetas{ 
+﻿.etiquetas{ 
                 font-family:Arial;
                 font-size:10px;
                 font-weight:bold;
                 color:black;
                 text-align: right;
 }
-  .etiquetasmensaje{ 
+.etiquetas_tab{ 
+                font-family:Arial;
+                font-size:12px;
+                font-weight:bold;
+                color:black;
+    text-align: left;
+}
+.etiquetas_tabtotales{ 
+                font-family:Arial;
+                font-size:14px;
+                font-weight:bold;
+                color:black;             
+}
+.etiquetasmensaje{ 
                 font-family:Arial;
                 font-size:14px;
                 font-weight:bold;
                 color:red;         
                 text-transform: uppercase;      
            }
-  .etiquetasmensajeerror {
+.etiquetasmensajeerror {
                 font-family:Arial;
                 font-size:10px;
                 font-weight:bold;
                 color:red;         
                 text-transform: uppercase;      
            }
- .cajastextoparametro{
+.cajastextoparametro{
                 font-family:Arial;
                 font-size:10px;
                 height:10px;
@@ -27,14 +40,14 @@
                 text-transform: uppercase;               
 }
 
- .cajastexto{
+.cajastexto{
                 font-family:Arial;
                 font-size:10px;
                 height:10px;
                 text-transform: uppercase;
                 color:black;
  }
- .cajastextonumerico{
+.cajastextonumerico{
                 font-family:Arial;
                 font-size:10px;
                 text-transform: uppercase;
@@ -42,19 +55,26 @@
                 color:black;
                 height:10px;
  }
- .tablas{
-                border: 1px outset #FFCC00; 
-             
+.tablas{
+                border: 1px outset #FFCC00;              
                 margin-top: 2px;
                 margin-bottom: 2px;
                 width: 775px;
                 height: 1px;
 }
-  .tablalogin{
+.tablalogin{
                 margin-left: auto;
                 margin-right: auto;
                 width: 209px;
 }
- .botones{
+.botones{
                 width:70px;
  }
+.tabla_tabcontainer{
+                border-style: none;
+                border-color: inherit;
+                border-width: 1px;     
+                width: 718px;             
+}
+.panel_tab{
+}

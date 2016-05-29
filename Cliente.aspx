@@ -255,14 +255,14 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="772px" AutoPostBack="True">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1276px" AutoPostBack="True" ActiveTabIndex="7">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Panel ID="Panel1" runat="server" Height="134px">
-                            <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Height="16px"  Width="746px" EmptyDataText="No hay resultados en busqueda">
+                        <asp:Panel ID="Panel_Estados" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Height="16px"  Width="737px" EmptyDataText="No hay resultados en busqueda">
                                 <Columns>
                                     <asp:BoundField HeaderText="Fecha" />
                                     <asp:BoundField HeaderText="Hora" />
@@ -280,93 +280,496 @@
                     <HeaderTemplate>
                         Laboral
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <table class="tabla_tabcontainer">
+                            <tr>
+                                <td style="margin-left: 40px; width: 155px;">
+                                    <asp:Label ID="Label83" runat="server" CssClass="etiquetas_tab" Text="Empleador"></asp:Label>
+                                </td>
+                                <td style="width: 730px; ">
+                                    <asp:Label ID="LBL_Empleador" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="width: 199px">
+                                    <asp:Label ID="Label95" runat="server" CssClass="etiquetas_tab" Text="Antigüedad"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_Antiguedad" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label85" runat="server" CssClass="etiquetas_tab" Text="Dirección"></asp:Label>
+                                </td>
+                                <td style="width: 730px; ">
+                                    <asp:Label ID="LBL_Direccion" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="width: 199px">
+                                    <asp:Label ID="Label96" runat="server" CssClass="etiquetas_tab" Text="Total Ingresos"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_TotalIngresos" runat="server" CssClass="etiquetas_tab">0</asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label87" runat="server" CssClass="etiquetas_tab" Text="Región"></asp:Label>
+                                </td>
+                                <td style="width: 730px; ">
+                                    <asp:Label ID="LBL_Region" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="width: 199px">&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label89" runat="server" CssClass="etiquetas_tab" Text="Comuna"></asp:Label>
+                                </td>
+                                <td style="width: 730px; ">
+                                    <asp:Label ID="LBL_Comuna" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="width: 199px">&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label91" runat="server" CssClass="etiquetas_tab" Text="Teléfono"></asp:Label>
+                                </td>
+                                <td style="width: 730px; ">
+                                    <asp:Label ID="LBL_Telefono" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="width: 199px">&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label93" runat="server" CssClass="etiquetas_tab" Text="Anexo"></asp:Label>
+                                </td>
+                                <td style="width: 730px; ">
+                                    <asp:Label ID="LBL_Anexo" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="width: 199px">&nbsp;</td>
+                                <td style="text-align: right">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3">
                     <HeaderTemplate>
                         Contratos
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Contratos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Contratos" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Fecha Firma" />
+                                    <asp:BoundField HeaderText="Folio Contrato" />
+                                    <asp:BoundField HeaderText="Descripción del Contrato" />
+                                    <asp:BoundField HeaderText="Tienda" />
+                                    <asp:BoundField HeaderText="Storbox" />
+                                    <asp:BoundField HeaderText="Responsable" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4">
                     <HeaderTemplate>
                         Modificaciones
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Modificaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Modificaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Modificación de" />
+                                    <asp:BoundField HeaderText="Dato Antiguo" />
+                                    <asp:BoundField HeaderText="Dato Nuevo" />
+                                    <asp:BoundField HeaderText="Fecha" />
+                                    <asp:BoundField HeaderText="Hora" />
+                                    <asp:BoundField HeaderText="Tienda" />
+                                    <asp:BoundField HeaderText="Responsable" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5">
                     <HeaderTemplate>
                         Descuentos
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Descuentos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Descuentos" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Tienda" />
+                                    <asp:BoundField HeaderText="Caja" />
+                                    <asp:BoundField HeaderText="Nro. Comprobante" />
+                                    <asp:BoundField HeaderText="Fecha Pago" />
+                                    <asp:BoundField HeaderText="Total Descuento" />
+                                    <asp:BoundField HeaderText="Estado" />
+                                    <asp:BoundField HeaderText="Código" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel6" runat="server" HeaderText="TabPanel6">
                     <HeaderTemplate>
                         Consultas DB
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <table class="auto-style2" style="width: 60%">
+                            <tr>
+                                <td colspan="6">
+                                    <asp:Label ID="LBL_NombreCliente" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label98" runat="server" CssClass="etiquetas_tab" Text="Fecha"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label101" runat="server" CssClass="etiquetas_tab" Text="Hora"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label102" runat="server" CssClass="etiquetas_tab" Text="Motivo"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label103" runat="server" CssClass="etiquetas_tab" Text="Edad"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label104" runat="server" CssClass="etiquetas_tab" Text="Score"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label105" runat="server" CssClass="etiquetas_tab" Text="Antecedentes"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label106" runat="server" CssClass="etiquetas_tab" Text="Dirección"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label107" runat="server" CssClass="etiquetas_tab" Text="Ciudad"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="height: 19px;">
+                                    <asp:Label ID="LBL_Fecha" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px;">
+                                    <asp:Label ID="LBL_Hora" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px;">
+                                    <asp:Label ID="LBL_Motivo" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px;">
+                                    <asp:Label ID="LBL_Edad" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px">
+                                    <asp:Label ID="LBL_Score" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px">
+                                    <asp:Label ID="LBL_Antecedentes" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px">
+                                    <asp:Label ID="LBL_Dirección" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                                <td style="height: 19px">
+                                    <asp:Label ID="LBL_Ciudad" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <asp:Label ID="Label100" runat="server" CssClass="etiquetas_tab" Text="Nose de donde sale este dato"></asp:Label>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                        <asp:Panel ID="Panel_ConsultasDB" runat="server" Height="113px" ScrollBars="Vertical" Width="754px">
+                            <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Fecha" />
+                                    <asp:BoundField HeaderText="Hora" />
+                                    <asp:BoundField HeaderText="Motivo" />
+                                    <asp:BoundField HeaderText="Edad" />
+                                    <asp:BoundField HeaderText="Score" />
+                                    <asp:BoundField HeaderText="Antecedentes" />
+                                    <asp:BoundField HeaderText="Dirección" />
+                                    <asp:BoundField HeaderText="Ciudad" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel7" runat="server" HeaderText="TabPanel7">
                     <HeaderTemplate>
                         Solicitudes
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Solicitud" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Solicitud" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Tipo Solicitud" />
+                                    <asp:BoundField HeaderText="Fecha" />
+                                    <asp:BoundField HeaderText="Hora" />
+                                    <asp:BoundField HeaderText="Rut Operador" />
+                                    <asp:BoundField HeaderText="Estado Solicitud" />
+                                    <asp:BoundField HeaderText="Glosa" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel8" runat="server" HeaderText="TabPanel8">
                     <HeaderTemplate>
                         Resumen Cuenta
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:TextBox ID="TextBox9" runat="server"></asp:TextBox>
-                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel9" runat="server" HeaderText="TabPanel9">
+                <ajaxToolkit:TabPanel ID="TabPanel11" runat="server" HeaderText="TabPanel11">
                     <HeaderTemplate>
                         Comentarios
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" EmptyDataText="No se encontraron Registros" Height="17px" ShowHeaderWhenEmpty="True" Width="755px">
-                            <Columns>
-                                <asp:BoundField HeaderText="Plan" />
-                                <asp:BoundField HeaderText="Fecha / Hora" />
-                                <asp:BoundField HeaderText="Caja" />
-                                <asp:BoundField HeaderText="Nro. Comporb." />
-                                <asp:BoundField HeaderText="Cuotas" />
-                                <asp:BoundField HeaderText="Monto Compra" />
-                                <asp:BoundField HeaderText="Monto a Pagar" />
-                                <asp:BoundField HeaderText="Estado" />
-                            </Columns>
-                        </asp:GridView>
+                        <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Fecha ">
+                                    <ItemStyle Width="100px" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Hora">
+                                    <ItemStyle Width="100px" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Glosa">
+                                    <ItemStyle Width="500px" />
+                                    </asp:BoundField>
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
                     </ContentTemplate>
+                </ajaxToolkit:TabPanel>
+                <ajaxToolkit:TabPanel ID="TabPanel9" runat="server" HeaderText="TabPanel9">
+                    <HeaderTemplate>
+                        Pagos
+                    </HeaderTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel10" runat="server" HeaderText="TabPanel10">
                     <HeaderTemplate>
-                        Pagos<br />
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel11" runat="server" HeaderText="TabPanel11">
-                    <HeaderTemplate>
                         Ventas
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Ventas" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Plan" />
+                                    <asp:BoundField HeaderText="Fecha" />
+                                    <asp:BoundField HeaderText="Hora" />
+                                    <asp:BoundField HeaderText="Caja" />
+                                    <asp:BoundField HeaderText="Nro.Comprobante" />
+                                    <asp:BoundField HeaderText="Cuotas" />
+                                    <asp:BoundField HeaderText="Monto Compra" />
+                                    <asp:BoundField HeaderText="A Pagar" />
+                                    <asp:BoundField HeaderText="Estado" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel12" runat="server" HeaderText="TabPanel12">
                     <HeaderTemplate>
                         Repactaciones
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="740px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Tienda" />
+                                    <asp:BoundField HeaderText="Caja" />
+                                    <asp:BoundField HeaderText="Nro.Comprobante" />
+                                    <asp:BoundField HeaderText="Fecha Proceso" />
+                                    <asp:BoundField HeaderText="Pie" />
+                                    <asp:BoundField HeaderText="Descuento" />
+                                    <asp:BoundField HeaderText="Saldo Repactado" />
+                                    <asp:BoundField HeaderText="Total" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel13" runat="server" HeaderText="TabPanel13">
                     <HeaderTemplate>
                         Deuda
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <table class="tabla_tabcontainer">
+                            <tr>
+                                <td style="margin-left: 40px; width: 155px;">
+                                    <asp:Label ID="Label55" runat="server" CssClass="etiquetas_tab" Text="Monto Capital"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_MontoCapital" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label57" runat="server" CssClass="etiquetas_tab" Text="Interés Mora"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_InteresMora" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label59" runat="server" CssClass="etiquetas_tab" Text="Monto Interés"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_MontoInteres" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label61" runat="server" CssClass="etiquetas_tab" Text="Gastos Cobranza"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_GastosCobranza" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label63" runat="server" CssClass="etiquetas_tab" Text="Monto Honorario"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_MontoHonorario" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label65" runat="server" CssClass="etiquetas_tab" Text="Impuestos"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_Impuestos" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label67" runat="server" CssClass="etiquetas_tab" Text="Cobro Producto"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_CobroProducto" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label69" runat="server" CssClass="etiquetas_tab" Text="Costas Judiciales"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_CostasJudicial" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label71" runat="server" CssClass="etiquetas_tab" Text="Comisión Avance"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_ComisionAvance" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label73" runat="server" CssClass="etiquetas_tab" Text="Interés Periodo"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_InteresPeriodo" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label75" runat="server" CssClass="etiquetas_tab" Text="Administración"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_Administracion" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label77" runat="server" CssClass="etiquetas_tab" Text="Otros Cobros"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_OtrosCobros" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">
+                                    <asp:Label ID="Label79" runat="server" CssClass="etiquetas_tab" Text="Seguros"></asp:Label>
+                                </td>
+                                <td style="width: 84px; text-align: right;">
+                                    <asp:Label ID="LBL_Seguros" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="width: 166px">
+                                    <asp:Label ID="Label81" runat="server" CssClass="etiquetas_tab" Text="Saldo a Favor    ( - )"></asp:Label>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:Label ID="LBL_SaldoFavor" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 155px">&nbsp;</td>
+                                <td style="width: 84px; text-align: right;">&nbsp;</td>
+                                <td style="width: 150px">&nbsp;</td>
+                                <td style="border-style: outset none none none; border-top-width: 2px;">
+                                    <asp:Label ID="Label82" runat="server" CssClass="etiquetas_tabtotales" Text="TOTAL DEUDA"></asp:Label>
+                                </td>
+                                <td style="border-top-width: 2px; text-align: right; border-left-style: none; border-right-style: none; border-top-style: outset; border-bottom-style: none;">
+                                    <asp:Label ID="LBL_TotalDeuda" runat="server" CssClass="etiquetas_tabtotales" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel14" runat="server" HeaderText="TabPanel14">
                     <HeaderTemplate>
-                        Por pagar
+                        Por Pagar
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_XPagar" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_XPagar" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Fecha Vencimiento" />
+                                    <asp:BoundField HeaderText="Total Cuota" />
+                                    <asp:BoundField HeaderText="Total Pendiente" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel15" runat="server" HeaderText="TabPanel15">
                     <HeaderTemplate>
                         Seguros
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Seguros" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Seguros" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Seguro" />
+                                    <asp:BoundField HeaderText="Tienda" />
+                                    <asp:BoundField HeaderText="Caja" />
+                                    <asp:BoundField HeaderText="Folio" />
+                                    <asp:BoundField HeaderText="Inicio Vig." />
+                                    <asp:BoundField HeaderText="Termino Vig." />
+                                    <asp:BoundField HeaderText="Motivo Anulación" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel16" runat="server" HeaderText="TabPanel16">
                     <HeaderTemplate>
                         SBIF
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Seguros0" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Seguros0" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="390px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Mes" />
+                                    <asp:BoundField HeaderText="Clasificación" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
             </ajaxtoolkit:tabcontainer>
             <br />
