@@ -255,14 +255,14 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1276px" AutoPostBack="True" ActiveTabIndex="7">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1276px" AutoPostBack="True" ActiveTabIndex="15">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Estados" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Height="16px"  Width="737px" EmptyDataText="No hay resultados en busqueda">
+                            <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Height="16px"  Width="737px" EmptyDataText="No hay resultados en busqueda" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Fecha" />
                                     <asp:BoundField HeaderText="Hora" />
@@ -359,7 +359,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Contratos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Contratos" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Contratos" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Fecha Firma" />
                                     <asp:BoundField HeaderText="Folio Contrato" />
@@ -378,7 +378,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Modificaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Modificaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Modificaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Modificación de" />
                                     <asp:BoundField HeaderText="Dato Antiguo" />
@@ -398,7 +398,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Descuentos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Descuentos" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Descuentos" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Tienda" />
                                     <asp:BoundField HeaderText="Caja" />
@@ -486,7 +486,7 @@
                             </tr>
                         </table>
                         <asp:Panel ID="Panel_ConsultasDB" runat="server" Height="113px" ScrollBars="Vertical" Width="754px">
-                            <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Fecha" />
                                     <asp:BoundField HeaderText="Hora" />
@@ -507,7 +507,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Solicitud" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Solicitud" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Solicitud" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Tipo Solicitud" />
                                     <asp:BoundField HeaderText="Fecha" />
@@ -524,6 +524,105 @@
                     <HeaderTemplate>
                         Resumen Cuenta
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <table class="auto-style2" style="width: 60%">
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label108" runat="server" CssClass="etiquetas_tab" Text="Ultimos Abonos"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label109" runat="server" CssClass="etiquetas_tab" Text="Clasificaciones"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label110" runat="server" CssClass="etiquetas_tab" Text="Fecha Solicitud"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_FechaSolicitud" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="8">
+                                    <asp:Panel ID="Panel_UltimosAbonos" runat="server" Width="162px">
+                                        <asp:GridView ID="Grilla_UltimosAbonos" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" Width="150px">
+                                            <Columns>
+                                                <asp:BoundField HeaderText="Tipo" />
+                                                <asp:BoundField HeaderText="Fecha " />
+                                                <asp:BoundField HeaderText="Monto " />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </asp:Panel>
+                                </td>
+                                <td rowspan="8">
+                                    <asp:Panel ID="Panel_UltimasClasificaciones" runat="server" Width="176px">
+                                        <asp:GridView ID="Grilla_UltimasClasificaciones" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" Width="154px">
+                                            <Columns>
+                                                <asp:BoundField HeaderText="Mes" />
+                                                <asp:BoundField HeaderText="Clasificación" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </asp:Panel>
+                                </td>
+                                <td>
+                                    <asp:Label ID="Label112" runat="server" CssClass="etiquetas_tab" Text="Fecha Aprobación"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_FechaAprobacion" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label114" runat="server" CssClass="etiquetas_tab" Text="Fecha Verificación Particular"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_FechaVerificacionParticular" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label116" runat="server" CssClass="etiquetas_tab" Text="Fecha Verificación Laboral"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_FechaVerificacionLaboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label118" runat="server" CssClass="etiquetas_tab" Text="Fecha Rechazo"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_FechaRechazo" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label120" runat="server" CssClass="etiquetas_tab" Text="Total Cuenta Al"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_TotalCuentaAl" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label121" runat="server" CssClass="etiquetas_tab" Text="COMPRAS TOTALES"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_ComprasTotales" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label122" runat="server" CssClass="etiquetas_tab" Text="PAGOS TOTALES"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="LBL_PagosTotales" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel11" runat="server" HeaderText="TabPanel11">
                     <HeaderTemplate>
@@ -531,7 +630,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Fecha ">
                                     <ItemStyle Width="100px" />
@@ -551,6 +650,20 @@
                     <HeaderTemplate>
                         Pagos
                     </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_Pagos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_Pagos" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="720px">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Tipo" />
+                                    <asp:BoundField HeaderText="Tienda Pago" />
+                                    <asp:BoundField HeaderText="Caja" />
+                                    <asp:BoundField HeaderText="Nro.Comprobante" />
+                                    <asp:BoundField HeaderText="Fecha Pago" />
+                                    <asp:BoundField HeaderText="Monto Pagado" />
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel>
+                    </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel10" runat="server" HeaderText="TabPanel10">
                     <HeaderTemplate>
@@ -558,7 +671,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Ventas" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Plan" />
                                     <asp:BoundField HeaderText="Fecha" />
@@ -580,7 +693,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="740px">
+                            <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="726px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Tienda" />
                                     <asp:BoundField HeaderText="Caja" />
@@ -726,7 +839,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_XPagar" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_XPagar" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_XPagar" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Fecha Vencimiento" />
                                     <asp:BoundField HeaderText="Total Cuota" />
@@ -742,7 +855,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Seguros" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Seguros" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                            <asp:GridView ID="Grilla_Seguros" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Seguro" />
                                     <asp:BoundField HeaderText="Tienda" />
@@ -762,7 +875,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Seguros0" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Seguros0" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="390px">
+                            <asp:GridView ID="Grilla_Seguros0" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="390px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Mes" />
                                     <asp:BoundField HeaderText="Clasificación" />

@@ -10,7 +10,7 @@
                 font-size:12px;
                 font-weight:bold;
                 color:black;
-    text-align: left;
+                text-align: left;
 }
 .etiquetas_tabtotales{ 
                 font-family:Arial;
@@ -24,7 +24,7 @@
                 font-weight:bold;
                 color:red;         
                 text-transform: uppercase;      
-           }
+}
 .etiquetasmensajeerror {
                 font-family:Arial;
                 font-size:10px;
@@ -39,7 +39,6 @@
                 font-weight:bold;
                 text-transform: uppercase;               
 }
-
 .cajastexto{
                 font-family:Arial;
                 font-size:10px;
@@ -69,12 +68,18 @@
 }
 .botones{
                 width:70px;
- }
+}
 .tabla_tabcontainer{
                 border-style: none;
                 border-color: inherit;
                 border-width: 1px;     
-                width: 718px;             
+                width: 718px;                                       
 }
 .panel_tab{
+                height:230px;
+                width:755px;
+}
+.grillas_tab{
+                font-family:Arial;
+                font-size:12px;
 }

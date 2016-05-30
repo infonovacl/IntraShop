@@ -1,5 +1,4 @@
-﻿
-Partial Class Maestro
+﻿Partial Class Maestro
     Inherits System.Web.UI.MasterPage
     Public Property PropertyMasterTextBox2() As TextBox
         Get
@@ -39,9 +38,11 @@ Partial Class Maestro
         ' If Not mpContentPlaceHolder Is Nothing Then
         Try
             'Me.TXT_RutMaster.Text = Me.ContentPlaceHolder1.FindControl("TXT_RutCliente") As textbox
-            MsgBox(Me.TXT_RutMaster.Text)
             MsgBox(Me.TVM_Principal.SelectedNode.Value)
-        Catch ex As exception
+            'MsgBox(Me.TXT_RutMaster.Text)
+            'MsgBox(Me.TVM_Principal.SelectedNode.Value)
+        Catch ex As Exception
+            MsgBox(ex)
         End Try
 
         'If Not mpTextBox Is Nothing Then
