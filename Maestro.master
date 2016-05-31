@@ -21,7 +21,9 @@
     <form id="fondo" runat="server">
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
-             <asp:TextBox ID="TXT_RutMaster" runat="server" Width="91px"></asp:TextBox>
+             <asp:TextBox ID="TXT_RutMaster" runat="server" Width="91px" ViewStateMode="Enabled"></asp:TextBox>
+             <asp:ScriptManager ID="ScriptManager1" runat="server">
+             </asp:ScriptManager>
              </div>
          <div id ="contenido" runat="server">
                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">                 
@@ -53,20 +55,22 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="height: 30px">
-                            <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
+                            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                <ContentTemplate>
+                                    <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                             <br /> </td>
                     </tr>
                 </table>
                 <br />
             </asp:Panel>
-             <asp:ScriptManager ID="ScriptManager1" runat="server">
-             </asp:ScriptManager>
              <br />
              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                  <ContentTemplate>
-                     <asp:Panel ID="Panel_Menu" runat="server" BackColor="White" CssClass="panelmenu" Height="210px" ScrollBars="Vertical" Visible="False">
+                     <asp:Panel ID="Panel_Menu" runat="server" BackColor="White" CssClass="panelmenu" Height="210px" ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px">
+                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px" ViewStateMode="Enabled">
                              <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                              <Nodes>
                                  <asp:TreeNode Text="Cliente" Value="Cliente">
