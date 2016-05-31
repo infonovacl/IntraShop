@@ -29,7 +29,8 @@
       right:1px;
       float:right;
       position:absolute;
-  }
+    top: 0px;
+}
 #menulateral{
       color: black;
       background-color:lightblue;
@@ -38,7 +39,7 @@
       float:left;
       position:absolute;
       top:130px;
-	  height=104px;
+    left: 0px;
 }
 #panelmenu
 {

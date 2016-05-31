@@ -255,7 +255,7 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1276px" AutoPostBack="True" ActiveTabIndex="15">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1276px" AutoPostBack="True" ActiveTabIndex="7">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -874,8 +874,8 @@
                         SBIF
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Panel ID="Panel_Seguros0" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Seguros0" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="390px" CssClass="grillas_tab">
+                        <asp:Panel ID="Panel_SBIF" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                            <asp:GridView ID="Grilla_SBIF" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="390px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Mes" />
                                     <asp:BoundField HeaderText="Clasificación" />

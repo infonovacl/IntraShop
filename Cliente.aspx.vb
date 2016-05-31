@@ -8,6 +8,7 @@ Partial Class MenuPrincipal
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
         'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
         Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
+        Session("rut") = Me.TXT_RutCliente.Text
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         MsgBox("Procedimiento : " & Me.Tab_Consultas.ActiveTabIndex.ToString & " para el rut " & Me.TXT_RutCliente.Text & "")

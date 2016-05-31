@@ -18,7 +18,7 @@
          </style>
     </head>
 <body>
-    <form id="fondo" runat="server">
+    <form id="fondo" runat="server" >
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
              <asp:TextBox ID="TXT_RutMaster" runat="server" Width="91px" ViewStateMode="Enabled"></asp:TextBox>
@@ -26,11 +26,11 @@
              </asp:ScriptManager>
              </div>
          <div id ="contenido" runat="server">
-               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">                 
+               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" ViewStateMode="Enabled">                 
         </asp:ContentPlaceHolder>
          </div>
          <div id ="menulateral" runat="server">
-            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin">
+            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" ViewStateMode="Enabled">
                 <table class="tablalogin" >
                     <tr>
                         <td style="text-align: left">
@@ -66,21 +66,21 @@
                 <br />
             </asp:Panel>
              <br />
-             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+             <asp:UpdatePanel ID="UpdatePanel1" runat="server" ViewStateMode="Enabled">
                  <ContentTemplate>
                      <asp:Panel ID="Panel_Menu" runat="server" BackColor="White" CssClass="panelmenu" Height="210px" ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
                          <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px" ViewStateMode="Enabled">
                              <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                              <Nodes>
-                                 <asp:TreeNode Text="Cliente" Value="Cliente">
+                                 <asp:TreeNode Text="Cliente" Value="Cliente" Selected="True">
                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
-                                     <asp:TreeNode Text="Mantenciones" Value="Mantenciones">
+                                     <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
                                          <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
                                          <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
                                          <asp:TreeNode Text="Adicionales" Value="Adicionales"></asp:TreeNode>
                                      </asp:TreeNode>
-                                     <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente">
+                                     <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente" SelectAction="Expand">
                                          <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos"></asp:TreeNode>
                                          <asp:TreeNode Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos"></asp:TreeNode>
                                          <asp:TreeNode Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro"></asp:TreeNode>
@@ -89,7 +89,7 @@
                                          <asp:TreeNode Text="Revisa Verificación" Value="Revisa Verificación"></asp:TreeNode>
                                          <asp:TreeNode Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
                                      </asp:TreeNode>
-                                     <asp:TreeNode Text="Consultas" Value="Consultas">
+                                     <asp:TreeNode Text="Consultas" Value="Consultas" SelectAction="Expand">
                                          <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago"></asp:TreeNode>
                                          <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza"></asp:TreeNode>
                                      </asp:TreeNode>
