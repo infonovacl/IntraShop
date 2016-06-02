@@ -10,11 +10,12 @@ Partial Class MenuPrincipal
         Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
         Session("rut") = Me.TXT_RutCliente.Text
     End Sub
-    Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
-        MsgBox("Procedimiento : " & Me.Tab_Consultas.ActiveTabIndex.ToString & " para el rut " & Me.TXT_RutCliente.Text & "")
-        Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
-            Case 0
-                Me.Grilla_Estados.DataBind()
-        End Select
+
+    ' Protected Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
+    '     ProcesaTab(Me.LBL_TabIndice.Text)
+    ' End Sub
+    Protected Sub ProcesaTab(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
+        MsgBox(LBL_TabIndice.Text)
+        MsgBox("Hola CTM")
     End Sub
 End Class
