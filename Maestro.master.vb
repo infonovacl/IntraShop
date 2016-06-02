@@ -11,14 +11,14 @@
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         If IsPostBack = True And Session("iniciado") = "si" Then
-            MsgBox("Es un postback generado")
+            ' MsgBox("Es un postback generado")
             Me.Panel_Login.Visible = False
             Me.Panel_Menu.Visible = True
             Me.Panel_Menu.Style.Add("position", "absolute")
-            Me.Panel_Menu.Style.Add("top", "2px")
-            Me.Panel_Menu.Style.Add("left", "2px")
-            Me.Panel_Menu.Style.Add("height", "408px")
-            Me.Panel_Menu.Style.Add("width", "205px")
+            Me.Panel_menu.Style.Add("top", "1px")
+            ' Me.Panel_menu.Style.Add("left", "1px")
+            Me.Panel_menu.Style.Add("height", "412px")
+            Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
             Me.TXT_RutMaster.Text = Session("rut")
             Try
@@ -36,11 +36,11 @@
                 ' MsgBox("Primera carga de pagina")
                 Me.Panel_Login.Visible = False
                 Me.Panel_Menu.Visible = True
-                Me.Panel_Menu.Style.Add("position", "absolute")
-                Me.Panel_Menu.Style.Add("top", "2px")
-                Me.Panel_Menu.Style.Add("left", "2px")
-                Me.Panel_Menu.Style.Add("height", "408px")
-                Me.Panel_Menu.Style.Add("width", "205px")
+                Me.Panel_menu.Style.Add("position", "absolute")
+                Me.Panel_menu.Style.Add("top", "1px")
+                '  Me.Panel_menu.Style.Add("left", "1px")
+                Me.Panel_menu.Style.Add("height", "412px")
+                Me.Panel_menu.Style.Add("width", "210px")
                 Me.TVM_Principal.ExpandAll()
                 Me.TXT_RutMaster.Text = Session("rut")
                 Try
@@ -49,23 +49,47 @@
                 End Try
             End If
         End If
-
     End Sub
-
     Protected Sub BTN_Entrar_Click(sender As Object, e As EventArgs) Handles BTN_Entrar.Click
-        ' Session("iniciado") = "si"
-        ' Me.BTN_Entrar.Enabled = False
-        'Me.Panel_Login.Style.Add("position", "absolute")
-        'Me.Panel_Login.Style.Add("top", "0px")
-        'Me.Panel_Login.Style.Add("left", "2px")
-        ' Me.Panel_Login.Visible = False
-        ' Me.Panel_Menu.Visible = True
-
-        'Me.TVM_Principal_Load("")
-
-
+        ' ¿ Me.BTN_Entrar.PostBackUrl = "~/Cliente.aspx"
+        ' Dim node As TreeNode
+        ' For Each node In Me.TVM_Principal.Nodes(0).ChildNodes
+        ' Select Case node.Text
+        ' Case "Tarjeta"
+        ' node.Selected = True
+        ' node.NavigateUrl = "~/Cliente.aspx"
+        ' node.Select()
+        ' Case Else
+        ' ' Do nothing.
+        'End Select
+        'Next
     End Sub
 
+    'Sub Button_Command(ByVal sender As Object, ByVal e As CommandEventArgs)
+    ' Iterate through the child nodes of the root node and find
+    ' the nodes for Chapter One and Chapter Two.
+    'Dim node As TreeNode
+    'For Each node In Me.TVM_Principal.Nodes(0).ChildNodes
+    ' Select the appropriate node based on which button was clicked.
+    'Select Case node.Text
+    'Case "Tarjeta"
+    '' If the button clicked was "Chapter One", select the node using the Selected property.
+    'If e.CommandName = "Tarjeta" Then
+    '                   ' Select the node using the Selected property.
+    '                   node.Select = True
+    ' End If
+    ' ' Case "Chapter Two"
+    ' '' If the button clicked was "Chapter Two", select the node 
+    ' '' using the Selected method.
+    ' 'If e.CommandName = "Chapter Two" Then
+    ' '' Select the node using the Select method.
+    ' 'node.Select()
+    ' 'End If
+    ' Case Else
+    ' ' Do nothing.
+    ' End Select
+    ' Next
+    ' End Sub
     Protected Sub TVM_Principal_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TVM_Principal.SelectedNodeChanged
         Try
             Session("nodo_seleccionado") = Me.TVM_Principal.SelectedNode.Value
@@ -73,5 +97,6 @@
 
         End Try
     End Sub
+
 End Class
 

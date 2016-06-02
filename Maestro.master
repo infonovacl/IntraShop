@@ -4,19 +4,18 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>Sistema Administrativo Web </title>
     <link href="css/Maestro.css" rel="stylesheet" />
     <link href="css/EstilosShop.css" rel="stylesheet" />
     <style type="text/css">
-
-        .auto-style2 {
-            width: 100%;
+        .auto-style1 {
+            height: 30px;
         }
         .auto-style3 {
-            width: 42px;
+            width: 100%;
         }
-         </style>
-    </head>
+    </style>
+    </head>     
 <body>
     <form id="fondo" runat="server" >
      <div id="contenedor" runat="server">
@@ -54,27 +53,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="height: 30px">
+                        <td colspan="2" class="auto-style1">
                             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                 <ContentTemplate>
-                                    <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" />
+                                    <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" PostBackUrl="~/Cliente.aspx" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                            <br /> </td>
+                        </td>
                     </tr>
                 </table>
-                <br />
             </asp:Panel>
-             <br />
              <asp:UpdatePanel ID="UpdatePanel1" runat="server" ViewStateMode="Enabled">
                  <ContentTemplate>
-                     <asp:Panel ID="Panel_Menu" runat="server" BackColor="White" CssClass="panelmenu" Height="210px" ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
+                     <asp:Panel ID="Panel_menu"  CssClass="panelmenu" runat="server" BackColor="White"  ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px" ViewStateMode="Enabled">
+                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="200px" ViewStateMode="Enabled">
                              <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                              <Nodes>
-                                 <asp:TreeNode Text="Cliente" Value="Cliente" Selected="True">
-                                     <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
+                                 <asp:TreeNode Text="Cliente" Value="Cliente">
+                                     <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta" Selected="True"></asp:TreeNode>
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
                                          <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
                                          <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
@@ -105,26 +102,28 @@
              </asp:UpdatePanel>
              <br />
                       </div>
-         <div id ="pie" runat="server">
-                      <table class="auto-style2">
-                          <tr>
-                              <td class="auto-style3">
-                                  <asp:Label ID="Label4" runat="server" CssClass="etiquetas" Text="Usuario"></asp:Label>
-                              </td>
-                              <td>
-                                  <asp:Label ID="Label5" runat="server" CssClass="etiquetas" Text="Label"></asp:Label>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="auto-style3">
-                                  <asp:Label ID="Label6" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
-                              </td>
-                              <td>
-                                  <asp:Label ID="Label7" runat="server" CssClass="etiquetas" Text="Label"></asp:Label>
-                              </td>
-                          </tr>
-                      </table>
-                      </div>
+         <div id ="pie" runat="server">                      
+                     
+             <table cellspacing="1" class="auto-style3">
+                 <tr>
+                     <td>
+                            <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                        </td>
+                     <td>
+                            <asp:Label ID="Label11" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                        </td>
+                 </tr>
+                 <tr>
+                     <td>
+                            <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                        </td>
+                     <td>
+                            <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                        </td>
+                 </tr>
+             </table>
+                     
+           </div>
       </div>
 </form>
 </body>
