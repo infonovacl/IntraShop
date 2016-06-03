@@ -4,21 +4,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
       <link href="css/EstilosShop.css" rel="stylesheet" />
     <script type="text/javascript">
-function clientActiveTabChanged(sender, args) {
-   // alert(sender.get_activeTabIndex());
-    //document.getElementById("<%=LBL_TabIndice.ClientID%>") = sender.get_activeTabIndex();      
-    var myValue = sender.get_activeTabIndex();
-    var label1 = document.getElementById('<%= LBL_TabIndice.ClientID %>');
-    label1.innerHTML = myValue;
-    darClick();  
-}
-function  darClick ()
-{
-     var objBoton = '<%=BTN_ProcesaTab.ClientID%>'
-     var objO = document.getElementById(objBoton);
-     objO.click();
-}
-       </script>
+        function pageLoad(sender, e) {
+            var objTpDummy =
+                document.getElementById('<%= TabPanel17.ClientID %>' + '_tab');
+            objTpDummy.style.display = 'none';
+        }
+        function clientActiveTabChanged(sender, args)
+        {
+            var myValue = sender.get_activeTabIndex();
+            var label1 = document.getElementById('<%= LBL_TabIndice.ClientID %>');
+            label1.innerHTML = myValue;
+        
+            darClick();
+        }
+        function darClick()
+        {
+            var objBoton = '<%=BTN_ProcesaTab.ClientID%>'
+            var objO = document.getElementById(objBoton);
+            objO.click();
+        }
+    </script>
     <div>   
         <table class="tablas">
             <tr>
@@ -120,7 +125,9 @@ function  darClick ()
                 <td>
                     <asp:TextBox ID="TXT_APago" runat="server" CssClass="cajastextonumerico" Width="120px">659</asp:TextBox>
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                        <asp:Label ID="LBL_TabIndice2" runat="server" CssClass="etiquetas">sadsdsadsad</asp:Label>
+                    </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
@@ -154,12 +161,12 @@ function  darClick ()
                     <asp:TextBox ID="TXT_Saldo" runat="server" CssClass="cajastextonumerico" Width="120px">659</asp:TextBox>
                 </td>
                 <td>
-                        <asp:Label ID="LBL_TabIndice" runat="server" Text="" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas"></asp:Label>
                     </td>
                 <td>
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                 <ContentTemplate>
-                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button" style="display:none;" />
+                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button"/>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                 </td>
@@ -278,7 +285,7 @@ function  darClick ()
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1276px" OnClientActiveTabChanged="clientActiveTabChanged">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="16">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -906,6 +913,11 @@ function  darClick ()
                             </asp:GridView>
                         </asp:Panel>
                     </ContentTemplate>
+                </ajaxToolkit:TabPanel>
+                <ajaxToolkit:TabPanel ID="TabPanel17" runat="server" HeaderText="TabPanel17">
+                    <HeaderTemplate>
+                        PaloBlanco
+                    </HeaderTemplate>
                 </ajaxToolkit:TabPanel>
             </ajaxtoolkit:tabcontainer>
             <br />
