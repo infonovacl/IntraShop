@@ -7,14 +7,13 @@
         function pageLoad(sender, e) {
             var objTpDummy =
                 document.getElementById('<%= TabPanel17.ClientID %>' + '_tab');
-            objTpDummy.style.display = 'none';
+                objTpDummy.style.display = 'none';
         }
         function clientActiveTabChanged(sender, args)
         {
             var myValue = sender.get_activeTabIndex();
             var label1 = document.getElementById('<%= LBL_TabIndice.ClientID %>');
-            label1.innerHTML = myValue;
-        
+            label1.innerHTML = myValue;                    
             darClick();
         }
         function darClick()
@@ -126,8 +125,7 @@
                     <asp:TextBox ID="TXT_APago" runat="server" CssClass="cajastextonumerico" Width="120px">659</asp:TextBox>
                 </td>
                 <td>
-                        <asp:Label ID="LBL_TabIndice2" runat="server" CssClass="etiquetas">sadsdsadsad</asp:Label>
-                    </td>
+                        &nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
@@ -161,12 +159,12 @@
                     <asp:TextBox ID="TXT_Saldo" runat="server" CssClass="cajastextonumerico" Width="120px">659</asp:TextBox>
                 </td>
                 <td>
-                        <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas" style="display:none"></asp:Label>
                     </td>
                 <td>
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                 <ContentTemplate>
-                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button"/>
+                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button" style="display:none"  />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                 </td>
@@ -285,7 +283,7 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="16">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="8">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -317,13 +315,13 @@
                                     <asp:Label ID="Label83" runat="server" CssClass="etiquetas_tab" Text="Empleador"></asp:Label>
                                 </td>
                                 <td style="width: 730px; ">
-                                    <asp:Label ID="LBL_Empleador" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Empleador_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                                 <td style="width: 199px">
                                     <asp:Label ID="Label95" runat="server" CssClass="etiquetas_tab" Text="Antigüedad"></asp:Label>
                                 </td>
                                 <td style="text-align: right">
-                                    <asp:Label ID="LBL_Antiguedad" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Antiguedad_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -331,13 +329,13 @@
                                     <asp:Label ID="Label85" runat="server" CssClass="etiquetas_tab" Text="Dirección"></asp:Label>
                                 </td>
                                 <td style="width: 730px; ">
-                                    <asp:Label ID="LBL_Direccion" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Direccion_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                                 <td style="width: 199px">
                                     <asp:Label ID="Label96" runat="server" CssClass="etiquetas_tab" Text="Total Ingresos"></asp:Label>
                                 </td>
                                 <td style="text-align: right">
-                                    <asp:Label ID="LBL_TotalIngresos" runat="server" CssClass="etiquetas_tab">0</asp:Label>
+                                    <asp:Label ID="LBL_TotalIngresos_Laboral" runat="server" CssClass="etiquetas_tab">0</asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -345,7 +343,7 @@
                                     <asp:Label ID="Label87" runat="server" CssClass="etiquetas_tab" Text="Región"></asp:Label>
                                 </td>
                                 <td style="width: 730px; ">
-                                    <asp:Label ID="LBL_Region" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Region_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                                 <td style="width: 199px">&nbsp;</td>
                                 <td style="text-align: right">&nbsp;</td>
@@ -355,7 +353,7 @@
                                     <asp:Label ID="Label89" runat="server" CssClass="etiquetas_tab" Text="Comuna"></asp:Label>
                                 </td>
                                 <td style="width: 730px; ">
-                                    <asp:Label ID="LBL_Comuna" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Comuna_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                                 <td style="width: 199px">&nbsp;</td>
                                 <td style="text-align: right">&nbsp;</td>
@@ -365,7 +363,7 @@
                                     <asp:Label ID="Label91" runat="server" CssClass="etiquetas_tab" Text="Teléfono"></asp:Label>
                                 </td>
                                 <td style="width: 730px; ">
-                                    <asp:Label ID="LBL_Telefono" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Telefono_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                                 <td style="width: 199px">&nbsp;</td>
                                 <td style="text-align: right">&nbsp;</td>
@@ -375,7 +373,7 @@
                                     <asp:Label ID="Label93" runat="server" CssClass="etiquetas_tab" Text="Anexo"></asp:Label>
                                 </td>
                                 <td style="width: 730px; ">
-                                    <asp:Label ID="LBL_Anexo" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <asp:Label ID="LBL_Anexo_Laboral" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 </td>
                                 <td style="width: 199px">&nbsp;</td>
                                 <td style="text-align: right">&nbsp;</td>
@@ -537,7 +535,7 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel ID="Panel_Solicitud" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Solicitud" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
+                            <asp:GridView ID="Grilla_Solicitudes" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
                                 <Columns>
                                     <asp:BoundField HeaderText="Tipo Solicitud" />
                                     <asp:BoundField HeaderText="Fecha" />
