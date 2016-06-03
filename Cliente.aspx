@@ -283,25 +283,38 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="8">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Panel ID="Panel_Estados" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True" Height="16px"  Width="737px" EmptyDataText="No hay resultados en busqueda" CssClass="grillas_tab">
-                                <Columns>
-                                    <asp:BoundField HeaderText="Fecha" />
-                                    <asp:BoundField HeaderText="Hora" />
-                                    <asp:BoundField HeaderText="Cód." />
-                                    <asp:BoundField HeaderText="Estado Nuevo" />
-                                    <asp:BoundField HeaderText="Cód." />
-                                    <asp:BoundField HeaderText="Estado Antiguo" />
-                                    <asp:BoundField HeaderText="Operador" />
-                                </Columns>
-                            </asp:GridView>
-                        </asp:Panel>
+                        <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                            <ContentTemplate>
+                                <asp:Panel ID="Panel_Estados" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                                    <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                        <Columns>
+                                            <asp:CommandField ButtonType="Image" SelectImageUrl="~/Imagenes/mano.jpg" SelectText="" ShowSelectButton="True" />
+                                            <asp:BoundField DataField="column3" HeaderText="Fecha" DataFormatString="{0:d}" />
+                                            <asp:BoundField DataField="column4" HeaderText="Hora" />
+                                            <asp:BoundField DataField="column7" HeaderText="Cód. Est. Nuevo" />
+                                            <asp:BoundField DataField="column8" HeaderText="Estado Nuevo" />
+                                            <asp:BoundField DataField="column5" HeaderText="Cód. Est. Antiguo" />
+                                            <asp:BoundField DataField="column6" HeaderText="Estado Antiguo" />
+                                            <asp:BoundField DataField="column9" HeaderText="Operador" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </asp:Panel>
+                                <asp:Panel ID="Panel_EstadosDetalle" runat="server" CssClass="panel_tab" Visible="False">
+                                    <asp:Label ID="Label123" runat="server" CssClass="etiquetas_tab" Text="Descripción Sub-Estado "></asp:Label>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <asp:TextBox ID="TXT_EstadoDescripcionSubEstado" runat="server" CssClass="cajastextotab" Width="350px">BLOQUEADO</asp:TextBox>
+                                    <br />
+                                    <br />
+                                    <asp:Button ID="BTN_EstadosSubEstados" runat="server" CssClass="botones" Text="VOLVER" />
+                                </asp:Panel>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel2" ID="TabPanel2">
