@@ -1,7 +1,6 @@
 ﻿<%@ Master Language="VB" CodeFile="Maestro.master.vb" Inherits="Maestro" %>
 
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <title>Sistema Administrativo Web </title>
@@ -21,7 +20,7 @@
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
              <asp:TextBox ID="TXT_RutMaster" runat="server" Width="91px" ViewStateMode="Enabled"></asp:TextBox>
-             <asp:ScriptManager ID="ScriptManager1" runat="server">
+             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods = "true">
              </asp:ScriptManager>
              </div>
          <div id ="contenido" runat="server">

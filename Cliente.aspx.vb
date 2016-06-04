@@ -5,6 +5,26 @@
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
     End Sub
+    <System.Web.Script.Services.ScriptMethod(),
+        System.Web.Services.WebMethod()>
+    Public Shared Function BuscaClientexNombre(ByVal prefixText As String, ByVal count As Integer) As List(Of String)
+        Dim conn2 As Data.SqlClient.SqlConnection = New Data.SqlClient.SqlConnection
+        conn2.ConnectionString = ConfigurationManager _
+         .ConnectionStrings("constr").ConnectionString
+        Dim cmd As Data.SqlClient.SqlCommand = New Data.SqlClient.SqlCommand
+        cmd.CommandText = "select ContactName from Customers where" &
+        " ContactName like @SearchText + '%'"
+        cmd.Parameters.AddWithValue("@SearchText", prefixText)
+        cmd.Connection = conn2
+        conn2.Open()
+        Dim customers As List(Of String) = New List(Of String)
+        Dim sdr As Data.SqlClient.SqlDataReader = cmd.ExecuteReader
+        While sdr.Read
+            customers.Add(sdr("ContactName").ToString)
+        End While
+        conn2.Close()
+        Return customers
+    End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
         'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
         Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
@@ -124,7 +144,7 @@
                     Me.Grilla_Modificaciones.DataSource = DataDSModificaciones.Tables(0).DefaultView
                     Me.Grilla_Modificaciones.DataBind()
                 Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Modificaciones');</script>")
+                    ' Response.Write("<script>window.alert('Error al Obtener Modificaciones');</script>")
                 End Try
             Case 4
                 Dim DataDSDescuentos As New Data.DataSet
@@ -136,29 +156,180 @@
                     If DataDSDescuentos.Tables(0).Rows(0)(0) = 1 Then
                         Me.Panel_Descuentos.Visible = False
                         Me.LBL_DescuentosError.Visible = True
+                        Me.Panel_DescuentosDetalle.Visible = False
                         Me.LBL_DescuentosError.Text = DataDSDescuentos.Tables(0).Rows(0)(1) ' mensaje de error
                     Else
                         Me.Panel_Descuentos.Visible = True
                         Me.LBL_DescuentosError.Visible = False
+                        Me.Panel_DescuentosDetalle.Visible = False
                         Me.Grilla_Descuentos.DataSource = DataDSDescuentos.Tables(0).DefaultView
                         Me.Grilla_Descuentos.DataBind()
                     End If
                 Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
+                    'Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
                 End Try
             Case 5
-
-            Case 7
+                'consultas db
+            Case 6
                 Dim DataDSSolicitudes As New Data.DataSet
                 Try
                     DataDSSolicitudes.Clear()
                     Dim STRSolicitudes As String = "execute procedure procw_cons_solic ('" & Me.TXT_RutCliente.Text & "' )"
                     Dim DATASolicitudes As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitudes, conn)
                     DATASolicitudes.Fill(DataDSSolicitudes, "PRUEBA")
-                    'Me.Grilla_Solicitudes.DataSource = DataDSSolicitudes.Tables(0).DefaultView
-                    ' Me.Grilla_Solicitudes.DataBind()
+                    If DataDSSolicitudes.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Solicitudes.Visible = False
+                        Me.LBL_SolicitudesError.Visible = True
+                        Me.LBL_SolicitudesError.Text = DataDSSolicitudes.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Solicitudes.Visible = True
+                        Me.LBL_SolicitudesError.Visible = False
+                        Me.Grilla_Solicitudes.DataSource = DataDSSolicitudes.Tables(0).DefaultView
+                        Me.Grilla_Solicitudes.DataBind()
+                    End If
                 Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                    'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                End Try
+            Case 7
+                Dim DataDSUltimosAbonos As New Data.DataSet
+                Try
+                    DataDSUltimosAbonos.Clear()
+                    Dim STRUltimosAbonos As String = "execute procedure procw_cons_resumen1 ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATAUltimosAbonos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUltimosAbonos, conn)
+                    DATAUltimosAbonos.Fill(DataDSUltimosAbonos, "PRUEBA")
+                    If DataDSUltimosAbonos.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_ResumenUltimosAbonos.Visible = False
+                        Me.LBL_ResumenUltAbonosError.Visible = True
+                        Me.LBL_ResumenUltAbonosError.Text = DataDSUltimosAbonos.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_ResumenUltimosAbonos.Visible = True
+                        Me.LBL_ResumenUltAbonosError.Visible = False
+                        Me.Grilla_ResumenUltimosAbonos.DataSource = DataDSUltimosAbonos.Tables(0).DefaultView
+                        Me.Grilla_ResumenUltimosAbonos.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                End Try
+                Dim DataDSResumenClasificaciones As New Data.DataSet
+                Try
+                    DataDSResumenClasificaciones.Clear()
+                    Dim STRResumenClasificaciones As String = "execute procedure procw_cons_resumen2 ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATAResumenClasificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenClasificaciones, conn)
+                    DATAResumenClasificaciones.Fill(DataDSResumenClasificaciones, "PRUEBA")
+                    If DataDSResumenClasificaciones.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_ResumenUltimasClasificaciones.Visible = False
+                        Me.LBL_ResumenClasifError.Visible = True
+                        Me.LBL_ResumenClasifError.Text = DataDSResumenClasificaciones.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_ResumenUltimasClasificaciones.Visible = True
+                        Me.LBL_ResumenClasifError.Visible = False
+                        Me.Grilla_ResumenUltimasClasificaciones.DataSource = DataDSResumenClasificaciones.Tables(0).DefaultView
+                        Me.Grilla_ResumenUltimasClasificaciones.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                End Try
+                Dim DataDSResumenOtros As New Data.DataSet
+                TXT_ResumenComprasTotales.Text = "0"
+                TXT_ResumenFecAprobacion.Text = ""
+                TXT_ResumenFecRechazo.Text = ""
+                TXT_ResumenFecSolicitud.Text = ""
+                TXT_ResumenFecVerifLaboral.Text = ""
+                TXT_ResumenFecVerifParticular.Text = ""
+                TXT_ResumenPagosTotales.Text = "0"
+                TXT_ResumenTotalCuentaAl.Text = ""
+                Try
+                    DataDSResumenOtros.Clear()
+                    Dim STRResumenOtros As String = "execute procedure procw_cons_resumen3 ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATAResumenOtros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenOtros, conn)
+                    DATAResumenOtros.Fill(DataDSResumenOtros, "PRUEBA")
+                    If DataDSResumenOtros.Tables(0).Rows(0)(0) = 1 Then
+                        'Me.LBL_ResumenClasifError.Visible = True
+                        'Me.LBL_ResumenClasifError.Text = DataDSResumenOtros.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        If DataDSResumenOtros.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                            Me.TXT_ResumenFecSolicitud.Text = ""
+                        Else
+                            Me.TXT_ResumenFecSolicitud.Text = DataDSResumenOtros.Tables(0).Rows(0)(2)
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                            Me.TXT_ResumenFecAprobacion.Text = ""
+                        Else
+                            Me.TXT_ResumenFecAprobacion.Text = DataDSResumenOtros.Tables(0).Rows(0)(3)
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                            Me.TXT_ResumenFecVerifParticular.Text = ""
+                        Else
+                            Me.TXT_ResumenFecVerifParticular.Text = DataDSResumenOtros.Tables(0).Rows(0)(4)
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                            Me.TXT_ResumenFecVerifLaboral.Text = ""
+                        Else
+                            Me.TXT_ResumenFecVerifLaboral.Text = DataDSResumenOtros.Tables(0).Rows(0)(5)
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                            Me.TXT_ResumenFecRechazo.Text = ""
+                        Else
+                            Me.TXT_ResumenFecRechazo.Text = DataDSResumenOtros.Tables(0).Rows(0)(6)
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                            Me.TXT_ResumenTotalCuentaAl.Text = ""
+                        Else
+                            Me.TXT_ResumenTotalCuentaAl.Text = DataDSResumenOtros.Tables(0).Rows(0)(7)
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                            Me.TXT_ResumenComprasTotales.Text = ""
+                        Else
+                            Me.TXT_ResumenComprasTotales.Text = Format(DataDSResumenOtros.Tables(0).Rows(0)(8), "###,###,##0")
+                        End If
+                        If DataDSResumenOtros.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                            Me.TXT_ResumenPagosTotales.Text = ""
+                        Else
+                            Me.TXT_ResumenPagosTotales.Text = Format(DataDSResumenOtros.Tables(0).Rows(0)(9), "###,###,##0")
+                        End If
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                End Try
+            Case 8
+                Dim DataDSComentarios As New Data.DataSet
+                Try
+                    DataDSComentarios.Clear()
+                    Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, conn)
+                    DATAComentarios.Fill(DataDSComentarios, "PRUEBA")
+                    If DataDSComentarios.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Comentarios.Visible = False
+                        Me.LBL_ComentariosError.Visible = True
+                        Me.LBL_ComentariosError.Text = DataDSComentarios.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Comentarios.Visible = True
+                        Me.LBL_ComentariosError.Visible = False
+                        Me.Grilla_Comentarios.DataSource = DataDSComentarios.Tables(0).DefaultView
+                        Me.Grilla_Comentarios.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                End Try
+            Case 9
+                Dim DataDSPagos As New Data.DataSet
+                Try
+                    DataDSPagos.Clear()
+                    Dim STRPagos As String = "execute procedure procw_cons_pagos ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATAPagos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRPagos, conn)
+                    DATAPagos.Fill(DataDSPagos, "PRUEBA")
+                    If DataDSPagos.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Pagos.Visible = False
+                        Me.LBL_PagosError.Visible = True
+                        Me.LBL_PagosError.Text = DataDSPagos.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Pagos.Visible = True
+                        Me.LBL_PagosError.Visible = False
+                        Me.Grilla_Pagos.DataSource = DataDSPagos.Tables(0).DefaultView
+                        Me.Grilla_Pagos.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
                 End Try
         End Select
     End Sub
@@ -312,6 +483,7 @@
                     Me.TXT_DescuentosEstadoAbono.Text = Trim(DataDSDetDescuentos.Tables(0).Rows(0)(20))
                 End If
             End If
+            Me.LBL_DescuentosError.Visible = False
             Me.Panel_Descuentos.Visible = False
             Me.Panel_DescuentosDetalle.Visible = True
         Catch EX As Exception
