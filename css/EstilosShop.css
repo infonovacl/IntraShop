@@ -54,13 +54,20 @@
                 color:black;
                 height:10px;
  }
-.cajatexto_tab{ 
+.cajastexto_tab{
                 font-family:Arial;
                 font-size:12px;
-                font-weight:bold;
+                text-transform: uppercase;
+                text-align:left;
                 color:black;
-                text-align: left;
-}
+ }
+.cajastextonumerico_tab{
+                font-family:Arial;
+                font-size:12px;
+                text-transform: uppercase;
+                text-align:right;
+                color:black;
+ }
 .tablas{
                 border: 1px outset #FFCC00;              
                 margin-top: 2px;

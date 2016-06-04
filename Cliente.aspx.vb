@@ -24,73 +24,97 @@
                     Dim STREstados As String = "execute procedure procw_cons_estados ('" & Me.TXT_RutCliente.Text & "' )"
                     Dim DATAEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstados, conn)
                     DATAEstados.Fill(DataDSEstados, "PRUEBA")
-                    Me.Grilla_Estados.DataSource = DataDSEstados.Tables(0).DefaultView
-                    Me.Grilla_Estados.DataBind()
+                    If DataDSEstados.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Estados.Visible = False
+                        Me.LBL_EstadosError.Visible = True
+                        Me.LBL_EstadosError.Text = DataDSEstados.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Estados.Visible = True
+                        Me.LBL_EstadosError.Visible = False
+                        Me.Grilla_Estados.DataSource = DataDSEstados.Tables(0).DefaultView
+                        Me.Grilla_Estados.DataBind()
+                    End If
                 Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Estdos');</script>")
+                    'Response.Write("<script>window.alert('Error al Obtener Estdos');</script>")
                 End Try
-            Case 2
+            Case 1
                 Dim DataDSLaboral As New Data.DataSet
                 Try
                     Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_RutCliente.Text & "' )"
                     Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, conn)
                     DATALaboral.Fill(DataDSLaboral, "PRUEBA")
-                    If DataDSLaboral.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
-                        Me.LBL_Empleador_Laboral.Text = ""
+                    If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
+                        Me.TBL_Laboral.Visible = False
+                        Me.LBL_LaboralError.Visible = True
+                        Me.LBL_LaboralError.Text = DataDSLaboral.Tables(0).Rows(0)(1) ' mensaje de error
                     Else
-                        Me.LBL_Empleador_Laboral.Text = DataDSLaboral.Tables(0).Rows(0)(2)
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
-                        Me.LBL_Direccion_Laboral.Text = ""
-                    Else
-                        Me.LBL_Direccion_Laboral.Text = DataDSLaboral.Tables(0).Rows(0)(3)
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
-                        Me.LBL_Region_Laboral.Text = ""
-                    Else
-                        Me.LBL_Region_Laboral.Text = DataDSLaboral.Tables(0).Rows(0)(4)
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
-                        Me.LBL_Comuna_Laboral.Text = ""
-                    Else
-                        Me.LBL_Comuna_Laboral.Text = DataDSLaboral.Tables(0).Rows(0)(5)
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
-                        Me.LBL_Telefono_Laboral.Text = ""
-                    Else
-                        Me.LBL_Telefono_Laboral.Text = DataDSLaboral.Tables(0).Rows(0)(6)
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
-                        Me.LBL_Anexo_Laboral.Text = ""
-                    Else
-                        Me.LBL_Anexo_Laboral.Text = DataDSLaboral.Tables(0).Rows(0)(7)
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
-                        Me.LBL_Antiguedad_Laboral.Text = "0"
-                    Else
-                        Me.LBL_Antiguedad_Laboral.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(8), Integer), "#,##0")
-                    End If
-                    If DataDSLaboral.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
-                        Me.LBL_TotalIngresos_Laboral.Text = "0"
-                    Else
-                        Me.LBL_TotalIngresos_Laboral.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(9), Integer), "###,###,##0")
+                        Me.TBL_Laboral.Visible = True
+                        Me.LBL_LaboralError.Visible = False
+                        If DataDSLaboral.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                            Me.TXT_LaboralEmpleador.Text = ""
+                        Else
+                            Me.TXT_LaboralEmpleador.Text = DataDSLaboral.Tables(0).Rows(0)(2)
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                            Me.TXT_LaboralDireccion.Text = ""
+                        Else
+                            Me.TXT_LaboralDireccion.Text = DataDSLaboral.Tables(0).Rows(0)(3)
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                            Me.TXT_LaboralRegion.Text = ""
+                        Else
+                            Me.TXT_LaboralRegion.Text = DataDSLaboral.Tables(0).Rows(0)(4)
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                            Me.TXT_LaboralComuna.Text = ""
+                        Else
+                            Me.TXT_LaboralComuna.Text = DataDSLaboral.Tables(0).Rows(0)(5)
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                            Me.TXT_LaboralTelefono.Text = ""
+                        Else
+                            Me.TXT_LaboralTelefono.Text = DataDSLaboral.Tables(0).Rows(0)(6)
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                            Me.TXT_LaboralAnexo.Text = ""
+                        Else
+                            Me.TXT_LaboralAnexo.Text = DataDSLaboral.Tables(0).Rows(0)(7)
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                            Me.TXT_LaboralAntiguedad.Text = "0"
+                        Else
+                            Me.TXT_LaboralAntiguedad.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(8), Integer), "#,##0")
+                        End If
+                        If DataDSLaboral.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                            Me.TXT_LaboralIngresos.Text = "0"
+                        Else
+                            Me.TXT_LaboralIngresos.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(9), Integer), "###,###,##0")
+                        End If
                     End If
                 Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                    'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
                 End Try
-            Case 3
+            Case 2
                 Dim DataDSContratos As New Data.DataSet
                 Try
                     DataDSContratos.Clear()
                     Dim STRContratos As String = "execute procedure procw_cons_contrato ('" & Me.TXT_RutCliente.Text & "' )"
                     Dim DATAContratos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRContratos, conn)
                     DATAContratos.Fill(DataDSContratos, "PRUEBA")
-                    Me.Grilla_Contratos.DataSource = DataDSContratos.Tables(0).DefaultView
-                    Me.Grilla_Contratos.DataBind()
+                    If DataDSContratos.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Contratos.Visible = False
+                        Me.LBL_ContratosError.Visible = True
+                        Me.LBL_ContratosError.Text = DataDSContratos.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Contratos.Visible = True
+                        Me.LBL_ContratosError.Visible = False
+                        Me.Grilla_Contratos.DataSource = DataDSContratos.Tables(0).DefaultView
+                        Me.Grilla_Contratos.DataBind()
+                    End If
                 Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Contratos');</script>")
+                    'Response.Write("<script>window.alert('Error al Obtener Contratos');</script>")
                 End Try
-            Case 4
+            Case 3  '   QUEDA PENDIENTE REVISION ALEJA
                 Dim DataDSModificaciones As New Data.DataSet
                 Try
                     DataDSModificaciones.Clear()
@@ -102,30 +126,28 @@
                 Catch EX As Exception
                     Response.Write("<script>window.alert('Error al Obtener Modificaciones');</script>")
                 End Try
+            Case 4
+                Dim DataDSDescuentos As New Data.DataSet
+                Try
+                    DataDSDescuentos.Clear()
+                    Dim STRDescuentos As String = "execute procedure procw_cons_descto ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATADescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDescuentos, conn)
+                    DATADescuentos.Fill(DataDSDescuentos, "PRUEBA")
+                    If DataDSDescuentos.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Descuentos.Visible = False
+                        Me.LBL_DescuentosError.Visible = True
+                        Me.LBL_DescuentosError.Text = DataDSDescuentos.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Descuentos.Visible = True
+                        Me.LBL_DescuentosError.Visible = False
+                        Me.Grilla_Descuentos.DataSource = DataDSDescuentos.Tables(0).DefaultView
+                        Me.Grilla_Descuentos.DataBind()
+                    End If
+                Catch EX As Exception
+                    Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
+                End Try
             Case 5
-                Dim DataDSDescuentos As New Data.DataSet
-                Try
-                    DataDSDescuentos.Clear()
-                    Dim STRDescuentos As String = "execute procedure procw_cons_descto ('" & Me.TXT_RutCliente.Text & "' )"
-                    Dim DATADescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDescuentos, conn)
-                    DATADescuentos.Fill(DataDSDescuentos, "PRUEBA")
-                    Me.Grilla_Descuentos.DataSource = DataDSDescuentos.Tables(0).DefaultView
-                    Me.Grilla_Descuentos.DataBind()
-                Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
-                End Try
-            Case 6
-                Dim DataDSDescuentos As New Data.DataSet
-                Try
-                    DataDSDescuentos.Clear()
-                    Dim STRDescuentos As String = "execute procedure procw_cons_descto ('" & Me.TXT_RutCliente.Text & "' )"
-                    Dim DATADescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDescuentos, conn)
-                    DATADescuentos.Fill(DataDSDescuentos, "PRUEBA")
-                    Me.Grilla_Descuentos.DataSource = DataDSDescuentos.Tables(0).DefaultView
-                    Me.Grilla_Descuentos.DataBind()
-                Catch EX As Exception
-                    Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
-                End Try
+
             Case 7
                 Dim DataDSSolicitudes As New Data.DataSet
                 Try
@@ -141,7 +163,6 @@
         End Select
     End Sub
     Protected Sub Grilla_Estados_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Estados.SelectedIndexChanged
-        'MsgBox(Me.Grilla_Estados.SelectedIndex.ToString())
         Dim DataDSSubEstados As New Data.DataSet
         Dim IndiceGrillaEstados As Integer = 0
         Dim FechaEstado As String
@@ -154,7 +175,7 @@
             Dim STRSubEstados As String = "execute procedure procw_cons_estados_det ('" & Me.TXT_RutCliente.Text & "','" & FechaEstado & "'," & CodigoEstadoNuevo & " )"
             Dim DATASubEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSubEstados, conn)
             DATASubEstados.Fill(DataDSSubEstados, "PRUEBA")
-            If DataDSSubEstados.Tables(0).Rows(0)(0) = 1 Then
+            If DataDSSubEstados.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.TXT_EstadoDescripcionSubEstado.Text = DataDSSubEstados.Tables(0).Rows(0)(1)
             Else
                 If DataDSSubEstados.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
@@ -168,11 +189,156 @@
         Catch EX As Exception
             Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
         End Try
-        'Response.Write("<script>window.open(""clasificacion.aspx?rut=" & rut_cliente & "&cta=" & cta_cte & """, ""CLASIFICACIONES"" , ""width=270,height=350, top=230, left=750, scrollbars=NO"");</script>")
     End Sub
     Protected Sub BTN_EstadosSubEstados_Click(sender As Object, e As EventArgs) Handles BTN_EstadosSubEstados.Click
         Me.TXT_EstadoDescripcionSubEstado.Text = ""
         Me.Panel_EstadosDetalle.Visible = False
         Me.Panel_Estados.Visible = True
+    End Sub
+    Protected Sub Grilla_Descuentos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Descuentos.SelectedIndexChanged
+        Dim DataDSDetDescuentos As New Data.DataSet
+        Dim IndiceGrillaDetDescuentos As Integer = 0
+        Dim CodigoSucursal As Integer
+        Dim Caja As Integer
+        Dim FechaDescuento As String
+        Dim NumeroComprobante As Integer
+        Try
+            DataDSDetDescuentos.Clear()
+            IndiceGrillaDetDescuentos = Me.Grilla_Descuentos.SelectedIndex.ToString()
+            CodigoSucursal = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(7).Text
+            Caja = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(2).Text
+            FechaDescuento = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(4).Text
+            NumeroComprobante = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(3).Text
+
+            Dim STRetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_RutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
+            Dim DATAetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRetDescuentos, conn)
+            DATAetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
+            If DataDSDetDescuentos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
+                Me.TXT_EstadoDescripcionSubEstado.Text = DataDSDetDescuentos.Tables(0).Rows(0)(1)
+            Else
+                If DataDSDetDescuentos.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosMontoCapital.Text = "0"
+                Else
+                    Me.TXT_DescuentosMontoCapital.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(2), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosMontoInteres.Text = "0"
+                Else
+                    Me.TXT_DescuentosMontoInteres.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(3), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosMontoHonorarios.Text = "0"
+                Else
+                    Me.TXT_DescuentosMontoHonorarios.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(4), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosCobroProducto.Text = "0"
+                Else
+                    Me.TXT_DescuentosCobroProducto.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(5), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosComisionAvance.Text = "0"
+                Else
+                    Me.TXT_DescuentosComisionAvance.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(6), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosAdministracion.Text = "0"
+                Else
+                    Me.TXT_DescuentosAdministracion.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(7), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosSeguros.Text = "0"
+                Else
+                    Me.TXT_DescuentosSeguros.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(8), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosInteresMora.Text = "0"
+                Else
+                    Me.TXT_DescuentosInteresMora.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(9), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(10) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosGastosCobranza.Text = "0"
+                Else
+                    Me.TXT_DescuentosGastosCobranza.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(10), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(11) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosImpuesto.Text = "0"
+                Else
+                    Me.TXT_DescuentosImpuesto.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(11), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(12) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosCobrosGrales.Text = "0"
+                Else
+                    Me.TXT_DescuentosCobrosGrales.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(12), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(13) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosCostasJudiciales.Text = "0"
+                Else
+                    Me.TXT_DescuentosCostasJudiciales.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(13), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(14) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosInteresPeriodo.Text = "0"
+                Else
+                    Me.TXT_DescuentosInteresPeriodo.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(14), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosCargosPagados.Text = "0"
+                Else
+                    Me.TXT_DescuentosCargosPagados.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(15), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosSaldoFavorInicial.Text = "0"
+                Else
+                    Me.TXT_DescuentosSaldoFavorInicial.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(16), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(17) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosMontoAbono.Text = "0"
+                Else
+                    Me.TXT_DescuentosMontoAbono.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(17), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(18) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosSaldoFavorFinal.Text = "0"
+                Else
+                    Me.TXT_DescuentosSaldoFavorFinal.Text = Format(DataDSDetDescuentos.Tables(0).Rows(0)(18), " #,##0")
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(19) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosFechaProceso.Text = "0"
+                Else
+                    Me.TXT_DescuentosFechaProceso.Text = DataDSDetDescuentos.Tables(0).Rows(0)(19)
+                End If
+                If DataDSDetDescuentos.Tables(0).Rows(0)(20) Is System.DBNull.Value Then
+                    Me.TXT_DescuentosEstadoAbono.Text = "0"
+                Else
+                    Me.TXT_DescuentosEstadoAbono.Text = Trim(DataDSDetDescuentos.Tables(0).Rows(0)(20))
+                End If
+            End If
+            Me.Panel_Descuentos.Visible = False
+            Me.Panel_DescuentosDetalle.Visible = True
+        Catch EX As Exception
+            'Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
+        End Try
+    End Sub
+    Protected Sub BTN_DescuentosDetalle_Click(sender As Object, e As EventArgs) Handles BTN_DescuentosDetalle.Click
+        TXT_DescuentosAdministracion.Text = "0"
+        TXT_DescuentosCargosPagados.Text = "0"
+        TXT_DescuentosCobroProducto.Text = "0"
+        TXT_DescuentosCobrosGrales.Text = "0"
+        TXT_DescuentosComisionAvance.Text = "0"
+        TXT_DescuentosCostasJudiciales.Text = "0"
+        TXT_DescuentosEstadoAbono.Text = "0"
+        TXT_DescuentosFechaProceso.Text = "0"
+        TXT_DescuentosGastosCobranza.Text = "0"
+        TXT_DescuentosImpuesto.Text = "0"
+        TXT_DescuentosInteresMora.Text = "0"
+        TXT_DescuentosInteresPeriodo.Text = "0"
+        TXT_DescuentosMontoAbono.Text = "0"
+        TXT_DescuentosMontoCapital.Text = "0"
+        TXT_DescuentosMontoHonorarios.Text = "0"
+        TXT_DescuentosMontoInteres.Text = "0"
+        TXT_DescuentosSaldoFavorFinal.Text = "0"
+        TXT_DescuentosSaldoFavorInicial.Text = "0"
+        TXT_DescuentosSeguros.Text = "0"
+        Me.Panel_DescuentosDetalle.Visible = False
+        Me.Panel_Descuentos.Visible = True
     End Sub
 End Class
