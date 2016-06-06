@@ -290,7 +290,7 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="11">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="12">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -998,30 +998,34 @@
                         Repactaciones
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="726px" CssClass="grillas_tab">
-                                <Columns>
-                                    <asp:BoundField HeaderText="Tienda" DataField="column3" />
-                                    <asp:BoundField HeaderText="Caja" DataField="column4" />
-                                    <asp:BoundField HeaderText="Nro.Comprobante" DataField="column5" />
-                                    <asp:BoundField HeaderText="Fecha Proceso" DataField="column6" DataFormatString="{0:d}" />
-                                    <asp:BoundField HeaderText="Pie" DataField="column7" DataFormatString="{0:N0}" >
-                                    <ItemStyle HorizontalAlign="Right" />
-                                    </asp:BoundField>
-                                    <asp:BoundField HeaderText="Descuento" DataField="column8" DataFormatString="{0:N0}" >
-                                    <ItemStyle HorizontalAlign="Right" />
-                                    </asp:BoundField>
-                                    <asp:BoundField HeaderText="Saldo Repactado" DataField="column9" DataFormatString="{0:N0}" >
-                                    <ItemStyle HorizontalAlign="Right" />
-                                    </asp:BoundField>
-                                    <asp:BoundField HeaderText="Total" DataField="column10" DataFormatString="{0:N0}" >
-                                    <ItemStyle HorizontalAlign="Right" />
-                                    </asp:BoundField>
-                                </Columns>
-                            </asp:GridView>
-                        </asp:Panel>
-                        <asp:Label ID="LBL_RepactacionesError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        <br />
+                        <asp:UpdatePanel ID="UpdatePanel14" runat="server">
+                            <ContentTemplate>
+                                <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                                    <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="726px">
+                                        <Columns>
+                                            <asp:BoundField DataField="column3" HeaderText="Tienda" />
+                                            <asp:BoundField DataField="column4" HeaderText="Caja" />
+                                            <asp:BoundField DataField="column5" HeaderText="Nro.Comprobante" />
+                                            <asp:BoundField DataField="column6" DataFormatString="{0:d}" HeaderText="Fecha Proceso" />
+                                            <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Pie">
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Descuento">
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Saldo Repactado">
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column10" DataFormatString="{0:N0}" HeaderText="Total">
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                        </Columns>
+                                    </asp:GridView>
+                                    <br />
+                                </asp:Panel>
+                                <asp:Label ID="LBL_RepactacionesError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel13" runat="server" HeaderText="TabPanel13">
@@ -1029,124 +1033,129 @@
                         Deuda
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <table class="tabla_tabcontainer">
-                            <tr>
-                                <td style="margin-left: 40px; width: 155px;">
-                                    <asp:Label ID="Label55" runat="server" CssClass="etiquetas_tab" Text="Monto Capital"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_MontoCapital" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label57" runat="server" CssClass="etiquetas_tab" Text="Interés Mora"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_InteresMora" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">
-                                    <asp:Label ID="Label59" runat="server" CssClass="etiquetas_tab" Text="Monto Interés"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_MontoInteres" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label61" runat="server" CssClass="etiquetas_tab" Text="Gastos Cobranza"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_GastosCobranza" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">
-                                    <asp:Label ID="Label63" runat="server" CssClass="etiquetas_tab" Text="Monto Honorario"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_MontoHonorario" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label65" runat="server" CssClass="etiquetas_tab" Text="Impuestos"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_Impuestos" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">
-                                    <asp:Label ID="Label67" runat="server" CssClass="etiquetas_tab" Text="Cobro Producto"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_CobroProducto" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label69" runat="server" CssClass="etiquetas_tab" Text="Costas Judiciales"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_CostasJudicial" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">
-                                    <asp:Label ID="Label71" runat="server" CssClass="etiquetas_tab" Text="Comisión Avance"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_ComisionAvance" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label73" runat="server" CssClass="etiquetas_tab" Text="Interés Periodo"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_InteresPeriodo" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">
-                                    <asp:Label ID="Label75" runat="server" CssClass="etiquetas_tab" Text="Administración"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_Administracion" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label77" runat="server" CssClass="etiquetas_tab" Text="Otros Cobros"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_OtrosCobros" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">
-                                    <asp:Label ID="Label79" runat="server" CssClass="etiquetas_tab" Text="Seguros"></asp:Label>
-                                </td>
-                                <td style="width: 84px; text-align: right;">
-                                    <asp:Label ID="LBL_Seguros" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="width: 166px">
-                                    <asp:Label ID="Label81" runat="server" CssClass="etiquetas_tab" Text="Saldo a Favor    ( - )"></asp:Label>
-                                </td>
-                                <td style="text-align: right">
-                                    <asp:Label ID="LBL_SaldoFavor" runat="server" CssClass="etiquetas_tab" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 155px">&nbsp;</td>
-                                <td style="width: 84px; text-align: right;">&nbsp;</td>
-                                <td style="width: 150px">&nbsp;</td>
-                                <td style="border-style: outset none none none; border-top-width: 2px;">
-                                    <asp:Label ID="Label82" runat="server" CssClass="etiquetas_tabtotales" Text="TOTAL DEUDA"></asp:Label>
-                                </td>
-                                <td style="border-top-width: 2px; text-align: right; border-left-style: none; border-right-style: none; border-top-style: outset; border-bottom-style: none;">
-                                    <asp:Label ID="LBL_TotalDeuda" runat="server" CssClass="etiquetas_tabtotales" Text="0"></asp:Label>
-                                </td>
-                            </tr>
-                        </table>
+                        <asp:UpdatePanel ID="UpdatePanel15" runat="server">
+                            <ContentTemplate>
+                                <table id="TBL_Deuda" runat="server" class="tabla_tabcontainer">
+                                    <tr>
+                                        <td style="margin-left: 40px; width: 155px;">
+                                            <asp:Label ID="Label55" runat="server" CssClass="etiquetas_tab" Text="Monto Capital"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right;">
+                                            <asp:TextBox ID="TXT_DeudaMontoCapital" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="width: 166px">
+                                            <asp:Label ID="Label57" runat="server" CssClass="etiquetas_tab" Text="Interés Mora"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <asp:TextBox ID="TXT_DeudaInteresMora" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px; height: 23px;">
+                                            <asp:Label ID="Label59" runat="server" CssClass="etiquetas_tab" Text="Monto Interés"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right; height: 23px;">
+                                            <asp:TextBox ID="TXT_DeudaMontoInteres" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px; height: 23px;"></td>
+                                        <td style="width: 166px; height: 23px;">
+                                            <asp:Label ID="Label61" runat="server" CssClass="etiquetas_tab" Text="Gastos Cobranza"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right; height: 23px;">
+                                            <asp:TextBox ID="TXT_DeudaGastosCobranza" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px">
+                                            <asp:Label ID="Label63" runat="server" CssClass="etiquetas_tab" Text="Monto Honorario"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right;">
+                                            <asp:TextBox ID="TXT_DeudaMontoHonorario" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="width: 166px">
+                                            <asp:Label ID="Label65" runat="server" CssClass="etiquetas_tab" Text="Impuestos"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <asp:TextBox ID="TXT_DeudaImpuestos" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px">
+                                            <asp:Label ID="Label67" runat="server" CssClass="etiquetas_tab" Text="Cobro Producto"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right;">
+                                            <asp:TextBox ID="TXT_DeudaCobroProducto" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="width: 166px">
+                                            <asp:Label ID="Label69" runat="server" CssClass="etiquetas_tab" Text="Costas Judiciales"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <asp:TextBox ID="TXT_DeudaCostasJudiciales" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px">
+                                            <asp:Label ID="Label71" runat="server" CssClass="etiquetas_tab" Text="Comisión Avance"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right;">
+                                            <asp:TextBox ID="TXT_DeudaComisionAvance" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="width: 166px">
+                                            <asp:Label ID="Label73" runat="server" CssClass="etiquetas_tab" Text="Interés Periodo"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <asp:TextBox ID="TXT_DeudaInteresPeriodo" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px">
+                                            <asp:Label ID="Label75" runat="server" CssClass="etiquetas_tab" Text="Administración"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right;">
+                                            <asp:TextBox ID="TXT_DeudaAdministracion" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="width: 166px">
+                                            <asp:Label ID="Label77" runat="server" CssClass="etiquetas_tab" Text="Otros Cobros"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <asp:TextBox ID="TXT_DeudaOtrosCobros" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px">
+                                            <asp:Label ID="Label79" runat="server" CssClass="etiquetas_tab" Text="Seguros"></asp:Label>
+                                        </td>
+                                        <td style="width: 84px; text-align: right;">
+                                            <asp:TextBox ID="TXT_DeudaSeguros" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="width: 166px">
+                                            <asp:Label ID="Label81" runat="server" CssClass="etiquetas_tab" Text="Saldo a Favor    ( - )"></asp:Label>
+                                        </td>
+                                        <td style="text-align: right">
+                                            <asp:TextBox ID="TXT_DeudaSaldoFavor" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 155px">&nbsp;</td>
+                                        <td style="width: 84px; text-align: right;">&nbsp;</td>
+                                        <td style="width: 150px">&nbsp;</td>
+                                        <td style="border-style: outset none none none; border-top-width: 2px;">
+                                            <asp:Label ID="Label82" runat="server" CssClass="etiquetas_tabtotales" Text="TOTAL DEUDA"></asp:Label>
+                                        </td>
+                                        <td style="border-top-width: 2px; text-align: right; border-left-style: none; border-right-style: none; border-top-style: outset; border-bottom-style: none;">
+                                            <asp:TextBox ID="TXT_DeudaTotal" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px">0</asp:TextBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <asp:Label ID="LBL_DeudaError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel14" runat="server" HeaderText="TabPanel14">

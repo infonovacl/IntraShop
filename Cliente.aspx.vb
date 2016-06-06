@@ -363,9 +363,9 @@
                     Dim DATARepacta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRepacta, conn)
                     DATARepacta.Fill(DataDSRepacta, "PRUEBA")
                     If DataDSRepacta.Tables(0).Rows(0)(0) = 1 Then
+                        Me.LBL_RepactacionesError.Text = DataDSRepacta.Tables(0).Rows(0)(1)  ' mensaje de error
                         Me.Panel_Repactaciones.Visible = False
                         Me.LBL_RepactacionesError.Visible = True
-                        Me.LBL_RepactacionesError.Text = DataDSRepacta.Tables(0).Rows(0)(1) ' mensaje de error
                     Else
                         Me.Panel_Repactaciones.Visible = True
                         Me.LBL_RepactacionesError.Visible = False
@@ -373,7 +373,101 @@
                         Me.Grilla_Repactaciones.DataBind()
                     End If
                 Catch EX As Exception
+                    ' MsgBox(EX)
                     'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                End Try
+            Case 12
+                Dim DataDSDeuda As New Data.DataSet
+                Try
+                    Dim STRDeuda As String = "execute procedure procw_cons_deuda ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim DATADeuda As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDeuda, conn)
+                    DATADeuda.Fill(DataDSDeuda, "PRUEBA")
+                    If DataDSDeuda.Tables(0).Rows(0)(0) = 1 Then
+                        Me.TBL_Deuda.Visible = False
+                        Me.LBL_DeudaError.Visible = True
+                        Me.LBL_DeudaError.Text = DataDSDeuda.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.TBL_Deuda.Visible = True
+                        Me.LBL_DeudaError.Visible = False
+                        If DataDSDeuda.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                            Me.TXT_DeudaMontoCapital.Text = "0"
+                        Else
+                            Me.TXT_DeudaMontoCapital.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(2), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                            Me.TXT_DeudaMontoInteres.Text = ""
+                        Else
+                            Me.TXT_DeudaMontoInteres.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(3), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                            Me.TXT_DeudaMontoHonorario.Text = ""
+                        Else
+                            Me.TXT_DeudaMontoHonorario.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(4), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                            Me.TXT_DeudaCobroProducto.Text = ""
+                        Else
+                            Me.TXT_DeudaCobroProducto.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(5), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                            Me.TXT_DeudaComisionAvance.Text = ""
+                        Else
+                            Me.TXT_DeudaComisionAvance.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(6), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                            Me.TXT_DeudaAdministracion.Text = ""
+                        Else
+                            Me.TXT_DeudaAdministracion.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(7), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                            Me.TXT_DeudaSeguros.Text = "0"
+                        Else
+                            Me.TXT_DeudaSeguros.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(8), Integer), "###,###,##0")
+                        End If
+                        '************************************************************************************************
+                        If DataDSDeuda.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                            Me.TXT_DeudaInteresMora.Text = "0"
+                        Else
+                            Me.TXT_DeudaInteresMora.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(9), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(10) Is System.DBNull.Value Then
+                            Me.TXT_DeudaGastosCobranza.Text = ""
+                        Else
+                            Me.TXT_DeudaGastosCobranza.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(10), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(11) Is System.DBNull.Value Then
+                            Me.TXT_DeudaImpuestos.Text = "0"
+                        Else
+                            Me.TXT_DeudaImpuestos.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(11), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(12) Is System.DBNull.Value Then
+                            Me.TXT_DeudaCostasJudiciales.Text = ""
+                        Else
+                            Me.TXT_DeudaCostasJudiciales.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(12), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(13) Is System.DBNull.Value Then
+                            Me.TXT_DeudaInteresPeriodo.Text = "0"
+                        Else
+                            Me.TXT_DeudaInteresPeriodo.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(13), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(14) Is System.DBNull.Value Then
+                            Me.TXT_DeudaOtrosCobros.Text = "0"
+                        Else
+                            Me.TXT_DeudaOtrosCobros.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(14), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
+                            Me.TXT_DeudaSaldoFavor.Text = "0"
+                        Else
+                            Me.TXT_DeudaSaldoFavor.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(15), Integer), "###,###,##0")
+                        End If
+                        If DataDSDeuda.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
+                            Me.TXT_DeudaTotal.Text = "0"
+                        Else
+                            Me.TXT_DeudaTotal.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(16), Integer), "###,###,##0")
+                        End If
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
                 End Try
         End Select
     End Sub
