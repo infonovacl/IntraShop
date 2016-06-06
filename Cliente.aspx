@@ -618,6 +618,7 @@
                                             <td>&nbsp;</td>
                                         </tr>
                                     </table>
+                                    <asp:Label ID="LBL_DescuentosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                     <br />
                                     <asp:Button ID="BTN_DescuentosDetalle" runat="server" CssClass="botones" Text="VOLVER" />
                                 </asp:Panel>
@@ -953,6 +954,25 @@
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_VentasError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                <asp:Panel ID="Panel_VentasDetalle" runat="server" ScrollBars="Vertical" Visible="False" Width="755px">
+                                    <asp:GridView ID="Grilla_VentasDetalle" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                        <Columns>
+                                            <asp:BoundField DataField="column3" HeaderText="Número Cuota" />
+                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha Vencimiento" />
+                                            <asp:BoundField DataField="column5" DataFormatString="{0:N0}" HeaderText="Monto Capital" />
+                                            <asp:BoundField DataField="column6" DataFormatString="{0:N0}" HeaderText="Monto Interés" />
+                                            <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Monto Honorarios" />
+                                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Cobro Producto" />
+                                            <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Monto Total" />
+                                            <asp:BoundField DataField="column10" HeaderText="Estado Cuota" />
+                                        </Columns>
+                                    </asp:GridView>
+                                    <br />
+                                </asp:Panel>
+                                <br />
+                                <asp:Label ID="LBL_VentasDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                <br />
+                                <asp:Button ID="BTN_VentasDetalle" runat="server" CssClass="botones" Text="VOLVER" />
                                 <br />
                             </ContentTemplate>
                         </asp:UpdatePanel>

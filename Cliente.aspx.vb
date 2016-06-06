@@ -401,12 +401,15 @@
             FechaDescuento = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(4).Text
             NumeroComprobante = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(3).Text
 
-            Dim STRetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_RutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
-            Dim DATAetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRetDescuentos, conn)
-            DATAetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
+            Dim STRDetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_RutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
+            Dim DATADetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetDescuentos, conn)
+            DATADetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
             If DataDSDetDescuentos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
-                Me.TXT_EstadoDescripcionSubEstado.Text = DataDSDetDescuentos.Tables(0).Rows(0)(1)
+                Me.LBL_DescuentosDetalleError.Visible = True
+                Me.LBL_DescuentosDetalleError.Text = DataDSDetDescuentos.Tables(0).Rows(0)(1)
             Else
+                Me.LBL_DescuentosDetalleError.Text = ""
+                Me.LBL_DescuentosDetalleError.Visible = False
                 If DataDSDetDescuentos.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.TXT_DescuentosMontoCapital.Text = "0"
                 Else
