@@ -290,7 +290,7 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="10">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="11">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -950,29 +950,44 @@
                                             </asp:BoundField>
                                             <asp:BoundField DataField="column14" HeaderText="Estado" />
                                             <asp:BoundField DataField="column15" HeaderText="Comprador" />
+                                            <asp:BoundField DataField="column16" HeaderText="Codigo Sucursal" />
+                                            <asp:BoundField DataField="column17" HeaderText="Codigo Negocio" />
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_VentasError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <asp:Panel ID="Panel_VentasDetalle" runat="server" ScrollBars="Vertical" Visible="False" Width="755px">
+                                <asp:Panel ID="Panel_VentasDetalle" runat="server" ScrollBars="Vertical" Visible="False" CssClass="panel_tab" Height="200px">
                                     <asp:GridView ID="Grilla_VentasDetalle" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
                                         <Columns>
-                                            <asp:BoundField DataField="column3" HeaderText="Número Cuota" />
+                                            <asp:BoundField DataField="column3" HeaderText="Nro. Cuota" >
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha Vencimiento" />
-                                            <asp:BoundField DataField="column5" DataFormatString="{0:N0}" HeaderText="Monto Capital" />
-                                            <asp:BoundField DataField="column6" DataFormatString="{0:N0}" HeaderText="Monto Interés" />
-                                            <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Monto Honorarios" />
-                                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Cobro Producto" />
-                                            <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Monto Total" />
+                                            <asp:BoundField DataField="column5" DataFormatString="{0:N0}" HeaderText="Monto Capital" >
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column6" DataFormatString="{0:N0}" HeaderText="Monto Interés" >
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Monto Honorarios" >
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Cobro Producto" >
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Monto Total" >
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column10" HeaderText="Estado Cuota" />
                                         </Columns>
                                     </asp:GridView>
                                     <br />
                                 </asp:Panel>
-                                <br />
                                 <asp:Label ID="LBL_VentasDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
-                                <asp:Button ID="BTN_VentasDetalle" runat="server" CssClass="botones" Text="VOLVER" />
+                                <asp:Button ID="BTN_VentasDetalle" runat="server" CssClass="botones" Text="VOLVER" Visible="False" />
+                                <br />
+                                <br />
                                 <br />
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -986,17 +1001,27 @@
                         <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                             <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="726px" CssClass="grillas_tab">
                                 <Columns>
-                                    <asp:BoundField HeaderText="Tienda" />
-                                    <asp:BoundField HeaderText="Caja" />
-                                    <asp:BoundField HeaderText="Nro.Comprobante" />
-                                    <asp:BoundField HeaderText="Fecha Proceso" />
-                                    <asp:BoundField HeaderText="Pie" />
-                                    <asp:BoundField HeaderText="Descuento" />
-                                    <asp:BoundField HeaderText="Saldo Repactado" />
-                                    <asp:BoundField HeaderText="Total" />
+                                    <asp:BoundField HeaderText="Tienda" DataField="column3" />
+                                    <asp:BoundField HeaderText="Caja" DataField="column4" />
+                                    <asp:BoundField HeaderText="Nro.Comprobante" DataField="column5" />
+                                    <asp:BoundField HeaderText="Fecha Proceso" DataField="column6" DataFormatString="{0:d}" />
+                                    <asp:BoundField HeaderText="Pie" DataField="column7" DataFormatString="{0:N0}" >
+                                    <ItemStyle HorizontalAlign="Right" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Descuento" DataField="column8" DataFormatString="{0:N0}" >
+                                    <ItemStyle HorizontalAlign="Right" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Saldo Repactado" DataField="column9" DataFormatString="{0:N0}" >
+                                    <ItemStyle HorizontalAlign="Right" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Total" DataField="column10" DataFormatString="{0:N0}" >
+                                    <ItemStyle HorizontalAlign="Right" />
+                                    </asp:BoundField>
                                 </Columns>
                             </asp:GridView>
                         </asp:Panel>
+                        <asp:Label ID="LBL_RepactacionesError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                        <br />
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel13" runat="server" HeaderText="TabPanel13">

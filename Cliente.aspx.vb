@@ -1,6 +1,6 @@
 ﻿Partial Class MenuPrincipal
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=ODBCifx64;uid=desaweb;pwd=Dsa.web"
+    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -345,8 +345,32 @@
                     Else
                         Me.Panel_Ventas.Visible = True
                         Me.LBL_VentasError.Visible = False
+                        Me.Panel_VentasDetalle.Visible = False
+                        Me.BTN_VentasDetalle.Visible = False
                         Me.Grilla_Ventas.DataSource = DataDSVentas.Tables(0).DefaultView
                         Me.Grilla_Ventas.DataBind()
+                        Me.Grilla_Ventas.Columns(13).Visible = False
+                        Me.Grilla_Ventas.Columns(14).Visible = False
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                End Try
+            Case 11
+                Dim DataDSRepacta As New Data.DataSet
+                Try
+                    DataDSRepacta.Clear()
+                    Dim STRRepacta As String = "execute procedure procw_cons_repacta ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim DATARepacta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRepacta, conn)
+                    DATARepacta.Fill(DataDSRepacta, "PRUEBA")
+                    If DataDSRepacta.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_Repactaciones.Visible = False
+                        Me.LBL_RepactacionesError.Visible = True
+                        Me.LBL_RepactacionesError.Text = DataDSRepacta.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_Repactaciones.Visible = True
+                        Me.LBL_RepactacionesError.Visible = False
+                        Me.Grilla_Repactaciones.DataSource = DataDSRepacta.Tables(0).DefaultView
+                        Me.Grilla_Repactaciones.DataBind()
                     End If
                 Catch EX As Exception
                     'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
@@ -535,5 +559,51 @@
         TXT_DescuentosSeguros.Text = "0"
         Me.Panel_DescuentosDetalle.Visible = False
         Me.Panel_Descuentos.Visible = True
+    End Sub
+    Protected Sub Grilla_Ventas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Ventas.SelectedIndexChanged
+        Dim DataDSDetVenta As New Data.DataSet
+        Dim IndiceGrillaVentas As Integer = 0
+        Dim CodigoSucursal, CodigoNegocio As Integer
+        Dim NCaja As Integer
+        Dim FechaVenta As String
+        Dim NBoleta As Integer
+        Try
+            DataDSDetVenta.Clear()
+            IndiceGrillaVentas = Me.Grilla_Ventas.SelectedIndex.ToString()
+            Me.Grilla_Ventas.Columns(13).Visible = True
+            Me.Grilla_Ventas.Columns(14).Visible = True
+            CodigoSucursal = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(13).Text
+            CodigoNegocio = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(14).Text
+            Me.Grilla_Ventas.Columns(13).Visible = False
+            Me.Grilla_Ventas.Columns(14).Visible = False
+            NCaja = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(5).Text
+            FechaVenta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(3).Text
+            NBoleta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(6).Text
+            Dim STRDetVenta As String = "execute procedure procw_cons_ventas_det (" & Me.TXT_RutCliente.Text & "," & CodigoSucursal & "," & CodigoNegocio & "," & NCaja & ",'" & FechaVenta & "'," & NBoleta & ")"
+            Dim DATADetVenta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetVenta, conn)
+            DATADetVenta.Fill(DataDSDetVenta, "PRUEBA")
+            If DataDSDetVenta.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
+                Me.LBL_VentasDetalleError.Visible = True
+                Me.Panel_VentasDetalle.Visible = False
+                Me.Panel_Ventas.Visible = False
+                Me.LBL_VentasDetalleError.Text = DataDSDetVenta.Tables(0).Rows(0)(1)
+                Me.BTN_VentasDetalle.Visible = True
+            Else
+                Me.Panel_Ventas.Visible = False
+                Me.LBL_VentasDetalleError.Visible = False
+                Me.BTN_VentasDetalle.Visible = True
+                Me.Grilla_VentasDetalle.DataSource = DataDSDetVenta.Tables(0).DefaultView
+                Me.Grilla_VentasDetalle.DataBind()
+                Me.Panel_VentasDetalle.Visible = True
+            End If
+        Catch EX As Exception
+
+        End Try
+    End Sub
+    Protected Sub BTN_VentasDetalle_Click(sender As Object, e As EventArgs) Handles BTN_VentasDetalle.Click
+        Me.LBL_VentasDetalleError.Text = ""
+        Me.Panel_VentasDetalle.Visible = False
+        Me.Panel_Ventas.Visible = True
+        Me.BTN_VentasDetalle.Visible = False
     End Sub
 End Class
