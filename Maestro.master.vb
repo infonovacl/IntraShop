@@ -9,18 +9,21 @@
         End Set
     End Property
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         If IsPostBack = True And Session("iniciado") = "si" Then
             ' MsgBox("Es un postback generado")
             Me.Panel_Login.Visible = False
-            Me.Panel_Menu.Visible = True
-            Me.Panel_Menu.Style.Add("position", "absolute")
+            Me.Panel_menu.Visible = True
+            Me.Panel_menu.Style.Add("position", "absolute")
             Me.Panel_menu.Style.Add("top", "1px")
             ' Me.Panel_menu.Style.Add("left", "1px")
             Me.Panel_menu.Style.Add("height", "412px")
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
-            Me.TXT_RutMaster.Text = Session("rut")
+            'Me.TXT_RutMaster.Text = Session("rut")
+            ' Me.TVM_Principal.Font.Strikeout = False
+            'If TXT_RutMaster.Text <> "" Then
+            ' Me.TVM_Principal.Enabled = True
+            ' End If
             Try
                 Me.TVM_Principal.SelectedNode.Value = Session("nodo_seleccionado")
             Catch ex As Exception
@@ -35,14 +38,15 @@
             ElseIf Session("iniciado") = "si" Then
                 ' MsgBox("Primera carga de pagina")
                 Me.Panel_Login.Visible = False
-                Me.Panel_Menu.Visible = True
+                Me.Panel_menu.Visible = True
+                ' Me.TVM_Principal.Font.Strikeout = True
                 Me.Panel_menu.Style.Add("position", "absolute")
                 Me.Panel_menu.Style.Add("top", "1px")
                 '  Me.Panel_menu.Style.Add("left", "1px")
                 Me.Panel_menu.Style.Add("height", "412px")
                 Me.Panel_menu.Style.Add("width", "210px")
                 Me.TVM_Principal.ExpandAll()
-                Me.TXT_RutMaster.Text = Session("rut")
+                'Me.TXT_RutMaster.Text = Session("rut")
                 Try
                     Me.TVM_Principal.SelectedNode.Value = Session("nodo_seleccionado")
                 Catch ex As Exception
@@ -51,6 +55,7 @@
         End If
     End Sub
     Protected Sub BTN_Entrar_Click(sender As Object, e As EventArgs) Handles BTN_Entrar.Click
+
         ' ¿ Me.BTN_Entrar.PostBackUrl = "~/Cliente.aspx"
         ' Dim node As TreeNode
         ' For Each node In Me.TVM_Principal.Nodes(0).ChildNodes
@@ -94,7 +99,6 @@
         Try
             Session("nodo_seleccionado") = Me.TVM_Principal.SelectedNode.Value
         Catch ex As Exception
-
         End Try
     End Sub
 

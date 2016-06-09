@@ -25,6 +25,8 @@
              </div>
          <div id ="contenido" runat="server">
                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" ViewStateMode="Enabled">                 
+                   <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                   </asp:ContentPlaceHolder>
         </asp:ContentPlaceHolder>
          </div>
          <div id ="menulateral" runat="server">
@@ -66,13 +68,13 @@
                  <ContentTemplate>
                      <asp:Panel ID="Panel_menu"  CssClass="panelmenu" runat="server" BackColor="White"  ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="200px" ViewStateMode="Enabled">
+                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="200px" ViewStateMode="Enabled" Enabled="False" BackColor="White" Font-Strikeout="False">
                              <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                              <Nodes>
                                  <asp:TreeNode Text="Cliente" Value="Cliente">
                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta" Selected="True"></asp:TreeNode>
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
-                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
+                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="~/DatosCliente.aspx"></asp:TreeNode>
                                          <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
                                          <asp:TreeNode Text="Adicionales" Value="Adicionales"></asp:TreeNode>
                                      </asp:TreeNode>
@@ -109,15 +111,15 @@
                             <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                         </td>
                      <td>
-                            <asp:Label ID="Label11" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                            <asp:Label ID="LBL_Usuario" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                         </td>
                  </tr>
                  <tr>
                      <td>
-                            <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                            <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
                         </td>
                      <td>
-                            <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                            <asp:Label ID="LBL_CodigoTienda" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                         </td>
                  </tr>
              </table>

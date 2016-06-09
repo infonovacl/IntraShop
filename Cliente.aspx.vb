@@ -1,4 +1,4 @@
-﻿Partial Class MenuPrincipal
+﻿Partial Class Cliente
     Inherits System.Web.UI.Page
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
@@ -28,7 +28,13 @@
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
         'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
         Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
-        Session("rut") = Me.TXT_RutCliente.Text
+        Dim menu As TreeView
+        menu = Master.FindControl("TVM_Principal")
+        menu.Enabled = True
+        menu.Font.Strikeout = False
+        'Session("rut") = Me.TXT_RutCliente.Text
+        'Master.Master.FindControl("TVM_Principal").e
+
     End Sub
     Protected Sub ProcesaTab(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
         '  MsgBox(Session("TabIndexo"))

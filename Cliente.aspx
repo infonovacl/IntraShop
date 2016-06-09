@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" AutoEventWireup="false" CodeFile="Cliente.aspx.vb" Inherits="MenuPrincipal" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" AutoEventWireup="false" CodeFile="Cliente.aspx.vb" Inherits="Cliente" %>
 <%@ MasterType virtualpath="~/Maestro.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
