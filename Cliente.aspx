@@ -290,7 +290,7 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="13">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="15">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -867,7 +867,7 @@
                         <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                             <ContentTemplate>
                                 <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                                    <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                    <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
                                         <Columns>
                                             <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha ">
                                             <ItemStyle Width="80px" />
@@ -1204,19 +1204,26 @@
                         Seguros
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Panel ID="Panel_Seguros" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_Seguros" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px" CssClass="grillas_tab">
-                                <Columns>
-                                    <asp:BoundField HeaderText="Seguro" />
-                                    <asp:BoundField HeaderText="Tienda" />
-                                    <asp:BoundField HeaderText="Caja" />
-                                    <asp:BoundField HeaderText="Folio" />
-                                    <asp:BoundField HeaderText="Inicio Vig." />
-                                    <asp:BoundField HeaderText="Termino Vig." />
-                                    <asp:BoundField HeaderText="Motivo Anulación" />
-                                </Columns>
-                            </asp:GridView>
-                        </asp:Panel>
+                        <asp:UpdatePanel ID="UpdatePanel17" runat="server">
+                            <ContentTemplate>
+                                <asp:Panel ID="Panel_Seguros" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+                                    <asp:GridView ID="Grilla_Seguros" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
+                                        <Columns>
+                                            <asp:BoundField DataField="column4" HeaderText="Seguro" />
+                                            <asp:BoundField DataField="column5" HeaderText="Compañia" />
+                                            <asp:BoundField DataField="column6" HeaderText="Tienda" />
+                                            <asp:BoundField DataField="column7" HeaderText="Caja" />
+                                            <asp:BoundField DataField="column8" HeaderText="Folio" />
+                                            <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Inicio Vig." />
+                                            <asp:BoundField DataField="column10" DataFormatString="{0:d}" HeaderText="Termino Vig." />
+                                            <asp:BoundField DataField="column11" HeaderText="Motivo Anulación" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </asp:Panel>
+                                <asp:Label ID="LBL_SegurosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                <br />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel16" runat="server" HeaderText="TabPanel16">
@@ -1224,14 +1231,21 @@
                         SBIF
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <asp:Panel ID="Panel_SBIF" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
-                            <asp:GridView ID="Grilla_SBIF" runat="server" AutoGenerateColumns="False" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="390px" CssClass="grillas_tab">
-                                <Columns>
-                                    <asp:BoundField HeaderText="Mes" />
-                                    <asp:BoundField HeaderText="Clasificación" />
-                                </Columns>
-                            </asp:GridView>
-                        </asp:Panel>
+                        <asp:UpdatePanel ID="UpdatePanel18" runat="server">
+                            <ContentTemplate>
+                                <asp:Panel ID="Panel_SBIF" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Width="300px">
+                                    <asp:GridView ID="Grilla_SBIF" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="258px">
+                                        <Columns>
+                                            <asp:BoundField DataField="column3" HeaderText="Mes/Año" />
+                                            <asp:BoundField DataField="column4" HeaderText="Clasificación">
+                                            <ItemStyle HorizontalAlign="Center" />
+                                            </asp:BoundField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </asp:Panel>
+                                <asp:Label ID="LBL_SBIFError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel17" runat="server" HeaderText="TabPanel17">

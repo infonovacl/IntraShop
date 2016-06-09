@@ -475,6 +475,66 @@
                 Catch EX As Exception
                     'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
                 End Try
+            Case 13
+                Dim DataDSXPagar As New Data.DataSet
+                Try
+                    DataDSXPagar.Clear()
+                    Dim STRXPagar As String = "execute procedure procw_cons_porpagar ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim DATAXPagar As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRXPagar, conn)
+                    DATAXPagar.Fill(DataDSXPagar, "PRUEBA")
+                    If DataDSXPagar.Tables(0).Rows(0)(0) = 1 Then
+                        Me.LBL_XPagarError.Text = DataDSXPagar.Tables(0).Rows(0)(1)  ' mensaje de error
+                        Me.Panel_XPagar.Visible = False
+                        Me.LBL_XPagarError.Visible = True
+                    Else
+                        Me.Panel_XPagar.Visible = True
+                        Me.LBL_XPagarError.Visible = False
+                        Me.Grilla_XPagar.DataSource = DataDSXPagar.Tables(0).DefaultView
+                        Me.Grilla_XPagar.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                End Try
+            Case 14
+                Dim DataDSSeguros As New Data.DataSet
+                Try
+                    DataDSSeguros.Clear()
+                    Dim STRSeguros As String = "execute procedure procw_cons_seguro ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim DATASeguros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSeguros, conn)
+                    DATASeguros.Fill(DataDSSeguros, "PRUEBA")
+                    If DataDSSeguros.Tables(0).Rows(0)(0) = 1 Then
+                        Me.LBL_SegurosError.Text = DataDSSeguros.Tables(0).Rows(0)(1)  ' mensaje de error
+                        Me.Panel_Seguros.Visible = False
+                        Me.LBL_SegurosError.Visible = True
+                    Else
+                        Me.Panel_Seguros.Visible = True
+                        Me.LBL_SegurosError.Visible = False
+                        Me.Grilla_Seguros.DataSource = DataDSSeguros.Tables(0).DefaultView
+                        Me.Grilla_Seguros.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                End Try
+            Case 15
+                Dim DataDSSBIF As New Data.DataSet
+                Try
+                    DataDSSBIF.Clear()
+                    Dim STRSBIF As String = "execute procedure procw_cons_sbif ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim DATASBIF As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSBIF, conn)
+                    DATASBIF.Fill(DataDSSBIF, "PRUEBA")
+                    If DataDSSBIF.Tables(0).Rows(0)(0) = 1 Then
+                        Me.LBL_SBIFError.Text = DataDSSBIF.Tables(0).Rows(0)(1)  ' mensaje de error
+                        Me.Panel_SBIF.Visible = False
+                        Me.LBL_SBIFError.Visible = True
+                    Else
+                        Me.Panel_SBIF.Visible = True
+                        Me.LBL_SBIFError.Visible = False
+                        Me.Grilla_SBIF.DataSource = DataDSSBIF.Tables(0).DefaultView
+                        Me.Grilla_SBIF.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                End Try
         End Select
     End Sub
     Protected Sub Grilla_Estados_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Estados.SelectedIndexChanged

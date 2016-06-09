@@ -68,13 +68,13 @@
                  <ContentTemplate>
                      <asp:Panel ID="Panel_menu"  CssClass="panelmenu" runat="server" BackColor="White"  ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="200px" ViewStateMode="Enabled" Enabled="False" BackColor="White" Font-Strikeout="False">
+                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="200px" ViewStateMode="Enabled" BackColor="White" Font-Strikeout="False">
                              <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
                              <Nodes>
                                  <asp:TreeNode Text="Cliente" Value="Cliente">
                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta" Selected="True"></asp:TreeNode>
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
-                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="~/DatosCliente.aspx"></asp:TreeNode>
+                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="~/Mantenciones/Mantenciones_DatosCliente.aspx"></asp:TreeNode>
                                          <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
                                          <asp:TreeNode Text="Adicionales" Value="Adicionales"></asp:TreeNode>
                                      </asp:TreeNode>
