@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Cliente - Copy.aspx.vb" Inherits="MenuPrincipal" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Ejemplo.aspx.vb" Inherits="MenuPrincipal" %>
 
 <!DOCTYPE html>
 
@@ -7,13 +7,13 @@
     <title></title>
     <link href="css/EstilosShop.css" rel="stylesheet" />
      <style type="text/css">
-        .auto-style1 {
-            width: 165px;
-        }
-    </style>
+         .auto-style1 {
+             width: 783px;
+         }
+     </style>
     </head>
 <body style="width: 982px; height: 4px;">
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="auto-style1">
     <div>
     
         <table class="tablas">
@@ -220,143 +220,6 @@
                 </td>
             </tr>
         </table>
-        <div>
-            <table class="tablas">
-                <tr>
-                    <td>
-                        <asp:Label ID="LBL_Vencimiento1" runat="server" CssClass="etiquetas" Text="05-01-2014"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="LBL_Vencimiento2" runat="server" CssClass="etiquetas" Text="05-02-2014"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="LBL_Vencimiento3" runat="server" CssClass="etiquetas" Text="05-03-2015"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="LBL_Vencimiento4" runat="server" CssClass="etiquetas"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="LBL_Vencimiento5" runat="server" CssClass="etiquetas"></asp:Label>
-                    </td>
-                    <td class="auto-style1">
-                        <asp:Label ID="LBL_Vencimiento6" runat="server" CssClass="etiquetas"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:TextBox ID="TextBox3" runat="server" CssClass="cajastextonumerico" Width="100px">659</asp:TextBox>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="TextBox4" runat="server" CssClass="cajastextonumerico" Width="100px">758</asp:TextBox>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="TextBox5" runat="server" CssClass="cajastextonumerico" Width="100px">758</asp:TextBox>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="TextBox6" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="TextBox7" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
-                    </td>
-                    <td class="auto-style1">
-                        <asp:TextBox ID="TextBox8" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div>
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
-            </asp:ScriptManager>
-            <ajaxToolkit:TabContainer ID="Tab_Consultas" runat="server" ActiveTabIndex="7" BorderColor="#FFCC00" BorderStyle="Outset" Height="200px" Width="985px">
-                <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
-                    <HeaderTemplate>
-                        Estados
-                    </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:Label ID="Label27" runat="server" Text="ESTADOS"></asp:Label>
-                    </ContentTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel2" ID="TabPanel2">
-                    <HeaderTemplate>
-                        Laboral
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3">
-                    <HeaderTemplate>
-                        Contratos
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4">
-                    <HeaderTemplate>
-                        Modificaciones
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5">
-                    <HeaderTemplate>
-                        Descuentos
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel6" runat="server" HeaderText="TabPanel6">
-                    <HeaderTemplate>
-                        Consultas DB
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel7" runat="server" HeaderText="TabPanel7">
-                    <HeaderTemplate>
-                        Solicitudes
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel8" runat="server" HeaderText="TabPanel8">
-                    <HeaderTemplate>
-                        Resumen Cuenta
-                    </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:TextBox ID="TextBox9" runat="server"></asp:TextBox>
-                    </ContentTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel9" runat="server" HeaderText="TabPanel9">
-                    <HeaderTemplate>
-                        Comentarios
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel10" runat="server" HeaderText="TabPanel10">
-                    <HeaderTemplate>
-                        Pagos<br />
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel11" runat="server" HeaderText="TabPanel11">
-                    <HeaderTemplate>
-                        Ventas
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel12" runat="server" HeaderText="TabPanel12">
-                    <HeaderTemplate>
-                        Repactaciones
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel13" runat="server" HeaderText="TabPanel13">
-                    <HeaderTemplate>
-                        Deuda
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel14" runat="server" HeaderText="TabPanel14">
-                    <HeaderTemplate>
-                        Por pagar
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel15" runat="server" HeaderText="TabPanel15">
-                    <HeaderTemplate>
-                        Seguros
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel ID="TabPanel16" runat="server" HeaderText="TabPanel16">
-                    <HeaderTemplate>
-                        SBIF
-                    </HeaderTemplate>
-                </ajaxToolkit:TabPanel>
-            </ajaxToolkit:TabContainer>
-            <br />
-        </div>
     </form>
     </body>
 </html>

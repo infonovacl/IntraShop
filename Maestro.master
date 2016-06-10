@@ -1,4 +1,4 @@
-﻿<%@ Master Language="VB" CodeFile="Maestro.master.vb" Inherits="Maestro" %>
+﻿<%@ Master Language="VB" CodeFile="Maestro.master.vb" Inherits="Maestro" enableviewstate="true"%>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
              </div>
          <div id ="contenido" runat="server">
                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" ViewStateMode="Enabled">                 
-                   <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                   <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server" ViewStateMode="Enabled">
                    </asp:ContentPlaceHolder>
         </asp:ContentPlaceHolder>
          </div>
@@ -117,6 +117,7 @@
                  <tr>
                      <td>
                             <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
+                            <asp:Button ID="Button1" runat="server" Text="Button" />
                         </td>
                      <td>
                             <asp:Label ID="LBL_CodigoTienda" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>

@@ -98,9 +98,23 @@
     Protected Sub TVM_Principal_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TVM_Principal.SelectedNodeChanged
         Try
             Session("nodo_seleccionado") = Me.TVM_Principal.SelectedNode.Value
+            MsgBox(Session("nodo_seleccionado"))
+            If Me.TVM_Principal.SelectedNode.Value = "Comentarios" Then
+                ' Dim str_JavaPopup As String = "<script language" & "='javascript'>window.showModalDialog('frm_MoreInf o.aspx?ProductImage=" & str_ImageName & "&ProductDesc=" & str_Description & "','dialogWidth: 100px;dialogHeight: 100px;center: yes;resize: no;status: no;help: no');</Script>"
+                ' Dim str_JavaPopup As String = "<script language" & "='javascript'>window.showModalDialog('Ejemplo.aspx','dialogWidth: 100px;dialogHeight: 100px;center: yes;resize: no;status: no;help: no');</Script>"
+                ' Me.Page.RegisterStartupScript("Startup", str_JavaPopup)
+                Page.ClientScript.RegisterStartupScript(Page.GetType, "Ventana", "javascript:window.open('Ejemplo.aspx','ShowPopup','height=500,width=400px,resizable=yes');")
+                ' TVM_Principal.SelectedNode.Target = "javascript:window.open('Ejemplo.aspx','ShowPopup','height=500,width=400px,resizable=yes');"
+            End If
+
         Catch ex As Exception
+            MsgBox(ex)
         End Try
     End Sub
 
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'Button1.OnClientClick("<script>window.open(""cambio_estado.aspx?rut=" & rut_cliente & "&cta=" & cta_cte & """, ""ESTADOS"" , ""width=1500,height=350, top=380, left=3, scrollbars=NO"");</script>")
+        Button1.OnClientClick = "javascript:window.open('Ejemplo.aspx','ShowPopup','height=500,width=400px,resizable=yes');"
+    End Sub
 End Class
 

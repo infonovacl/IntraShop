@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" AutoEventWireup="false" CodeFile="Cliente.aspx.vb" Inherits="Cliente" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" EnableViewState="true" AutoEventWireup ="false" CodeFile="Cliente.aspx.vb" Inherits="Cliente" %>
 <%@ MasterType virtualpath="~/Maestro.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -269,28 +269,28 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:TextBox ID="TextBox3" runat="server" CssClass="cajastextonumerico" Width="100px">659</asp:TextBox>
+                        <asp:TextBox ID="TXT_ValorVencimientoCuota1" runat="server" CssClass="cajastextonumerico" Width="100px">659</asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox4" runat="server" CssClass="cajastextonumerico" Width="100px">758</asp:TextBox>
+                        <asp:TextBox ID="TXT_ValorVencimientoCuota2" runat="server" CssClass="cajastextonumerico" Width="100px">758</asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox5" runat="server" CssClass="cajastextonumerico" Width="100px">758</asp:TextBox>
+                        <asp:TextBox ID="TXT_ValorVencimientoCuota3" runat="server" CssClass="cajastextonumerico" Width="100px">758</asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox6" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
+                        <asp:TextBox ID="TXT_ValorVencimientoCuota4" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox7" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
+                        <asp:TextBox ID="TXT_ValorVencimientoCuota5" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox8" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
+                        <asp:TextBox ID="TXT_ValorVencimientoCuota6" runat="server" CssClass="cajastextonumerico" Width="100px">0</asp:TextBox>
                     </td>
                 </tr>
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="15">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="15" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
