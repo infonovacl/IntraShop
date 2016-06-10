@@ -75,8 +75,8 @@
                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta" Selected="True"></asp:TreeNode>
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
                                          <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="~/Mantenciones/Mantenciones_DatosCliente.aspx"></asp:TreeNode>
-                                         <asp:TreeNode Text="Comentarios" Value="Comentarios"></asp:TreeNode>
-                                         <asp:TreeNode Text="Adicionales" Value="Adicionales"></asp:TreeNode>
+                                         <asp:TreeNode Text="Comentarios" Value="Comentarios" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','my_window','width=770,height=300');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('Mantenciones_Comentarios.aspx','my_window','width=300,height=300');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente" SelectAction="Expand">
                                          <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos"></asp:TreeNode>

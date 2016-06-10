@@ -32,7 +32,7 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = True
         menu.Font.Strikeout = False
-        'Session("rut") = Me.TXT_RutCliente.Text
+        Session("rut") = Me.TXT_RutCliente.Text
         'Master.Master.FindControl("TVM_Principal").e
 
     End Sub
@@ -491,6 +491,17 @@
                         Me.LBL_XPagarError.Visible = False
                         Me.Grilla_XPagar.DataSource = DataDSXPagar.Tables(0).DefaultView
                         Me.Grilla_XPagar.DataBind()
+
+                        Dim X, sumatotalcuota, sumatotalpendiente As Long
+                        For X = 0 To Me.Grilla_XPagar.Rows.Count - 1
+                            sumatotalcuota = sumatotalcuota + CType(Me.Grilla_XPagar.Rows(X).Cells(8).Text, Long)
+                            sumatotalpendiente = sumatotalpendiente + CType(Me.Grilla_XPagar.Rows(X).Cells(9).Text, Long)
+                            'sumaventaactual = sumaventaactual + CType(Me.GrillaAnioActual.Rows(X).Cells(3).Text, Long)
+                        Next
+                        Me.Grilla_XPagar.FooterRow.Cells(0).Text = "SUB-TOTAL"
+                        Me.Grilla_XPagar.FooterRow.Cells(8).Text = Format(sumatotalcuota, "###,###,##0")
+                        Me.Grilla_XPagar.FooterRow.Cells(9).Text = Format(sumatotalpendiente, "###,###,##0")
+                        ' Me.GrillaAnioActual.FooterRow.Cells(3).Text = Format(sumaventaactual, "###,###,##0")
                     End If
                 Catch EX As Exception
                     'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")

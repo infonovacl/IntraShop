@@ -81,7 +81,7 @@
                 width: 209px;
 }
 .botones{
-                width:70px;
+                width:80px;
 }
 .tabla_tabcontainer{
                 border-style: none;
@@ -90,6 +90,7 @@
                 width: 718px;                                       
 }
 .panel_tab{
+                background-color:white;
                 height:230px;
                 width:755px;
 }
@@ -100,4 +101,7 @@
 .grillaschicas_tab{
                 font-family:Arial;
                 font-size:11px;
+}
+.fondo{
+    background-color:whitesmoke;
 }

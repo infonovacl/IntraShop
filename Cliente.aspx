@@ -62,7 +62,7 @@
                         <asp:TextBox ID="TXT_CodigoTienda" runat="server" CssClass="cajastexto" Width="50px">24</asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox ID="TXT_NombreTienda" runat="server" CssClass="cajastexto" Width="210px">9608468</asp:TextBox>
+                        <asp:TextBox ID="TXT_NombreTienda" runat="server" CssClass="cajastexto" Width="210px">3817256</asp:TextBox>
                     </td>
                     <td>
                         <asp:Label ID="Label4" runat="server" Text="Folio Contrato " CssClass="etiquetas"></asp:Label>
@@ -290,7 +290,7 @@
             </table>
         </div>
         <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="15" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="8" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -1168,7 +1168,9 @@
                                 <asp:Panel ID="Panel_XPagar" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_XPagar" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowFooter="True" ShowHeaderWhenEmpty="True" Width="737px">
                                         <Columns>
-                                            <asp:BoundField DataField="column3" HeaderText="Fecha Venc." />
+                                            <asp:BoundField DataField="column3" HeaderText="Fecha Venc." DataFormatString="{0:d}" >
+                                            <FooterStyle Font-Bold="True" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column4" HeaderText="Tienda" />
                                             <asp:BoundField DataField="column5" HeaderText="Nro. Boleta" />
                                             <asp:BoundField DataField="column6" HeaderText="Nro. Cuota" />
@@ -1185,9 +1187,13 @@
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="column11" DataFormatString="{0:N0}" HeaderText="Total Cuota">
+                                            <FooterStyle Font-Bold="True" HorizontalAlign="Right" />
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="column12" DataFormatString="{0:N0}" HeaderText="Pendiente" />
+                                            <asp:BoundField DataField="column12" DataFormatString="{0:N0}" HeaderText="Pendiente" >
+                                            <FooterStyle Font-Bold="True" HorizontalAlign="Right" />
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column13" DataFormatString="{0:N0}" HeaderText="Abonado">
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
