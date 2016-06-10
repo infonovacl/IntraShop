@@ -8,7 +8,7 @@
     <title></title>
      <style type="text/css">
          .auto-style1 {
-             width: 962px;
+             width: 775px;
              height: 292px;
          }
          .auto-style3 {
@@ -19,20 +19,17 @@
              height: 34px;
          }
          .auto-style5 {
-             background-color: white;
-         }
-         .auto-style6 {
-             background-color: whitesmoke;
-             height: 302px;
+             width: 775px;
+             height: 315px;
          }
      </style>
     </head>
-<body style="width: 982px; height: 313px;">
+<body style="width: 775px; height: 313px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div class="auto-style6">
+    <div class="auto-style5">
     
-        <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="auto-style5" Height="221px" ScrollBars="Vertical" Width="954px">
-            <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="934px">
+        <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
+            <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="730px">
                 <Columns>
                     <asp:BoundField DataField="column3" HeaderText="Fecha " DataFormatString="{0:d}" >
                     <ItemStyle Width="80px" />
