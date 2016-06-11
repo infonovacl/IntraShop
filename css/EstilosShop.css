@@ -103,9 +103,23 @@
                 font-size:11px;
 }
 .fondo{
-    background-color:whitesmoke;
+                background-color:whitesmoke;
 }
 .div_popup{
-     width: 775px;
-      background-color:#C0C0C0;
+                width: 775px;
+                background-color:lightblue;
+}
+.update {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                min-height: 100%;
+                min-width: 100%;
+                background-image: url('../Imagenes/cargando_popup_negro.gif');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-color: #e4e4e6;
+                z-index: 500 !important;
+                opacity: 0.8;
+                overflow: hidden;
 }

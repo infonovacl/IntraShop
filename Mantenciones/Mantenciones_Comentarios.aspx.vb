@@ -28,11 +28,7 @@
         Catch EX As Exception
         End Try
     End Sub
-    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
-        Response.Write("<script language=""JavaScript"">javascript:window.close()</script>")
-    End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
-
         Try
             Dim DATADSComentariosPopUp As New Data.DataSet
             DATADSComentariosPopUp.Clear()
