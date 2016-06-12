@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Maestro.master" AutoEventWireup="false" CodeFile="Bienvenida.aspx.vb" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <link href="css/EstilosShop.css" rel="stylesheet" />
       <asp:Panel ID="Panel1" runat="server" style="text-align: center" Height="97px">
             <h1>

@@ -31,7 +31,7 @@
                 </div>
             </ProgressTemplate>
         </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="False">
             <ContentTemplate>
                 <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">               
                     <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="730px">
@@ -57,21 +57,19 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:TextBox ID="TXT_Comentario" runat="server" CssClass="cajastexto_tab" Width="500px"></asp:TextBox>
+                            <asp:TextBox ID="TXT_Comentario" runat="server" CssClass="cajastexto_tab" Width="500px" ViewStateMode="Enabled"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td class="auto-style4">&nbsp;&nbsp;<asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />
+                        <td class="auto-style4"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />
                         </td>
                     </tr>
                 </table>
             </ContentTemplate>
-        </asp:UpdatePanel>
-                            
-        <br />
-    
+        </asp:UpdatePanel>                            
+        <br />    
     </div>
     </form>
     </body>
