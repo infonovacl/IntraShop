@@ -32,8 +32,214 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = True
         menu.Font.Strikeout = False
-        Session("rut") = Me.TXT_RutCliente.Text
-        'Master.Master.FindControl("TVM_Principal").e
+        Session("rut") = Me.TXT_ConsultaRutCliente.Text
+        Session("dv") = Me.TXT_ConsultaDV.Text
+        Dim DataDSDatosCliente As New Data.DataSet
+        Try
+            Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
+            Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, conn)
+            DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
+            If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
+                Me.LBL_MensajeContratos.Visible = True
+                Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
+            Else
+                Me.LBL_MensajeContratos.Text = ""
+                Me.LBL_MensajeContratos.Visible = True
+                If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaNombreCompleto.Text = ""
+                Else
+                    Me.TXT_ConsultaNombreCompleto.Text = DataDSDatosCliente.Tables(0).Rows(0)(2)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDireccCalle.Text = ""
+                Else
+                    Me.TXT_ConsultaDireccCalle.Text = DataDSDatosCliente.Tables(0).Rows(0)(3)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDireccNumero.Text = ""
+                Else
+                    Me.TXT_ConsultaDireccNumero.Text = DataDSDatosCliente.Tables(0).Rows(0)(4)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDireccDepto.Text = ""
+                Else
+                    Me.TXT_ConsultaDireccDepto.Text = DataDSDatosCliente.Tables(0).Rows(0)(5)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDireccVilla.Text = ""
+                Else
+                    Me.TXT_ConsultaDireccVilla.Text = DataDSDatosCliente.Tables(0).Rows(0)(6)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDireccAltura.Text = ""
+                Else
+                    Me.TXT_ConsultaDireccAltura.Text = DataDSDatosCliente.Tables(0).Rows(0)(7)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaTeleFonoParticular.Text = ""
+                Else
+                    Me.TXT_ConsultaTeleFonoParticular.Text = DataDSDatosCliente.Tables(0).Rows(0)(8)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaTeleFonoCelular.Text = ""
+                Else
+                    Me.TXT_ConsultaTeleFonoCelular.Text = DataDSDatosCliente.Tables(0).Rows(0)(9)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(11) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaFolioContrato.Text = ""
+                Else
+                    Me.TXT_ConsultaFolioContrato.Text = DataDSDatosCliente.Tables(0).Rows(0)(11)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(14) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDiaPago.Text = ""
+                Else
+                    Me.TXT_ConsultaDiaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaLineaCredito.Text = ""
+                Else
+                    Me.TXT_ConsultaLineaCredito.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(15), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaCupoDisponible.Text = ""
+                Else
+                    Me.TXT_ConsultaCupoDisponible.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaEstadoGeneral.Text = ""
+                Else
+                    Me.TXT_ConsultaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(17)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(18) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaFechaEstadoGeneral.Text = ""
+                Else
+                    Me.TXT_ConsultaFechaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(18)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaFechaEstadoGeneral.Text = ""
+                Else
+                    Me.TXT_ConsultaFechaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(19)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaNumeroSucursal.Text = ""
+                Else
+                    Me.TXT_ConsultaNumeroSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(20)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaNombreSucursal.Text = ""
+                Else
+                    Me.TXT_ConsultaNombreSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(21)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(23) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaFechaPago.Text = ""
+                Else
+                    Me.TXT_ConsultaFechaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(23)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaMontoAPago.Text = "0"
+                Else
+                    Me.TXT_ConsultaMontoAPago.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(24), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaPagosPeriodo.Text = "0"
+                Else
+                    Me.TXT_ConsultaPagosPeriodo.Text = DataDSDatosCliente.Tables(0).Rows(0)(25)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaMontoAPago.Text = "0"
+                Else
+                    Me.TXT_ConsultaMontoAPago.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(26), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(27) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaDiasMora.Text = "0"
+                Else
+                    Me.TXT_ConsultaDiasMora.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(27), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaTotalDeuda.Text = "0"
+                Else
+                    Me.TXT_ConsultaTotalDeuda.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(28), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
+                    Me.LBL_MensajeAvance.Text = ""
+                Else
+                    Me.LBL_MensajeAvance.Text = DataDSDatosCliente.Tables(0).Rows(0)(29)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(30) Is System.DBNull.Value Then
+                    Me.LBL_MensajeContratos.Text = ""
+                Else
+                    Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(30)
+                End If
+                '******************************CUOTAS 
+                If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then
+                    Me.LBL_Vencimiento1.Text = ""
+                Else
+                    Me.LBL_Vencimiento1.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(32) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaValorVencimientoCuota1.Text = "0"
+                Else
+                    Me.TXT_ConsultaValorVencimientoCuota1.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(32), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then
+                    Me.LBL_Vencimiento2.Text = ""
+                Else
+                    Me.LBL_Vencimiento2.Text = DataDSDatosCliente.Tables(0).Rows(0)(33)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaValorVencimientoCuota2.Text = "0"
+                Else
+                    Me.TXT_ConsultaValorVencimientoCuota2.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(34), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then
+                    Me.LBL_Vencimiento3.Text = ""
+                Else
+                    Me.LBL_Vencimiento3.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaValorVencimientoCuota3.Text = "0"
+                Else
+                    Me.TXT_ConsultaValorVencimientoCuota3.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(37) Is System.DBNull.Value Then
+                    Me.LBL_Vencimiento4.Text = ""
+                Else
+                    Me.LBL_Vencimiento4.Text = DataDSDatosCliente.Tables(0).Rows(0)(37)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(38) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaValorVencimientoCuota4.Text = "0"
+                Else
+                    Me.TXT_ConsultaValorVencimientoCuota4.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(38), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(39) Is System.DBNull.Value Then
+                    Me.LBL_Vencimiento5.Text = ""
+                Else
+                    Me.LBL_Vencimiento5.Text = DataDSDatosCliente.Tables(0).Rows(0)(39)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(40) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaValorVencimientoCuota5.Text = "0"
+                Else
+                    Me.TXT_ConsultaValorVencimientoCuota5.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(40), Integer), "###,###,##0")
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(41) Is System.DBNull.Value Then
+                    Me.LBL_Vencimiento6.Text = ""
+                Else
+                    Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(41)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(42) Is System.DBNull.Value Then
+                    Me.TXT_ConsultaValorVencimientoCuota6.Text = "0"
+                Else
+                    Me.TXT_ConsultaValorVencimientoCuota6.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(42), Integer), "###,###,##0")
+                End If
+                'If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then
+                ' Me.LBL_Vencimiento6.Text = ""
+                ' Else
+                ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
+                ' End If
+            End If
+
+        Catch ex As Exception
+        End Try
 
     End Sub
     Protected Sub ProcesaTab(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
@@ -47,7 +253,7 @@
                 Dim DataDSEstados As New Data.DataSet
                 Try
                     DataDSEstados.Clear()
-                    Dim STREstados As String = "execute procedure procw_cons_estados ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STREstados As String = "execute procedure procw_cons_estados ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstados, conn)
                     DATAEstados.Fill(DataDSEstados, "PRUEBA")
                     If DataDSEstados.Tables(0).Rows(0)(0) = 1 Then
@@ -66,7 +272,7 @@
             Case 1
                 Dim DataDSLaboral As New Data.DataSet
                 Try
-                    Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, conn)
                     DATALaboral.Fill(DataDSLaboral, "PRUEBA")
                     If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
@@ -124,7 +330,7 @@
                 Dim DataDSContratos As New Data.DataSet
                 Try
                     DataDSContratos.Clear()
-                    Dim STRContratos As String = "execute procedure procw_cons_contrato ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRContratos As String = "execute procedure procw_cons_contrato ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAContratos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRContratos, conn)
                     DATAContratos.Fill(DataDSContratos, "PRUEBA")
                     If DataDSContratos.Tables(0).Rows(0)(0) = 1 Then
@@ -144,7 +350,7 @@
                 Dim DataDSModificaciones As New Data.DataSet
                 Try
                     DataDSModificaciones.Clear()
-                    Dim STRModificaciones As String = "execute procedure procw_cons_modif ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRModificaciones As String = "execute procedure procw_cons_modif ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAModificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaciones, conn)
                     DATAModificaciones.Fill(DataDSModificaciones, "PRUEBA")
                     Me.Grilla_Modificaciones.DataSource = DataDSModificaciones.Tables(0).DefaultView
@@ -156,7 +362,7 @@
                 Dim DataDSDescuentos As New Data.DataSet
                 Try
                     DataDSDescuentos.Clear()
-                    Dim STRDescuentos As String = "execute procedure procw_cons_descto ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRDescuentos As String = "execute procedure procw_cons_descto ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATADescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDescuentos, conn)
                     DATADescuentos.Fill(DataDSDescuentos, "PRUEBA")
                     If DataDSDescuentos.Tables(0).Rows(0)(0) = 1 Then
@@ -180,7 +386,7 @@
                 Dim DataDSSolicitudes As New Data.DataSet
                 Try
                     DataDSSolicitudes.Clear()
-                    Dim STRSolicitudes As String = "execute procedure procw_cons_solic ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRSolicitudes As String = "execute procedure procw_cons_solic ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATASolicitudes As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitudes, conn)
                     DATASolicitudes.Fill(DataDSSolicitudes, "PRUEBA")
                     If DataDSSolicitudes.Tables(0).Rows(0)(0) = 1 Then
@@ -200,7 +406,7 @@
                 Dim DataDSUltimosAbonos As New Data.DataSet
                 Try
                     DataDSUltimosAbonos.Clear()
-                    Dim STRUltimosAbonos As String = "execute procedure procw_cons_resumen1 ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRUltimosAbonos As String = "execute procedure procw_cons_resumen1 ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAUltimosAbonos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUltimosAbonos, conn)
                     DATAUltimosAbonos.Fill(DataDSUltimosAbonos, "PRUEBA")
                     If DataDSUltimosAbonos.Tables(0).Rows(0)(0) = 1 Then
@@ -219,7 +425,7 @@
                 Dim DataDSResumenClasificaciones As New Data.DataSet
                 Try
                     DataDSResumenClasificaciones.Clear()
-                    Dim STRResumenClasificaciones As String = "execute procedure procw_cons_resumen2 ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRResumenClasificaciones As String = "execute procedure procw_cons_resumen2 ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAResumenClasificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenClasificaciones, conn)
                     DATAResumenClasificaciones.Fill(DataDSResumenClasificaciones, "PRUEBA")
                     If DataDSResumenClasificaciones.Tables(0).Rows(0)(0) = 1 Then
@@ -246,7 +452,7 @@
                 TXT_ResumenTotalCuentaAl.Text = ""
                 Try
                     DataDSResumenOtros.Clear()
-                    Dim STRResumenOtros As String = "execute procedure procw_cons_resumen3 ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRResumenOtros As String = "execute procedure procw_cons_resumen3 ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAResumenOtros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenOtros, conn)
                     DATAResumenOtros.Fill(DataDSResumenOtros, "PRUEBA")
                     If DataDSResumenOtros.Tables(0).Rows(0)(0) = 1 Then
@@ -301,7 +507,7 @@
                 Dim DataDSComentarios As New Data.DataSet
                 Try
                     DataDSComentarios.Clear()
-                    Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, conn)
                     DATAComentarios.Fill(DataDSComentarios, "PRUEBA")
                     If DataDSComentarios.Tables(0).Rows(0)(0) = 1 Then
@@ -321,7 +527,7 @@
                 Dim DataDSPagos As New Data.DataSet
                 Try
                     DataDSPagos.Clear()
-                    Dim STRPagos As String = "execute procedure procw_cons_pagos ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRPagos As String = "execute procedure procw_cons_pagos ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAPagos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRPagos, conn)
                     DATAPagos.Fill(DataDSPagos, "PRUEBA")
                     If DataDSPagos.Tables(0).Rows(0)(0) = 1 Then
@@ -341,7 +547,7 @@
                 Dim DataDSVentas As New Data.DataSet
                 Try
                     DataDSVentas.Clear()
-                    Dim STRVentas As String = "execute procedure procw_cons_ventas ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRVentas As String = "execute procedure procw_cons_ventas ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATAVentas As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRVentas, conn)
                     DATAVentas.Fill(DataDSVentas, "PRUEBA")
                     If DataDSVentas.Tables(0).Rows(0)(0) = 1 Then
@@ -365,7 +571,7 @@
                 Dim DataDSRepacta As New Data.DataSet
                 Try
                     DataDSRepacta.Clear()
-                    Dim STRRepacta As String = "execute procedure procw_cons_repacta ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim STRRepacta As String = "execute procedure procw_cons_repacta ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                     Dim DATARepacta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRepacta, conn)
                     DATARepacta.Fill(DataDSRepacta, "PRUEBA")
                     If DataDSRepacta.Tables(0).Rows(0)(0) = 1 Then
@@ -385,7 +591,7 @@
             Case 12
                 Dim DataDSDeuda As New Data.DataSet
                 Try
-                    Dim STRDeuda As String = "execute procedure procw_cons_deuda ('" & Me.TXT_RutCliente.Text & "' )"
+                    Dim STRDeuda As String = "execute procedure procw_cons_deuda ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                     Dim DATADeuda As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDeuda, conn)
                     DATADeuda.Fill(DataDSDeuda, "PRUEBA")
                     If DataDSDeuda.Tables(0).Rows(0)(0) = 1 Then
@@ -479,7 +685,7 @@
                 Dim DataDSXPagar As New Data.DataSet
                 Try
                     DataDSXPagar.Clear()
-                    Dim STRXPagar As String = "execute procedure procw_cons_porpagar ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim STRXPagar As String = "execute procedure procw_cons_porpagar ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                     Dim DATAXPagar As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRXPagar, conn)
                     DATAXPagar.Fill(DataDSXPagar, "PRUEBA")
                     If DataDSXPagar.Tables(0).Rows(0)(0) = 1 Then
@@ -510,7 +716,7 @@
                 Dim DataDSSeguros As New Data.DataSet
                 Try
                     DataDSSeguros.Clear()
-                    Dim STRSeguros As String = "execute procedure procw_cons_seguro ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim STRSeguros As String = "execute procedure procw_cons_seguro ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                     Dim DATASeguros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSeguros, conn)
                     DATASeguros.Fill(DataDSSeguros, "PRUEBA")
                     If DataDSSeguros.Tables(0).Rows(0)(0) = 1 Then
@@ -530,7 +736,7 @@
                 Dim DataDSSBIF As New Data.DataSet
                 Try
                     DataDSSBIF.Clear()
-                    Dim STRSBIF As String = "execute procedure procw_cons_sbif ('" & Me.TXT_RutCliente.Text & "')"
+                    Dim STRSBIF As String = "execute procedure procw_cons_sbif ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                     Dim DATASBIF As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSBIF, conn)
                     DATASBIF.Fill(DataDSSBIF, "PRUEBA")
                     If DataDSSBIF.Tables(0).Rows(0)(0) = 1 Then
@@ -558,7 +764,7 @@
             IndiceGrillaEstados = Me.Grilla_Estados.SelectedIndex.ToString()
             FechaEstado = Me.Grilla_Estados.Rows(IndiceGrillaEstados).Cells(1).Text
             CodigoEstadoNuevo = Me.Grilla_Estados.Rows(IndiceGrillaEstados).Cells(3).Text
-            Dim STRSubEstados As String = "execute procedure procw_cons_estados_det ('" & Me.TXT_RutCliente.Text & "','" & FechaEstado & "'," & CodigoEstadoNuevo & " )"
+            Dim STRSubEstados As String = "execute procedure procw_cons_estados_det ('" & Me.TXT_ConsultaRutCliente.Text & "','" & FechaEstado & "'," & CodigoEstadoNuevo & " )"
             Dim DATASubEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSubEstados, conn)
             DATASubEstados.Fill(DataDSSubEstados, "PRUEBA")
             If DataDSSubEstados.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
@@ -596,7 +802,7 @@
             FechaDescuento = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(4).Text
             NumeroComprobante = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(3).Text
 
-            Dim STRDetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_RutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
+            Dim STRDetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_ConsultaRutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
             Dim DATADetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetDescuentos, conn)
             DATADetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
             If DataDSDetDescuentos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
@@ -750,7 +956,7 @@
             NCaja = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(5).Text
             FechaVenta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(3).Text
             NBoleta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(6).Text
-            Dim STRDetVenta As String = "execute procedure procw_cons_ventas_det (" & Me.TXT_RutCliente.Text & "," & CodigoSucursal & "," & CodigoNegocio & "," & NCaja & ",'" & FechaVenta & "'," & NBoleta & ")"
+            Dim STRDetVenta As String = "execute procedure procw_cons_ventas_det (" & Me.TXT_ConsultaRutCliente.Text & "," & CodigoSucursal & "," & CodigoNegocio & "," & NCaja & ",'" & FechaVenta & "'," & NBoleta & ")"
             Dim DATADetVenta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetVenta, conn)
             DATADetVenta.Fill(DataDSDetVenta, "PRUEBA")
             If DataDSDetVenta.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 

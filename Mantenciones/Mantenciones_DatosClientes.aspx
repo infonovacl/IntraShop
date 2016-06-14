@@ -65,9 +65,9 @@
                                         <asp:Label ID="Label15" runat="server" CssClass="etiquetas_popup" Text="Tienda Origen"></asp:Label>
                                     </td>
                                     <td colspan="2">
-                                        <asp:Label ID="Label13" runat="server" Text="NUMERO FOLIO CONTRATO"></asp:Label>
+                                        <asp:Label ID="Label13" runat="server" Text="NUMERO FOLIO CONTRATO" CssClass="etiquetasimportante"></asp:Label>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <asp:Label ID="LBL_FolioContrato" runat="server" Text="0"></asp:Label>
+                                        <asp:Label ID="LBL_FolioContrato" runat="server" Text="0" CssClass="etiquetasimportante"></asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -92,9 +92,9 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_Rut" runat="server" CssClass="cajastexto_popup"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_Rut" runat="server" CssClass="cajastexto_popup" ReadOnly="True"></asp:TextBox>
                                         &nbsp;-
-                                        <asp:TextBox ID="TXT_Dv" runat="server" CssClass="cajastexto_popup" Width="20px"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_Dv" runat="server" CssClass="cajastexto_popup" Width="20px" ReadOnly="True"></asp:TextBox>
                                     </td>
                                     <td colspan="2">
                                         <asp:TextBox ID="TXT_Nombres" runat="server" CssClass="cajastexto_popup" Width="300px"></asp:TextBox>
@@ -400,7 +400,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:DropDownList ID="DDL_DiaPago" runat="server" CssClass="dropdown_tab" DataSourceID="SqlDataSource1DiaPago" DataTextField="Column4" DataValueField="Column3" Width="140px">
+                                        <asp:DropDownList ID="DDL_DiaPago" runat="server" CssClass="dropdown_tab" Width="140px">
                                         </asp:DropDownList>
                                     </td>
                                     <td colspan="2">
@@ -421,8 +421,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="height: 24px">
-                                        <asp:SqlDataSource ID="SqlDataSource1DiaPago" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_FamilyShop %>" ProviderName="<%$ ConnectionStrings:ConnectionString_FamilyShop.ProviderName %>" SelectCommand="execute procedure procw_listador01 ('DPAG')"></asp:SqlDataSource>
-                                    </td>
+                                        &nbsp;</td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="text-align: center">&nbsp;</td>

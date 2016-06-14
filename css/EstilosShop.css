@@ -1,6 +1,6 @@
 ﻿.etiquetas{ 
                 font-family:Arial;
-                font-size:10px;
+                font-size:11px;
                 font-weight:bold;
                 color:black;
                 text-align: right;
@@ -32,6 +32,13 @@
                 color:red;         
                 text-transform: uppercase;      
 }
+.etiquetasimportante{ 
+                font-family:Arial;
+                font-size:14px;
+                font-weight:bold;               
+                text-transform: uppercase;      
+}
+
 .etiquetasmensajeerror {
                 font-family:Arial;
                 font-size:10px;

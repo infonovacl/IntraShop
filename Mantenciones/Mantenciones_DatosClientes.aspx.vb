@@ -4,8 +4,11 @@
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
+            Me.TXT_Rut.Text = Session("rut")
+            Me.TXT_Dv.Text = Session("dv")
             LlenaDDLEstadoCivil()
             LlenaDDLRegion()
+            LlenaDDLDiaPago()
             ObtieneDatosCliente()
         End If
     End Sub
@@ -58,6 +61,20 @@
             Me.DDL_EstadoCivil.DataValueField = DataDSEstadoCivil.Tables(0).Columns("column3").ToString()
             Me.DDL_EstadoCivil.DataSource = DataDSEstadoCivil.Tables(0)
             Me.DDL_EstadoCivil.DataBind()
+        Catch EX As Exception
+            'MsgBox(EX)
+        End Try
+    End Sub
+    Private Sub LlenaDDLDiaPago()
+        Dim DataDSDiaPago As New Data.DataSet
+        Try
+            Dim STRDiaPago As String = "execute procedure procw_listador01 ('DPAG')"
+            Dim DATADiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDiaPago, conn)
+            DATADiaPago.Fill(DataDSDiaPago, "PRUEBA")
+            Me.DDL_DiaPago.DataTextField = DataDSDiaPago.Tables(0).Columns("column4").ToString()
+            Me.DDL_DiaPago.DataValueField = DataDSDiaPago.Tables(0).Columns("column3").ToString()
+            Me.DDL_DiaPago.DataSource = DataDSDiaPago.Tables(0)
+            Me.DDL_DiaPago.DataBind()
         Catch EX As Exception
             'MsgBox(EX)
         End Try
@@ -247,8 +264,12 @@
                 Else
                     Me.TXT_EmpleadorCargo.Text = DataDSDatosCliente.Tables(0).Rows(0)(32)
                 End If
-                'DIA DE PAGO
 
+                'If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then    'DIA DE PAGO
+                ' Me.DDL_DiaPago.SelectedValue = 0                                          'en listado hay 10-20-30 , pero en base hay con 5, 15 , tira error al no encontrar dia
+                ' Else
+                ' Me.DDL_DiaPago.SelectedValue = DDL_DiaPago.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(33)).Value
+                ' End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'cargo empleador
                     Me.TXT_LugarEnvioEC.Text = ""
                 Else
@@ -273,5 +294,11 @@
     End Sub
     Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
         LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
+    End Sub
+    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
+
+    End Sub
+    Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
+
     End Sub
 End Class
