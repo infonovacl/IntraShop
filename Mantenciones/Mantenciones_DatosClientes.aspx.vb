@@ -3,13 +3,68 @@
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         If Not IsPostBack Then
+            LlenaDDLEstadoCivil()
+            LlenaDDLRegion()
             ObtieneDatosCliente()
-        Else
-            MsgBox("PRIMERA CARGA")
         End If
-
+    End Sub
+    Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal comuna As Integer)
+        Dim DataDSComuna As New Data.DataSet
+        DataDSComuna.Clear()
+        Try
+            Dim STRComuna As String = "execute procedure procw_lista_comunas (" & region & ")"
+            Dim DATAComuna As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComuna, conn)
+            DATAComuna.Fill(DataDSComuna, "PRUEBA")
+            Me.DDL_ComunaCliente.DataTextField = DataDSComuna.Tables(0).Columns("column4").ToString()
+            Me.DDL_ComunaCliente.DataValueField = DataDSComuna.Tables(0).Columns("column3").ToString()
+            Me.LBL_MaximoDigitoTelefono.Text = DataDSComuna.Tables(0).Rows(0)(4)
+            Me.DDL_ComunaCliente.DataSource = DataDSComuna.Tables(0)
+            Me.DDL_ComunaCliente.DataBind()
+            If comuna > 0 Then
+                Me.DDL_ComunaCliente.SelectedValue = DDL_ComunaCliente.Items.FindByValue(comuna).Value
+            End If
+        Catch EX As Exception
+            MsgBox(EX)
+            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
+        End Try
+    End Sub
+    Private Sub LlenaDDLEstadoCivil()
+        Dim DataDSEstadoCivil As New Data.DataSet
+        Try
+            Dim STREstadoCivil As String = "execute procedure procw_listador01 ('ECIV')"
+            Dim DATAEstadoCivil As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstadoCivil, conn)
+            DATAEstadoCivil.Fill(DataDSEstadoCivil, "PRUEBA")
+            Me.DDL_EstadoCivil.DataTextField = DataDSEstadoCivil.Tables(0).Columns("column4").ToString()
+            Me.DDL_EstadoCivil.DataValueField = DataDSEstadoCivil.Tables(0).Columns("column3").ToString()
+            Me.DDL_EstadoCivil.DataSource = DataDSEstadoCivil.Tables(0)
+            Me.DDL_EstadoCivil.DataBind()
+        Catch EX As Exception
+            'MsgBox(EX)
+        End Try
+    End Sub
+    Private Sub LlenaDDLRegion()
+        Dim DataDSRegion As New Data.DataSet
+        Try
+            Dim STRRegion As String = "execute procedure procw_listador01 ('REGI')"
+            Dim DATARegion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRegion, conn)
+            DATARegion.Fill(DataDSRegion, "PRUEBA")
+            Me.DDL_RegionCliente.DataTextField = DataDSRegion.Tables(0).Columns("column4").ToString()
+            Me.DDL_RegionCliente.DataValueField = DataDSRegion.Tables(0).Columns("column3").ToString()
+            Me.DDL_RegionCliente.DataSource = DataDSRegion.Tables(0)
+            Me.DDL_RegionCliente.DataBind()
+            Me.DDL_ReferenciaRegion.DataTextField = DataDSRegion.Tables(0).Columns("column4").ToString()
+            Me.DDL_ReferenciaRegion.DataValueField = DataDSRegion.Tables(0).Columns("column3").ToString()
+            Me.DDL_ReferenciaRegion.DataSource = DataDSRegion.Tables(0)
+            Me.DDL_ReferenciaRegion.DataBind()
+            Me.DDL_EmpleadorRegion.DataTextField = DataDSRegion.Tables(0).Columns("column4").ToString()
+            Me.DDL_EmpleadorRegion.DataValueField = DataDSRegion.Tables(0).Columns("column3").ToString()
+            Me.DDL_EmpleadorRegion.DataSource = DataDSRegion.Tables(0)
+            Me.DDL_EmpleadorRegion.DataBind()
+        Catch EX As Exception
+            MsgBox(EX)
+            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
+        End Try
     End Sub
     Private Sub ObtieneDatosCliente()
         Dim DataDSDatosCliente As New Data.DataSet
@@ -19,11 +74,9 @@
             Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, conn)
             DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
-                ' Me.TBL_DatosCliente.Visible = False
                 Me.LBL_DatosClienteError.Visible = True
                 Me.LBL_DatosClienteError.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                '  Me.TBL_DatosCliente.Visible = True
                 Me.LBL_DatosClienteError.Visible = False
                 If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.TXT_TiendaOrigen.Text = ""
@@ -63,11 +116,8 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then 'estado civil                  
                     Me.DDL_EstadoCivil.SelectedValue = 0
                 Else
-                    ' DDL_EstadoCivil.ClearSelection()
-                    'Dim estadocivil As String = DataDSDatosCliente.Tables(0).Rows(0)(9)
-                    'DDL_EstadoCivil.SelectedValue = DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)).Value
+                    Me.DDL_EstadoCivil.SelectedValue = DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)).Value
                     'Me.DDL_EstadoCivil.SelectedIndex = DDL_EstadoCivil.Items.IndexOf(DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)))
-                    ' Me.DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)).Selected = True
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     Me.TXT_CalleParticular.Text = ""
@@ -89,7 +139,19 @@
                 Else
                     Me.TXT_VillaPoblacion.Text = DataDSDatosCliente.Tables(0).Rows(0)(13)
                 End If
-                'REGION COMUNA CLIENTE
+                If DataDSDatosCliente.Tables(0).Rows(0)(14) Is System.DBNull.Value Then 'altura/calle
+                    Me.TXT_AlturaCalle.Text = ""
+                Else
+                    Me.TXT_AlturaCalle.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then 'REGION CLIENTE
+                    Me.DDL_RegionCliente.SelectedValue = 0
+                Else
+                    Me.DDL_RegionCliente.SelectedValue = DDL_RegionCliente.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(15)).Value
+                End If
+                '*************************LLENA COMUNA 
+                LlenaDDLComuna(DataDSDatosCliente.Tables(0).Rows(0)(15), DataDSDatosCliente.Tables(0).Rows(0)(16))
+                '****************************************
                 If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then 'n telefono
                     Me.TXT_TelefonoFijo.Text = ""
                 Else
@@ -116,22 +178,66 @@
                 Else
                     Me.TXT_ReferenciaTelefono.Text = DataDSDatosCliente.Tables(0).Rows(0)(23)
                 End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then 'nombre empleador
+                    Me.TXT_EmpleadorNombre.Text = ""
+                Else
+                    Me.TXT_EmpleadorNombre.Text = DataDSDatosCliente.Tables(0).Rows(0)(24)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then 'direccion empleador
+                    Me.TXT_EmpleadorDireccion.Text = ""
+                Else
+                    Me.TXT_EmpleadorDireccion.Text = DataDSDatosCliente.Tables(0).Rows(0)(25)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then 'numero direccion empleador
+                    Me.TXT_EmpleadorNumero.Text = ""
+                Else
+                    Me.TXT_EmpleadorNumero.Text = DataDSDatosCliente.Tables(0).Rows(0)(26)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(27) Is System.DBNull.Value Then 'oficina/depto empleador
+                    Me.TXT_EmpleadorOficina.Text = ""
+                Else
+                    Me.TXT_EmpleadorOficina.Text = DataDSDatosCliente.Tables(0).Rows(0)(27)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Then 'fono empleador
+                    Me.TXT_EmpleadorTelefono.Text = ""
+                Else
+                    Me.TXT_EmpleadorOficina.Text = DataDSDatosCliente.Tables(0).Rows(0)(28)
+                End If
+                'REGION COMUNA EMPLEADOR
+                If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then 'fono empleador
+                    Me.TXT_EmpleadorTelefono.Text = ""
+                Else
+                    Me.TXT_EmpleadorTelefono.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
+                End If
 
-                ' Me.DDL_Tienda.Items.FindByText(Me.GrillaListado.Rows(Me.GrillaListado.SelectedIndex.ToString()).Cells(3).Text).Selected = True
-                ' If DataDSDatosCliente.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
-                ' Me.TXT_DatosClienteAntiguedad.Text = "0"
-                ' Else
-                ' Me.TXT_DatosClienteAntiguedad.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(8), Integer), "#,##0")
-                ' End If
-                '     If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
-                '     Me.TXT_DatosClienteIngresos.Text = "0"
-                '     Else
-                '     Me.TXT_DatosClienteIngresos.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(9), Integer), "###,###,##0")
-                'End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(32) Is System.DBNull.Value Then 'cargo empleador
+                    Me.TXT_EmpleadorCargo.Text = ""
+                Else
+                    Me.TXT_EmpleadorCargo.Text = DataDSDatosCliente.Tables(0).Rows(0)(32)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then 'anexo empleador
+                    Me.TXT_EmpleadorAnexo.Text = ""
+                Else
+                    Me.TXT_EmpleadorAnexo.Text = DataDSDatosCliente.Tables(0).Rows(0)(33)
+                End If
+                'DIA DE PAGO
+                If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'cargo empleador
+                    Me.TXT_LugarEnvioEC.Text = ""
+                Else
+                    Me.TXT_LugarEnvioEC.Text = DataDSDatosCliente.Tables(0).Rows(0)(34)
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'cargo empleador
+                    Me.TXT_CorreoElectronico.Text = ""
+                Else
+                    Me.TXT_CorreoElectronico.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
+                End If
             End If
         Catch EX As Exception
-            'MsgBox(EX)
+            MsgBox(EX)
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
         End Try
+    End Sub
+    Protected Sub DDL_RegionCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_RegionCliente.SelectedIndexChanged
+        LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0")
     End Sub
 End Class
