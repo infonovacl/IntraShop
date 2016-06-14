@@ -120,7 +120,7 @@
                 background-color:whitesmoke;
 }
 .div_popup{
-                width: 775px;
+                width: 765px;
                 background-color:lightblue;
 }
 .update {
@@ -136,4 +136,16 @@
                 z-index: 500 !important;
                 opacity: 0.8;
                 overflow: hidden;
+}
+.dropdown_tab{
+                font-family:Arial;
+                font-size:12px;
+}
+.radiobuton_tab{
+                font-family:Arial;
+                font-size:12px;
+}
+.update_panel{
+             width: 100%;
+			 left: 5px;
 }

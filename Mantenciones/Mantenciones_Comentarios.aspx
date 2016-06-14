@@ -8,7 +8,7 @@
     <title>Sistema Web - Comentarios</title>
      <style type="text/css">      
          .auto-style1 {
-             width: 775px;
+             width: 760px;
              height: 236px;
          }
          .auto-style3 {
@@ -18,11 +18,16 @@
              text-align: center;
              height: 34px;
          }
+         .auto-style5 {
+             width: 775px;
+             background-color: lightblue;
+             height: 360px;
+         }
          </style>
     </head>
-<body style="width: 775px; height: 313px;">
+<body style="width: 761px; height: 313px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div class="div_popup">
+    <div class="auto-style5">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
                     </asp:ScriptManager>
         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
@@ -48,7 +53,7 @@
                         </Columns>
                     </asp:GridView>
                 </asp:Panel>
-                <asp:Label ID="LBL_ComentariosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                <asp:Label ID="LBL_ComentariosError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <table class="auto-style3">
                     <tr>
                         <td>
@@ -62,7 +67,9 @@
                     </tr>
                     <tr>
                         <td class="auto-style4"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />
                         </td>
                     </tr>
