@@ -348,7 +348,8 @@
                                         </asp:DropDownList>
                                     </td>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_EmpleadorComuna" runat="server" CssClass="cajastexto_popup" Width="300px"></asp:TextBox>
+                                        <asp:DropDownList ID="DDL_EmpleadorComuna" runat="server" CssClass="dropdown_tab" Width="250px">
+                                        </asp:DropDownList>
                                     </td>
                                 </tr>
                                 <tr>
