@@ -27,7 +27,7 @@
 }
 .etiquetasmensaje{ 
                 font-family:Arial;
-                font-size:14px;
+                font-size:12px;
                 font-weight:bold;
                 color:red;         
                 text-transform: uppercase;      
@@ -48,21 +48,21 @@
 }
 .cajastextoparametro{
                 font-family:Arial;
-                font-size:10px;
-                height:10px;
+                font-size:12px;
+                height:12px;
                 font-weight:bold;
                 text-transform: uppercase;               
 }
 .cajastexto{
                 font-family:Arial;
-                font-size:10px;
+                font-size:11px;
                 height:10px;
                 text-transform: uppercase;
                 color:black;
  }
 .cajastextonumerico{
                 font-family:Arial;
-                font-size:10px;
+                font-size:11px;
                 text-transform: uppercase;
                 text-align:right;
                 color:black;

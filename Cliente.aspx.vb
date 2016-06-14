@@ -28,6 +28,7 @@
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
         'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
         ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
+        Me.Tab_Consultas.ActiveTabIndex = 16
         Dim menu As TreeView
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = True
@@ -42,7 +43,11 @@
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_MensajeContratos.Visible = True
                 Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.Tab_Consultas.Enabled = False
+                Me.Tab_Consultas.ActiveTabIndex = 16
             Else
+                Me.Tab_Consultas.Enabled = True
+                Me.Tab_Consultas.ActiveTabIndex = 16
                 Me.LBL_MensajeContratos.Text = ""
                 Me.LBL_MensajeContratos.Visible = True
                 If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
@@ -172,7 +177,7 @@
                 End If
                 '******************************CUOTAS 
                 If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento1.Text = ""
+                    Me.LBL_Vencimiento1.Text = "."
                 Else
                     Me.LBL_Vencimiento1.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
                 End If
@@ -182,7 +187,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota1.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(32), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento2.Text = ""
+                    Me.LBL_Vencimiento2.Text = " "
                 Else
                     Me.LBL_Vencimiento2.Text = DataDSDatosCliente.Tables(0).Rows(0)(33)
                 End If
@@ -192,7 +197,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota2.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(34), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento3.Text = ""
+                    Me.LBL_Vencimiento3.Text = " "
                 Else
                     Me.LBL_Vencimiento3.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
                 End If
@@ -202,7 +207,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota3.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(37) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento4.Text = ""
+                    Me.LBL_Vencimiento4.Text = " "
                 Else
                     Me.LBL_Vencimiento4.Text = DataDSDatosCliente.Tables(0).Rows(0)(37)
                 End If
@@ -212,7 +217,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota4.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(38), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(39) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento5.Text = ""
+                    Me.LBL_Vencimiento5.Text = " "
                 Else
                     Me.LBL_Vencimiento5.Text = DataDSDatosCliente.Tables(0).Rows(0)(39)
                 End If
@@ -222,7 +227,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota5.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(40), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(41) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento6.Text = ""
+                    Me.LBL_Vencimiento6.Text = " "
                 Else
                     Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(41)
                 End If
@@ -697,7 +702,6 @@
                         Me.LBL_XPagarError.Visible = False
                         Me.Grilla_XPagar.DataSource = DataDSXPagar.Tables(0).DefaultView
                         Me.Grilla_XPagar.DataBind()
-
                         Dim X, sumatotalcuota, sumatotalpendiente As Long
                         For X = 0 To Me.Grilla_XPagar.Rows.Count - 1
                             sumatotalcuota = sumatotalcuota + CType(Me.Grilla_XPagar.Rows(X).Cells(8).Text, Long)
@@ -974,7 +978,6 @@
                 Me.Panel_VentasDetalle.Visible = True
             End If
         Catch EX As Exception
-
         End Try
     End Sub
     Protected Sub BTN_VentasDetalle_Click(sender As Object, e As EventArgs) Handles BTN_VentasDetalle.Click
@@ -982,5 +985,48 @@
         Me.Panel_VentasDetalle.Visible = False
         Me.Panel_Ventas.Visible = True
         Me.BTN_VentasDetalle.Visible = False
+    End Sub
+    Protected Sub BTN_Limpiar_Click(sender As Object, e As EventArgs) Handles BTN_Limpiar.Click
+        Me.TXT_ConsultaNombreCompleto.Text = ""
+        Me.TXT_ConsultaDireccCalle.Text = ""
+        Me.TXT_ConsultaDireccNumero.Text = ""
+        Me.TXT_ConsultaDireccDepto.Text = ""
+        Me.TXT_ConsultaDireccVilla.Text = ""
+        Me.TXT_ConsultaDireccAltura.Text = ""
+        Me.TXT_ConsultaTeleFonoParticular.Text = ""
+        Me.TXT_ConsultaTeleFonoCelular.Text = ""
+        Me.TXT_ConsultaFolioContrato.Text = ""
+        Me.TXT_ConsultaDiaPago.Text = ""
+        Me.TXT_ConsultaLineaCredito.Text = ""
+        Me.TXT_ConsultaCupoDisponible.Text = ""
+        Me.TXT_ConsultaEstadoGeneral.Text = ""
+        Me.TXT_ConsultaFechaEstadoGeneral.Text = ""
+        Me.TXT_ConsultaFechaEstadoGeneral.Text = ""
+        Me.TXT_ConsultaNumeroSucursal.Text = ""
+        Me.TXT_ConsultaNombreSucursal.Text = ""
+        Me.TXT_ConsultaFechaPago.Text = ""
+        Me.TXT_ConsultaMontoAPago.Text = "0"
+        Me.TXT_ConsultaPagosPeriodo.Text = "0"
+        Me.TXT_ConsultaMontoAPago.Text = "0"
+        Me.TXT_ConsultaDiasMora.Text = "0"
+        Me.TXT_ConsultaTotalDeuda.Text = "0"
+        Me.LBL_MensajeAvance.Text = ""
+        Me.LBL_MensajeContratos.Text = ""
+        Me.LBL_Vencimiento1.Text = "."
+        Me.TXT_ConsultaValorVencimientoCuota1.Text = "0"
+        Me.LBL_Vencimiento2.Text = " "
+        Me.TXT_ConsultaValorVencimientoCuota2.Text = "0"
+        Me.LBL_Vencimiento3.Text = " "
+        Me.TXT_ConsultaValorVencimientoCuota3.Text = "0"
+        Me.LBL_Vencimiento4.Text = " "
+        Me.TXT_ConsultaValorVencimientoCuota4.Text = "0"
+        Me.LBL_Vencimiento5.Text = " "
+        Me.LBL_Vencimiento6.Text = " "
+        Me.TXT_ConsultaValorVencimientoCuota6.Text = "0"
+        Me.Tab_Consultas.Enabled = False
+        Me.Tab_Consultas.ActiveTabIndex = 16
+        Me.TXT_ConsultaRutCliente.Text = ""
+        Me.TXT_ConsultaDV.Text = ""
+
     End Sub
 End Class

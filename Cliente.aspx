@@ -27,15 +27,20 @@
     <div>   
         <table class="tablas">
             <tr>
-                <td class="auto-style3" style="width: 2997px; height: 1px;">
-                    <asp:Label ID="Label1" runat="server" Text="Rut Cliente :" CssClass="cajastextoparametro"></asp:Label>
+                <td class="auto-style3" style="width: 2997px; ">
+                    <asp:Label ID="Label1" runat="server" Text="Rut Cliente :" CssClass="etiquetas"></asp:Label>
+                    &nbsp;&nbsp;
                     <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px">9608468</asp:TextBox>
-                    <asp:Label ID="Label26" runat="server" Text="-" CssClass="cajastextoparametro"></asp:Label>
+                    &nbsp;<asp:Label ID="Label26" runat="server" Text="-" CssClass="etiquetas"></asp:Label>
+                    &nbsp;
                     <asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro">4</asp:TextBox>
-                    <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" CssClass="botones" />
+                </td>
+                <td class="auto-style3" style="width: 2997px; text-align: center;">
+                    <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" Height="26px" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
                 </td>
-                <td class="auto-style3" style="width: 1020px; height: 1px;">
+                <td class="auto-style3" style="width: 1020px; ">
                     <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" Width="260px" CssClass="cajastextoparametro"></asp:TextBox>
                 </td>
             </tr>
@@ -44,7 +49,7 @@
         <div>
             <table class="tablas">
                 <tr>
-                    <td>
+                    <td style="width: 82px">
                         <asp:Label ID="Label2" runat="server" Text="Tienda " CssClass="etiquetas"></asp:Label>
                     </td>
                     <td>
@@ -56,8 +61,8 @@
                     <td>
                         <asp:Label ID="Label4" runat="server" Text="Folio Contrato " CssClass="etiquetas"></asp:Label>
                     </td>
-                    <td>
-                        <asp:TextBox ID="TXT_ConsultaFolioContrato" runat="server" CssClass="cajastexto" Width="100px"></asp:TextBox>
+                    <td style="width: 88px">
+                        <asp:TextBox ID="TXT_ConsultaFolioContrato" runat="server" CssClass="cajastexto" Width="80px"></asp:TextBox>
                     </td>
                     <td>
                         <asp:Label ID="Label6" runat="server" Text="Última Mantención " CssClass="etiquetas"></asp:Label>
@@ -67,7 +72,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="height: 20px">
+                    <td style="height: 20px; width: 82px;">
                         <asp:Label ID="Label3" runat="server" Text="Estado Cliente " CssClass="etiquetas"></asp:Label>
                     </td>
                     <td colspan="2" style="height: 20px">
@@ -76,11 +81,11 @@
                     <td style="height: 20px">
                         <asp:Label ID="Label5" runat="server" Text="Fecha " CssClass="etiquetas"></asp:Label>
                     </td>
-                    <td style="height: 20px">
-                        <asp:TextBox ID="TXT_ConsultaFechaEstadoGeneral" runat="server" CssClass="cajastexto" Width="100px"></asp:TextBox>
+                    <td style="height: 20px; width: 88px;">
+                        <asp:TextBox ID="TXT_ConsultaFechaEstadoGeneral" runat="server" CssClass="cajastexto" Width="80px"></asp:TextBox>
                         </td>
-                    <td colspan="2" style="height: 20px">
-                    <asp:Label ID="LBL_MensajeContratos" runat="server" CssClass="etiquetasmensaje" Visible="False"></asp:Label>
+                    <td colspan="2" style="height: 20px; text-align: center;">
+                    <asp:Label ID="LBL_MensajeContratos" runat="server" CssClass="etiquetasmensaje"></asp:Label>
                     </td>
                 </tr>
             </table>
@@ -139,7 +144,7 @@
                     <asp:TextBox ID="TXT_ConsultaPagosPeriodo" runat="server" CssClass="cajastextonumerico" Width="120px">0</asp:TextBox>
                 </td>
                 <td colspan="2" style="text-align: center">
-                    <asp:Label ID="LBL_MensajeAvance" runat="server" CssClass="etiquetasmensaje" Visible="False"></asp:Label>
+                    <asp:Label ID="LBL_MensajeAvance" runat="server" CssClass="etiquetasmensaje"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -279,8 +284,8 @@
                 </tr>
             </table>
         </div>
-        <div>
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="8" ViewStateMode="Enabled">
+        <div id="div_TabConsultas">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="16" ViewStateMode="Enabled" Enabled="False">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
