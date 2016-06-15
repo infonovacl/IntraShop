@@ -10,6 +10,7 @@
             LlenaDDLRegion()
             LlenaDDLDiaPago()
             ObtieneDatosCliente()
+            Me.Tab_DatosClientes.ActiveTabIndex = 0
         End If
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)

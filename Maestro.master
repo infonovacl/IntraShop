@@ -81,7 +81,7 @@ maximize();
                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta" Selected="True"></asp:TreeNode>
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
                                          <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx','DatosClientes','top=110 ,left=220,width=690,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Comentarios" Value="Comentarios" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','Comentarios','top=360,width=770,height=330,left=380',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Comentarios" Value="Comentarios" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','Comentarios','top=360,width=770,height=310,left=380',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('Mantenciones_Comentarios.aspx','my_window','width=300,height=300');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente" SelectAction="Expand">

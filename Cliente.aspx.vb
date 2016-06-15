@@ -49,12 +49,8 @@
             DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_MensajeContratos.Visible = True
-                Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
-                Me.Tab_Consultas.Enabled = False
-                Me.Tab_Consultas.ActiveTabIndex = 16
+                Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error              
             Else
-                Me.Tab_Consultas.Enabled = True
-                Me.Tab_Consultas.ActiveTabIndex = 16
                 Me.LBL_MensajeContratos.Text = ""
                 Me.LBL_MensajeContratos.Visible = True
                 If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
@@ -386,7 +382,25 @@
                     'Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
                 End Try
             Case 5
-                'consultas db
+                Dim DataDSConsultasDB As New Data.DataSet
+                Try
+                    DataDSConsultasDB.Clear()
+                    Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
+                    Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, conn)
+                    DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
+                    If DataDSConsultasDB.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Panel_ConsultasDB.Visible = False
+                        Me.LBL_ConsultasDBError.Visible = True
+                        Me.LBL_ConsultasDBError.Text = DataDSConsultasDB.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_ConsultasDB.Visible = True
+                        Me.LBL_ConsultasDBError.Visible = False
+                        Me.Grilla_ConsultasDB.DataSource = DataDSConsultasDB.Tables(0).DefaultView
+                        Me.Grilla_ConsultasDB.DataBind()
+                    End If
+                Catch EX As Exception
+                    'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+                End Try
             Case 6
                 Dim DataDSSolicitudes As New Data.DataSet
                 Try
