@@ -244,22 +244,22 @@
             <table class="tablas">
                 <tr>
                     <td>
-                        <asp:Label ID="LBL_Vencimiento1" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_Vencimiento1" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LBL_Vencimiento2" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_Vencimiento2" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LBL_Vencimiento3" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_Vencimiento3" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LBL_Vencimiento4" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_Vencimiento4" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LBL_Vencimiento5" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_Vencimiento5" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="LBL_Vencimiento6" runat="server" CssClass="etiquetas"></asp:Label>
+                        <asp:Label ID="LBL_Vencimiento6" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -285,7 +285,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="240px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="16" ViewStateMode="Enabled" Enabled="False">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="10" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -745,7 +745,7 @@
                     <ContentTemplate>
                         <asp:UpdatePanel ID="UpdatePanel10" runat="server">
                             <ContentTemplate>
-                                <table class="auto-style2" style="width: 51%; height: 174px;">
+                                <table class="auto-style2" style="width: 765px; height: 174px;">
                                     <tr>
                                         <td style="width: 224px">
                                             <asp:Label ID="Label108" runat="server" CssClass="etiquetas_tab" Text="Últimos Abonos"></asp:Label>
@@ -753,7 +753,7 @@
                                         <td style="width: 226px">
                                             <asp:Label ID="Label109" runat="server" CssClass="etiquetas_tab" Text="Clasificaciones"></asp:Label>
                                         </td>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label110" runat="server" CssClass="etiquetas_tab" Text="Fecha Solicitud"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -790,7 +790,7 @@
                                             </asp:Panel>
                                             <asp:Label ID="LBL_ResumenClasifError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                         </td>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label112" runat="server" CssClass="etiquetas_tab" Text="Fecha Aprobación"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -798,7 +798,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label114" runat="server" CssClass="etiquetas_tab" Text="Fecha Verificación Particular"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -806,7 +806,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label116" runat="server" CssClass="etiquetas_tab" Text="Fecha Verificación Laboral"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -814,7 +814,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label118" runat="server" CssClass="etiquetas_tab" Text="Fecha Rechazo"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -822,11 +822,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">&nbsp;</td>
+                                        <td style="width: 693px">&nbsp;</td>
                                         <td style="width: 250px">&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label120" runat="server" CssClass="etiquetas_tab" Text="Total Cuenta Al"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -834,7 +834,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label121" runat="server" CssClass="etiquetas_tab" Text="COMPRAS TOTALES"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -842,7 +842,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 425px">
+                                        <td style="width: 693px">
                                             <asp:Label ID="Label122" runat="server" CssClass="etiquetas_tab" Text="PAGOS TOTALES"></asp:Label>
                                         </td>
                                         <td style="width: 250px">
@@ -951,7 +951,7 @@
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_VentasError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <asp:Panel ID="Panel_VentasDetalle" runat="server" ScrollBars="Vertical" Visible="False" CssClass="panel_tab" Height="200px">
+                                <asp:Panel ID="Panel_VentasDetalle" runat="server" ScrollBars="Vertical" Visible="False" CssClass="panel_tab" Height="180px">
                                     <asp:GridView ID="Grilla_VentasDetalle" runat="server" AutoGenerateColumns="False" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="737px">
                                         <Columns>
                                             <asp:BoundField DataField="column3" HeaderText="Nro. Cuota" >

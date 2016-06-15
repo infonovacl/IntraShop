@@ -3,7 +3,12 @@
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        If IsPostBack = False Then
+            Dim menu As TreeView
+            menu = Master.FindControl("TVM_Principal")
+            menu.Enabled = False
+            menu.Font.Strikeout = True
+        End If
     End Sub
     <System.Web.Script.Services.ScriptMethod(),
         System.Web.Services.WebMethod()>
@@ -28,6 +33,8 @@
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
         'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
         ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
+        '   Master.Master.FindControl("TVM_Principal").
+        Me.Tab_Consultas.Visible = True
         Me.Tab_Consultas.ActiveTabIndex = 16
         Dim menu As TreeView
         menu = Master.FindControl("TVM_Principal")
@@ -177,7 +184,7 @@
                 End If
                 '******************************CUOTAS 
                 If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento1.Text = "."
+                    Me.LBL_Vencimiento1.Text = "-"
                 Else
                     Me.LBL_Vencimiento1.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
                 End If
@@ -187,7 +194,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota1.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(32), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento2.Text = " "
+                    Me.LBL_Vencimiento2.Text = "-"
                 Else
                     Me.LBL_Vencimiento2.Text = DataDSDatosCliente.Tables(0).Rows(0)(33)
                 End If
@@ -197,7 +204,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota2.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(34), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento3.Text = " "
+                    Me.LBL_Vencimiento3.Text = "-"
                 Else
                     Me.LBL_Vencimiento3.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
                 End If
@@ -207,7 +214,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota3.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(37) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento4.Text = " "
+                    Me.LBL_Vencimiento4.Text = "-"
                 Else
                     Me.LBL_Vencimiento4.Text = DataDSDatosCliente.Tables(0).Rows(0)(37)
                 End If
@@ -217,7 +224,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota4.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(38), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(39) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento5.Text = " "
+                    Me.LBL_Vencimiento5.Text = "-"
                 Else
                     Me.LBL_Vencimiento5.Text = DataDSDatosCliente.Tables(0).Rows(0)(39)
                 End If
@@ -227,7 +234,7 @@
                     Me.TXT_ConsultaValorVencimientoCuota5.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(40), Integer), "###,###,##0")
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(41) Is System.DBNull.Value Then
-                    Me.LBL_Vencimiento6.Text = " "
+                    Me.LBL_Vencimiento6.Text = "-"
                 Else
                     Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(41)
                 End If
@@ -242,15 +249,8 @@
                 ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
                 ' End If
             End If
-
         Catch ex As Exception
         End Try
-
-    End Sub
-    Protected Sub ProcesaTab(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
-        '  MsgBox(Session("TabIndexo"))
-        ' MsgBox(Me.LBL_TabIndice.Text)
-        ' MsgBox("Hola CTM")
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
@@ -987,6 +987,10 @@
         Me.BTN_VentasDetalle.Visible = False
     End Sub
     Protected Sub BTN_Limpiar_Click(sender As Object, e As EventArgs) Handles BTN_Limpiar.Click
+        Dim menu As TreeView
+        menu = Master.FindControl("TVM_Principal")
+        menu.Enabled = False
+        menu.Font.Strikeout = True
         Me.TXT_ConsultaNombreCompleto.Text = ""
         Me.TXT_ConsultaDireccCalle.Text = ""
         Me.TXT_ConsultaDireccNumero.Text = ""
