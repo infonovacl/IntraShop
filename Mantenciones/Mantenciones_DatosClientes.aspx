@@ -72,7 +72,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_TiendaOrigen" runat="server" CssClass="cajastexto_popup" Width="330px"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_TiendaOrigen" runat="server" CssClass="cajastexto_popup" Width="330px" ReadOnly="True"></asp:TextBox>
                                     </td>
                                     <td colspan="2"></td>
                                 </tr>
@@ -97,7 +97,8 @@
                                         <asp:TextBox ID="TXT_Dv" runat="server" CssClass="cajastexto_popup" Width="20px" ReadOnly="True"></asp:TextBox>
                                     </td>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_Nombres" runat="server" CssClass="cajastexto_popup" Width="300px"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_Nombres" runat="server" CssClass="cajastexto_popup" Width="280px"></asp:TextBox>
+                                        <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="TXT_Nombres" CssClass="etiquetasmensajeerror" ErrorMessage="CustomValidator" ValidateEmptyText="True">X</asp:CustomValidator>
                                     </td>
                                 </tr>
                                 <tr>
@@ -142,10 +143,10 @@
                                         </asp:DropDownList>
                                     </td>
                                     <td class="auto-style4">
-                                        <asp:TextBox ID="TXT_FechaNac" runat="server" CssClass="cajastexto_popup"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_FechaNac" runat="server" CssClass="cajastexto_popup" ReadOnly="True"></asp:TextBox>
                                     </td>
                                     <td class="auto-style4">
-                                        <asp:TextBox ID="TXT_Edad" runat="server" CssClass="cajastexto_popup" Width="50px">XXXXX</asp:TextBox>
+                                        <asp:TextBox ID="TXT_Edad" runat="server" CssClass="cajastexto_popup" Width="50px" ReadOnly="True">XXXXX</asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>

@@ -27,7 +27,7 @@
 }
 .etiquetasmensaje{ 
                 font-family:Arial;
-                font-size:12px;
+                font-size:11px;
                 font-weight:bold;
                 color:red;         
                 text-transform: uppercase;      
@@ -38,7 +38,6 @@
                 font-weight:bold;               
                 text-transform: uppercase;      
 }
-
 .etiquetasmensajeerror {
                 font-family:Arial;
                 font-size:10px;
@@ -117,7 +116,7 @@
 }
 .grillas_tab{
                 font-family:Arial;
-                font-size:11px;
+                font-size:12px;
 }
 .grillaschicas_tab{
                 font-family:Arial;

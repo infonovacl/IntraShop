@@ -297,9 +297,11 @@
         LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
-
+        'CIERRA VENTANA POPUP
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
-
+        If IsValid = True Then
+            MsgBox("A Grabar")
+        End If
     End Sub
 End Class
