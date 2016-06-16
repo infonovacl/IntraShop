@@ -285,7 +285,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="15" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="1" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados

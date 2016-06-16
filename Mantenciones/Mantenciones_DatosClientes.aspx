@@ -10,7 +10,7 @@
          .auto-style1 {
              width: 690px;
              background-color: lightblue;
-             height: 580px;
+             height: 596px;
              text-align: left;
          }
          .auto-style3 {
@@ -53,7 +53,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="490px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -98,7 +98,7 @@
                                     </td>
                                     <td colspan="2">
                                         <asp:TextBox ID="TXT_Nombres" runat="server" CssClass="cajastexto_popup" Width="280px"></asp:TextBox>
-                                        <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="TXT_Nombres" CssClass="etiquetasmensajeerror" ErrorMessage="CustomValidator" ValidateEmptyText="True">X</asp:CustomValidator>
+                                        <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="TXT_Nombres" CssClass="etiquetasmensajeerror" Display="Dynamic" ErrorMessage="CustomValidator" ValidateEmptyText="True">X</asp:CustomValidator>
                                     </td>
                                 </tr>
                                 <tr>

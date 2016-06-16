@@ -278,7 +278,7 @@
                         Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                         Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, conn)
                         DATALaboral.Fill(DataDSLaboral, "PRUEBA")
-                        MsgBox("DataDSLaboral")
+                        ' MsgBox("DataDSLaboral")
                         If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
                             Me.TBL_Laboral.Visible = False
                             Me.LBL_LaboralError.Visible = True
