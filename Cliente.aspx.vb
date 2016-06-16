@@ -2,7 +2,7 @@
     Inherits System.Web.UI.Page
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
-    Public FlagLaboral As Integer = 0
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsPostBack = False Then
             Dim menu As TreeView
@@ -245,7 +245,6 @@
                 ' Else
                 ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
                 ' End If
-                FlagLaboral = 0
             End If
         Catch ex As Exception
         End Try
@@ -273,7 +272,7 @@
                     'Response.Write("<script>window.alert('Error al Obtener Estdos');</script>")
                 End Try
             Case 1
-                If FlagLaboral = 0 Then
+                If TXT_LaboralEmpleador.Text = "" Then
                     Dim DataDSLaboral As New Data.DataSet
                     Try
                         Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
@@ -327,7 +326,6 @@
                             Else
                                 Me.TXT_LaboralIngresos.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(9), Integer), "###,###,##0")
                             End If
-                            FlagLaboral = 1
                         End If
                     Catch EX As Exception
                         'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
