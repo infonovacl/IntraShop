@@ -54,18 +54,18 @@
 }
 .cajastexto{
                 font-family:Arial;
-                font-size:11px;
-                height:11px;
+                font-size:12px;
+                height:12px;
                 text-transform: uppercase;
                 color:black;
  }
 .cajastextonumerico{
                 font-family:Arial;
-                font-size:11px;
+                font-size:12px;
                 text-transform: uppercase;
                 text-align:right;
                 color:black;
-                height:11px;
+                height:12px;
  }
 .cajastexto_tab{
                 font-family:Arial;
