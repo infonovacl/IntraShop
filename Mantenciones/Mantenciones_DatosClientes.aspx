@@ -7,12 +7,6 @@
     <link href="../css/EstilosShop.css" rel="stylesheet" />
     <title>Sistema Web - Mantención Datos Cliente</title>
      <style type="text/css">
-         .auto-style1 {
-             width: 690px;
-             background-color: lightblue;
-             height: 596px;
-             text-align: left;
-         }
          .auto-style3 {
              height: 89px;
              width: 654px;
@@ -44,11 +38,15 @@
              height: 20px;
              width: 221px;
          }
+         .auto-style12 {
+             width: 690px;
+             background-color: lightgrey;
+         }
          </style>
      </head>
 <body style="width: 694px; height: 313px;">
     <form id="form1" runat="server">
-    <div class="auto-style1">       
+    <div class="auto-style12">       
         <asp:ScriptManager runat="server" ID="ScriptManager1">
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">

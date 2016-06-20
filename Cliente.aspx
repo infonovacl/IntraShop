@@ -285,7 +285,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="9" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="4" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -479,7 +479,7 @@
                                 </asp:Panel>
                                 <asp:Label ID="LBL_DescuentosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
-                                <table cellspacing="1" class="auto-style3" style="width: 760px">
+                                <table id="TBL_DescuentosDetalle" runat="server" cellspacing="1" class="auto-style3" style="width: 760px" >
                                     <tr>
                                         <td>
                                             <asp:Label ID="Label124" runat="server" CssClass="etiquetas_tab" Text="Monto Capital"></asp:Label>

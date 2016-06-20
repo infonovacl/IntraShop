@@ -2,7 +2,6 @@
     Inherits System.Web.UI.Page
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
-
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsPostBack = False Then
             Dim menu As TreeView
@@ -389,13 +388,16 @@
                         If DataDSDescuentos.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Descuentos.Visible = False
                             Me.LBL_DescuentosError.Visible = True
+                            Me.TBL_DescuentosDetalle.Visible = False
+                            Me.IBTN_DescuentosDetalle.Visible = False
                             Me.LBL_DescuentosError.Text = DataDSDescuentos.Tables(0).Rows(0)(1) ' mensaje de error
                         Else
                             Me.Panel_Descuentos.Visible = True
                             Me.LBL_DescuentosError.Visible = False
+                            Me.IBTN_DescuentosDetalle.Visible = False
+                            Me.TBL_DescuentosDetalle.Visible = False
                             Me.Grilla_Descuentos.DataSource = DataDSDescuentos.Tables(0).DefaultView
                             Me.Grilla_Descuentos.DataBind()
-
                         End If
                     Catch EX As Exception
                         'Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
@@ -844,8 +846,10 @@
             DATADetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
             If DataDSDetDescuentos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_DescuentosDetalleError.Visible = True
+                Me.TBL_DescuentosDetalle.Visible = False
                 Me.LBL_DescuentosDetalleError.Text = DataDSDetDescuentos.Tables(0).Rows(0)(1)
             Else
+                Me.TBL_DescuentosDetalle.Visible = True
                 Me.LBL_DescuentosDetalleError.Text = ""
                 Me.LBL_DescuentosDetalleError.Visible = False
                 If DataDSDetDescuentos.Tables(0).Rows(0)(2) Is System.DBNull.Value Then

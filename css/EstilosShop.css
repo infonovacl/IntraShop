@@ -123,11 +123,11 @@
                 font-size:11px;
 }
 .fondo{
-                background-color:whitesmoke;
+                background-color:lightgrey;
 }
 .div_popup{
                 width: 765px;
-                background-color:lightblue;
+                background-color:lightgrey;
 }
 .update {
                 position: fixed;
