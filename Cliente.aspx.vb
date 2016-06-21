@@ -252,6 +252,11 @@
                     ' Else
                     ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
                     ' End If
+                    If DataDSDatosCliente.Tables(0).Rows(0)(44) Is System.DBNull.Value Then
+                        Me.TXT_ConsultaDV.Text = ""
+                    Else
+                        Me.TXT_ConsultaDV.Text = DataDSDatosCliente.Tables(0).Rows(0)(44)
+                    End If
                 End If
             Catch ex As Exception
             End Try
@@ -998,7 +1003,7 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = False
         menu.Font.Strikeout = True
-        'Me.Tab_Consultas.Visible = False
+        Me.Tab_Consultas.ActiveTabIndex = 16
         Me.LBL_MensajeAvance.Text = ""
         Me.LBL_MensajeContratos.Text = ""
         Me.LBL_MensajeAvance.Visible = False

@@ -40,7 +40,7 @@
          }
          .auto-style12 {
              width: 690px;
-             background-color: lightgrey;
+             background-color: whitesmoke;
          }
          </style>
      </head>

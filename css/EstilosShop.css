@@ -54,18 +54,18 @@
 }
 .cajastexto{
                 font-family:Arial;
-                font-size:12px;
-                height:12px;
+                font-size:11px;
+                height:11px;
                 text-transform: uppercase;
                 color:black;
  }
 .cajastextonumerico{
                 font-family:Arial;
-                font-size:12px;
+                font-size:11px;
                 text-transform: uppercase;
                 text-align:right;
                 color:black;
-                height:12px;
+                height:11px;
  }
 .cajastexto_tab{
                 font-family:Arial;
@@ -123,11 +123,11 @@
                 font-size:11px;
 }
 .fondo{
-                background-color:lightgrey;
+                background-color:whitesmoke;
 }
 .div_popup{
                 width: 765px;
-                background-color:lightgrey;
+                background-color:whitesmoke;
 }
 .update {
                 position: fixed;
@@ -154,4 +154,8 @@
 .update_panel{
              width: 100%;
 			 left: 5px;
+}
+.boton_volver{
+             height: 32px;
+			 width: 35px;
 }

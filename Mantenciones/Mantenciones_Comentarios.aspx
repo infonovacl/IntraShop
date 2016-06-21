@@ -22,7 +22,7 @@
          }
          .auto-style5 {
              width: 768px;
-             background-color: lightblue;
+             background-color: lightgrey;
              height: 360px;
              left: 5px;
          }
