@@ -11,6 +11,8 @@
             LlenaDDLDiaPago()
             ObtieneDatosCliente()
             Me.Tab_DatosClientes.ActiveTabIndex = 0
+            Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
+
         End If
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
@@ -128,17 +130,17 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
                     Me.TXT_Nombres.Text = ""
                 Else
-                    Me.TXT_Nombres.Text = DataDSDatosCliente.Tables(0).Rows(0)(4)
+                    Me.TXT_Nombres.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(4))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
                     Me.TXT_APaterno.Text = ""
                 Else
-                    Me.TXT_APaterno.Text = DataDSDatosCliente.Tables(0).Rows(0)(5)
+                    Me.TXT_APaterno.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(5))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
                     Me.TXT_AMaterno.Text = ""
                 Else
-                    Me.TXT_AMaterno.Text = DataDSDatosCliente.Tables(0).Rows(0)(6)
+                    Me.TXT_AMaterno.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(6))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(7) Is System.DBNull.Value Then 'sexo                  
                     Me.RBL_Sexo.SelectedValue = 0
@@ -159,7 +161,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     Me.TXT_CalleParticular.Text = ""
                 Else
-                    Me.TXT_CalleParticular.Text = DataDSDatosCliente.Tables(0).Rows(0)(10)
+                    Me.TXT_CalleParticular.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(10))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(11) Is System.DBNull.Value Then 'n casa
                     Me.TXT_NumeroCasa.Text = ""
@@ -174,12 +176,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(13) Is System.DBNull.Value Then 'n depto
                     Me.TXT_VillaPoblacion.Text = ""
                 Else
-                    Me.TXT_VillaPoblacion.Text = DataDSDatosCliente.Tables(0).Rows(0)(13)
+                    Me.TXT_VillaPoblacion.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(13))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(14) Is System.DBNull.Value Then 'altura/calle
                     Me.TXT_AlturaCalle.Text = ""
                 Else
-                    Me.TXT_AlturaCalle.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
+                    Me.TXT_AlturaCalle.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(14))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then 'REGION CLIENTE
                     Me.DDL_RegionCliente.SelectedValue = 0
@@ -202,7 +204,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then 'n telefono
                     Me.TXT_ReferenciaNombre.Text = ""
                 Else
-                    Me.TXT_ReferenciaNombre.Text = DataDSDatosCliente.Tables(0).Rows(0)(19)
+                    Me.TXT_ReferenciaNombre.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(19))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Then 'REGION CLIENTE
                     Me.DDL_ReferenciaRegion.SelectedValue = 0
@@ -225,12 +227,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then 'nombre empleador
                     Me.TXT_EmpleadorNombre.Text = ""
                 Else
-                    Me.TXT_EmpleadorNombre.Text = DataDSDatosCliente.Tables(0).Rows(0)(24)
+                    Me.TXT_EmpleadorNombre.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(24))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then 'direccion empleador
                     Me.TXT_EmpleadorDireccion.Text = ""
                 Else
-                    Me.TXT_EmpleadorDireccion.Text = DataDSDatosCliente.Tables(0).Rows(0)(25)
+                    Me.TXT_EmpleadorDireccion.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(25))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then 'numero direccion empleador
                     Me.TXT_EmpleadorNumero.Text = ""
@@ -263,25 +265,24 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(32) Is System.DBNull.Value Then 'cargo empleador
                     Me.TXT_EmpleadorCargo.Text = ""
                 Else
-                    Me.TXT_EmpleadorCargo.Text = DataDSDatosCliente.Tables(0).Rows(0)(32)
+                    Me.TXT_EmpleadorCargo.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(32))
                 End If
-
-                'If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then    'DIA DE PAGO
-                ' Me.DDL_DiaPago.SelectedValue = 0                                          'en listado hay 10-20-30 , pero en base hay con 5, 15 , tira error al no encontrar dia
-                ' Else
-                ' Me.DDL_DiaPago.SelectedValue = DDL_DiaPago.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(33)).Value
-                ' End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then    'DIA DE PAGO
+                    Me.DDL_DiaPago.SelectedValue = 0
+                Else
+                    Me.DDL_DiaPago.SelectedValue = DDL_DiaPago.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(33)).Value
+                End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'cargo empleador
-                    Me.TXT_LugarEnvioEC.Text = ""
-                Else
-                    Me.TXT_LugarEnvioEC.Text = DataDSDatosCliente.Tables(0).Rows(0)(34)
+                        Me.TXT_LugarEnvioEC.Text = ""
+                    Else
+                    Me.TXT_LugarEnvioEC.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(34))
                 End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'cargo empleador
-                    Me.TXT_CorreoElectronico.Text = ""
-                Else
-                    Me.TXT_CorreoElectronico.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
+                    If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'cargo empleador
+                        Me.TXT_CorreoElectronico.Text = ""
+                    Else
+                    Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
                 End If
-            End If
+                End If
         Catch EX As Exception
             ' MsgBox(EX)
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
@@ -300,8 +301,18 @@
         'CIERRA VENTANA POPUP
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
-        If IsValid = True Then
-            MsgBox("A Grabar")
+        If Page.IsValid = True Then
+            ValidacionSecundaria()
+        End If
+    End Sub
+    Private Sub ValidacionSecundaria()
+        If TXT_TelefonoCelular.Text = "11111111" Or TXT_TelefonoCelular.Text = "22222222" Or TXT_TelefonoCelular.Text = "33333333" Or
+            TXT_TelefonoCelular.Text = "44444444" Or TXT_TelefonoCelular.Text = "55555555" Or TXT_TelefonoCelular.Text = "66666666" Or
+            TXT_TelefonoCelular.Text = "77777777" Or TXT_TelefonoCelular.Text = "88888888" Or TXT_TelefonoCelular.Text = "99999999" Or
+            TXT_TelefonoCelular.Text = "00000000" Or TXT_TelefonoCelular.Text.Length <> 8 Then
+            LBL_DatosClienteError.Visible = True
+            LBL_DatosClienteError.Text = "Numero Celular Cliente Ingresado no es Válido"
+            TXT_TelefonoCelular.Focus()
         End If
     End Sub
 End Class
