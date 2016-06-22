@@ -38,7 +38,7 @@
     Protected Sub BTN_Entrar_Click(sender As Object, e As EventArgs) Handles BTN_Entrar.Click
         Me.LBL_UsuarioRutRegistrado.Text = Me.TXT_UsuarioRut.Text
         Session("usuario") = Me.LBL_UsuarioRutRegistrado.Text
-        Session("Tienda") = "15"
+        Session("tienda") = "15"
         Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
         'Dim node As TreeNode
         'For Each node In Me.TVM_Principal.Nodes(0).ChildNodes

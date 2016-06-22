@@ -302,37 +302,42 @@
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
         If Page.IsValid = True Then
-            Dim valido As String = ""
+            Dim valido As String
             ValidacionSecundaria(valido)
             If valido = "OK" Then
                 Try
-                    Dim DATADSInsertaComentariosPopUp As New Data.DataSet
-                    DATADSInsertaComentariosPopUp.Clear()
-                    Dim RutCliente, usuario As Integer
+                    Dim DATADSModificaDatosPersonalesPopUp As New Data.DataSet
+                    DATADSModificaDatosPersonalesPopUp.Clear()
+                    Dim RutCliente, usuario, codigotienda As Integer
                     RutCliente = Session("rut")
                     usuario = Session("usuario")
-                    Dim STRInsertaComentarios As String = "execute procedure procw_mod_cliente  ('" _
+                    codigotienda = Session("tienda")
+                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" _
                                                             & Me.TXT_Nombres.Text & "','" & Me.TXT_APaterno.Text & "','" & Me.TXT_AMaterno.Text & "','" & Me.RBL_Sexo.SelectedValue & "'," _
                                                             & Me.DDL_EstadoCivil.SelectedValue & ",'" & Me.TXT_CalleParticular.Text & "','" & Me.TXT_NumeroCasa.Text & "','" & Me.TXT_NumeroDepto.Text & "','" _
                                                             & Me.TXT_VillaPoblacion.Text & "','" & Me.TXT_AlturaCalle.Text & "'," & Me.DDL_RegionCliente.SelectedValue & "," & Me.DDL_ComunaCliente.SelectedValue & "," _
-                                                            & Me.TXT_TelefonoFijo.Text & "," & Me.TXT_TelefonoCelular.Text & ""
-                    Dim DATAInsertaComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRInsertaComentarios, conn)
-                    DATAInsertaComentarios.Fill(DATADSInsertaComentariosPopUp, "PRUEBA")
-                    If DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
+                                                            & Me.TXT_TelefonoFijo.Text & "," & Me.TXT_TelefonoCelular.Text & ",'" & Me.TXT_ReferenciaNombre.Text & "'," & Me.DDL_ReferenciaRegion.SelectedValue & "," _
+                                                            & Me.DDL_ReferenciaComuna.Text & ",'" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "'," & Me.TXT_ReferenciaTelefono.Text & ",'" & Me.TXT_EmpleadorNombre.Text & "','" _
+                                                            & Me.TXT_EmpleadorDireccion.Text & "','" & Me.TXT_EmpleadorNumero.Text & "'," & Me.TXT_EmpleadorOficina.Text & "," & Me.DDL_EmpleadorRegion.SelectedValue & "," _
+                                                            & Me.DDL_EmpleadorComuna.SelectedValue & "," & Me.TXT_EmpleadorTelefono.Text & ",'" & Me.TXT_EmpleadorAnexo.Text & "','" & Me.TXT_EmpleadorCargo.Text & "','" _
+                                                            & Me.TXT_CorreoElectronico.Text & "'," & usuario & "," & codigotienda & ")"
+                    Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, conn)
+                    DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
+                    If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then
                         Me.LBL_DatosClienteError.Visible = True
-                        Me.LBL_DatosClienteError.Text = DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
+                        Me.LBL_DatosClienteError.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
                     Else
                         Me.LBL_DatosClienteError.Visible = True
-                        Me.LBL_DatosClienteError.Text = "Debe Ingresar un Comentario Válido"
+                        Me.LBL_DatosClienteError.Text = "Actualizacion de registro exitosa"
                     End If
                 Catch EX As Exception
                 End Try
             Else
-                Me.LBL_DatosClienteError.Text = "Existen Valores ingresados no válidos"
+
             End If
         End If
     End Sub
-    Function ValidacionSecundaria(ByVal validoSN As String) As String
+    Function ValidacionSecundaria(ByRef valido As String) As String
         Dim flag As Integer = 0
         If TXT_TelefonoCelular.Text = "11111111" Or TXT_TelefonoCelular.Text = "22222222" Or TXT_TelefonoCelular.Text = "33333333" Or
             TXT_TelefonoCelular.Text = "44444444" Or TXT_TelefonoCelular.Text = "55555555" Or TXT_TelefonoCelular.Text = "66666666" Or
@@ -376,10 +381,11 @@
             flag = 1
         End If
         If flag = 0 Then
-            Return validoSN = "OK"
+            valido = "OK"
         Else
-            Return validoSN = "ERROR"
+            valido = "ERROR"
         End If
+        Return valido
     End Function
 
 End Class

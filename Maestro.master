@@ -85,7 +85,7 @@ maximize();
                                          <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx','Adicionales','top=360,width=770,height=290,left=380',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente" SelectAction="Expand">
-                                         <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos"></asp:TreeNode>
+                                         <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx','Rechazos','top=360,width=770,height=500,left=380',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos"></asp:TreeNode>
                                          <asp:TreeNode Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro"></asp:TreeNode>
                                          <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo"></asp:TreeNode>
