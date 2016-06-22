@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Solicitudes_AumentoCupo.aspx.vb" Inherits="Solicitudes_AumentoCupo" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Solicitudes_CambioDiaPago.aspx.vb" Inherits="Solicitudes_CambioDiaPago" %>
 
 <!DOCTYPE html>
 
@@ -24,9 +24,6 @@
              width: 99%;
              height: 156px;
          }
-         .auto-style6 {
-             height: 22px;
-         }
          .auto-style7 {
              width: 340px;
              background-color: whitesmoke;
@@ -37,7 +34,7 @@
              left: 5px;
          }
          .auto-style10 {
-             text-align: right;
+             text-align: center;
          }
          </style>
     </head>
@@ -56,58 +53,27 @@
             <ContentTemplate>
                 <table cellspacing="1" class="auto-style5">
                     <tr>
-                        <td>
-                            <asp:Label ID="Label2" runat="server" CssClass="etiquetas_tab" Text="Fecha Solicitud"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LBL_FechaSolicitud" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label3" runat="server" CssClass="etiquetas_tab" Text="Hora Solicitud"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LBL_HoraSolicitud" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label4" runat="server" CssClass="etiquetas_tab" Text="Monto Actual Línea Crédito"></asp:Label>
+                        <td class="auto-style10">
+                            <asp:Label ID="Label2" runat="server" CssClass="etiquetas_tab" Text="Día de Pago Actual"></asp:Label>
                         </td>
                         <td class="auto-style10">
-                            <asp:Label ID="LBL_MontoActualLineaCredito" runat="server" CssClass="etiquetas_tab">0</asp:Label>
+                            <asp:Label ID="LBL_FechaSolicitud" runat="server" CssClass="etiquetas_tab">Día de Pago Nuevo</asp:Label>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <asp:Label ID="Label5" runat="server" CssClass="etiquetas_tab" Text="Línea crédito Solicitada"></asp:Label>
+                        <td class="auto-style10">
+                            <asp:TextBox ID="TXT_DiaActualPago" runat="server" Enabled="False" Width="50px"></asp:TextBox>
                         </td>
                         <td class="auto-style10">
-                            <asp:Label ID="LBL_LineaCreditoSolicitada" runat="server" CssClass="etiquetas_tab">0</asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style6"></td>
-                        <td class="auto-style6"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label6" runat="server" CssClass="etiquetas_tab" Text="Estado Evaluación"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LBL_EstadoEvaluacion" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                            <asp:DropDownList ID="DDL_NuevoDiaPago" runat="server" CssClass="dropdown_tab" Width="70px">
+                            </asp:DropDownList>
                         </td>
                     </tr>
                 </table>
                 <table class="auto-style9">
                     <tr>
                         <td>                            
-                            <asp:Label ID="LBL_AumentoCupoError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                            <asp:Label ID="LBL_CambioDiaPagoError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                         </td>
                     </tr>
                 </table>             

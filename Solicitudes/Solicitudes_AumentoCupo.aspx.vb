@@ -24,7 +24,8 @@
                 Me.LBL_AumentoCupoError.Visible = True
                 Me.LBL_AumentoCupoError.Text = DATADSSolicitaAumentoCupoPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-
+                Me.LBL_AumentoCupoError.Visible = True
+                Me.LBL_AumentoCupoError.Text = "AUMENTO DE CUPO CURSADO" ' mensaje de error
             End If
         Catch EX As Exception
         End Try

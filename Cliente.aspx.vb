@@ -103,6 +103,7 @@
                         Me.TXT_ConsultaDiaPago.Text = ""
                     Else
                         Me.TXT_ConsultaDiaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
+                        Session("diapago") = DataDSDatosCliente.Tables(0).Rows(0)(14)
                     End If
                     If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
                         Me.TXT_ConsultaLineaCredito.Text = ""
@@ -1250,5 +1251,9 @@
         TXT_PagosSaldoFavorInicial.Text = "0"
         TXT_PagosSeguros.Text = "0"
         Me.Panel_Pagos.Visible = True
+    End Sub
+
+    Private Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
+
     End Sub
 End Class

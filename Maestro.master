@@ -88,14 +88,14 @@ maximize();
                                          <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx','Rechazos','top=110,width=770,height=500,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_Bloqueos.aspx','Bloqueos','top=110,width=770,height=500,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro"></asp:TreeNode>
-                                         <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AumentoCupo.aspx','Aumento Cupo','top=200,width=345,height=240,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Cambio Día Pago" Value="Cambio Día Pago"></asp:TreeNode>
+                                         <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AumentoCupo.aspx','Aumento Cupo','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Cambio Día Pago" Value="Cambio Día Pago" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx','Cambio de Dia de Pago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Revisa Verificación" Value="Revisa Verificación"></asp:TreeNode>
                                          <asp:TreeNode Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Consultas" Value="Consultas" SelectAction="Expand">
                                          <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago"></asp:TreeNode>
-                                         <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza"></asp:TreeNode>
+                                         <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza" NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','DatosClientes','top=110 ,left=220,width=690,height=600',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                  </asp:TreeNode>
                                  <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
