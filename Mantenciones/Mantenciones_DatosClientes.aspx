@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>Sistema Web - Mantención Datos Cliente</title>
+    <title>Mantención Datos Cliente</title>
      <style type="text/css">
          .auto-style3 {
              height: 89px;

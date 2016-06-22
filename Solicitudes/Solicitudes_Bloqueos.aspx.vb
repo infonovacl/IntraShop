@@ -1,30 +1,38 @@
-﻿Partial Class Solicitudes_RevisaRechazos
+﻿Partial Class Solicitudes_Bloqueos
     Inherits System.Web.UI.Page
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.LBL_ListaRechazosError.Visible = False
+        Me.LBL_ListaBloqueosError.Visible = False
         If Not IsPostBack Then
-            LlenaCheckBoxRechazos()
+            LlenaCheckBoxBloqueos()
             ObtieneConsultasDataBusiness()
-            LevantaRechazo()
+            HabilitaBotones()
         End If
     End Sub
-    Private Sub LevantaRechazo()
-        Dim DataDSLevantaRechazo As New Data.DataSet
+    Private Sub HabilitaBotones()
+        Dim DataDSHabilitaBotones As New Data.DataSet
         Dim RutCliente As Integer
+        Me.BTN_RevisionDataBusiness.Enabled = False
+        Me.BTN_RevisionDataBusiness.Enabled = False
         RutCliente = Session("rut")
         Try
-            DataDSLevantaRechazo.Clear()
-            Dim STRLevantaRechazo As String = "execute procedure procw_habirech ('" & RutCliente & "' )"
-            Dim DATALevantaRechazo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLevantaRechazo, conn)
-            DATALevantaRechazo.Fill(DataDSLevantaRechazo, "PRUEBA")
-            If DataDSLevantaRechazo.Tables(0).Rows(0)(0) = 1 Then
+            DataDSHabilitaBotones.Clear()
+            Dim STRHabilitaBotones As String = "execute procedure procw_habirech ('" & RutCliente & "' )"
+            Dim DATAHabilitaBotones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRHabilitaBotones, conn)
+            DATAHabilitaBotones.Fill(DataDSHabilitaBotones, "PRUEBA")
+            If DataDSHabilitaBotones.Tables(0).Rows(0)(0) = 1 Then
                 Me.BTN_RevisionDataBusiness.Enabled = False
-                Me.LBL_LevantaRechazoError.Visible = True
-                Me.LBL_LevantaRechazoError.Text = DataDSLevantaRechazo.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.BTN_SolicitaDesbloqueo.Enabled = False
+                Me.LBL_HabilitaBotonesError.Visible = True
+                Me.LBL_HabilitaBotonesError.Text = DataDSHabilitaBotones.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                Me.BTN_RevisionDataBusiness.Enabled = True
+                If DataDSHabilitaBotones.Tables(0).Rows(0)(3) = 1 Then
+                    Me.BTN_RevisionDataBusiness.Enabled = True
+                End If
+                If DataDSHabilitaBotones.Tables(0).Rows(0)(4) = 1 Then
+                    Me.BTN_SolicitaDesbloqueo.Enabled = True
+                End If
             End If
         Catch EX As Exception
             'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
@@ -53,18 +61,18 @@
             'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
         End Try
     End Sub
-    Private Sub LlenaCheckBoxRechazos()
+    Private Sub LlenaCheckBoxBloqueos()
         Dim RutCliente As Integer
         RutCliente = Session("rut")
         Try
             Dim DATADSConsultaSubEstadoPopUp As New Data.DataSet
             DATADSConsultaSubEstadoPopUp.Clear()
-            Dim STRConsultaSubEstado As String = "execute procedure procw_cons_subest ('" & RutCliente & "','3')"
+            Dim STRConsultaSubEstado As String = "execute procedure procw_cons_subest ('" & RutCliente & "','4')"
             Dim DATAConsultaSubEstado As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultaSubEstado, conn)
             DATAConsultaSubEstado.Fill(DATADSConsultaSubEstadoPopUp, "PRUEBA")
             If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(0) = 1 Then
-                Me.LBL_ListaRechazosError.Visible = True
-                Me.LBL_ListaRechazosError.Text = DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(1) ' mensaje de error              
+                Me.LBL_ListaBloqueosError.Visible = True
+                Me.LBL_ListaBloqueosError.Text = DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(1) ' mensaje de error              
             Else
                 Dim x As Integer
                 For x = 0 To DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count - 1
@@ -81,10 +89,21 @@
                     Else
                         item.Enabled = False
                     End If
-                    Me.CHBL_RechazosCliente.Items.Add(item)
+                    Me.CHBL_BloqueosCliente.Items.Add(item)
+                Next
+                Dim y As Integer
+                For y = 0 To DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count - 1
+                    If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(y)(4).ToString = "S" Then
+                        CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: red;")
+                    Else
+                        CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: blue;")
+                    End If
                 Next
             End If
         Catch ex As Exception
         End Try
+    End Sub
+    Protected Sub BTN_SolicitaDesbloqueo_Click(sender As Object, e As EventArgs) Handles BTN_SolicitaDesbloqueo.Click
+
     End Sub
 End Class

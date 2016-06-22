@@ -1,11 +1,11 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Solicitudes_RevisaRechazos.aspx.vb" Inherits="Solicitudes_RevisaRechazos" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Solicitudes_Bloqueos.aspx.vb" Inherits="Solicitudes_Bloqueos" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>Revision de Rechazos</title>
+    <title>Bloqueo de Cuenta</title>
      <style type="text/css">      
          .auto-style1 {
              width: 760px;
@@ -22,11 +22,14 @@
              width: 671px;
              text-align: center;
          }
+         .auto-style10 {
+             background-color: white;
+         }
          .auto-style11 {
              width: 100%;
          }
-         .auto-style12 {
-             width: 422px;
+         .auto-style14 {
+             width: 29px;
          }
          </style>
     </head>
@@ -43,22 +46,39 @@
         </asp:UpdateProgress>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
             <ContentTemplate>
+                <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" Text="Seleccione estados de bloqueo"></asp:Label>
+                <br />
                 <table class="auto-style11">
                     <tr>
-                        <td class="auto-style12">
-                            <asp:Panel ID="Panel_Rechazos" runat="server" CssClass="panel_tab" Height="250px" ScrollBars="Vertical" Width="400px">
-                                <asp:CheckBoxList ID="CHBL_RechazosCliente" runat="server" CssClass="etiquetas_tab">
+                        <td>
+                            <asp:Panel ID="Panel_Bloqueos" runat="server" CssClass="auto-style10" Height="200px" ScrollBars="Vertical" Width="380px">
+                                <asp:CheckBoxList ID="CHBL_BloqueosCliente" runat="server" CssClass="etiquetas_tab">
                                 </asp:CheckBoxList>
                             </asp:Panel>
                         </td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <table class="auto-style11">
+                                <tr>
+                                    <td class="auto-style14" style="background-color: #0000FF">&nbsp;</td>
+                                    <td>
+                                        <asp:Label ID="Label2" runat="server" CssClass="etiquetas_tab" ForeColor="#0000CC" Text="DESBLOQUEO en Tienda No requiere Solicitud"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14" style="background-color: #FF0000">&nbsp;</td>
+                                    <td>
+                                        <asp:Label ID="Label3" runat="server" CssClass="etiquetas_tab" ForeColor="Red" Text="REQUIERE Solicitud de Desbloqueo"></asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
                 </table>
-                <asp:Label ID="LBL_ListaRechazosError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                <asp:Label ID="LBL_ListaBloqueosError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
-                <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" Text="CONSULTAS DataBusiness"></asp:Label>
+                <asp:Label ID="Label4" runat="server" CssClass="etiquetasimportante" Text="CONSULTAS DataBusiness"></asp:Label>
                 <br />
-                <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" Height="140px" ScrollBars="Vertical" Width="754px">
+                <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" Height="160px" ScrollBars="Vertical" Width="754px">
                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                         <Columns>
                             <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" />
@@ -79,14 +99,17 @@
                 </asp:Panel>
                 <asp:Label ID="LBL_ConsultasDBError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
-                <asp:Label ID="LBL_LevantaRechazoError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                <asp:Label ID="LBL_HabilitaBotonesError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
                 <table align="center" class="auto-style7">
                     <tr>
                         <td class="auto-style9">
-                            <asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="REVISION DATA BUSINESS" Width="190px" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="BTN_Cerrar0" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
+                            &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_GrabaBloqueos" runat="server" CssClass="botones" Text="GRABAR" />
+                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="REVISION DATA BUSINESS" Width="190px" />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="BTN_SolicitaDesbloqueo" runat="server" CssClass="botones" Text="SOLICITA DESBLOQUEO" Width="180px" />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
                         </td>
                     </tr>
                 </table>

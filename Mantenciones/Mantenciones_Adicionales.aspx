@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>Sistema Web - Comentarios</title>
+    <title>Adicionales</title>
      <style type="text/css">      
          .auto-style1 {
              width: 760px;

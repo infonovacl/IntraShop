@@ -39,6 +39,7 @@
         Me.LBL_UsuarioRutRegistrado.Text = Me.TXT_UsuarioRut.Text
         Session("usuario") = Me.LBL_UsuarioRutRegistrado.Text
         Session("tienda") = "15"
+        Session("caja") = "101"
         Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
         'Dim node As TreeNode
         'For Each node In Me.TVM_Principal.Nodes(0).ChildNodes
