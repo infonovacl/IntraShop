@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_DatosClientes.aspx.vb" Inherits="Mantencion_DatosClientes" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
@@ -69,6 +68,9 @@
          .auto-style27 {
              height: 24px;
          }
+         .auto-style28 {
+             height: 16px;
+         }
          </style>
      </head>
 <body style="width: 694px; height: 313px;">
@@ -78,7 +80,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -169,7 +171,7 @@
                                         </asp:RadioButtonList>
                                     </td>
                                     <td class="auto-style23">
-                                        <asp:DropDownList ID="DDL_EstadoCivil" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="140px">
+                                        <asp:DropDownList ID="DDL_EstadoCivil" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="120px">
                                         </asp:DropDownList>
                                     </td>
                                     <td class="auto-style20">
@@ -220,7 +222,7 @@
                                         <asp:TextBox ID="TXT_VillaPoblacion" runat="server" CssClass="cajastexto_popup" Width="250px"></asp:TextBox>
                                     </td>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_AlturaCalle" runat="server" CssClass="cajastexto_popup" Width="200px"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_AlturaCalle" runat="server" CssClass="cajastexto_popup" Width="250px"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -302,10 +304,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="auto-style24">
+                                    <td colspan="2" class="auto-style28">
                                         <asp:Label ID="Label37" runat="server" CssClass="etiquetas_popup" Text="Región"></asp:Label>
                                     </td>
-                                    <td colspan="2" class="auto-style24">
+                                    <td colspan="2" class="auto-style28">
                                         <asp:Label ID="Label38" runat="server" CssClass="etiquetas_popup" Text="Comuna"></asp:Label>
                                     </td>
                                 </tr>

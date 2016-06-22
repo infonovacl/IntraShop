@@ -828,7 +828,7 @@
             Me.Panel_Estados.Visible = False
             Me.Panel_EstadosDetalle.Visible = True
         Catch EX As Exception
-            Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
+            'Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
         End Try
     End Sub
     Protected Sub Grilla_Descuentos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Descuentos.SelectedIndexChanged
