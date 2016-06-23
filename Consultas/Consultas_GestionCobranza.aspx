@@ -150,7 +150,7 @@ PaloBlanco
         </asp:UpdatePanel>
                 <asp:Label ID="LBL_CobranzaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 &nbsp;
-                <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas" style="display:none"></asp:Label>
                 <br />
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                 <ContentTemplate>
@@ -159,8 +159,7 @@ PaloBlanco
                             </asp:UpdatePanel>
                 <table class="auto-style7" align="center">
                     <tr>
-                        <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" style="height: 26px" />                         
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
+                        <td class="auto-style9">                    
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />
                         </td>
                     </tr>

@@ -101,8 +101,6 @@
             '  MsgBox(EX)
         End Try
     End Sub
-    Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
-    End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
             Me.Tab_GestionCobranza.ActiveTabIndex = 0
