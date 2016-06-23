@@ -29,7 +29,7 @@
                 <td class="auto-style3" style="width: 2997px; ">
                     <asp:Label ID="Label1" runat="server" Text="Rut Cliente" CssClass="etiquetas"></asp:Label>
                     &nbsp;
-                    <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px">13751185</asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px">12816681</asp:TextBox>
                     &nbsp;<asp:Label ID="Label26" runat="server" Text="-" CssClass="etiquetas"></asp:Label>
                     &nbsp;<asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro"></asp:TextBox>
                 </td>

@@ -22,6 +22,9 @@
              width: 690px;
              background-color: whitesmoke;
          }
+         .auto-style13 {
+             background-color: white;
+         }
          </style>
      </head>
      <script type="text/javascript">
@@ -35,70 +38,28 @@
             var myValue = sender.get_activeTabIndex();
             var label1 = document.getElementById('<%= LBL_TabIndice.ClientID %>');
             label1.innerHTML = myValue;                               
+        darClick();
+        }
+        function darClick()
+        {
+            var objBoton = '<%=BTN_ProcesaTab.ClientID%>'
+            var objO = document.getElementById(objBoton);
+            objO.click();
         }      
     </script>
-<body style="width: 694px; height: 313px;">
+<body style="width: 694px; height: 4px;">
     <form id="form1" runat="server">
     <div class="auto-style12">       
         <asp:ScriptManager runat="server" ID="ScriptManager1">
         </asp:ScriptManager>
-        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">            
             <ContentTemplate>
-                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="4" Height="510px" Width="680px">
-                    <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
-                        <HeaderTemplate>
-                            Cobranza Telefónica
-                        </HeaderTemplate>
-                        <ContentTemplate>
-                            <asp:UpdatePanel ID="UpdatePanel19" runat="server">
-                                <ContentTemplate>
-                                    <asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="412px" ScrollBars="Vertical" Width="660px">
-                                        <asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px">
-                                            <Columns>
-                                                <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" />
-                                                <asp:BoundField DataField="column4" HeaderText="Hora" />
-                                                <asp:BoundField DataField="column5" HeaderText="Tipo Teléfono" />
-                                                <asp:BoundField DataField="column6" HeaderText="Fono">
-                                                <ItemStyle HorizontalAlign="Right" />
-                                                </asp:BoundField>
-                                                <asp:BoundField DataField="column7" HeaderText="Contacto">
-                                                <ItemStyle HorizontalAlign="Right" />
-                                                </asp:BoundField>
-                                                <asp:BoundField DataField="column8" HeaderText="Gestión" />
-                                                <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fecha Compromiso" />
-                                                <asp:BoundField DataField="column10" HeaderText="Ciudad" />
-                                                <asp:BoundField DataField="column11" HeaderText="Cod.Motivo" Visible="False" />
-                                                <asp:BoundField DataField="column12" HeaderText="Unidad Gestión" />
-                                                <asp:BoundField DataField="column13" HeaderText="Telecobrador" />
-                                            </Columns>
-                                        </asp:GridView>
-                                    </asp:Panel>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                            <asp:Label ID="LBL_CobranzaTelefonicaError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            <br /><br />
-                        </ContentTemplate>
-                    </cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel2" runat="server" HeaderText="TabPanel2">
-                        <HeaderTemplate>
-                            U.A.C. - U.R.D.
-                        </HeaderTemplate>
-                    </cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3">
-                        <HeaderTemplate>
-                            Cobranza Externa
-                        </HeaderTemplate>
-                    </cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4">
-                        <HeaderTemplate>
-                            Dicom
-                        </HeaderTemplate>
-                    </cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5">
-                        <HeaderTemplate>
-                            PaloBlanco
-                        </HeaderTemplate>
-                    </cc3:TabPanel>
+                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" Height="510px" Width="680px">
+                    <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1"><HeaderTemplate>Cobranza Telefónica</HeaderTemplate><ContentTemplate><asp:UpdatePanel ID="UpdatePanel19" runat="server"><ContentTemplate><asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px"><asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px"><Columns><asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" /><asp:BoundField DataField="column4" HeaderText="Hora" /><asp:BoundField DataField="column5" HeaderText="Tipo Fono" /><asp:BoundField DataField="column6" HeaderText="Fono"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column7" HeaderText="Contacto"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column8" HeaderText="Gestión" /><asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fec. Compromiso" /><asp:BoundField DataField="column10" HeaderText="U. Gestión" /><asp:BoundField DataField="column11" HeaderText="Telecob" /></Columns></asp:GridView></asp:Panel></ContentTemplate></asp:UpdatePanel><asp:Label ID="LBL_CobranzaTelefonicaError" runat="server" CssClass="etiquetas_tab"></asp:Label><br /></ContentTemplate></cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel2" runat="server" HeaderText="TabPanel2"><HeaderTemplate>U.A.C. - U.R.D.</HeaderTemplate></cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3"><HeaderTemplate>Cobranza Externa</HeaderTemplate></cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4"><HeaderTemplate>Dicom</HeaderTemplate></cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5"><HeaderTemplate>PaloBlanco</HeaderTemplate></cc3:TabPanel>
                 </cc3:TabContainer>
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -106,6 +67,11 @@
                 &nbsp;
                 <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
+                            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                <ContentTemplate>
+                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button" style="display:none"  />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                 <table class="auto-style7" align="center">
                     <tr>
                         <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" style="height: 26px" />                         
