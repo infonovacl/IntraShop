@@ -12,7 +12,6 @@
             ObtieneDatosCliente()
             Me.Tab_DatosClientes.ActiveTabIndex = 0
             Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
-
         End If
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
@@ -48,7 +47,6 @@
                     Me.DDL_EmpleadorComuna.SelectedValue = DDL_EmpleadorComuna.Items.FindByValue(CODcomuna).Value
                 End If
             End If
-
         Catch EX As Exception
             MsgBox(EX)
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
@@ -273,16 +271,16 @@
                     Me.DDL_DiaPago.SelectedValue = DDL_DiaPago.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(33)).Value
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'cargo empleador
-                        Me.TXT_LugarEnvioEC.Text = ""
-                    Else
+                    Me.TXT_LugarEnvioEC.Text = ""
+                Else
                     Me.TXT_LugarEnvioEC.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(34))
                 End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'cargo empleador
-                        Me.TXT_CorreoElectronico.Text = ""
-                    Else
+                If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'cargo empleador
+                    Me.TXT_CorreoElectronico.Text = ""
+                Else
                     Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
                 End If
-                End If
+            End If
         Catch EX As Exception
             ' MsgBox(EX)
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
@@ -333,7 +331,6 @@
                 Catch EX As Exception
                 End Try
             Else
-
             End If
         End If
     End Sub
@@ -387,5 +384,4 @@
         End If
         Return valido
     End Function
-
 End Class

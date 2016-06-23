@@ -140,13 +140,11 @@
                     Else
                         Me.TXT_ConsultaNombreSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(21)
                     End If
-
                     If DataDSDatosCliente.Tables(0).Rows(0)(22) Is System.DBNull.Value Then
                         Me.TXT_ConsultaDireccComuna.Text = ""
                     Else
                         Me.TXT_ConsultaDireccComuna.Text = DataDSDatosCliente.Tables(0).Rows(0)(22)
                     End If
-
                     If DataDSDatosCliente.Tables(0).Rows(0)(23) Is System.DBNull.Value Then
                         Me.TXT_ConsultaFechaPago.Text = ""
                     Else
@@ -846,7 +844,6 @@
             Caja = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(2).Text
             FechaDescuento = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(4).Text
             NumeroComprobante = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(3).Text
-
             Dim STRDetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_ConsultaRutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
             Dim DATADetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetDescuentos, conn)
             DATADetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
@@ -1252,8 +1249,6 @@
         TXT_PagosSeguros.Text = "0"
         Me.Panel_Pagos.Visible = True
     End Sub
-
     Private Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
-
     End Sub
 End Class

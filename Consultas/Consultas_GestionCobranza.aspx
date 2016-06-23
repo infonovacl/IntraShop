@@ -22,9 +22,6 @@
              width: 690px;
              background-color: whitesmoke;
          }
-         .auto-style13 {
-             background-color: white;
-         }
          </style>
      </head>
      <script type="text/javascript">
@@ -54,16 +51,104 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">            
             <ContentTemplate>
-                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" Height="510px" Width="680px">
-                    <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1"><HeaderTemplate>Cobranza Telefónica</HeaderTemplate><ContentTemplate><asp:UpdatePanel ID="UpdatePanel19" runat="server"><ContentTemplate><asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px"><asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px"><Columns><asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" /><asp:BoundField DataField="column4" HeaderText="Hora" /><asp:BoundField DataField="column5" HeaderText="Tipo Fono" /><asp:BoundField DataField="column6" HeaderText="Fono"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column7" HeaderText="Contacto"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column8" HeaderText="Gestión" /><asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fec. Compromiso" /><asp:BoundField DataField="column10" HeaderText="U. Gestión" /><asp:BoundField DataField="column11" HeaderText="Telecob" /></Columns></asp:GridView></asp:Panel></ContentTemplate></asp:UpdatePanel><asp:Label ID="LBL_CobranzaTelefonicaError" runat="server" CssClass="etiquetas_tab"></asp:Label><br /></ContentTemplate></cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel2" runat="server" HeaderText="TabPanel2"><HeaderTemplate>U.A.C. - U.R.D.</HeaderTemplate></cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3"><HeaderTemplate>Cobranza Externa</HeaderTemplate></cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4"><HeaderTemplate>Dicom</HeaderTemplate></cc3:TabPanel>
-                    <cc3:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5"><HeaderTemplate>PaloBlanco</HeaderTemplate></cc3:TabPanel>
+                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="3" Height="510px" Width="680px">
+                    <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1"><HeaderTemplate>
+Cobranza Telefónica
+</HeaderTemplate>
+<ContentTemplate>
+<asp:UpdatePanel ID="UpdatePanel19" runat="server"><ContentTemplate>
+<asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px"><asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px"><Columns><asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" /><asp:BoundField DataField="column4" HeaderText="Hora" /><asp:BoundField DataField="column5" HeaderText="Tipo Fono" /><asp:BoundField DataField="column6" HeaderText="Fono"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column7" HeaderText="Contacto"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column8" HeaderText="Gestión" />
+    <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fec. Compromiso" /><asp:BoundField DataField="column10" HeaderText="U. Gestión" /><asp:BoundField DataField="column11" HeaderText="Telecob" /></Columns></asp:GridView></asp:Panel>
+    <asp:Label ID="LBL_CobranzaTelefonicaError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+</ContentTemplate>
+</asp:UpdatePanel>
+<br />
+</ContentTemplate>
+</cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel2" runat="server" HeaderText="TabPanel2"><HeaderTemplate>
+U.A.C. - U.R.D.
+</HeaderTemplate>
+                        <ContentTemplate>
+                            <asp:UpdatePanel ID="UpdatePanel20" runat="server">
+                                <ContentTemplate>
+                                    <asp:Panel ID="Panel_CobranzaUnidad" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px">
+                                        <asp:GridView ID="Grilla_GestionUnidad" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px">
+                                            <Columns>
+                                                <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" />
+                                                <asp:BoundField DataField="column4" HeaderText="Hora" />
+                                                <asp:BoundField DataField="column5" HeaderText="Ejecutivo" />
+                                                <asp:BoundField DataField="column6" HeaderText="Gestión"></asp:BoundField>
+                                                <asp:BoundField DataField="column7" HeaderText="U. Gestión"></asp:BoundField>
+                                                <asp:BoundField DataField="column8" HeaderText="Acción" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </asp:Panel>
+                                    <asp:Label ID="LBL_CobranzaUnidadError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <br />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </ContentTemplate>
+</cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3"><HeaderTemplate>
+Cobranza Externa
+</HeaderTemplate>
+                        <ContentTemplate>
+                            <asp:UpdatePanel ID="UpdatePanel21" runat="server">
+                                <ContentTemplate>
+                                    <asp:Panel ID="Panel_CobranzaExterna" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px">
+                                        <asp:GridView ID="Grilla_CobranzaExterna" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px">
+                                            <Columns>
+                                                <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" />
+                                                <asp:BoundField DataField="column4" HeaderText="Hora" />
+                                                <asp:BoundField DataField="column5" HeaderText="Empresa C. Ext." />
+                                                <asp:BoundField DataField="column6" DataFormatString="{0:d}" HeaderText="Fecha de Pago" />
+                                                <asp:BoundField DataField="column7" HeaderText="Unidad Origen" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </asp:Panel>
+                                    <asp:Label ID="LBL_CobranzaExternaError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <br />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </ContentTemplate>
+</cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4"><HeaderTemplate>
+Dicom
+</HeaderTemplate>
+                        <ContentTemplate>
+                            <asp:UpdatePanel ID="UpdatePanel22" runat="server">
+                                <ContentTemplate>
+                                    <asp:Panel ID="Panel_CobranzaDicom" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px">
+                                        <asp:GridView ID="Grilla_CobranzaDicom" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px">
+                                            <Columns>
+                                                <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha Envío" />
+                                                <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha Venc. Docto." />
+                                                <asp:BoundField DataField="column5" HeaderText="Morosidad">
+                                                <ItemStyle HorizontalAlign="Right" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="column6" DataFormatString="{0:N0}" HeaderText="Nro. Boleta">
+                                                <ItemStyle HorizontalAlign="Right" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Monto Deuda">
+                                                <ItemStyle HorizontalAlign="Right" />
+                                                </asp:BoundField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </asp:Panel>
+                                    <asp:Label ID="LBL_CobranzaDicomError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                    <br />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </ContentTemplate>
+</cc3:TabPanel>
+                    <cc3:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5"><HeaderTemplate>
+PaloBlanco
+</HeaderTemplate>
+</cc3:TabPanel>
                 </cc3:TabContainer>
             </ContentTemplate>
         </asp:UpdatePanel>
-                <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                <asp:Label ID="LBL_CobranzaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 &nbsp;
                 <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />

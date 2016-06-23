@@ -2,14 +2,81 @@
     Inherits System.Web.UI.Page
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
-
     Protected Sub Tab_GestionCobranza_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_GestionCobranza.ActiveTabChanged
         Select Case Me.Tab_GestionCobranza.ActiveTabIndex.ToString
             Case 0
                 CargaInicial()
+            Case 1
+                Dim DataDSUnidad As New Data.DataSet
+                Dim RutCliente As Integer
+                RutCliente = Session("rut")
+                Try
+                    DataDSUnidad.Clear()
+                    Dim STRUnidad As String = "execute procedure procw_cons_unidad ('" & RutCliente & "' )"
+                    Dim DATAUnidad As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUnidad, conn)
+                    DATAUnidad.Fill(DataDSUnidad, "PRUEBA")
+                    If DataDSUnidad.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Grilla_GestionUnidad.Visible = False
+                        Me.Panel_CobranzaUnidad.Visible = False
+                        Me.LBL_CobranzaUnidadError.Visible = True
+                        Me.LBL_CobranzaUnidadError.Text = DataDSUnidad.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_CobranzaUnidad.Visible = True
+                        Me.LBL_CobranzaUnidadError.Visible = False
+                        Me.Grilla_GestionUnidad.DataSource = DataDSUnidad.Tables(0).DefaultView
+                        Me.Grilla_GestionUnidad.DataBind()
+                    End If
+                Catch EX As Exception
+                    '  MsgBox(EX)
+                End Try
+            Case 2
+                Dim DataDSExterna As New Data.DataSet
+                Dim RutCliente As Integer
+                RutCliente = Session("rut")
+                Try
+                    DataDSExterna.Clear()
+                    Dim STRExterna As String = "execute procedure procw_cons_cobext ('" & RutCliente & "' )"
+                    Dim DATAExterna As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRExterna, conn)
+                    DATAExterna.Fill(DataDSExterna, "PRUEBA")
+                    If DataDSExterna.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Grilla_CobranzaExterna.Visible = False
+                        Me.Panel_CobranzaExterna.Visible = False
+                        Me.LBL_CobranzaExternaError.Visible = True
+                        Me.LBL_CobranzaExternaError.Text = DataDSExterna.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_CobranzaExterna.Visible = True
+                        Me.LBL_CobranzaExternaError.Visible = False
+                        Me.Grilla_CobranzaExterna.DataSource = DataDSExterna.Tables(0).DefaultView
+                        Me.Grilla_CobranzaExterna.DataBind()
+                    End If
+                Catch EX As Exception
+                    '  MsgBox(EX)
+                End Try
+            Case 3
+                Dim DataDSDicom As New Data.DataSet
+                Dim RutCliente As Integer
+                RutCliente = Session("rut")
+                Try
+                    DataDSDicom.Clear()
+                    Dim STRDicom As String = "execute procedure procw_cons_dicom ('" & RutCliente & "' )"
+                    Dim DATADicom As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDicom, conn)
+                    DATADicom.Fill(DataDSDicom, "PRUEBA")
+                    If DataDSDicom.Tables(0).Rows(0)(0) = 1 Then
+                        Me.Grilla_CobranzaDicom.Visible = False
+                        Me.Panel_CobranzaDicom.Visible = False
+                        Me.LBL_CobranzaDicomError.Visible = True
+                        Me.LBL_CobranzaDicomError.Text = DataDSDicom.Tables(0).Rows(0)(1) ' mensaje de error
+                    Else
+                        Me.Panel_CobranzaDicom.Visible = True
+                        Me.LBL_CobranzaDicomError.Visible = False
+                        Me.Grilla_CobranzaDicom.DataSource = DataDSDicom.Tables(0).DefaultView
+                        Me.Grilla_CobranzaDicom.DataBind()
+                    End If
+                Catch EX As Exception
+                    '  MsgBox(EX)
+                End Try
         End Select
     End Sub
-
     Sub CargaInicial()
         Dim DataDSCobranzaTelefonica As New Data.DataSet
         Dim RutCliente As Integer
@@ -31,11 +98,10 @@
                 Me.Grilla_GestionTelefonica.DataBind()
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            '  MsgBox(EX)
         End Try
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
-
     End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
