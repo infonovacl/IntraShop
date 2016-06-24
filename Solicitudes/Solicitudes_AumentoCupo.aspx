@@ -39,6 +39,15 @@
          .auto-style10 {
              text-align: right;
          }
+         .auto-style13 {
+             height: 22px;
+             width: 145px;
+             text-align: right;
+         }
+         .auto-style14 {
+             text-align: right;
+             width: 145px;
+         }
          </style>
     </head>
 <body style="width: 761px; height: 6px; left: 5px;">
@@ -59,49 +68,56 @@
                         <td>
                             <asp:Label ID="Label2" runat="server" CssClass="etiquetas_tab" Text="Fecha Solicitud"></asp:Label>
                         </td>
-                        <td>
+                        <td class="auto-style14">
                             <asp:Label ID="LBL_FechaSolicitud" runat="server" CssClass="etiquetas_tab"></asp:Label>
                         </td>
+                        <td>&nbsp;&nbsp; &nbsp;</td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Label ID="Label3" runat="server" CssClass="etiquetas_tab" Text="Hora Solicitud"></asp:Label>
                         </td>
-                        <td>
+                        <td class="auto-style14">
                             <asp:Label ID="LBL_HoraSolicitud" runat="server" CssClass="etiquetas_tab"></asp:Label>
                         </td>
+                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
+                        <td class="auto-style14">&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Label ID="Label4" runat="server" CssClass="etiquetas_tab" Text="Monto Actual Línea Crédito"></asp:Label>
                         </td>
-                        <td class="auto-style10">
+                        <td class="auto-style14">
                             <asp:Label ID="LBL_MontoActualLineaCredito" runat="server" CssClass="etiquetas_tab">0</asp:Label>
                         </td>
+                        <td class="auto-style10">&nbsp;</td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Label ID="Label5" runat="server" CssClass="etiquetas_tab" Text="Línea crédito Solicitada"></asp:Label>
                         </td>
-                        <td class="auto-style10">
+                        <td class="auto-style14">
                             <asp:Label ID="LBL_LineaCreditoSolicitada" runat="server" CssClass="etiquetas_tab">0</asp:Label>
                         </td>
+                        <td class="auto-style10">&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="auto-style6"></td>
-                        <td class="auto-style6"></td>
+                        <td class="auto-style13"></td>
+                        <td class="auto-style6">&nbsp;</td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Label ID="Label6" runat="server" CssClass="etiquetas_tab" Text="Estado Evaluación"></asp:Label>
                         </td>
-                        <td>
+                        <td class="auto-style14">
                             <asp:Label ID="LBL_EstadoEvaluacion" runat="server" CssClass="etiquetas_tab"></asp:Label>
                         </td>
+                        <td>&nbsp;</td>
                     </tr>
                 </table>
                 <table class="auto-style9">

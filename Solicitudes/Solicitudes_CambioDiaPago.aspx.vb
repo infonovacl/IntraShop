@@ -43,7 +43,11 @@
             If DATADSCambioDiaPagoPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_CambioDiaPagoError.Visible = True
                 Me.LBL_CambioDiaPagoError.Text = DATADSCambioDiaPagoPopUp.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.DDL_NuevoDiaPago.Enabled = False
+                Me.BTN_Grabar.Enabled = False
             Else
+                Me.DDL_NuevoDiaPago.Enabled = True
+                Me.BTN_Grabar.Enabled = True
                 Me.DDL_NuevoDiaPago.DataTextField = DATADSCambioDiaPagoPopUp.Tables(0).Columns("column3").ToString()
                 Me.DDL_NuevoDiaPago.DataValueField = DATADSCambioDiaPagoPopUp.Tables(0).Columns("column3").ToString()
                 Me.DDL_NuevoDiaPago.DataSource = DATADSCambioDiaPagoPopUp.Tables(0)

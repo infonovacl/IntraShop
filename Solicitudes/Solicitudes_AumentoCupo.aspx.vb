@@ -53,7 +53,7 @@
                 If DATADSAumentoCupoPopUp.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
                     Me.LBL_HoraSolicitud.Text = ""
                 Else
-                    Me.LBL_HoraSolicitud.Text = DATADSAumentoCupoPopUp.Tables(0).Rows(0)(3)
+                    Me.LBL_HoraSolicitud.Text = Format(DATADSAumentoCupoPopUp.Tables(0).Rows(0)(3), "HH:mm:ss")
                 End If
                 If DATADSAumentoCupoPopUp.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
                     Me.LBL_MontoActualLineaCredito.Text = "0"

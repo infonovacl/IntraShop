@@ -147,9 +147,7 @@ PaloBlanco
 </cc3:TabPanel>
                 </cc3:TabContainer>
             </ContentTemplate>
-        </asp:UpdatePanel>
-                <asp:Label ID="LBL_CobranzaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
-                &nbsp;
+        </asp:UpdatePanel>             
                 <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas" style="display:none"></asp:Label>
                 <br />
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
