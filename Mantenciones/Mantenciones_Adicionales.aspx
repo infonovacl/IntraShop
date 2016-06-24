@@ -64,7 +64,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
             <ContentTemplate>
                 <asp:Panel ID="Panel_Adicionales" runat="server" CssClass="panel_tab" ScrollBars="Vertical">               
-                    <asp:GridView ID="Grilla_Adicionales" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="730px">
+                    <asp:GridView ID="Grilla_Adicionales" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="730px">
                         <Columns>
                             <asp:CommandField ButtonType="Image" SelectImageUrl="~/Imagenes/mano.jpg" ShowSelectButton="True" />
                             <asp:BoundField DataField="column3" HeaderText="Rut Adicional">

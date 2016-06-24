@@ -45,7 +45,7 @@
             Dim DATAAdicionales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRAdicionales, conn)
             DATAAdicionales.Fill(DATADSAdicionalesPopUp, "PRUEBA")
             If DATADSAdicionalesPopUp.Tables(0).Rows(0)(0) = 1 Then
-                Me.Panel_Adicionales.Visible = False
+                Me.Panel_Adicionales.Visible = True
                 Me.LBL_AdicionalesError.Visible = True
                 Me.LBL_AdicionalesError.Text = DATADSAdicionalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else

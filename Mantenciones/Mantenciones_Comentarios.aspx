@@ -42,7 +42,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
             <ContentTemplate>
                 <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">               
-                    <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" EnableViewState="true" CssClass="grillas_tab" EmptyDataText="No hay resultados en busqueda" Height="16px" ShowHeaderWhenEmpty="True" Width="730px">
+                    <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" EnableViewState="true" CssClass="grillas_tab" Height="16px" Width="730px">
                         <Columns>
                             <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha ">
                             <ItemStyle Width="80px" />

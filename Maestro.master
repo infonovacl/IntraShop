@@ -94,7 +94,7 @@ maximize();
                                          <asp:TreeNode Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Consultas" Value="Consultas" SelectAction="Expand">
-                                         <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago" NavigateUrl="javascript:my_window=window.open('http://www.familyshop.cl/estado-de-cuenta/','','top=110 ,left=220,width=690,height=600',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago" NavigateUrl="http://www.familyshop.cl/estado-de-cuenta" Target="_blank"></asp:TreeNode>
                                          <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza" NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','DatosClientes','top=110 ,left=220,width=690,height=600',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                  </asp:TreeNode>

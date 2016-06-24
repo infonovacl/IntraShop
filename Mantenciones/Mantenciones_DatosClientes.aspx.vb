@@ -310,15 +310,15 @@
                     RutCliente = Session("rut")
                     usuario = Session("usuario")
                     codigotienda = Session("tienda")
-                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" _
-                                                            & Me.TXT_Nombres.Text & "','" & Me.TXT_APaterno.Text & "','" & Me.TXT_AMaterno.Text & "','" & Me.RBL_Sexo.SelectedValue & "'," _
-                                                            & Me.DDL_EstadoCivil.SelectedValue & ",'" & Me.TXT_CalleParticular.Text & "','" & Me.TXT_NumeroCasa.Text & "','" & Me.TXT_NumeroDepto.Text & "','" _
-                                                            & Me.TXT_VillaPoblacion.Text & "','" & Me.TXT_AlturaCalle.Text & "'," & Me.DDL_RegionCliente.SelectedValue & "," & Me.DDL_ComunaCliente.SelectedValue & "," _
-                                                            & Me.TXT_TelefonoFijo.Text & "," & Me.TXT_TelefonoCelular.Text & ",'" & Me.TXT_ReferenciaNombre.Text & "'," & Me.DDL_ReferenciaRegion.SelectedValue & "," _
-                                                            & Me.DDL_ReferenciaComuna.Text & ",'" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "'," & Me.TXT_ReferenciaTelefono.Text & ",'" & Me.TXT_EmpleadorNombre.Text & "','" _
-                                                            & Me.TXT_EmpleadorDireccion.Text & "','" & Me.TXT_EmpleadorNumero.Text & "'," & Me.TXT_EmpleadorOficina.Text & "," & Me.DDL_EmpleadorRegion.SelectedValue & "," _
-                                                            & Me.DDL_EmpleadorComuna.SelectedValue & "," & Me.TXT_EmpleadorTelefono.Text & ",'" & Me.TXT_EmpleadorAnexo.Text & "','" & Me.TXT_EmpleadorCargo.Text & "','" _
-                                                            & Me.TXT_CorreoElectronico.Text & "'," & usuario & "," & codigotienda & ")"
+                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & RutCliente & "','" _
+                                                            & Me.TXT_Nombres.Text.ToUpper & "','" & Me.TXT_APaterno.Text.ToUpper & "','" & Me.TXT_AMaterno.Text.ToUpper & "','" & Me.RBL_Sexo.SelectedValue & "','" _
+                                                            & Me.DDL_EstadoCivil.SelectedValue & "','" & Me.TXT_CalleParticular.Text.ToUpper & "','" & Me.TXT_NumeroCasa.Text.ToUpper & "','" & Me.TXT_NumeroDepto.Text.ToUpper & "','" _
+                                                            & Me.TXT_VillaPoblacion.Text.ToUpper & "','" & Me.TXT_AlturaCalle.Text.ToUpper & "','" & Me.DDL_RegionCliente.SelectedValue & "','" & Me.DDL_ComunaCliente.SelectedValue & "','" _
+                                                            & Me.TXT_TelefonoFijo.Text.ToUpper & "','" & Me.TXT_TelefonoCelular.Text.ToUpper & "','" & Me.TXT_ReferenciaNombre.Text.ToUpper & "','" & Me.DDL_ReferenciaRegion.SelectedValue & "','" _
+                                                            & Me.DDL_ReferenciaComuna.Text.ToUpper & "','" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "','" & Me.TXT_ReferenciaTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorNombre.Text.ToUpper & "','" _
+                                                            & Me.TXT_EmpleadorDireccion.Text.ToUpper & "','" & Me.TXT_EmpleadorNumero.Text.ToUpper & "','" & Me.TXT_EmpleadorOficina.Text.ToUpper & "','" & Me.DDL_EmpleadorRegion.SelectedValue & "','" _
+                                                            & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Me.TXT_EmpleadorTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorAnexo.Text.ToUpper & "','" & Me.TXT_EmpleadorCargo.Text.ToUpper & "','" _
+                                                            & Me.TXT_CorreoElectronico.Text.ToUpper & "','" & usuario & "','" & codigotienda & "')"
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then
