@@ -12,20 +12,18 @@
     End Sub
     <System.Web.Script.Services.ScriptMethod(),
         System.Web.Services.WebMethod()>
-    Public Shared Function BuscaClientexNombre(ByVal prefixText As String, ByVal count As Integer) As List(Of String)
-        Dim conn2 As Data.SqlClient.SqlConnection = New Data.SqlClient.SqlConnection
-        conn2.ConnectionString = ConfigurationManager _
-         .ConnectionStrings("constr").ConnectionString
-        Dim cmd As Data.SqlClient.SqlCommand = New Data.SqlClient.SqlCommand
-        cmd.CommandText = "select ContactName from Customers where" &
-        " ContactName like @SearchText + '%'"
-        cmd.Parameters.AddWithValue("@SearchText", prefixText)
+    Public Shared Function BuscaXNombre(ByVal prefixText As String, ByVal count As Integer) As List(Of String)
+        Dim conn2 As Data.Odbc.OdbcConnection = New Data.Odbc.OdbcConnection
+        conn2.ConnectionString = ConfigurationManager.ConnectionStrings("ConnectionString_FamilyShop").ConnectionString
+        Dim cmd As Data.Odbc.OdbcCommand = New Data.Odbc.OdbcCommand
+        cmd.CommandText = "execute procedure procw_busca_nombre ('" & prefixText & "')"
+        ' cmd.Parameters.AddWithValue("@SearchText", prefixText)
         cmd.Connection = conn2
         conn2.Open()
         Dim customers As List(Of String) = New List(Of String)
-        Dim sdr As Data.SqlClient.SqlDataReader = cmd.ExecuteReader
+        Dim sdr As Data.Odbc.OdbcDataReader = cmd.ExecuteReader
         While sdr.Read
-            customers.Add(sdr("ContactName").ToString)
+            customers.Add(sdr(7).ToString)
         End While
         conn2.Close()
         Return customers
@@ -1250,5 +1248,7 @@
         Me.Panel_Pagos.Visible = True
     End Sub
     Private Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
+    End Sub
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles BTN_BuscarXNombre.Click
     End Sub
 End Class

@@ -34,7 +34,6 @@
         Try
             Dim DATADSAumentoCupoPopUp As New Data.DataSet
             DATADSAumentoCupoPopUp.Clear()
-
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRAumentoCupo As String = "execute procedure procw_cons_aumcupo ('" & RutCliente & "' )"

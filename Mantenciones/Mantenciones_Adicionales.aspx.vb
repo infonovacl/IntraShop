@@ -59,10 +59,8 @@
         End Try
     End Sub
     Protected Sub Grilla_Adicionales_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Adicionales.SelectedIndexChanged
-        Dim DataDSSubEstados As New Data.DataSet
         Dim IndiceGrillaAdicionales As Integer = 0
         Try
-            DataDSSubEstados.Clear()
             IndiceGrillaAdicionales = Me.Grilla_Adicionales.SelectedIndex.ToString()
             Me.TXT_AdicionalRut.Text = Me.Grilla_Adicionales.Rows(IndiceGrillaAdicionales).Cells(1).Text
             Me.TXT_AdicionalDv.Text = Me.Grilla_Adicionales.Rows(IndiceGrillaAdicionales).Cells(2).Text

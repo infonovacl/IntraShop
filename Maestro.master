@@ -1,5 +1,4 @@
 ﻿<%@ Master Language="VB" CodeFile="Maestro.master.vb" Inherits="Maestro" EnableViewState="true"%>
-
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -24,9 +23,7 @@ maximize();
             height: 15px;
         }
     </style>
-
     </head>  
-       
 <body>
     <form id="fondo" runat="server" >
      <div id="contenedor" runat="server">
@@ -132,7 +129,6 @@ maximize();
                      </table>
                  </ContentTemplate>
              </asp:UpdatePanel>
-                     
            </div>
       </div>
 </form>

@@ -3,6 +3,45 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
       <link href="css/EstilosShop.css" rel="stylesheet" />
+    <style type="text/css"> 
+        .completionList {
+        border:solid 1px Gray;
+        margin:0px;
+        font-family:Arial;
+        font-size:11px;
+        padding:3px;
+        height: 150px;
+        overflow:auto;
+        background-color: #FFFFFF;     
+        } 
+        .listItem {
+        color: #191919;
+        } 
+        .itemHighlighted {
+        background-color: #ADD6FF;       
+        }
+        .auto-style5 {
+            width: 235px;
+        }
+        .auto-style6 {
+            width: 300px;
+            height: 31px;
+        }
+        .auto-style8 {
+            width: 350px;
+            height: 31px;
+        }
+        .auto-style9 {
+            width: 250px;
+            height: 31px;
+        }
+        .loading
+        {
+            background-image: url(imagenes/cargando_textbox.gif);
+            background-position: right;
+            background-repeat: no-repeat;
+        }        
+    </style>
     <script type="text/javascript">
         function pageLoad(sender, e) {
             var objTpDummy =
@@ -22,22 +61,43 @@
             var objO = document.getElementById(objBoton);
             objO.click();
         }
+        function OnClientPopulating(sender, e) {
+            sender._element.className = "loading";
+        }
+        function OnClientCompleted(sender, e) {
+            sender._element.className = "";
+        }
+        function BuscaNombre() {
+            var my_window=window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=615,height=300,left=220', scrollbars = 'NO', resizable = 'NO');
+            my_window.focus()
+        }
     </script>
     <div>   
         <table class="tablas">
             <tr>
-                <td class="auto-style3" style="width: 2997px; ">
+                <td class="auto-style6">
                     <asp:Label ID="Label1" runat="server" Text="Rut Cliente" CssClass="etiquetas"></asp:Label>
                     <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px">12816681</asp:TextBox>
                     <asp:Label ID="Label26" runat="server" Text="-" CssClass="etiquetas"></asp:Label>
                     <asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro"></asp:TextBox>
                 </td>
-                <td class="auto-style3" style="width: 2997px; text-align: center;">
+                <td class="auto-style9">
                     <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" CssClass="botones" />
                     <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
                 </td>
-                <td class="auto-style3" style="width: 1020px; ">
-                    <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" Width="260px" CssClass="cajastextoparametro"></asp:TextBox>
+                <td class="auto-style8">
+                    <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" Width="300px" CssClass="cajastextoparametro"></asp:TextBox>                                                                             
+                    <cc1:AutoCompleteExtender ServiceMethod="BuscaXNombre" MinimumPrefixLength="4"
+                            CompletionInterval="50" EnableCaching="true" CompletionSetCount="20"
+                            TargetControlID="TXT_ConsultaNombreCompleto" ID="AutoCompleteExtender1" runat="server" FirstRowSelected = "false"   
+                            CompletionListCssClass="completionList"
+                            CompletionListItemCssClass="listItem"
+                            CompletionListHighlightedItemCssClass="itemHighlighted" 
+                            OnClientHiding="OnClientCompleted"
+                            OnClientPopulated="OnClientCompleted"   
+                            OnClientPopulating="OnClientPopulating">    
+                    </cc1:AutoCompleteExtender>
+                    <asp:Button ID="BTN_BuscarXNombre" runat="server" Height="24px" Text="." Width="20px" OnClientClick="BuscaNombre()" />
                 </td>
             </tr>
         </table>    
@@ -217,7 +277,7 @@
                 <td>
                         <asp:Label ID="Label18" runat="server" Text="Altura " CssClass="etiquetas"></asp:Label>
                     </td>
-                <td class="auto-style5">
+                <td class="auto-style5" >
                     <asp:TextBox ID="TXT_ConsultaDireccAltura" runat="server" Width="220px" CssClass="cajastexto"></asp:TextBox>
                 </td>
                 <td>
