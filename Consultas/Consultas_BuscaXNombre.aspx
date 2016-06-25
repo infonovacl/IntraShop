@@ -5,13 +5,10 @@
     <link href="../css/EstilosShop.css" rel="stylesheet" />
     <title>Adicionales</title>
     <script type="text/javascript">
-               function EnviaRut(val){
-               if (window.opener != null && !window.opener.closed) {
-                var txtName = window.opener.document.getElementById("LBL_ClienteSeleccionado");
-                txtName.value = document.getElementById("TXT_ConsultaRutCliente").value;
-        }
-        window.close();
-              }
+                function CerrarPopup(){                  
+                        window.opener.PostBackParentWindow();
+                        window.close();
+                    }                 
                 </script>
      <style type="text/css">      
          .auto-style1 {
@@ -88,9 +85,6 @@
                         <table class="auto-style3">
                             <tr>
                                 <td class="auto-style4">
-                                    <br />
-                                    <asp:Button ID="BTN_EnviarRut" runat="server" CssClass="botones" Text="ENVIAR" OnClientClick="EnviaRut()" />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
                                 </td>
                             </tr>

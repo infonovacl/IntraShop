@@ -2,17 +2,11 @@
     Inherits System.Web.UI.Page
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
+    Public rutbuscado As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_BuscaXNOmbre.Visible = True
         Me.LBL_BuscarXNombreError.Visible = False
         Me.TXT_BuscaXNombre.Focus()
-    End Sub
-    Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_EnviarRut.Click
-        Try
-            'enviar rut a txt
-        Catch EX As Exception
-            ' MsgBox(EX)
-        End Try
     End Sub
     Private Sub ObtieneNombres()
         Try
@@ -45,7 +39,7 @@
         Try
             IndiceGrillaBuscaxNombre = Me.Grilla_BuscaXNombre.SelectedIndex.ToString()
             Me.LBL_ClienteSeleccionado.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(6).Text
-            Me.BTN_EnviarRut.Enabled = True
+            Session("rutbuscado") = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text
             Me.Grilla_BuscaXNombre.Columns(6).Visible = False
         Catch EX As Exception
             MsgBox(EX)

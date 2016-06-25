@@ -29,6 +29,7 @@
         Return customers
     End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
+        Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 5 Then
             'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
             ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
@@ -37,6 +38,7 @@
             menu = Master.FindControl("TVM_Principal")
             menu.Enabled = True
             menu.Font.Strikeout = False
+            Session("rutbuscado") = ""
             Session("rut") = Me.TXT_ConsultaRutCliente.Text
             Session("dv") = Me.TXT_ConsultaDV.Text
             Dim DataDSDatosCliente As New Data.DataSet
