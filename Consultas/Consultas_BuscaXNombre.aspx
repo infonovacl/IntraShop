@@ -3,13 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>Adicionales</title>
-    <script type="text/javascript">
-                function CerrarPopup(){                  
-                        window.opener.PostBackParentWindow();
-                        window.close();
-                    }                 
-                </script>
+    <title>Busqueda Cliente X Nombre</title>
      <style type="text/css">      
          .auto-style1 {
              width: 629px;
@@ -30,6 +24,7 @@
          .auto-style7 {
              width: 615px;
              background-color: whitesmoke;
+             height: 342px;
          }
          </style>
     </head>
@@ -52,6 +47,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="BTN_BuscarXNombre" runat="server" CssClass="botones" Text="BUSCAR" />
                 <br />
+                <br />
                 <asp:Panel ID="Panel_BuscaXNombre" runat="server" CssClass="auto-style5" ScrollBars="Vertical" Height="173px" Width="600px">               
                     <asp:GridView ID="Grilla_BuscaXNombre" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="582px">
                         <Columns>
@@ -71,9 +67,9 @@
                 <table class="auto-style3">
                     <tr>
                         <td>
-                            <asp:Label ID="Label2" runat="server" CssClass="etiquetas" Text="Cliente Seleccionado"></asp:Label>
+                            <asp:Label ID="Label2" runat="server" CssClass="etiquetasimportante" Text="Cliente Seleccionado"></asp:Label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Label ID="LBL_ClienteSeleccionado" runat="server" CssClass="etiquetas"></asp:Label>
+                            <asp:Label ID="LBL_ClienteSeleccionado" runat="server" CssClass="etiquetasimportante"></asp:Label>
                         </td>
                     </tr>
                     <tr>

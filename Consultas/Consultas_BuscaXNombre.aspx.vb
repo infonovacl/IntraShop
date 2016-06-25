@@ -4,7 +4,7 @@
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Public rutbuscado As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.Panel_BuscaXNOmbre.Visible = True
+        Me.Panel_BuscaXNombre.Visible = True
         Me.LBL_BuscarXNombreError.Visible = False
         Me.TXT_BuscaXNombre.Focus()
     End Sub

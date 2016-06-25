@@ -24,16 +24,16 @@
             width: 235px;
         }
         .auto-style6 {
-            width: 300px;
-            height: 31px;
+            width: 260px;
+            height: 12px;
         }
         .auto-style8 {
-            width: 350px;
-            height: 31px;
+            width: 400px;
+            height: 12px;
         }
         .auto-style9 {
-            width: 250px;
-            height: 31px;
+            width: 220px;
+            height: 12px;
         }
         .loading
         {
@@ -71,37 +71,26 @@
             var my_window=window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');
            my_window.focus()
         }
-        function PostBackParentWindow() {
-            alert("hola")
-            __doPostBack(null, null);
-        }
     </script>
     <div>   
         <table class="tablas">
             <tr>
                 <td class="auto-style6">
                     <asp:Label ID="Label1" runat="server" Text="Rut Cliente" CssClass="etiquetas"></asp:Label>
+                    &nbsp;
                     <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px"></asp:TextBox>
-                    <asp:Label ID="Label26" runat="server" Text="-" CssClass="etiquetas"></asp:Label>
-                    <asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro"></asp:TextBox>
+                    &nbsp;<asp:Label ID="Label26" runat="server" Text="-" CssClass="etiquetas"></asp:Label>
+                    &nbsp;<asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro"></asp:TextBox>
                 </td>
                 <td class="auto-style9">
                     <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" CssClass="botones" />
+                    &nbsp;
                     <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
                 </td>
                 <td class="auto-style8">
-                    <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" Width="300px" CssClass="cajastextoparametro"></asp:TextBox>                                                                             
-                    <cc1:AutoCompleteExtender ServiceMethod="BuscaXNombre" MinimumPrefixLength="4"
-                            CompletionInterval="50" EnableCaching="true" CompletionSetCount="20"
-                            TargetControlID="TXT_ConsultaNombreCompleto" ID="AutoCompleteExtender1" runat="server" FirstRowSelected = "false"   
-                            CompletionListCssClass="completionList"
-                            CompletionListItemCssClass="listItem"
-                            CompletionListHighlightedItemCssClass="itemHighlighted" 
-                            OnClientHiding="OnClientCompleted"
-                            OnClientPopulated="OnClientCompleted"   
-                            OnClientPopulating="OnClientPopulating">    
-                    </cc1:AutoCompleteExtender>
-                    <asp:Button ID="BTN_BuscarXNombre" runat="server" Height="24px" Text="." Width="20px" OnClientClick="BuscaNombre()" />
+                    <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" Width="320px" CssClass="cajastextoparametro" ReadOnly="True"></asp:TextBox>                                                                             
+                    &nbsp;
+                    <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" OnClientClick="BuscaNombre()" Width="20px" />
                 </td>
             </tr>
         </table>    
@@ -254,7 +243,7 @@
                         <asp:Label ID="Label23" runat="server" Text="Teléfono Particular " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td>
-                    <asp:TextBox ID="TXT_ConsultaTeleFonoParticular" runat="server" Width="100px" CssClass="cajastexto"></asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaTeleFonoParticular" runat="server" Width="95px" CssClass="cajastexto"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -268,13 +257,13 @@
                         <asp:Label ID="Label20" runat="server" Text="Región " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td colspan="3">
-                    <asp:TextBox ID="TXT_ConsultaDireccRegion" runat="server" Width="220px" CssClass="cajastexto"></asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaDireccRegion" runat="server" Width="215px" CssClass="cajastexto"></asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label24" runat="server" Text="Teléfono Celular " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td>
-                    <asp:TextBox ID="TXT_ConsultaTeleFonoCelular" runat="server" Width="100px" CssClass="cajastexto"></asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaTeleFonoCelular" runat="server" Width="95px" CssClass="cajastexto"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -288,13 +277,13 @@
                         <asp:Label ID="Label21" runat="server" Text="Comuna " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td colspan="3">
-                    <asp:TextBox ID="TXT_ConsultaDireccComuna" runat="server" Width="220px" CssClass="cajastexto"></asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaDireccComuna" runat="server" Width="215px" CssClass="cajastexto"></asp:TextBox>
                 </td>
                 <td>
                         <asp:Label ID="Label25" runat="server" Text="Tarjeta Entregada " CssClass="etiquetas"></asp:Label>
                     </td>
                 <td>
-                    <asp:TextBox ID="TXT_ConsultaTarjetaEntregada" runat="server" Width="100px" CssClass="cajastexto"></asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaTarjetaEntregada" runat="server" Width="95px" CssClass="cajastexto"></asp:TextBox>
                 </td>
             </tr>
         </table>

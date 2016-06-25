@@ -10,26 +10,28 @@
             menu.Font.Strikeout = True
         End If
     End Sub
-    <System.Web.Script.Services.ScriptMethod(),
-        System.Web.Services.WebMethod()>
-    Public Shared Function BuscaXNombre(ByVal prefixText As String, ByVal count As Integer) As List(Of String)
-        Dim conn2 As Data.Odbc.OdbcConnection = New Data.Odbc.OdbcConnection
-        conn2.ConnectionString = ConfigurationManager.ConnectionStrings("ConnectionString_FamilyShop").ConnectionString
-        Dim cmd As Data.Odbc.OdbcCommand = New Data.Odbc.OdbcCommand
-        cmd.CommandText = "execute procedure procw_busca_nombre ('" & prefixText & "')"
-        ' cmd.Parameters.AddWithValue("@SearchText", prefixText)
-        cmd.Connection = conn2
-        conn2.Open()
-        Dim customers As List(Of String) = New List(Of String)
-        Dim sdr As Data.Odbc.OdbcDataReader = cmd.ExecuteReader
-        While sdr.Read
-            customers.Add(sdr(7).ToString)
-        End While
-        conn2.Close()
-        Return customers
-    End Function
+    ' <System.Web.Script.Services.ScriptMethod(),
+    '     System.Web.Services.WebMethod()>
+    ' Public Shared Function BuscaXNombre(ByVal prefixText As String, ByVal count As Integer) As List(Of String)
+    ' Dim conn2 As Data.Odbc.OdbcConnection = New Data.Odbc.OdbcConnection
+    '     conn2.ConnectionString = ConfigurationManager.ConnectionStrings("ConnectionString_FamilyShop").ConnectionString
+    ' Dim cmd As Data.Odbc.OdbcCommand = New Data.Odbc.OdbcCommand
+    '     cmd.CommandText = "execute procedure procw_busca_nombre ('" & prefixText & "')"
+    '     ' cmd.Parameters.AddWithValue("@SearchText", prefixText)
+    '     cmd.Connection = conn2
+    '     conn2.Open()
+    ' Dim customers As List(Of String) = New List(Of String)
+    ' Dim sdr As Data.Odbc.OdbcDataReader = cmd.ExecuteReader
+    ' While sdr.Read
+    '         customers.Add(sdr(7).ToString)
+    ' End While
+    '     conn2.Close()
+    ' Return customers
+    ' End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
-        Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
+        If Session("rutbuscado") <> "" Then
+            Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
+        End If
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 5 Then
             'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
             ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
@@ -1250,7 +1252,5 @@
         Me.Panel_Pagos.Visible = True
     End Sub
     Private Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
-    End Sub
-    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles BTN_BuscarXNombre.Click
     End Sub
 End Class
