@@ -50,7 +50,6 @@
             Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, conn)
             DATAComentarios.Fill(DATADSComentariosPopUp, "PRUEBA")
             If DATADSComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
-                Me.Panel_Comentarios.Visible = False
                 Me.LBL_ComentariosError.Visible = True
                 Me.LBL_ComentariosError.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else

@@ -41,8 +41,6 @@
             menu.Enabled = True
             menu.Font.Strikeout = False
             Session("rutbuscado") = ""
-            Session("rut") = Me.TXT_ConsultaRutCliente.Text
-            Session("dv") = Me.TXT_ConsultaDV.Text
             Dim DataDSDatosCliente As New Data.DataSet
             Try
                 Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
@@ -56,6 +54,8 @@
                     Me.Tab_Consultas.ActiveTabIndex = 16
                     Me.LBL_MensajeContratos.Text = ""
                     Me.LBL_MensajeContratos.Visible = True
+                    Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
+                    Session("dv") = Me.TXT_ConsultaDV.Text
                     If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                         Me.TXT_ConsultaNombreCompleto.Text = ""
                     Else
@@ -381,6 +381,16 @@
                         DATAModificaciones.Fill(DataDSModificaciones, "PRUEBA")
                         Me.Grilla_Modificaciones.DataSource = DataDSModificaciones.Tables(0).DefaultView
                         Me.Grilla_Modificaciones.DataBind()
+                        If DataDSModificaciones.Tables(0).Rows(0)(0) = 1 Then
+                            Me.Panel_Modificaciones.Visible = False
+                            Me.LBL_ModificacionesError.Visible = True
+                            Me.LBL_ModificacionesError.Text = DataDSModificaciones.Tables(0).Rows(0)(1) ' mensaje de error
+                        Else
+                            Me.Panel_Modificaciones.Visible = True
+                            Me.LBL_ModificacionesError.Visible = False
+                            Me.Grilla_Modificaciones.DataSource = DataDSModificaciones.Tables(0).DefaultView
+                            Me.Grilla_Modificaciones.DataBind()
+                        End If
                     Catch EX As Exception
                         ' Response.Write("<script>window.alert('Error al Obtener Modificaciones');</script>")
                     End Try
@@ -579,10 +589,14 @@
                         If DataDSPagos.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Pagos.Visible = False
                             Me.LBL_PagosError.Visible = True
+                            Me.TBL_DetallePagos.Visible = False
+                            Me.IBTN_PagosDetalle.Visible = False
                             Me.LBL_PagosError.Text = DataDSPagos.Tables(0).Rows(0)(1) ' mensaje de error
                         Else
                             Me.Panel_Pagos.Visible = True
                             Me.LBL_PagosError.Visible = False
+                            Me.IBTN_PagosDetalle.Visible = False
+                            Me.TBL_DetallePagos.Visible = False
                             Me.Grilla_Pagos.DataSource = DataDSPagos.Tables(0).DefaultView
                             Me.Grilla_Pagos.DataBind()
                         End If
@@ -599,6 +613,7 @@
                         If DataDSVentas.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Ventas.Visible = False
                             Me.LBL_VentasError.Visible = True
+                            Me.IBTN_VentasDetalle.Visible = False
                             Me.LBL_VentasError.Text = DataDSVentas.Tables(0).Rows(0)(1) ' mensaje de error
                         Else
                             Me.Panel_Ventas.Visible = True
@@ -1123,10 +1138,12 @@
                 Me.LBL_PagosDetalleError.Visible = True
                 Me.LBL_PagosDetalleError.Text = DataDSDetPagos.Tables(0).Rows(0)(1)
                 Me.TBL_DetallePagos.Visible = False
+                Me.IBTN_PagosDetalle.Visible = True
             Else
                 Me.LBL_PagosDetalleError.Text = ""
                 Me.LBL_PagosDetalleError.Visible = False
                 Me.TBL_DetallePagos.Visible = True
+                Me.IBTN_PagosDetalle.Visible = True
                 If DataDSDetPagos.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.TXT_PagosMontoCapital.Text = "0"
                 Else
