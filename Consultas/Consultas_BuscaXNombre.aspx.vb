@@ -29,6 +29,7 @@
                 Me.Grilla_BuscaXNombre.DataSource = DATADSBuscaxNombrePopUp.Tables(0).DefaultView
                 Me.Grilla_BuscaXNombre.DataBind()
                 Me.Grilla_BuscaXNombre.Columns(6).Visible = False
+
             End If
         Catch EX As Exception
         End Try
@@ -40,6 +41,7 @@
             IndiceGrillaBuscaxNombre = Me.Grilla_BuscaXNombre.SelectedIndex.ToString()
             Me.LBL_ClienteSeleccionado.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(6).Text
             Session("rutbuscado") = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text
+            Me.BTN_BuscarXNombre.Text = "ENVIAR"
             Me.Grilla_BuscaXNombre.Columns(6).Visible = False
         Catch EX As Exception
             MsgBox(EX)

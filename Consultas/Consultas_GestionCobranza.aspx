@@ -49,14 +49,20 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">            
             <ContentTemplate>
-                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="3" Height="510px" Width="680px">
+                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" Height="510px" Width="680px">
                     <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1"><HeaderTemplate>
 Cobranza Telefónica
 </HeaderTemplate>
 <ContentTemplate>
 <asp:UpdatePanel ID="UpdatePanel19" runat="server"><ContentTemplate>
-<asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px"><asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px"><Columns><asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" /><asp:BoundField DataField="column4" HeaderText="Hora" /><asp:BoundField DataField="column5" HeaderText="Tipo Fono" /><asp:BoundField DataField="column6" HeaderText="Fono"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column7" HeaderText="Contacto"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column8" HeaderText="Gestión" />
-    <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fec. Compromiso" /><asp:BoundField DataField="column10" HeaderText="U. Gestión" /><asp:BoundField DataField="column11" HeaderText="Telecob" /></Columns></asp:GridView></asp:Panel>
+<asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px"><asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px"><Columns><asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha" >
+    <ItemStyle Width="70px" />
+    </asp:BoundField>
+    <asp:BoundField DataField="column4" HeaderText="Hora" /><asp:BoundField DataField="column5" HeaderText="Tipo Fono" /><asp:BoundField DataField="column6" HeaderText="Fono"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column7" HeaderText="Contacto"><ItemStyle HorizontalAlign="Right" /></asp:BoundField><asp:BoundField DataField="column8" HeaderText="Gestión" />
+    <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fecha Compromiso" >
+    <ItemStyle Width="80px" />
+    </asp:BoundField>
+    <asp:BoundField DataField="column10" HeaderText="U. Gestión" /><asp:BoundField DataField="column11" HeaderText="Telecob" /></Columns></asp:GridView></asp:Panel>
     <asp:Label ID="LBL_CobranzaTelefonicaError" runat="server" CssClass="etiquetas_tab"></asp:Label>
 </ContentTemplate>
 </asp:UpdatePanel>
