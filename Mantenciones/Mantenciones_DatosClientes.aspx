@@ -80,7 +80,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -119,7 +119,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_Rut" runat="server" CssClass="cajastexto_popup" ReadOnly="True"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_Rut" runat="server" CssClass="cajastexto_popup" ReadOnly="True" Width="80px"></asp:TextBox>
                                         &nbsp;-
                                         <asp:TextBox ID="TXT_Dv" runat="server" CssClass="cajastexto_popup" Width="20px" ReadOnly="True"></asp:TextBox>
                                     </td>

@@ -3,6 +3,9 @@
     Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If Session("rutbuscado") <> "" Then
+            Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
+        End If
         If IsPostBack = False Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
@@ -54,8 +57,7 @@
                     Me.Tab_Consultas.ActiveTabIndex = 16
                     Me.LBL_MensajeContratos.Text = ""
                     Me.LBL_MensajeContratos.Visible = True
-                    Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
-                    Session("dv") = Me.TXT_ConsultaDV.Text
+
                     If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                         Me.TXT_ConsultaNombreCompleto.Text = ""
                     Else
@@ -258,6 +260,8 @@
                     Else
                         Me.TXT_ConsultaDV.Text = DataDSDatosCliente.Tables(0).Rows(0)(44)
                     End If
+                    Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
+                    Session("dv") = Me.TXT_ConsultaDV.Text
                 End If
             Catch ex As Exception
             End Try
@@ -1018,15 +1022,14 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = False
         menu.Font.Strikeout = True
-        Me.Tab_Consultas.ActiveTabIndex = 16
-        Me.LBL_MensajeAvance.Text = ""
-        Me.LBL_MensajeContratos.Text = ""
-        Me.LBL_MensajeAvance.Visible = False
-        Me.LBL_MensajeContratos.Visible = False
         LimpiaControles(Me.Controls)
         Me.TXT_ConsultaRutCliente.Focus()
     End Sub
     Public Sub LimpiaControles(ByVal controles As ControlCollection)
+        Dim menu As TreeView
+        menu = Master.FindControl("TVM_Principal")
+        menu.Enabled = False
+        menu.Font.Strikeout = True
         For Each control As Control In controles
             If TypeOf control Is TextBox Then
                 DirectCast(control, TextBox).Text = String.Empty
@@ -1049,6 +1052,17 @@
                 LimpiaControles(control.Controls)
             End If
         Next
+        Me.LBL_Vencimiento1.Text = "-"
+        Me.LBL_Vencimiento2.Text = "-"
+        Me.LBL_Vencimiento3.Text = "-"
+        Me.LBL_Vencimiento4.Text = "-"
+        Me.LBL_Vencimiento5.Text = "-"
+        Me.LBL_Vencimiento6.Text = "-"
+        Me.Tab_Consultas.ActiveTabIndex = 16
+        Me.LBL_MensajeAvance.Text = ""
+        Me.LBL_MensajeContratos.Text = ""
+        Me.LBL_MensajeAvance.Visible = False
+        Me.LBL_MensajeContratos.Visible = False
     End Sub
     Protected Sub Grilla_Seguros_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Seguros.SelectedIndexChanged
         Dim DataDSDetSeguro As New Data.DataSet
@@ -1269,5 +1283,8 @@
         Me.Panel_Pagos.Visible = True
     End Sub
     Private Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
+    End Sub
+    Protected Sub BTN_BuscaXNombre_Click(sender As Object, e As ImageClickEventArgs) Handles BTN_BuscaXNombre.Click
+        LimpiaControles(Me.Controls)
     End Sub
 End Class

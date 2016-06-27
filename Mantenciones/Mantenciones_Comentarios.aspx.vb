@@ -21,6 +21,7 @@
                 Dim DATAInsertaComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRInsertaComentarios, conn)
                 DATAInsertaComentarios.Fill(DATADSInsertaComentariosPopUp, "PRUEBA")
                 If DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
+                    Me.BTN_Grabar.Enabled = True
                     Me.Panel_Comentarios.Visible = False
                     Me.LBL_ComentariosError.Visible = True
                     Me.LBL_ComentariosError.Text = DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
@@ -28,6 +29,7 @@
                     ObtieneComentarios()
                 End If
             Else
+                Me.BTN_Grabar.Enabled = True
                 Me.LBL_ComentariosError.Visible = True
                 Me.LBL_ComentariosError.Text = "Debe Ingresar un Comentario Válido"
                 Me.TXT_Comentario.Focus()
@@ -50,10 +52,12 @@
             Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, conn)
             DATAComentarios.Fill(DATADSComentariosPopUp, "PRUEBA")
             If DATADSComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
+                Me.BTN_Grabar.Enabled = False
                 Me.LBL_ComentariosError.Visible = True
                 Me.LBL_ComentariosError.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
                 Me.Panel_Comentarios.Visible = True
+                Me.BTN_Grabar.Enabled = True
                 Me.LBL_ComentariosError.Visible = False
                 Me.Grilla_Comentarios.DataSource = DATADSComentariosPopUp.Tables(0).DefaultView
                 Me.Grilla_Comentarios.DataBind()

@@ -72,7 +72,7 @@
                             <tr>
                                 <td class="auto-style4">
                                     <br />
-                                    <asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />
+                                    <asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" Enabled="False" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
                                 </td>

@@ -24,6 +24,7 @@
                 Me.LBL_AdicionalesError.Visible = True
                 Me.LBL_AdicionalesError.Text = DATADSModificaAdicionalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
+
                 Me.Panel_Adicionales.Visible = True
                 Me.Panel_AdicionalesDetalle.Visible = False
                 Me.LBL_AdicionalesError.Visible = False
@@ -45,10 +46,12 @@
             Dim DATAAdicionales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRAdicionales, conn)
             DATAAdicionales.Fill(DATADSAdicionalesPopUp, "PRUEBA")
             If DATADSAdicionalesPopUp.Tables(0).Rows(0)(0) = 1 Then
+                Me.BTN_Grabar.Enabled = False
                 Me.Panel_Adicionales.Visible = True
                 Me.LBL_AdicionalesError.Visible = True
                 Me.LBL_AdicionalesError.Text = DATADSAdicionalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
+                Me.BTN_Grabar.Enabled = True
                 Me.Panel_Adicionales.Visible = True
                 Me.LBL_AdicionalesError.Visible = False
                 Me.Grilla_Adicionales.DataSource = DATADSAdicionalesPopUp.Tables(0).DefaultView

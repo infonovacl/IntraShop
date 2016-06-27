@@ -18,7 +18,7 @@
         RutCliente = Session("rut")
         Try
             DataDSHabilitaBotones.Clear()
-            Dim STRHabilitaBotones As String = "execute procedure procw_habirech ('" & RutCliente & "' )"
+            Dim STRHabilitaBotones As String = "execute procedure procw_habi_rech ('" & RutCliente & "' )"
             Dim DATAHabilitaBotones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRHabilitaBotones, conn)
             DATAHabilitaBotones.Fill(DataDSHabilitaBotones, "PRUEBA")
             If DataDSHabilitaBotones.Tables(0).Rows(0)(0) = 1 Then

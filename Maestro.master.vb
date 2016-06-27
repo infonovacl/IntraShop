@@ -1,5 +1,7 @@
 ﻿Partial Class Maestro
     Inherits System.Web.UI.MasterPage
+    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
+    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Public Property PropertyMasterTextBox2() As TextBox
         Get
             Return TXT_RutMaster
@@ -36,19 +38,31 @@
         End If
     End Sub
     Protected Sub BTN_Entrar_Click(sender As Object, e As EventArgs) Handles BTN_Entrar.Click
-        Me.LBL_UsuarioRutRegistrado.Text = Me.TXT_UsuarioRut.Text
-        Session("usuario") = Me.LBL_UsuarioRutRegistrado.Text
-        Session("tienda") = "15"
-        Session("caja") = "101"
-        Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
-        'Dim node As TreeNode
-        'For Each node In Me.TVM_Principal.Nodes(0).ChildNodes
-        ' Select Case node.Text
-        ' Case "Tarjeta"
-        ' node.Selected = True
-        ' node.NavigateUrl = "~/Cliente.aspx"
-        ' node.Select()
-        '     End Select
-        ' Next
+        Try
+            Dim DATADSLoginPopUp As New Data.DataSet
+            DATADSLoginPopUp.Clear()
+            Dim RutCliente As Integer
+            RutCliente = Session("rut")
+            Dim STRLogin As String = "execute procedure procw_login  ('" & RutCliente & "' )"
+            Dim DATALogin As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLogin, conn)
+            DATALogin.Fill(DATADSLoginPopUp, "PRUEBA")
+            If DATADSLoginPopUp.Tables(0).Rows(0)(0) = 1 Then
+                Me.LBL_LoginError.Visible = True
+                Me.LBL_LoginError.Text = DATADSLoginPopUp.Tables(0).Rows(0)(1) ' mensaje de error
+            Else
+                'If DATADSComentariosPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                ' Me.TXT_TiendaOrigen.Text = ""
+                ' Else
+                ' Me.TXT_TiendaOrigen.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(2)
+                ' End If              
+                Me.LBL_UsuarioRutRegistrado.Text = Me.TXT_UsuarioRut.Text
+                Session("usuario") = Me.LBL_UsuarioRutRegistrado.Text
+                Session("tienda") = "15"
+                Session("caja") = "101"
+                Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
+                Me.LBL_LoginError.Visible = False
+            End If
+        Catch EX As Exception
+        End Try
     End Sub
 End Class
