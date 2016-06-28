@@ -5,13 +5,17 @@
     <title>Sistema Administrativo Web </title>
     <link href="css/Maestro.css" rel="stylesheet" />
     <link href="css/EstilosShop.css" rel="stylesheet" />
-<script>
+<script type="text/javascript">
 function maximize() {
   window.moveTo(0, 0);
   window.resizeTo(screen.width, screen.height);
 }
 maximize();
 function validar_rut(source, arguments) {
+  //  document.getElementbyName("LBL_LoginError").value = "";
+    document.getElementById("LBL_LoginError").innerHTML = "";
+   //document.all("LBL_LoginError").innerHTML = "";
+   // document.getElementById("LBL_LoginError").innerHTML = "";
     var rut = arguments.Value; suma = 0; mul = 2; i = 0;
     for (i = rut.length - 3; i >= 0; i--) {
         suma = suma + parseInt(rut.charAt(i)) * mul;
@@ -61,10 +65,10 @@ function validar_rut(source, arguments) {
                             <asp:Label ID="Label8" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                         </td>
                         <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">1-9</asp:TextBox>
+                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">13992731-1</asp:TextBox>
                         </td>
                         <td class="auto-style5">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" ErrorMessage="Ingrese rut" SetFocusOnError="True" ValidationGroup="login"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" SetFocusOnError="True" ValidationGroup="login" ToolTip="Debe Ingresar Rut"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -72,16 +76,16 @@ function validar_rut(source, arguments) {
                             <asp:Label ID="Label9" runat="server" CssClass="etiquetas" Text="Contraseña"></asp:Label>
                         </td>
                         <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioContraseña" runat="server" TextMode="Password" Width="75px">4321</asp:TextBox>
+                            <asp:TextBox ID="TXT_UsuarioContraseña" runat="server" Width="75px">213213</asp:TextBox>
                         </td>
                         <td class="auto-style5">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TXT_UsuarioContraseña" CssClass="etiquetasmensajeerror" ErrorMessage="Ingrese Contraseña" ValidationGroup="login"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TXT_UsuarioContraseña" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" ValidationGroup="login" ToolTip="Debe ingresar una Contraseña"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" ErrorMessage="RUT NO ES VÁLIDO" SetFocusOnError="True"></asp:CustomValidator>
-                            <asp:Label ID="LBL_LoginError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                            <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" Display="Dynamic" ErrorMessage="RUT NO ES VÁLIDO" ValidationGroup="login" SetFocusOnError="True"></asp:CustomValidator>
+                            <asp:Label ID="LBL_LoginError" ClientID="LBL_LoginError" runat="server" CssClass="etiquetasmensajeerror" ViewStateMode="Disabled"></asp:Label>
                         </td>
                     </tr>
                     <tr>
