@@ -12,10 +12,7 @@ function maximize() {
 }
 maximize();
 function validar_rut(source, arguments) {
-  //  document.getElementbyName("LBL_LoginError").value = "";
-    document.getElementById("LBL_LoginError").innerHTML = "";
-   //document.all("LBL_LoginError").innerHTML = "";
-   // document.getElementById("LBL_LoginError").innerHTML = "";
+    document.getElementById("LBL_LoginError").innerHTML = ""; //limpia label error
     var rut = arguments.Value; suma = 0; mul = 2; i = 0;
     for (i = rut.length - 3; i >= 0; i--) {
         suma = suma + parseInt(rut.charAt(i)) * mul;

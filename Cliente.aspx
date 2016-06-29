@@ -46,7 +46,8 @@
         function pageLoad(sender, e) {
             var objTpDummy =
                 document.getElementById('<%= TabPanel17.ClientID %>' + '_tab');
-                objTpDummy.style.display = 'none';
+            objTpDummy.style.display = 'none';
+            document.getElementById("TXT_ConsultaRutCliente").focus();
         }
         function clientActiveTabChanged(sender, args)
         {
@@ -68,7 +69,7 @@
             sender._element.className = "";
         }
         function BuscaNombre() {
-            var my_window=window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');
+          var my_window=window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');
            my_window.focus()
         }
     </script>
@@ -78,7 +79,7 @@
                 <td class="auto-style6">
                     <asp:Label ID="Label1" runat="server" Text="Rut Cliente" CssClass="etiquetas"></asp:Label>
                     &nbsp;
-                    <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px" MaxLength="8"></asp:TextBox>
+                    <asp:TextBox ID="TXT_ConsultaRutCliente" runat="server" CssClass="cajastextoparametro" Width="73px" MaxLength="8" ClientIDMode="Static"></asp:TextBox>
                     &nbsp;<asp:Label ID="Label26" runat="server" Text="-" CssClass="etiquetas"></asp:Label>
                     &nbsp;<asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro" ReadOnly="True"></asp:TextBox>
                 </td>

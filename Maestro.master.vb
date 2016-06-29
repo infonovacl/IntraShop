@@ -11,10 +11,19 @@
         End Set
     End Property
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.LBL_LoginError.Visible = True
-        Me.LBL_LoginError.Text = ""
-        Me.TXT_UsuarioRut.Focus()
-        If IsPostBack = True And Session("usuario_validado") = "si" Then
+        If IsPostBack = False And Session("usuario_validado") = "si" Then
+            Me.LBL_LoginError.Visible = True
+            Me.LBL_LoginError.Text = ""
+            Me.TXT_UsuarioRut.Focus()
+            Me.Panel_menu.Visible = True
+            Me.Panel_menu.Style.Add("position", "absolute")
+            Me.Panel_menu.Style.Add("top", "1px")
+            Me.Panel_menu.Style.Add("height", "412px")
+            Me.Panel_menu.Style.Add("width", "210px")
+            Me.TVM_Principal.ExpandAll()
+        ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
+            Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
+        ElseIf IsPostBack = True And Session("usuario_validado") = "si" Then
             Me.Panel_menu.Visible = True
             Me.Panel_menu.Style.Add("position", "absolute")
             Me.Panel_menu.Style.Add("top", "1px")
@@ -44,13 +53,13 @@
                 Else
                     Session("usuario_validado") = "si"
                     Me.Panel_Login.Visible = False
-                        Me.Panel_menu.Visible = True
-                        Me.Panel_menu.Style.Add("position", "absolute")
-                        Me.Panel_menu.Style.Add("top", "1px")
-                        Me.Panel_menu.Style.Add("height", "412px")
-                        Me.Panel_menu.Style.Add("width", "210px")
-                        Me.TVM_Principal.ExpandAll()
-                        Me.LBL_UsuarioRutRegistrado.Text = Session("usuario")
+                    Me.Panel_menu.Visible = True
+                    Me.Panel_menu.Style.Add("position", "absolute")
+                    Me.Panel_menu.Style.Add("top", "1px")
+                    Me.Panel_menu.Style.Add("height", "412px")
+                    Me.Panel_menu.Style.Add("width", "210px")
+                    Me.TVM_Principal.ExpandAll()
+                    Me.LBL_UsuarioRutRegistrado.Text = Session("usuario")
                     Me.LBL_UsuarioCodigoTiendaRegistrado.Text = Session("Tienda")
                     'If DATADSComentariosPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     ' Me.TXT_TiendaOrigen.Text = ""

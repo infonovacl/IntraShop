@@ -18,7 +18,7 @@
         RutCliente = Session("rut")
         Try
             DataDSHabilitaBotones.Clear()
-            Dim STRHabilitaBotones As String = "execute procedure procw_habi_rech ('" & RutCliente & "' )"
+            Dim STRHabilitaBotones As String = "execute procedure procw_habi_bloq ('" & RutCliente & "' )"
             Dim DATAHabilitaBotones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRHabilitaBotones, conn)
             DATAHabilitaBotones.Fill(DataDSHabilitaBotones, "PRUEBA")
             If DataDSHabilitaBotones.Tables(0).Rows(0)(0) = 1 Then
@@ -94,9 +94,9 @@
                 Dim y As Integer
                 For y = 0 To DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count - 1
                     If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(y)(4).ToString = "S" Then
-                        CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: red;")
-                    Else
                         CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: blue;")
+                    Else
+                        CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: red;")
                     End If
                 Next
             End If

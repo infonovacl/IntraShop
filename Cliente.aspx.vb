@@ -5,12 +5,16 @@
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Session("rutbuscado") <> "" Then
             Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
+            Me.TXT_ConsultaRutCliente.Focus()
         End If
+        Me.TXT_ConsultaRutCliente.Focus()
+
         If IsPostBack = False Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
             menu.Enabled = False
             menu.Font.Strikeout = True
+            Me.TXT_ConsultaRutCliente.Focus()
         End If
     End Sub
     ' <System.Web.Script.Services.ScriptMethod(),
@@ -259,6 +263,11 @@
                         Me.TXT_ConsultaDV.Text = ""
                     Else
                         Me.TXT_ConsultaDV.Text = DataDSDatosCliente.Tables(0).Rows(0)(44)
+                    End If
+                    If DataDSDatosCliente.Tables(0).Rows(0)(45) Is System.DBNull.Value Then  '********REGION 
+                        Me.TXT_ConsultaDireccRegion.Text = ""
+                    Else
+                        Me.TXT_ConsultaDireccRegion.Text = DataDSDatosCliente.Tables(0).Rows(0)(45)
                     End If
                     Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                     Session("dv") = Me.TXT_ConsultaDV.Text
