@@ -40,7 +40,7 @@
         Try
             IndiceGrillaBuscaxNombre = Me.Grilla_BuscaXNombre.SelectedIndex.ToString()
             Me.LBL_ClienteSeleccionado.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(6).Text
-            Session("rutbuscado") = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text
+            Me.LBL_Rut.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text
             Me.BTN_BuscarXNombre.Text = "ENVIAR"
             Me.Grilla_BuscaXNombre.Columns(6).Visible = False
         Catch EX As Exception
@@ -55,5 +55,8 @@
             Me.LBL_BuscarXNombreError.Text = "DEBE INGRESAR UN NOMBRE VÁLIDO"
             Me.TXT_BuscaXNombre.Focus()
         End If
+    End Sub
+    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
+
     End Sub
 End Class

@@ -26,7 +26,27 @@
              background-color: whitesmoke;
              height: 342px;
          }
+         .auto-style8 {
+             height: 21px;
+         }
+         .auto-style9 {
+             position: absolute;
+             left: 272px;
+             top: 438px;
+         }
+         .auto-style10 {
+             width: 610px;
+             left: 5px;
+             height: 15px;
+         }
          </style>
+    <script language="javascript"> 
+        function MandaRut() {
+            var rutbuscado = document.getElementById("LBL_Rut").innerText;
+            window.opener.document.getElementById('TXT_ConsultaRutCliente').value = rutbuscado;
+            window.close();
+} 
+</script> 
     </head>
 <body style="width: 627px; height: 2px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
@@ -66,7 +86,7 @@
                 </asp:Panel>
                 <table class="auto-style3">
                     <tr>
-                        <td>
+                        <td class="auto-style8">
                             <asp:Label ID="Label2" runat="server" CssClass="etiquetasimportante" Text="Cliente Seleccionado"></asp:Label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Label ID="LBL_ClienteSeleccionado" runat="server" CssClass="etiquetasimportante"></asp:Label>
@@ -75,13 +95,17 @@
                     <tr>
                         <td>
                             <asp:Label ID="LBL_BuscarXNombreError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
-                            &nbsp; </td>
+                            &nbsp; 
+                            <div class="auto-style9">
+                                <asp:Label ID="LBL_Rut" runat="server" CssClass="etiquetasimportante"></asp:Label>
+                            </div>
+                        </td>
                     </tr>
                 </table>             
-                        <table class="auto-style3">
+                        <table class="auto-style10">
                             <tr>
                                 <td class="auto-style4">
-                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="MandaRut()" Text="CERRAR" />
                                 </td>
                             </tr>
                         </table>
