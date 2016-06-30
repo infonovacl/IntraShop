@@ -12,7 +12,7 @@
          }
          .auto-style7 {
              height: 8px;
-             width: 667px;
+             width: 751px;
              align: center;
          }         
          .auto-style9 {
@@ -103,10 +103,10 @@
                     <tr>
                         <td class="auto-style9">
                             &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_GrabaBloqueos" runat="server" CssClass="botones" Text="GRABAR" />
-                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="REVISION DATA BUSINESS" Width="190px" />
+                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="CONSULTAS ANTEC. COMERCIALES" Width="250px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_SolicitaDesbloqueo" runat="server" CssClass="botones" Text="SOLICITA DESBLOQUEO" Width="180px" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
                         </td>
                     </tr>

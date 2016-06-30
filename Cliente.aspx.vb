@@ -1295,6 +1295,11 @@
     End Sub
     Protected Sub BTN_BuscaXNombre_Click(sender As Object, e As ImageClickEventArgs) Handles BTN_BuscaXNombre.Click
         LimpiaControles(Me.Controls)
+        'Function BuscaNombre() {
+        'var my_window = window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');
+        'my_window.focus()
+        '}
+        'Response.Write("window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');window.focus()")
     End Sub
     Protected Sub Grilla_ConsultasDB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_ConsultasDB.SelectedIndexChanged
         Dim DataDSDetConsultasDBDetalle As New Data.DataSet

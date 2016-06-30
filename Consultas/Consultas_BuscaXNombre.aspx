@@ -41,10 +41,10 @@
          }
          </style>
     <script language="javascript"> 
-            function pageLoad(sender, e) {
+            function pageLoad() {
                 window.focus();
-            }
-        //setTimeout(function() { document.getElementById('myInput').focus(); }, 10);
+                                }      
+            setTimeout(function () { document.getElementById('TXT_BuscaXNombre').focus(); }, 10);
         function MandaRut() {
             var rutbuscado = document.getElementById("LBL_Rut").innerText;
             window.opener.document.getElementById('TXT_ConsultaRutCliente').value = rutbuscado;

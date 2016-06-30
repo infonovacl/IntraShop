@@ -165,13 +165,13 @@
                                 </tr>
                                 <tr>
                                     <td class="auto-style11">
-                                        <asp:RadioButtonList ID="RBL_Sexo" runat="server" CssClass="radiobuton_tab" Height="16px" RepeatDirection="Horizontal" Width="171px">
+                                        <asp:RadioButtonList ID="RBL_Sexo" runat="server" CssClass="radiobuton_tab" Height="16px" RepeatDirection="Horizontal" Width="171px" Enabled="False">
                                             <asp:ListItem Value="F">Femenino</asp:ListItem>
                                             <asp:ListItem Value="M">Masculino</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                     <td class="auto-style23">
-                                        <asp:DropDownList ID="DDL_EstadoCivil" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="120px">
+                                        <asp:DropDownList ID="DDL_EstadoCivil" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="120px" Enabled="False">
                                         </asp:DropDownList>
                                     </td>
                                     <td class="auto-style20">
@@ -250,8 +250,7 @@
                                 <tr>
                                     <td class="auto-style21">
                                         <asp:Label ID="Label33" runat="server" CssClass="etiquetas_popup" Text="Teléfono Fijo"></asp:Label>
-                                        &nbsp;&nbsp;
-                                        <asp:Label ID="Label67" runat="server" CssClass="etiquetas_popup" Text="("></asp:Label>
+                                        &nbsp;<asp:Label ID="Label67" runat="server" CssClass="etiquetas_popup" Text="("></asp:Label>
                                         <asp:Label ID="Label68" runat="server" CssClass="etiquetas_popup" Text="Máx."></asp:Label>
                                         &nbsp;<asp:Label ID="LBL_MaximoDigitoTelefono" runat="server" CssClass="etiquetas_popup" Text="0"></asp:Label>
                                         &nbsp;<asp:Label ID="Label69" runat="server" CssClass="etiquetas_popup" Text="Dígitos)"></asp:Label>
@@ -441,7 +440,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="auto-style27">
-                                        <asp:DropDownList ID="DDL_DiaPago" runat="server" CssClass="dropdown_tab" Width="140px">
+                                        <asp:DropDownList ID="DDL_DiaPago" runat="server" CssClass="dropdown_tab" Width="140px" Enabled="False">
                                         </asp:DropDownList>
                                     </td>
                                     <td colspan="2" class="auto-style27">

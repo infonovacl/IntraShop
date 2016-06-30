@@ -70,7 +70,7 @@
                 <table align="center" class="auto-style7">
                     <tr>
                         <td class="auto-style9">
-                            <asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="REVISION DATA BUSINESS" Width="190px" />
+                            <asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="CONSULTAS ANTEC. COMERCIALES" Width="250px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_Cerrar0" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
                         </td>
