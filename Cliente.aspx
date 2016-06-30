@@ -339,7 +339,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="3" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="1500px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="5" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
                         Estados
@@ -686,6 +686,7 @@ Consultas DB
                                 <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Width="754px">
                                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
+                                            <asp:CommandField ButtonType="Image" SelectImageUrl="~/Imagenes/mano.jpg" ShowSelectButton="True" />
                                             <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" />
                                             <asp:BoundField DataField="column5" HeaderText="Hora" />
                                             <asp:BoundField DataField="column6" HeaderText="Motivo" />
@@ -698,11 +699,26 @@ Consultas DB
                                             <asp:BoundField DataField="column9" HeaderText="Antec." />
                                             <asp:BoundField DataField="column10" HeaderText="Dirección" />
                                             <asp:BoundField DataField="column11" HeaderText="Ciudad" />
-                                            <asp:BoundField DataField="column12" HeaderText="Cod.Motivo" Visible="False" />
+                                            <asp:BoundField DataField="column12" HeaderText="Cod.Motivo" />
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_ConsultasDBError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                <asp:Panel ID="Panel_ConsultasDBDetalles" runat="server" CssClass="panel_tab" Height="160px" ScrollBars="Vertical" Visible="False">
+                                    <asp:GridView ID="Grilla_ConsultasDBDetalles" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
+                                        <Columns>
+                                            <asp:BoundField DataField="column3" HeaderText="Tipo Consulta"></asp:BoundField>
+                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha Consulta Detalle" />
+                                            <asp:BoundField DataField="column5" HeaderText="Empresa"></asp:BoundField>
+                                            <asp:BoundField DataField="column6" HeaderText="Descripción 1"></asp:BoundField>
+                                            <asp:BoundField DataField="column7" HeaderText="Descripción 2"></asp:BoundField>
+                                        </Columns>
+                                    </asp:GridView>
+                                    <br />
+                                </asp:Panel>
+                                <asp:Label ID="LBL_ConsultasDBDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                <br />
+                                <asp:ImageButton ID="IBTN_ConsultasDBDetalle" runat="server" CssClass="boton_volver" ImageUrl="~/Imagenes/mano_volver.jpg" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                         <br />

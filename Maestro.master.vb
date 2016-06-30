@@ -23,6 +23,7 @@
             Me.TVM_Principal.ExpandAll()
         ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
             Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
+            Me.Panel_menu.Visible = False
         ElseIf IsPostBack = True And Session("usuario_validado") = "si" Then
             Me.Panel_menu.Visible = True
             Me.Panel_menu.Style.Add("position", "absolute")
@@ -50,6 +51,7 @@
                     Me.LBL_LoginError.Visible = True
                     Me.LBL_LoginError.Text = DATADSLoginPopUp.Tables(0).Rows(0)(1) 'mensaje de error
                     Session("usuario_validado") = "no"
+                    Me.Panel_menu.Visible = False
                 Else
                     Session("usuario_validado") = "si"
                     Me.Panel_Login.Visible = False

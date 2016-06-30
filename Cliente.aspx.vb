@@ -1296,4 +1296,43 @@
     Protected Sub BTN_BuscaXNombre_Click(sender As Object, e As ImageClickEventArgs) Handles BTN_BuscaXNombre.Click
         LimpiaControles(Me.Controls)
     End Sub
+    Protected Sub Grilla_ConsultasDB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_ConsultasDB.SelectedIndexChanged
+        Dim DataDSDetConsultasDBDetalle As New Data.DataSet
+        Dim IndiceGrillaConsultasDB As Integer = 0
+        Dim fecha_consulta, hora_consulta As String
+        Dim codigo_motivo As String
+        Try
+            DataDSDetConsultasDBDetalle.Clear()
+            IndiceGrillaConsultasDB = Me.Grilla_ConsultasDB.SelectedIndex.ToString()
+            Me.Grilla_ConsultasDB.Columns(9).Visible = True
+            fecha_consulta = Me.Grilla_ConsultasDB.Rows(IndiceGrillaConsultasDB).Cells(1).Text
+            hora_consulta = Me.Grilla_ConsultasDB.Rows(IndiceGrillaConsultasDB).Cells(2).Text
+            codigo_motivo = Me.Grilla_ConsultasDB.Rows(IndiceGrillaConsultasDB).Cells(9).Text
+            Me.Grilla_ConsultasDB.Columns(9).Visible = False
+            Dim STRDetConsultasDBDetalle As String = "execute procedure procw_cons_db_det (" & Me.TXT_ConsultaRutCliente.Text & ",'" & fecha_consulta & "','" & hora_consulta & "','" & codigo_motivo & "')"
+            Dim DATADetConsultasDBDetalle As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetConsultasDBDetalle, conn)
+            DATADetConsultasDBDetalle.Fill(DataDSDetConsultasDBDetalle, "PRUEBA")
+            If DataDSDetConsultasDBDetalle.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
+                Me.LBL_ConsultasDBDetalleError.Visible = True
+                Me.Panel_ConsultasDBDetalles.Visible = False
+                Me.Panel_ConsultasDB.Visible = False
+                Me.LBL_ConsultasDBDetalleError.Text = DataDSDetConsultasDBDetalle.Tables(0).Rows(0)(1)
+                Me.IBTN_ConsultasDBDetalle.Visible = True
+            Else
+                Me.Panel_ConsultasDB.Visible = False
+                Me.LBL_ConsultasDBDetalleError.Visible = False
+                Me.IBTN_ConsultasDBDetalle.Visible = True
+                Me.Grilla_ConsultasDBDetalles.DataSource = DataDSDetConsultasDBDetalle.Tables(0).DefaultView
+                Me.Grilla_ConsultasDBDetalles.DataBind()
+                Me.Panel_ConsultasDBDetalles.Visible = True
+            End If
+        Catch EX As Exception
+        End Try
+    End Sub
+    Protected Sub IBTN_ConsultasDBDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_ConsultasDBDetalle.Click
+        Me.LBL_ConsultasDBDetalleError.Text = ""
+        Me.Panel_ConsultasDBDetalles.Visible = False
+        Me.Panel_ConsultasDB.Visible = True
+        Me.IBTN_ConsultasDBDetalle.Visible = False
+    End Sub
 End Class
