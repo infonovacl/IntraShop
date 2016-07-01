@@ -4,6 +4,7 @@
     Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Session("rutbuscado") <> "" Then
+
             Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
             Me.TXT_ConsultaRutCliente.Focus()
         End If

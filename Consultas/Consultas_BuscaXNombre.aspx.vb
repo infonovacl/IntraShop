@@ -56,7 +56,5 @@
             Me.TXT_BuscaXNombre.Focus()
         End If
     End Sub
-    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
 
-    End Sub
 End Class

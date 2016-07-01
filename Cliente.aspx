@@ -2,7 +2,7 @@
 <%@ MasterType virtualpath="~/Maestro.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1- strict.dtd"> 
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1- strict.dtd"> 
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
 <meta name="robots" content="noodp,noydir" /> 
@@ -78,6 +78,8 @@
             this.focus()
         }
     </script>
+     <asp:UpdatePanel ID="UpdatePanel20" runat="server">
+                        <ContentTemplate>
     <div>   
         <table class="tablas">
             <tr>
@@ -92,8 +94,10 @@
                     <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
                 </td>
                 <td class="auto-style8">
-                    <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" Width="320px" CssClass="cajastextoparametro" ReadOnly="True"></asp:TextBox>                                                                             
-                    <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" Width="20px" OnClientClick="BuscaNombre()" />
+                   
+                            <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" CssClass="cajastextoparametro" ReadOnly="True" Width="320px"></asp:TextBox>
+                            <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" OnClientClick="BuscaNombre()" Width="20px" />
+                     
                 </td>
             </tr>
         </table>    
@@ -1436,5 +1440,8 @@ Laboral
                 </ajaxToolkit:TabPanel>
             </ajaxtoolkit:tabcontainer>
             <br />
+             
         </div>
+                              </ContentTemplate>
+                    </asp:UpdatePanel>
 </asp:Content>
