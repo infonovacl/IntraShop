@@ -109,7 +109,7 @@
                         <table class="auto-style10">
                             <tr>
                                 <td class="auto-style4">
-                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="MandaRut()" Text="ENVIAR" />
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="MandaRut()" Text="ENVIAR/CERRAR" Width="120px" />
                                 </td>
                             </tr>
                         </table>

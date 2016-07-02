@@ -114,7 +114,7 @@ function validar_rut(source, arguments) {
                                          <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AumentoCupo.aspx','AumentoCupo','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Cambio Día Pago" Value="Cambio Día Pago" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Revisa Verificación" Value="Revisa Verificación" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaVerificacion.aspx','RevisaVerificacion','top=130,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
+                                         <asp:TreeNode Text="MiniCartola" Value="MiniCartola" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartola.aspx','MiniCartola','top=130,width=770,height=450,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Consultas" Value="Consultas" SelectAction="Expand">
                                          <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago" NavigateUrl="http://www.familyshop.cl/estado-de-cuenta" Target="_blank"></asp:TreeNode>
