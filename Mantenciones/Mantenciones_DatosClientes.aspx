@@ -99,7 +99,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_TiendaOrigen" runat="server" CssClass="cajastexto_popup" Width="250px" ReadOnly="True"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_TiendaOrigen" runat="server" CssClass="cajastexto_popup" Width="250px" ReadOnly="True" Enabled="False"></asp:TextBox>
                                     </td>
                                     <td colspan="2"></td>
                                 </tr>
@@ -119,9 +119,9 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <asp:TextBox ID="TXT_Rut" runat="server" CssClass="cajastexto_popup" ReadOnly="True" Width="80px"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_Rut" runat="server" CssClass="cajastexto_popup" ReadOnly="True" Width="80px" Enabled="False"></asp:TextBox>
                                         &nbsp;-
-                                        <asp:TextBox ID="TXT_Dv" runat="server" CssClass="cajastexto_popup" Width="20px" ReadOnly="True"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_Dv" runat="server" CssClass="cajastexto_popup" Width="20px" ReadOnly="True" Enabled="False"></asp:TextBox>
                                     </td>
                                     <td colspan="2">
                                         <asp:TextBox ID="TXT_Nombres" runat="server" CssClass="cajastexto_popup" Width="200px"></asp:TextBox>

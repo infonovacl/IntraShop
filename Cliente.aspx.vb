@@ -304,65 +304,63 @@
                         'Response.Write("<script>window.alert('Error al Obtener Estdos');</script>")
                     End Try
                 Case 1
-                    If TXT_LaboralEmpleador.Text = "" And Me.TXT_ConsultaRutCliente.Text <> "" Then
-                        Dim DataDSLaboral As New Data.DataSet
-                        Try
-                            Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                            Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, conn)
-                            DATALaboral.Fill(DataDSLaboral, "PRUEBA")
-                            ' MsgBox("DataDSLaboral")
-                            If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
-                                Me.TBL_Laboral.Visible = False
-                                Me.LBL_LaboralError.Visible = True
-                                Me.LBL_LaboralError.Text = DataDSLaboral.Tables(0).Rows(0)(1) ' mensaje de error
+                    Dim DataDSLaboral As New Data.DataSet
+                    Try
+                        Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
+                        Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, conn)
+                        DATALaboral.Fill(DataDSLaboral, "PRUEBA")
+                        ' MsgBox("DataDSLaboral")
+                        If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
+                            Me.TBL_Laboral.Visible = False
+                            Me.LBL_LaboralError.Visible = True
+                            Me.LBL_LaboralError.Text = DataDSLaboral.Tables(0).Rows(0)(1) ' mensaje de error
+                        Else
+                            Me.TBL_Laboral.Visible = True
+                            Me.LBL_LaboralError.Visible = False
+                            If DataDSLaboral.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                                Me.TXT_LaboralEmpleador.Text = ""
                             Else
-                                Me.TBL_Laboral.Visible = True
-                                Me.LBL_LaboralError.Visible = False
-                                If DataDSLaboral.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralEmpleador.Text = ""
-                                Else
-                                    Me.TXT_LaboralEmpleador.Text = DataDSLaboral.Tables(0).Rows(0)(2)
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralDireccion.Text = ""
-                                Else
-                                    Me.TXT_LaboralDireccion.Text = DataDSLaboral.Tables(0).Rows(0)(3)
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralRegion.Text = ""
-                                Else
-                                    Me.TXT_LaboralRegion.Text = DataDSLaboral.Tables(0).Rows(0)(4)
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralComuna.Text = ""
-                                Else
-                                    Me.TXT_LaboralComuna.Text = DataDSLaboral.Tables(0).Rows(0)(5)
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralTelefono.Text = ""
-                                Else
-                                    Me.TXT_LaboralTelefono.Text = DataDSLaboral.Tables(0).Rows(0)(6)
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralAnexo.Text = ""
-                                Else
-                                    Me.TXT_LaboralAnexo.Text = DataDSLaboral.Tables(0).Rows(0)(7)
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralAntiguedad.Text = "0"
-                                Else
-                                    Me.TXT_LaboralAntiguedad.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(8), Integer), "#,##0")
-                                End If
-                                If DataDSLaboral.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
-                                    Me.TXT_LaboralIngresos.Text = "0"
-                                Else
-                                    Me.TXT_LaboralIngresos.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(9), Integer), "###,###,##0")
-                                End If
+                                Me.TXT_LaboralEmpleador.Text = DataDSLaboral.Tables(0).Rows(0)(2)
                             End If
-                        Catch EX As Exception
-                            'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
-                        End Try
-                    End If
+                            If DataDSLaboral.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                                Me.TXT_LaboralDireccion.Text = ""
+                            Else
+                                Me.TXT_LaboralDireccion.Text = DataDSLaboral.Tables(0).Rows(0)(3)
+                            End If
+                            If DataDSLaboral.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                                Me.TXT_LaboralRegion.Text = ""
+                            Else
+                                Me.TXT_LaboralRegion.Text = DataDSLaboral.Tables(0).Rows(0)(4)
+                            End If
+                            If DataDSLaboral.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                                Me.TXT_LaboralComuna.Text = ""
+                            Else
+                                Me.TXT_LaboralComuna.Text = DataDSLaboral.Tables(0).Rows(0)(5)
+                            End If
+                            If DataDSLaboral.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                                Me.TXT_LaboralTelefono.Text = ""
+                            Else
+                                Me.TXT_LaboralTelefono.Text = DataDSLaboral.Tables(0).Rows(0)(6)
+                            End If
+                            If DataDSLaboral.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                                Me.TXT_LaboralAnexo.Text = ""
+                            Else
+                                Me.TXT_LaboralAnexo.Text = DataDSLaboral.Tables(0).Rows(0)(7)
+                            End If
+                            If DataDSLaboral.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                                Me.TXT_LaboralAntiguedad.Text = "0"
+                            Else
+                                Me.TXT_LaboralAntiguedad.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(8), Integer), "#,##0")
+                            End If
+                            If DataDSLaboral.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                                Me.TXT_LaboralIngresos.Text = "0"
+                            Else
+                                Me.TXT_LaboralIngresos.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(9), Integer), "###,###,##0")
+                            End If
+                        End If
+                    Catch EX As Exception
+                        'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                    End Try
                 Case 2
                     Dim DataDSContratos As New Data.DataSet
                     Try

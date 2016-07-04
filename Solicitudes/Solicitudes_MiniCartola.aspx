@@ -106,6 +106,17 @@
              text-align: left;
          }
          </style>
+     <script language="javascript"> 
+        //if (navigator.appName == "Microsoft Internet Explorer")
+        //{ 
+        //  var PrintCommand = '<object ID="PrintCommandObject" WIDTH=0 HEIGHT=0
+        //CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>';
+        //document.body.insertAdjacentHTML('beforeEnd', PrintCommand); 
+        //PrintCommandObject.ExecWB(6, -1); PrintCommandObject.outerHTML = ""; 
+        //} 
+        //else { 
+        //window.print();
+      </script>
     </head>
 <body style="width: 506px; height: 18px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
