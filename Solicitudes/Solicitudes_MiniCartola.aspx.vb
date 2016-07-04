@@ -1,7 +1,5 @@
 ﻿Partial Class Solicitudes_MiniCartola
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.LBL_MiniCartolaError.Visible = False
         If IsPostBack = False Then
@@ -15,14 +13,14 @@
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRMiniCartola As String = "execute procedure procw_cons_saldo  ('" & RutCliente & "')"
-            Dim DATAMiniCartola As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRMiniCartola, conn)
+            Dim DATAMiniCartola As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRMiniCartola, Globales.conn)
             DATAMiniCartola.Fill(DATADSMiniCartolaPopUp, "PRUEBA")
             If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_MiniCartolaError.Visible = True
                 Me.LBL_MiniCartolaError.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
                 Me.LBL_MiniCartolaError.Visible = True
-                Me.LBL_MiniCartolaError.Text = "IMPRIMIENDO..." ' mensaje de error
+                Me.LBL_MiniCartolaError.Text = "IMPRIMIENDO..."
                 Me.LBL_Rut.Text = RutCliente
                 If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.LBL_Dv.Text = ""
@@ -109,24 +107,11 @@
                         Me.LBL_FechaVenc6.Text = Me.GrillaCuotas.Rows(5).Cells(0).Text
                         Me.LBL_MontoVenc6.Text = Format(CType(Me.GrillaCuotas.Rows(5).Cells(1).Text, Integer), "###,###,##0")
                     End If
-
-                    'Me.LBL_FechaVenc1.Text = Me.GrillaCuotas.Rows(0).Cells(0).Text
-                    'Me.LBL_FechaVenc2.Text = Me.GrillaCuotas.Rows(1).Cells(0).Text
-                    'Me.LBL_FechaVenc3.Text = Me.GrillaCuotas.Rows(2).Cells(0).Text
-                    'Me.LBL_FechaVenc4.Text = Me.GrillaCuotas.Rows(3).Cells(0).Text
-                    'Me.LBL_FechaVenc5.Text = Me.GrillaCuotas.Rows(4).Cells(0).Text
-                    'Me.LBL_FechaVenc6.Text = Me.GrillaCuotas.Rows(5).Cells(0).Text
-                    'Me.LBL_MontoVenc1.Text = Me.GrillaCuotas.Rows(0).Cells(1).Text
-                    'Me.LBL_MontoVenc2.Text = Me.GrillaCuotas.Rows(1).Cells(1).Text
-                    'Me.LBL_MontoVenc3.Text = Me.GrillaCuotas.Rows(2).Cells(1).Text
-                    'Me.LBL_MontoVenc4.Text = Me.GrillaCuotas.Rows(3).Cells(1).Text
-                    'Me.LBL_MontoVenc5.Text = Me.GrillaCuotas.Rows(4).Cells(1).Text
-                    'Me.LBL_MontoVenc6.Text = Me.GrillaCuotas.Rows(5).Cells(1).Text
                 Catch ex As Exception
                 End Try
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            ' MsgBox(EX)
         End Try
     End Sub
 End Class

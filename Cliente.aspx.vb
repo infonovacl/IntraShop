@@ -1,7 +1,5 @@
 ﻿Partial Class Cliente
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Session("rutbuscado") <> "" Then
             Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
@@ -49,7 +47,7 @@
             Dim DataDSDatosCliente As New Data.DataSet
             Try
                 Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, conn)
+                Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
                 DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
                 If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                     Me.LBL_MensajeContratos.Visible = True
@@ -288,7 +286,7 @@
                     Try
                         DataDSEstados.Clear()
                         Dim STREstados As String = "execute procedure procw_cons_estados ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstados, conn)
+                        Dim DATAEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstados, Globales.conn)
                         DATAEstados.Fill(DataDSEstados, "PRUEBA")
                         If DataDSEstados.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Estados.Visible = False
@@ -307,7 +305,7 @@
                     Dim DataDSLaboral As New Data.DataSet
                     Try
                         Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, conn)
+                        Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, Globales.conn)
                         DATALaboral.Fill(DataDSLaboral, "PRUEBA")
                         ' MsgBox("DataDSLaboral")
                         If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
@@ -366,7 +364,7 @@
                     Try
                         DataDSContratos.Clear()
                         Dim STRContratos As String = "execute procedure procw_cons_contrato ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAContratos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRContratos, conn)
+                        Dim DATAContratos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRContratos, Globales.conn)
                         DATAContratos.Fill(DataDSContratos, "PRUEBA")
                         If DataDSContratos.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Contratos.Visible = False
@@ -386,7 +384,7 @@
                     Try
                         DataDSModificaciones.Clear()
                         Dim STRModificaciones As String = "execute procedure procw_cons_modif ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAModificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaciones, conn)
+                        Dim DATAModificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaciones, Globales.conn)
                         DATAModificaciones.Fill(DataDSModificaciones, "PRUEBA")
                         Me.Grilla_Modificaciones.DataSource = DataDSModificaciones.Tables(0).DefaultView
                         Me.Grilla_Modificaciones.DataBind()
@@ -408,7 +406,7 @@
                     Try
                         DataDSDescuentos.Clear()
                         Dim STRDescuentos As String = "execute procedure procw_cons_descto ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATADescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDescuentos, conn)
+                        Dim DATADescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDescuentos, Globales.conn)
                         DATADescuentos.Fill(DataDSDescuentos, "PRUEBA")
                         If DataDSDescuentos.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Descuentos.Visible = False
@@ -432,7 +430,7 @@
                     Try
                         DataDSConsultasDB.Clear()
                         Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, conn)
+                        Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
                         DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
                         If DataDSConsultasDB.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_ConsultasDB.Visible = False
@@ -452,7 +450,7 @@
                     Try
                         DataDSSolicitudes.Clear()
                         Dim STRSolicitudes As String = "execute procedure procw_cons_solic ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATASolicitudes As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitudes, conn)
+                        Dim DATASolicitudes As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitudes, Globales.conn)
                         DATASolicitudes.Fill(DataDSSolicitudes, "PRUEBA")
                         If DataDSSolicitudes.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Solicitudes.Visible = False
@@ -472,7 +470,7 @@
                     Try
                         DataDSUltimosAbonos.Clear()
                         Dim STRUltimosAbonos As String = "execute procedure procw_cons_resumen1 ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAUltimosAbonos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUltimosAbonos, conn)
+                        Dim DATAUltimosAbonos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUltimosAbonos, Globales.conn)
                         DATAUltimosAbonos.Fill(DataDSUltimosAbonos, "PRUEBA")
                         If DataDSUltimosAbonos.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_ResumenUltimosAbonos.Visible = False
@@ -491,7 +489,7 @@
                     Try
                         DataDSResumenClasificaciones.Clear()
                         Dim STRResumenClasificaciones As String = "execute procedure procw_cons_resumen2 ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAResumenClasificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenClasificaciones, conn)
+                        Dim DATAResumenClasificaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenClasificaciones, Globales.conn)
                         DATAResumenClasificaciones.Fill(DataDSResumenClasificaciones, "PRUEBA")
                         If DataDSResumenClasificaciones.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_ResumenUltimasClasificaciones.Visible = False
@@ -518,7 +516,7 @@
                     Try
                         DataDSResumenOtros.Clear()
                         Dim STRResumenOtros As String = "execute procedure procw_cons_resumen3 ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAResumenOtros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenOtros, conn)
+                        Dim DATAResumenOtros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRResumenOtros, Globales.conn)
                         DATAResumenOtros.Fill(DataDSResumenOtros, "PRUEBA")
                         If DataDSResumenOtros.Tables(0).Rows(0)(0) = 1 Then
                             'Me.LBL_ResumenClasifError.Visible = True
@@ -573,7 +571,7 @@
                     Try
                         DataDSComentarios.Clear()
                         Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, conn)
+                        Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, Globales.conn)
                         DATAComentarios.Fill(DataDSComentarios, "PRUEBA")
                         If DataDSComentarios.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Comentarios.Visible = False
@@ -593,7 +591,7 @@
                     Try
                         DataDSPagos.Clear()
                         Dim STRPagos As String = "execute procedure procw_cons_pagos ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAPagos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRPagos, conn)
+                        Dim DATAPagos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRPagos, Globales.conn)
                         DATAPagos.Fill(DataDSPagos, "PRUEBA")
                         If DataDSPagos.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Pagos.Visible = False
@@ -617,7 +615,7 @@
                     Try
                         DataDSVentas.Clear()
                         Dim STRVentas As String = "execute procedure procw_cons_ventas ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATAVentas As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRVentas, conn)
+                        Dim DATAVentas As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRVentas, Globales.conn)
                         DATAVentas.Fill(DataDSVentas, "PRUEBA")
                         If DataDSVentas.Tables(0).Rows(0)(0) = 1 Then
                             Me.Panel_Ventas.Visible = False
@@ -642,7 +640,7 @@
                     Try
                         DataDSRepacta.Clear()
                         Dim STRRepacta As String = "execute procedure procw_cons_repacta ('" & Me.TXT_ConsultaRutCliente.Text & "')"
-                        Dim DATARepacta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRepacta, conn)
+                        Dim DATARepacta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRepacta, Globales.conn)
                         DATARepacta.Fill(DataDSRepacta, "PRUEBA")
                         If DataDSRepacta.Tables(0).Rows(0)(0) = 1 Then
                             Me.LBL_RepactacionesError.Text = DataDSRepacta.Tables(0).Rows(0)(1)  ' mensaje de error
@@ -662,7 +660,7 @@
                     Dim DataDSDeuda As New Data.DataSet
                     Try
                         Dim STRDeuda As String = "execute procedure procw_cons_deuda ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
-                        Dim DATADeuda As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDeuda, conn)
+                        Dim DATADeuda As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDeuda, Globales.conn)
                         DATADeuda.Fill(DataDSDeuda, "PRUEBA")
                         If DataDSDeuda.Tables(0).Rows(0)(0) = 1 Then
                             Me.TBL_Deuda.Visible = False
@@ -756,7 +754,7 @@
                     Try
                         DataDSXPagar.Clear()
                         Dim STRXPagar As String = "execute procedure procw_cons_porpagar ('" & Me.TXT_ConsultaRutCliente.Text & "')"
-                        Dim DATAXPagar As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRXPagar, conn)
+                        Dim DATAXPagar As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRXPagar, Globales.conn)
                         DATAXPagar.Fill(DataDSXPagar, "PRUEBA")
                         If DataDSXPagar.Tables(0).Rows(0)(0) = 1 Then
                             Me.LBL_XPagarError.Text = DataDSXPagar.Tables(0).Rows(0)(1)  ' mensaje de error
@@ -786,7 +784,7 @@
                     Try
                         DataDSSeguros.Clear()
                         Dim STRSeguros As String = "execute procedure procw_cons_seguro ('" & Me.TXT_ConsultaRutCliente.Text & "')"
-                        Dim DATASeguros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSeguros, conn)
+                        Dim DATASeguros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSeguros, Globales.conn)
                         DATASeguros.Fill(DataDSSeguros, "PRUEBA")
                         If DataDSSeguros.Tables(0).Rows(0)(0) = 1 Then
                             Me.LBL_SegurosError.Text = DataDSSeguros.Tables(0).Rows(0)(1)  ' mensaje de error
@@ -806,7 +804,7 @@
                     Try
                         DataDSSBIF.Clear()
                         Dim STRSBIF As String = "execute procedure procw_cons_sbif ('" & Me.TXT_ConsultaRutCliente.Text & "')"
-                        Dim DATASBIF As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSBIF, conn)
+                        Dim DATASBIF As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSBIF, Globales.conn)
                         DATASBIF.Fill(DataDSSBIF, "PRUEBA")
                         If DataDSSBIF.Tables(0).Rows(0)(0) = 1 Then
                             Me.LBL_SBIFError.Text = DataDSSBIF.Tables(0).Rows(0)(1)  ' mensaje de error
@@ -839,7 +837,7 @@
             FechaEstado = Me.Grilla_Estados.Rows(IndiceGrillaEstados).Cells(1).Text
             CodigoEstadoNuevo = Me.Grilla_Estados.Rows(IndiceGrillaEstados).Cells(3).Text
             Dim STRSubEstados As String = "execute procedure procw_cons_estados_det ('" & Me.TXT_ConsultaRutCliente.Text & "','" & FechaEstado & "'," & CodigoEstadoNuevo & " )"
-            Dim DATASubEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSubEstados, conn)
+            Dim DATASubEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSubEstados, Globales.conn)
             DATASubEstados.Fill(DataDSSubEstados, "PRUEBA")
             If DataDSSubEstados.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.TXT_EstadoDescripcionSubEstado.Text = DataDSSubEstados.Tables(0).Rows(0)(1)
@@ -871,7 +869,7 @@
             FechaDescuento = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(4).Text
             NumeroComprobante = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(3).Text
             Dim STRDetDescuentos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_ConsultaRutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'DES')"
-            Dim DATADetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetDescuentos, conn)
+            Dim DATADetDescuentos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetDescuentos, Globales.conn)
             DATADetDescuentos.Fill(DataDSDetDescuentos, "PRUEBA")
             If DataDSDetDescuentos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_DescuentosDetalleError.Visible = True
@@ -1003,7 +1001,7 @@
             FechaVenta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(3).Text
             NBoleta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(6).Text
             Dim STRDetVenta As String = "execute procedure procw_cons_ventas_det (" & Me.TXT_ConsultaRutCliente.Text & "," & CodigoSucursal & "," & CodigoNegocio & "," & NCaja & ",'" & FechaVenta & "'," & NBoleta & ")"
-            Dim DATADetVenta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetVenta, conn)
+            Dim DATADetVenta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetVenta, Globales.conn)
             DATADetVenta.Fill(DataDSDetVenta, "PRUEBA")
             If DataDSDetVenta.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_VentasDetalleError.Visible = True
@@ -1078,7 +1076,7 @@
             IndiceGrillaSeguros = Me.Grilla_Seguros.SelectedIndex.ToString()
             CodSeguro = Me.Grilla_Seguros.Rows(IndiceGrillaSeguros).Cells(5).Text
             Dim STRDetSeguro As String = "execute procedure procw_cons_seguro_det (" & Me.TXT_ConsultaRutCliente.Text & "," & CodSeguro & ")"
-            Dim DATADetSeguro As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetSeguro, conn)
+            Dim DATADetSeguro As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetSeguro, Globales.conn)
             DATADetSeguro.Fill(DataDSDetSeguro, "PRUEBA")
             If DataDSDetSeguro.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_VentasDetalleError.Visible = True
@@ -1151,7 +1149,7 @@
             FechaDescuento = Me.Grilla_Pagos.Rows(IndiceGrillaDetPagos).Cells(6).Text
             NumeroComprobante = Me.Grilla_Pagos.Rows(IndiceGrillaDetPagos).Cells(5).Text
             Dim STRDetPagos As String = "execute procedure procw_cons_pago_det  ('" & Me.TXT_ConsultaRutCliente.Text & "'," & CodigoSucursal & "," & Caja & ",'" & FechaDescuento & "'," & NumeroComprobante & ",'ABO')"
-            Dim DATADetPagos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetPagos, conn)
+            Dim DATADetPagos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetPagos, Globales.conn)
             DATADetPagos.Fill(DataDSDetPagos, "PRUEBA")
             If DataDSDetPagos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_PagosDetalleError.Visible = True
@@ -1311,7 +1309,7 @@
             codigo_motivo = Me.Grilla_ConsultasDB.Rows(IndiceGrillaConsultasDB).Cells(9).Text
             Me.Grilla_ConsultasDB.Columns(9).Visible = False
             Dim STRDetConsultasDBDetalle As String = "execute procedure procw_cons_db_det (" & Me.TXT_ConsultaRutCliente.Text & ",'" & fecha_consulta & "','" & hora_consulta & "','" & codigo_motivo & "')"
-            Dim DATADetConsultasDBDetalle As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetConsultasDBDetalle, conn)
+            Dim DATADetConsultasDBDetalle As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetConsultasDBDetalle, Globales.conn)
             DATADetConsultasDBDetalle.Fill(DataDSDetConsultasDBDetalle, "PRUEBA")
             If DataDSDetConsultasDBDetalle.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_ConsultasDBDetalleError.Visible = True

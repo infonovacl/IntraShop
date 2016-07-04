@@ -1,7 +1,5 @@
 ﻿Partial Class Maestro
     Inherits System.Web.UI.MasterPage
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Public Property PropertyMasterTextBox2() As TextBox
         Get
             Return TXT_RutMaster
@@ -45,7 +43,7 @@
                 Dim RutCliente As Integer
                 RutCliente = Session("rut")
                 Dim STRLogin As String = "execute procedure procw_login  ('" & CType(partes(0), Integer) & "','" & partes(1) & "','" & Me.TXT_UsuarioContraseña.Text & "')"
-                Dim DATALogin As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLogin, conn)
+                Dim DATALogin As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLogin, Globales.conn)
                 DATALogin.Fill(DATADSLoginPopUp, "PRUEBA")
                 If DATADSLoginPopUp.Tables(0).Rows(0)(0) = 1 Then
                     Me.LBL_LoginError.Visible = True

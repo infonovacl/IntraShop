@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>Revision de Rechazos</title>
+    <title>Revision de Verificacion</title>
      <style type="text/css">      
          .auto-style1 {
              width: 760px;

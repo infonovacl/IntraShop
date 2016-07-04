@@ -1,7 +1,5 @@
 ﻿Partial Class Mantencion_Adicionales
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_Adicionales.Visible = True
         Me.LBL_AdicionalesError.Visible = False
@@ -17,7 +15,7 @@
             RutCliente = Session("rut")
             usuario = Session("usuario")
             Dim STRModificaAdicionales As String = "execute procedure procw_mod_adicional  ('" & RutCliente & "','" & Me.TXT_AdicionalRut.Text & "','" & DDL_EstadoAdicionales.SelectedValue & "')"
-            Dim DATAModificaAdicionales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaAdicionales, conn)
+            Dim DATAModificaAdicionales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaAdicionales, Globales.conn)
             DATAModificaAdicionales.Fill(DATADSModificaAdicionalesPopUp, "PRUEBA")
             If DATADSModificaAdicionalesPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.Panel_Adicionales.Visible = False
@@ -43,7 +41,7 @@
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRAdicionales As String = "execute procedure procw_cons_adicional ('" & RutCliente & "' )"
-            Dim DATAAdicionales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRAdicionales, conn)
+            Dim DATAAdicionales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRAdicionales, Globales.conn)
             DATAAdicionales.Fill(DATADSAdicionalesPopUp, "PRUEBA")
             If DATADSAdicionalesPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.BTN_Grabar.Enabled = False

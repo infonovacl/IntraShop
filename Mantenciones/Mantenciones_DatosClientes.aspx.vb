@@ -1,7 +1,5 @@
 ﻿Partial Class Mantencion_DatosClientes
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
             Me.TXT_Rut.Text = Session("rut")
@@ -19,7 +17,7 @@
         DataDSComuna.Clear()
         Try
             Dim STRComuna As String = "execute procedure procw_lista_comunas (" & region & ")"
-            Dim DATAComuna As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComuna, conn)
+            Dim DATAComuna As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComuna, Globales.conn)
             DATAComuna.Fill(DataDSComuna, "PRUEBA")
             If tipocomuna = "cliente" Then
                 Me.DDL_ComunaCliente.DataTextField = DataDSComuna.Tables(0).Columns("column4").ToString()
@@ -56,7 +54,7 @@
         Dim DataDSEstadoCivil As New Data.DataSet
         Try
             Dim STREstadoCivil As String = "execute procedure procw_listador01 ('ECIV')"
-            Dim DATAEstadoCivil As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstadoCivil, conn)
+            Dim DATAEstadoCivil As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstadoCivil, Globales.conn)
             DATAEstadoCivil.Fill(DataDSEstadoCivil, "PRUEBA")
             Me.DDL_EstadoCivil.DataTextField = DataDSEstadoCivil.Tables(0).Columns("column4").ToString()
             Me.DDL_EstadoCivil.DataValueField = DataDSEstadoCivil.Tables(0).Columns("column3").ToString()
@@ -70,7 +68,7 @@
         Dim DataDSDiaPago As New Data.DataSet
         Try
             Dim STRDiaPago As String = "execute procedure procw_listador01 ('DPAG')"
-            Dim DATADiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDiaPago, conn)
+            Dim DATADiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDiaPago, Globales.conn)
             DATADiaPago.Fill(DataDSDiaPago, "PRUEBA")
             Me.DDL_DiaPago.DataTextField = DataDSDiaPago.Tables(0).Columns("column4").ToString()
             Me.DDL_DiaPago.DataValueField = DataDSDiaPago.Tables(0).Columns("column3").ToString()
@@ -84,7 +82,7 @@
         Dim DataDSRegion As New Data.DataSet
         Try
             Dim STRRegion As String = "execute procedure procw_listador01 ('REGI')"
-            Dim DATARegion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRegion, conn)
+            Dim DATARegion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRegion, Globales.conn)
             DATARegion.Fill(DataDSRegion, "PRUEBA")
             Me.DDL_RegionCliente.DataTextField = DataDSRegion.Tables(0).Columns("column4").ToString()
             Me.DDL_RegionCliente.DataValueField = DataDSRegion.Tables(0).Columns("column3").ToString()
@@ -108,7 +106,7 @@
         Dim RutCliente As Integer = Session("rut")
         Try
             Dim STRDatosCliente As String = "execute procedure procw_cons_mant ('" & RutCliente & "' )"
-            Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, conn)
+            Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
             DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_DatosClienteError.Visible = True
@@ -319,7 +317,7 @@
                                                             & Me.TXT_EmpleadorDireccion.Text.ToUpper & "','" & Me.TXT_EmpleadorNumero.Text.ToUpper & "','" & Me.TXT_EmpleadorOficina.Text.ToUpper & "','" & Me.DDL_EmpleadorRegion.SelectedValue & "','" _
                                                             & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Me.TXT_EmpleadorTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorAnexo.Text.ToUpper & "','" & Me.TXT_EmpleadorCargo.Text.ToUpper & "','" _
                                                             & Me.TXT_CorreoElectronico.Text.ToUpper & "','" & usuario & "','" & codigotienda & "')"
-                    Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, conn)
+                    Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then
                         Me.LBL_DatosClienteError.Visible = True

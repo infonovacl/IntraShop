@@ -1,7 +1,5 @@
 ﻿Partial Class Solicitudes_CambioDiaPago
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.LBL_CambioDiaPagoError.Visible = False
         If Not IsPostBack Then
@@ -19,7 +17,7 @@
             tienda = Session("tienda")
             caja = Session("caja")
             Dim STRSolicitaCambioDiaPago As String = "execute procedure procw_mod_diapago  ('" & RutCliente & "','" & usuario & "','" & tienda & "','" & DDL_NuevoDiaPago.SelectedValue & "')"
-            Dim DATASolicitaCambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaCambioDiaPago, conn)
+            Dim DATASolicitaCambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaCambioDiaPago, Globales.conn)
             DATASolicitaCambioDiaPago.Fill(DATADSSolicitaCambioDiaPagoPopUp, "PRUEBA")
             If DATADSSolicitaCambioDiaPagoPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_CambioDiaPagoError.Visible = True
@@ -38,7 +36,7 @@
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRCambioDiaPago As String = "execute procedure procw_cons_diapago ('" & RutCliente & "' )"
-            Dim DATACambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRCambioDiaPago, conn)
+            Dim DATACambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRCambioDiaPago, Globales.conn)
             DATACambioDiaPago.Fill(DATADSCambioDiaPagoPopUp, "PRUEBA")
             If DATADSCambioDiaPagoPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_CambioDiaPagoError.Visible = True

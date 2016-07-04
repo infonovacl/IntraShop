@@ -3,17 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>Aumento de Linea Credito</title>
+    <title>MiniCartola</title>
      <style type="text/css">      
          .auto-style1 {
              width: 346px;
              height: 12px;
              left: 5px;
-         }
-         .auto-style7 {
-             width: 497px;
-             background-color: whitesmoke;
-             height: 479px;
          }
          .auto-style9 {
              width: 499px;
@@ -105,6 +100,9 @@
              height: 9px;
              text-align: left;
          }
+         .auto-style73 {
+             text-align: left;
+         }
          </style>
      <script language="javascript"> 
         //if (navigator.appName == "Microsoft Internet Explorer")
@@ -134,6 +132,11 @@
                 <table class="auto-style9">
                     <caption>
                         <table class="auto-style11">
+                            <tr>
+                                <td class="auto-style73" colspan="4">
+                                    <asp:Label ID="LBL_MiniCartolaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                                </td>
+                            </tr>
                             <tr>
                                 <td class="auto-style71">
                                     <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Fecha Emisión"></asp:Label>
@@ -281,7 +284,6 @@
                             </tr>
                             <tr>
                                 <td class="auto-style72" colspan="3">
-                                    <asp:Label ID="LBL_MiniCartolaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                                     <asp:GridView ID="GrillaCuotas" runat="server" AutoGenerateColumns="False" Visible="False">
                                         <Columns>
                                             <asp:BoundField DataField="fecha" HeaderText="fecha" />

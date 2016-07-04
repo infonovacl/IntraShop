@@ -1,7 +1,5 @@
 ﻿Partial Class Consultas_BuscaXNombre
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Public rutbuscado As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_BuscaXNombre.Visible = True
@@ -17,7 +15,7 @@
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRBuscaxNombre As String = "execute procedure procw_busca_nombre ('" & TXT_BuscaXNombre.Text & "' )"
-            Dim DATABuscaxNombre As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRBuscaxNombre, conn)
+            Dim DATABuscaxNombre As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRBuscaxNombre, Globales.conn)
             DATABuscaxNombre.Fill(DATADSBuscaxNombrePopUp, "PRUEBA")
             If DATADSBuscaxNombrePopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.Panel_BuscaXNombre.Visible = True

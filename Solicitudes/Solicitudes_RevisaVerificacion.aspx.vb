@@ -1,7 +1,5 @@
 ﻿Partial Class Solicitudes_RevisaVerificacion
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.LBL_ConsultasDBError.Visible = False
         If Not IsPostBack Then
@@ -16,7 +14,7 @@
         Try
             DataDSLevantaRechazo.Clear()
             Dim STRLevantaRechazo As String = "execute procedure procw_habi_verif ('" & RutCliente & "' )"
-            Dim DATALevantaRechazo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLevantaRechazo, conn)
+            Dim DATALevantaRechazo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLevantaRechazo, Globales.conn)
             DATALevantaRechazo.Fill(DataDSLevantaRechazo, "PRUEBA")
             If DataDSLevantaRechazo.Tables(0).Rows(0)(0) = 1 Then
                 Me.BTN_RevisionDataBusiness.Enabled = False   ''DESHABILITA BOTON 
@@ -36,7 +34,7 @@
         Try
             DataDSConsultasDB.Clear()
             Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "' )"
-            Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, conn)
+            Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
             DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
             If DataDSConsultasDB.Tables(0).Rows(0)(0) = 1 Then
                 Me.Panel_ConsultasDB.Visible = False

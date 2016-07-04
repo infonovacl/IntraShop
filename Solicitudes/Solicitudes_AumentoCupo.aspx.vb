@@ -1,7 +1,5 @@
 ﻿Partial Class Solicitudes_AumentoCupo
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.LBL_AumentoCupoError.Visible = False
         If Not IsPostBack Then
@@ -18,7 +16,7 @@
             tienda = Session("tienda")
             caja = Session("caja")
             Dim STRSolicitaAumentoCupo As String = "execute procedure procw_solic_aumcupo  ('" & RutCliente & "','" & tienda & "','" & caja & "','" & Today.ToShortDateString & "','" & usuario & "')"
-            Dim DATASolicitaAumentoCupo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaAumentoCupo, conn)
+            Dim DATASolicitaAumentoCupo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaAumentoCupo, Globales.conn)
             DATASolicitaAumentoCupo.Fill(DATADSSolicitaAumentoCupoPopUp, "PRUEBA")
             If DATADSSolicitaAumentoCupoPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_AumentoCupoError.Visible = True
@@ -37,7 +35,7 @@
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRAumentoCupo As String = "execute procedure procw_cons_aumcupo ('" & RutCliente & "' )"
-            Dim DATAAumentoCupo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRAumentoCupo, conn)
+            Dim DATAAumentoCupo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRAumentoCupo, Globales.conn)
             DATAAumentoCupo.Fill(DATADSAumentoCupoPopUp, "PRUEBA")
             If DATADSAumentoCupoPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_AumentoCupoError.Visible = True

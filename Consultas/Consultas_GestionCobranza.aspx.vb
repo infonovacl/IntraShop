@@ -1,7 +1,5 @@
 ﻿Partial Class Consultas_GestionCobranza
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Tab_GestionCobranza_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_GestionCobranza.ActiveTabChanged
         Select Case Me.Tab_GestionCobranza.ActiveTabIndex.ToString
             Case 0
@@ -13,7 +11,7 @@
                 Try
                     DataDSUnidad.Clear()
                     Dim STRUnidad As String = "execute procedure procw_cons_unidad ('" & RutCliente & "' )"
-                    Dim DATAUnidad As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUnidad, conn)
+                    Dim DATAUnidad As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRUnidad, Globales.conn)
                     DATAUnidad.Fill(DataDSUnidad, "PRUEBA")
                     If DataDSUnidad.Tables(0).Rows(0)(0) = 1 Then
                         Me.Grilla_GestionUnidad.Visible = False
@@ -36,7 +34,7 @@
                 Try
                     DataDSExterna.Clear()
                     Dim STRExterna As String = "execute procedure procw_cons_cobext ('" & RutCliente & "' )"
-                    Dim DATAExterna As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRExterna, conn)
+                    Dim DATAExterna As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRExterna, Globales.conn)
                     DATAExterna.Fill(DataDSExterna, "PRUEBA")
                     If DataDSExterna.Tables(0).Rows(0)(0) = 1 Then
                         Me.Grilla_CobranzaExterna.Visible = False
@@ -59,7 +57,7 @@
                 Try
                     DataDSDicom.Clear()
                     Dim STRDicom As String = "execute procedure procw_cons_dicom ('" & RutCliente & "' )"
-                    Dim DATADicom As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDicom, conn)
+                    Dim DATADicom As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDicom, Globales.conn)
                     DATADicom.Fill(DataDSDicom, "PRUEBA")
                     If DataDSDicom.Tables(0).Rows(0)(0) = 1 Then
                         Me.Grilla_CobranzaDicom.Visible = False
@@ -84,7 +82,7 @@
         Try
             DataDSCobranzaTelefonica.Clear()
             Dim STRCobranzaTelefonica As String = "execute procedure procw_cons_gestel ('" & RutCliente & "' )"
-            Dim DATACobranzaTelefonica As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRCobranzaTelefonica, conn)
+            Dim DATACobranzaTelefonica As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRCobranzaTelefonica, Globales.conn)
             DATACobranzaTelefonica.Fill(DataDSCobranzaTelefonica, "PRUEBA")
             If DataDSCobranzaTelefonica.Tables(0).Rows(0)(0) = 1 Then
                 Me.Grilla_GestionTelefonica.Visible = False

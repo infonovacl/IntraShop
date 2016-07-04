@@ -1,7 +1,5 @@
 ﻿Partial Class Mantencion_Comentarios
     Inherits System.Web.UI.Page
-    Dim connSTR As String = "dsn=DesaWeb;uid=desaweb;pwd=Dsa.web"
-    Dim conn As System.Data.Odbc.OdbcConnection = New System.Data.Odbc.OdbcConnection(connSTR)
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_Comentarios.Visible = True
         Me.LBL_ComentariosError.Visible = False
@@ -18,7 +16,7 @@
                 RutCliente = Session("rut")
                 usuario = Session("usuario")
                 Dim STRInsertaComentarios As String = "execute procedure procw_ingr_comenta  ('" & RutCliente & "','" & Me.TXT_Comentario.Text.ToUpper & "','" & usuario & "')"
-                Dim DATAInsertaComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRInsertaComentarios, conn)
+                Dim DATAInsertaComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRInsertaComentarios, Globales.conn)
                 DATAInsertaComentarios.Fill(DATADSInsertaComentariosPopUp, "PRUEBA")
                 If DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
                     Me.BTN_Grabar.Enabled = True
@@ -49,7 +47,7 @@
             Dim RutCliente As Integer
             RutCliente = Session("rut")
             Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & RutCliente & "' )"
-            Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, conn)
+            Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, Globales.conn)
             DATAComentarios.Fill(DATADSComentariosPopUp, "PRUEBA")
             If DATADSComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.BTN_Grabar.Enabled = False
