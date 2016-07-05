@@ -1,10 +1,10 @@
 ﻿Partial Class Cliente
     Inherits System.Web.UI.Page
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If Session("rutbuscado") <> "" Then
-            Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
-            Me.TXT_ConsultaRutCliente.Focus()
-        End If
+        'If Session("rutbuscado") <> "" Then
+        ' Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
+        ' Me.TXT_ConsultaRutCliente.Focus()
+        ' End If
         If IsPostBack = False Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
@@ -789,10 +789,12 @@
                         If DataDSSeguros.Tables(0).Rows(0)(0) = 1 Then
                             Me.LBL_SegurosError.Text = DataDSSeguros.Tables(0).Rows(0)(1)  ' mensaje de error
                             Me.Panel_Seguros.Visible = False
+                            Me.IBTN_SegurosDetalle.Visible = False
                             Me.LBL_SegurosError.Visible = True
                         Else
                             Me.Panel_Seguros.Visible = True
                             Me.LBL_SegurosError.Visible = False
+                            Me.IBTN_SegurosDetalle.Visible = False
                             Me.Grilla_Seguros.DataSource = DataDSSeguros.Tables(0).DefaultView
                             Me.Grilla_Seguros.DataBind()
                         End If

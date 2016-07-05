@@ -66,7 +66,7 @@
                     ' Else
                     ' Me.TXT_TiendaOrigen.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(2)
                     Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
-                    Me.LBL_UsuarioRutRegistrado.Text = CType(partes(0), Integer) '''rut
+                    Me.LBL_UsuarioRutRegistrado.Text = CType(partes(0), Integer) 'rut
                     Session("usuario") = Me.LBL_UsuarioRutRegistrado.Text
                     Session("tienda") = "15"
                     Session("caja") = "101"
