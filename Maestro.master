@@ -103,7 +103,7 @@ function validar_rut(source, arguments) {
                                  <asp:TreeNode Text="Cliente" Value="Cliente" NavigateUrl="~/Cliente.aspx">
                                      <asp:TreeNode NavigateUrl="~/Cliente.aspx" Text="Tarjeta" Value="Tarjeta" Selected="True"></asp:TreeNode>
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
-                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx','DatosClientes','top=90 ,left=220,width=690,height=600',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx','DatosClientes','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Comentarios" Value="Comentarios" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','Comentarios','top=260,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx','Adicionales','top=260,width=770,height=290,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
@@ -118,7 +118,7 @@ function validar_rut(source, arguments) {
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Consultas" Value="Consultas" SelectAction="Expand">
                                          <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago" NavigateUrl="http://www.familyshop.cl/estado-de-cuenta" Target="_blank"></asp:TreeNode>
-                                         <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza" NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=600',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza" NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                  </asp:TreeNode>
                                  <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
