@@ -80,7 +80,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales

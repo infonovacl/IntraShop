@@ -346,9 +346,9 @@
                                 Me.TXT_LaboralAnexo.Text = DataDSLaboral.Tables(0).Rows(0)(7)
                             End If
                             If DataDSLaboral.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
-                                Me.TXT_LaboralAntiguedad.Text = "0"
+                                Me.TXT_LaboralAntiguedad.Text = ""
                             Else
-                                Me.TXT_LaboralAntiguedad.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(8), Integer), "#,##0")
+                                Me.TXT_LaboralAntiguedad.Text = DataDSLaboral.Tables(0).Rows(0)(8)
                             End If
                             If DataDSLaboral.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
                                 Me.TXT_LaboralIngresos.Text = "0"
@@ -419,8 +419,10 @@
                             Me.LBL_DescuentosError.Visible = False
                             Me.IBTN_DescuentosDetalle.Visible = False
                             Me.TBL_DescuentosDetalle.Visible = False
+                            Me.Grilla_Descuentos.Columns(7).Visible = True
                             Me.Grilla_Descuentos.DataSource = DataDSDescuentos.Tables(0).DefaultView
                             Me.Grilla_Descuentos.DataBind()
+                            Me.Grilla_Descuentos.Columns(7).Visible = False
                         End If
                     Catch EX As Exception
                         'Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
@@ -866,6 +868,7 @@
         Try
             DataDSDetDescuentos.Clear()
             IndiceGrillaDetDescuentos = Me.Grilla_Descuentos.SelectedIndex.ToString()
+            Me.Grilla_Descuentos.Columns(7).Visible = True
             CodigoSucursal = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(7).Text
             Caja = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(2).Text
             FechaDescuento = Me.Grilla_Descuentos.Rows(IndiceGrillaDetDescuentos).Cells(4).Text
@@ -876,10 +879,12 @@
             If DataDSDetDescuentos.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
                 Me.LBL_DescuentosDetalleError.Visible = True
                 Me.TBL_DescuentosDetalle.Visible = False
+                Me.IBTN_DescuentosDetalle.Visible = True
                 Me.LBL_DescuentosDetalleError.Text = DataDSDetDescuentos.Tables(0).Rows(0)(1)
             Else
                 Me.TBL_DescuentosDetalle.Visible = True
                 Me.LBL_DescuentosDetalleError.Text = ""
+                Me.IBTN_DescuentosDetalle.Visible = True
                 Me.LBL_DescuentosDetalleError.Visible = False
                 If DataDSDetDescuentos.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.TXT_DescuentosMontoCapital.Text = "0"
@@ -980,7 +985,7 @@
             Me.LBL_DescuentosError.Visible = False
             Me.Panel_Descuentos.Visible = False
         Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub Grilla_Ventas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Ventas.SelectedIndexChanged
@@ -989,6 +994,7 @@
         Dim CodigoSucursal, CodigoNegocio As Integer
         Dim NCaja As Integer
         Dim FechaVenta As String
+
         Dim NBoleta As Integer
         Try
             DataDSDetVenta.Clear()
@@ -1128,7 +1134,9 @@
         TXT_DescuentosSaldoFavorFinal.Text = "0"
         TXT_DescuentosSaldoFavorInicial.Text = "0"
         TXT_DescuentosSeguros.Text = "0"
+        Me.TBL_DescuentosDetalle.Visible = False
         Me.Panel_Descuentos.Visible = True
+        Me.Grilla_Descuentos.Columns(7).Visible = False
     End Sub
     Protected Sub IBTN_VentasDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_VentasDetalle.Click
         Me.LBL_VentasDetalleError.Text = ""

@@ -73,7 +73,7 @@
             sender._element.className = "";
         }
         function BuscaNombre() {
-            window.open('/Consultas/Consultas_BuscaXNombre.aspx','BuscaCliente','top=150,width=630,height=300,left=220',scrollbars='NO',resizable='NO');
+            window.open('/Consultas/Consultas_BuscaXNombre.aspx','BuscaCliente','top=150,width=630,height=310,left=220',scrollbars='NO',resizable='NO');
             window.focus()
             this.focus()
         }
@@ -345,7 +345,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="5" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="11" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados
@@ -357,7 +357,9 @@ Estados
                                     <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
                                             <asp:CommandField ButtonType="Image" SelectImageUrl="~/Imagenes/mano.jpg" SelectText="" ShowSelectButton="True" />
-                                            <asp:BoundField DataField="column3" HeaderText="Fecha" DataFormatString="{0:d}" />
+                                            <asp:BoundField DataField="column3" HeaderText="Fecha" DataFormatString="{0:d}" >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column4" HeaderText="Hora" />
                                             <asp:BoundField DataField="column7" HeaderText="Cód. Est. Nuevo" />
                                             <asp:BoundField DataField="column8" HeaderText="Estado Nuevo" />
@@ -473,7 +475,9 @@ Laboral
                                 <asp:Panel ID="Panel_Contratos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Contratos" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
-                                            <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha Firma" />
+                                            <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha Firma" >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column4" HeaderText="Folio Contrato" />
                                             <asp:BoundField DataField="column5" HeaderText="Descripción del Contrato" />
                                             <asp:BoundField DataField="column6" HeaderText="Tienda" />
@@ -500,7 +504,9 @@ Laboral
                                             <asp:BoundField DataField="column3" HeaderText="Modificación de" />
                                             <asp:BoundField DataField="column9" HeaderText="Dato Antiguo" />
                                             <asp:BoundField DataField="column8" HeaderText="Dato Nuevo" />
-                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" />
+                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column5" HeaderText="Hora" />
                                             <asp:BoundField DataField="column6" HeaderText="Tienda" />
                                             <asp:BoundField DataField="column7" HeaderText="Responsable" />
@@ -536,9 +542,8 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_DescuentosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <br />
-                                <table id="TBL_DescuentosDetalle" runat="server" cellspacing="1" class="auto-style3" style="width: 760px" >
+                                <asp:Label ID="LBL_DescuentosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                                
+                                <table id="TBL_DescuentosDetalle" runat="server" cellspacing="1" class="auto-style3" style="width: 760px" visible="False" >
                                     <tr>
                                         <td>
                                             <asp:Label ID="Label124" runat="server" CssClass="etiquetas_tab" Text="Monto Capital"></asp:Label>
@@ -684,7 +689,7 @@ Laboral
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel6" runat="server" HeaderText="TabPanel6">
                     <HeaderTemplate>
-                        Consultas DB
+                        Antec.Comerciales
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:UpdatePanel ID="UpdatePanel19" runat="server">
@@ -693,7 +698,9 @@ Laboral
                                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
                                             <asp:CommandField ButtonType="Image" SelectImageUrl="~/Imagenes/mano.jpg" ShowSelectButton="True" />
-                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" />
+                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column5" HeaderText="Hora" />
                                             <asp:BoundField DataField="column6" HeaderText="Motivo" />
                                             <asp:BoundField DataField="column7" HeaderText="Edad" >
@@ -743,11 +750,15 @@ Laboral
                                     <asp:GridView ID="Grilla_Solicitudes" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
                                             <asp:BoundField DataField="column3" HeaderText="Tipo Solicitud" />
-                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" />
+                                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column5" DataFormatString="{0:HH:mm}" HeaderText="Hora" />
                                             <asp:BoundField DataField="column6" HeaderText="Rut Operador" />
                                             <asp:BoundField DataField="column7" HeaderText="Estado Solicitud" />
                                             <asp:BoundField DataField="column8" HeaderText="Glosa" />
+                                            <asp:BoundField DataField="column9" HeaderText="Autoriza Aumento LCRED" />
+                                            <asp:BoundField DataField="column10" HeaderText="Aumento Autorizado LCRED" />
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
@@ -785,7 +796,9 @@ Laboral
                                                 <asp:GridView ID="Grilla_ResumenUltimosAbonos" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Width="225px">
                                                     <Columns>
                                                         <asp:BoundField DataField="column3" HeaderText="Tipo" />
-                                                        <asp:BoundField DataField="column5" DataFormatString="{0:d}" HeaderText="Fecha " />
+                                                        <asp:BoundField DataField="column5" DataFormatString="{0:d}" HeaderText="Fecha " >
+                                                        <ItemStyle Width="70px" />
+                                                        </asp:BoundField>
                                                         <asp:BoundField DataField="column6" DataFormatString="{0:N0}" HeaderText="Monto ">
                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </asp:BoundField>
@@ -884,7 +897,7 @@ Laboral
                                     <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
                                             <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha ">
-                                            <ItemStyle Width="80px" />
+                                            <ItemStyle Width="70px" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="column4" HeaderText="Hora">
                                             <ItemStyle Width="60px" />
@@ -918,7 +931,9 @@ Laboral
                                             <asp:BoundField DataField="column5" HeaderText="Tienda Pago" />
                                             <asp:BoundField DataField="column6" HeaderText="Caja" />
                                             <asp:BoundField DataField="column7" HeaderText="Nro.Comprobante" />
-                                            <asp:BoundField DataField="column8" DataFormatString="{0:d}" HeaderText="Fecha Pago" />
+                                            <asp:BoundField DataField="column8" DataFormatString="{0:d}" HeaderText="Fecha Pago" >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Monto Pagado">
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
@@ -1086,7 +1101,7 @@ Laboral
                                             <asp:BoundField DataField="column4" HeaderText="Descripción Venta" />
                                             <asp:BoundField DataField="column5" HeaderText="Sucursal" />
                                             <asp:BoundField DataField="column6" DataFormatString="{0:d}" HeaderText="Fecha">
-                                            <ItemStyle Width="60px" />
+                                            <ItemStyle Width="70px" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="column7" HeaderText="Hora" />
                                             <asp:BoundField DataField="column8" HeaderText="Caja" />
@@ -1156,20 +1171,22 @@ Laboral
                                 <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="726px">
                                         <Columns>
-                                            <asp:BoundField DataField="column3" HeaderText="Tienda" />
-                                            <asp:BoundField DataField="column4" HeaderText="Caja" />
-                                            <asp:BoundField DataField="column5" HeaderText="Nro.Comprobante" />
-                                            <asp:BoundField DataField="column6" DataFormatString="{0:d}" HeaderText="Fecha Proceso" />
-                                            <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Pie">
-                                            <ItemStyle HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="column3" HeaderText="Tipo Repactación" />
+                                            <asp:BoundField DataField="column4" HeaderText="Sucursal" />
+                                            <asp:BoundField DataField="column5" HeaderText="Caja" />
+                                            <asp:BoundField DataField="column6" HeaderText="Nro. Abono" />
+                                            <asp:BoundField DataField="column7" DataFormatString="{0:d}" HeaderText="Fecha Repactación" />
+                                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Pie">
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Descuento">
-                                            <ItemStyle HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Descuento">
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Saldo Repactado">
-                                            <ItemStyle HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="column10" DataFormatString="{0:N0}" HeaderText="A Repactar">
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="column10" DataFormatString="{0:N0}" HeaderText="Total">
+                                            <asp:BoundField DataField="column11" DataFormatString="{0:N0}" HeaderText="Total">
+                                            <ItemStyle Width="70px" />
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            <ItemStyle HorizontalAlign="Right" />
+                                            <ItemStyle HorizontalAlign="Right" />
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
                                         </Columns>
@@ -1377,8 +1394,12 @@ Laboral
                                             <asp:BoundField DataField="column6" HeaderText="Tienda" />
                                             <asp:BoundField DataField="column7" HeaderText="Caja" />
                                             <asp:BoundField DataField="column8" HeaderText="Folio" />
-                                            <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Inicio Vig." />
-                                            <asp:BoundField DataField="column10" DataFormatString="{0:d}" HeaderText="Termino Vig." />
+                                            <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Inicio Vig." >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="column10" DataFormatString="{0:d}" HeaderText="Termino Vig." >
+                                            <ItemStyle Width="70px" />
+                                            </asp:BoundField>
                                             <asp:BoundField DataField="column11" HeaderText="Motivo Anulación" />
                                         </Columns>
                                     </asp:GridView>
