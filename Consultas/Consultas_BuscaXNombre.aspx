@@ -41,10 +41,10 @@
          }
          </style>
     <script language="javascript"> 
-         //   function pageLoad() {
-          //      window.focus();
-            //    document.getElementById('TXT_BuscaXNombre').focus();
-              //                  }      
+        function pageLoad() {
+               window.focus();
+               document.getElementById('TXT_BuscaXNombre').focus();
+                             }      
            // setTimeout(function () { document.getElementById('TXT_BuscaXNombre').focus(); }, 50);
         function MandaRut() {
             var rutbuscado = document.getElementById("LBL_Rut").innerText;
@@ -54,8 +54,8 @@
                             } 
 </script> 
     </head>
-<body style="width: 627px; height: 2px; left: 5px;">
-    <form id="form1" runat="server" class="auto-style1">
+<body style="width: 627px; height: 2px; left: 5px;" >
+    <form id="form1" runat="server" class="auto-style1" defaultbutton="BTN_BuscarXNombre" defaultfocus="TXT_BuscaXNombre">
     <div class="auto-style7">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
                     </asp:ScriptManager>
@@ -69,7 +69,7 @@
             <ContentTemplate>
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                 &nbsp;
-                <asp:TextBox ID="TXT_BuscaXNombre" runat="server" CssClass="cajastexto" Width="350px"></asp:TextBox>
+                <asp:TextBox ID="TXT_BuscaXNombre" runat="server" CssClass="cajastexto" Width="350px"  ></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="BTN_BuscarXNombre" runat="server" CssClass="botones" Text="BUSCAR" />
                 <br />

@@ -46,10 +46,14 @@
                         <td class="auto-style12">
                             <asp:Label ID="Label2" runat="server" CssClass="etiquetasimportante" Text="Seguros PENDIENTES de ser contratados por el Cliente" Width="500px"></asp:Label>
                             <br />
-                            <asp:Panel ID="Panel_ConsultasDB0" runat="server" CssClass="panel_tab" Height="140px" ScrollBars="Vertical" Width="754px">
+                            <asp:Panel ID="Panel_SegurosXContratar" runat="server" CssClass="panel_tab" Height="140px" ScrollBars="Vertical" Width="754px">
                                 <asp:GridView ID="Grilla_SeguroXContratar" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
-                                    <Columns>
-                                        <asp:CheckBoxField DataField="column4"/>
+                                    <Columns>                                        
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%#Convert.ToBoolean(Eval("column4")) %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>                                        
                                         <asp:BoundField HeaderText="Seguro" DataField="column1" />
                                         <asp:BoundField HeaderText="Descripción" DataField="column2" />
                                         <asp:BoundField HeaderText="Póliza" DataField="column3" />
@@ -68,26 +72,25 @@
                 <br />
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" Text="Seguros Posibles de Anular"></asp:Label>
                 <br />
-                <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" Height="140px" ScrollBars="Vertical" Width="754px">
+                <asp:Panel ID="Panel_SegurosXAnular" runat="server" CssClass="panel_tab" Height="140px" ScrollBars="Vertical" Width="754px">
                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                         <Columns>
-                            <asp:BoundField DataField="column4" DataFormatString="{0:d}" HeaderText="Fecha" />
-                            <asp:BoundField DataField="column5" HeaderText="Hora" />
-                            <asp:BoundField DataField="column6" HeaderText="Motivo" />
-                            <asp:BoundField DataField="column7" HeaderText="Edad">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <asp:BoundField DataField="column1" HeaderText="Código Seguro" />
+                            <asp:BoundField DataField="column2" DataFormatString="{0:d}" HeaderText="Fecha Inicio Vig." />
+                            <asp:BoundField DataField="column3" HeaderText="Fecha Término Vig." DataFormatString="{0:d}" />
+                            <asp:BoundField DataField="column4" HeaderText="Descripción">
                             </asp:BoundField>
-                            <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Score">
-                            <ItemStyle HorizontalAlign="Right" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="column9" HeaderText="Antec." />
-                            <asp:BoundField DataField="column10" HeaderText="Dirección" />
-                            <asp:BoundField DataField="column11" HeaderText="Ciudad" />
-                            <asp:BoundField DataField="column12" HeaderText="Cod.Motivo" Visible="False" />
+                            <asp:TemplateField HeaderText="Motivo Anulación">
+                                <ItemTemplate>
+                                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDSMotivoAnula" DataTextField="Column2" DataValueField="Column1" Width="250px">
+                                    </asp:DropDownList>
+                                    <asp:SqlDataSource ID="SqlDSMotivoAnula" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_FamilyShop %>" ProviderName="<%$ ConnectionStrings:ConnectionString_FamilyShop.ProviderName %>" SelectCommand="execute procedure procw_codanula_seg ()"></asp:SqlDataSource>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </asp:Panel>
-                <asp:Label ID="LBL_ConsultasDBError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                <asp:Label ID="LBL_SegurosXAnular" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
                 <br />
                 <table align="center" class="auto-style7">
