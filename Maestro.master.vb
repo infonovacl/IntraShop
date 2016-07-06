@@ -12,7 +12,6 @@
         If IsPostBack = False And Session("usuario_validado") = "si" Then
             Me.LBL_LoginError.Visible = True
             Me.LBL_LoginError.Text = ""
-            Me.TXT_UsuarioRut.Focus()
             Me.Panel_menu.Visible = True
             Me.Panel_menu.Style.Add("position", "absolute")
             Me.Panel_menu.Style.Add("top", "1px")

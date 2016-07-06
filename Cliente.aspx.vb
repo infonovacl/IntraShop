@@ -5,11 +5,13 @@
         ' Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
         ' Me.TXT_ConsultaRutCliente.Focus()
         ' End If
+        'Me.TXT_ConsultaRutCliente.Focus()
         If IsPostBack = False Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
             menu.Enabled = False
             menu.Font.Strikeout = True
+            Me.Focus()
             Me.TXT_ConsultaRutCliente.Focus()
         End If
     End Sub

@@ -45,13 +45,20 @@
             background-position: right;
             background-repeat: no-repeat;
         }        
+        .auto-style10 {
+            width: 70px;
+            height: 6px;
+        }
+        .auto-style11 {
+            height: 6px;
+        }
     </style>
     <script script language="javascript" type="text/javascript">
         function pageLoad(sender, e) {
             var objTpDummy =
                 document.getElementById('<%= TabPanel17.ClientID %>' + '_tab');
             objTpDummy.style.display = 'none';
-            document.getElementById("TXT_ConsultaRutCliente").focus();
+            //document.getElementById("TXT_ConsultaRutCliente").focus();
         }
         function clientActiveTabChanged(sender, args)
         {
@@ -73,9 +80,8 @@
             sender._element.className = "";
         }
         function BuscaNombre() {
-            window.open('/Consultas/Consultas_BuscaXNombre.aspx','BuscaCliente','top=150,width=630,height=310,left=220',scrollbars='NO',resizable='NO');
-            window.focus()
-            this.focus()
+            ventana = window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'BuscaCliente', 'top=150,width=630,height=310,left=220', scrollbars = 'NO', resizable = 'NO');
+            ventana.focus()
         }
     </script>
      <asp:UpdatePanel ID="UpdatePanel20" runat="server">
