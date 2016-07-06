@@ -30,6 +30,7 @@
          .auto-style12 {
              width: 690px;
              background-color: whitesmoke;
+             height: 625px;
          }
          .auto-style17 {
              height: 22px;
@@ -80,7 +81,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -175,10 +176,10 @@
                                         </asp:DropDownList>
                                     </td>
                                     <td class="auto-style20">
-                                        <asp:TextBox ID="TXT_FechaNac" runat="server" CssClass="cajastexto_popup" ReadOnly="True"></asp:TextBox>
+                                        <asp:TextBox ID="TXT_FechaNac" runat="server" CssClass="cajastexto_popup" ReadOnly="True" Enabled="False"></asp:TextBox>
                                     </td>
                                     <td class="auto-style4">
-                                        <asp:TextBox ID="TXT_Edad" runat="server" CssClass="cajastexto_popup" Width="50px" ReadOnly="True">XXXXX</asp:TextBox>
+                                        <asp:TextBox ID="TXT_Edad" runat="server" CssClass="cajastexto_popup" Width="50px" ReadOnly="True" Enabled="False"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>

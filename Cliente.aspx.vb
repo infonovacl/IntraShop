@@ -34,9 +34,6 @@
     ' Return customers
     ' End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
-        If Session("rutbuscado") <> "" Then
-            Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
-        End If
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 5 Then
             'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
             ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
@@ -1084,8 +1081,8 @@
         Try
             DataDSDetSeguro.Clear()
             IndiceGrillaSeguros = Me.Grilla_Seguros.SelectedIndex.ToString()
-            CodSeguro = Me.Grilla_Seguros.Rows(IndiceGrillaSeguros).Cells(5).Text
-            Dim STRDetSeguro As String = "execute procedure procw_cons_seguro_det (" & Me.TXT_ConsultaRutCliente.Text & "," & CodSeguro & ")"
+            CodSeguro = Me.Grilla_Seguros.Rows(IndiceGrillaSeguros).Cells(1).Text
+            Dim STRDetSeguro As String = "execute procedure procw_cons_seguro_det ('" & Me.TXT_ConsultaRutCliente.Text & "','" & CodSeguro & "')"
             Dim DATADetSeguro As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetSeguro, Globales.conn)
             DATADetSeguro.Fill(DataDSDetSeguro, "PRUEBA")
             If DataDSDetSeguro.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
@@ -1301,11 +1298,6 @@
     End Sub
     Protected Sub BTN_BuscaXNombre_Click(sender As Object, e As ImageClickEventArgs) Handles BTN_BuscaXNombre.Click
         LimpiaControles(Me.Controls)
-        'Function BuscaNombre() {
-        'var my_window = window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');
-        'my_window.focus()
-        '}
-        'Response.Write("window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'Busca Cliente', 'top=150,width=630,height=300,left=220', scrollbars = 'NO', resizable = 'NO');window.focus()")
     End Sub
     Protected Sub Grilla_ConsultasDB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_ConsultasDB.SelectedIndexChanged
         Dim DataDSDetConsultasDBDetalle As New Data.DataSet

@@ -49,6 +49,7 @@
         function MandaRut() {
             var rutbuscado = document.getElementById("LBL_Rut").innerText;
             window.opener.document.getElementById('TXT_ConsultaRutCliente').value = rutbuscado;       
+            window.opener.document.getElementById('TXT_ConsultaRutCliente').focus();
             window.close();
                             } 
 </script> 

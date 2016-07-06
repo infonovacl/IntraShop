@@ -19,6 +19,7 @@
          .auto-style12 {
              width: 690px;
              background-color: whitesmoke;
+             height: 619px;
          }
          </style>
      </head>
@@ -49,7 +50,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">            
             <ContentTemplate>
-                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="4" Height="510px" Width="680px">
                     <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1"><HeaderTemplate>
 Cobranza Telefónica
 </HeaderTemplate>

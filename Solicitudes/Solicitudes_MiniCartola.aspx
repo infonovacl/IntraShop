@@ -100,8 +100,9 @@
              height: 9px;
              text-align: left;
          }
-         .auto-style73 {
+         .auto-style74 {
              text-align: left;
+             height: 16px;
          }
          </style>
      <script language="javascript"> 
@@ -133,8 +134,10 @@
                     <caption>
                         <table class="auto-style11">
                             <tr>
-                                <td class="auto-style73" colspan="4">
+                                <td class="auto-style74" colspan="4">
                                     <asp:Label ID="LBL_MiniCartolaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" Visible="False" />
                                 </td>
                             </tr>
                             <tr>
@@ -220,10 +223,8 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td class="auto-style70">
+                                <td class="auto-style72" colspan="2">
                                     <asp:Label ID="Label18" runat="server" CssClass="etiquetas" Text="Vencimientos "></asp:Label>
-                                </td>
-                                <td class="auto-style68">
                                     <asp:Label ID="Label19" runat="server" CssClass="etiquetas" Text="Proximos 5 Meses"></asp:Label>
                                 </td>
                                 <td class="auto-style16">&nbsp;</td>

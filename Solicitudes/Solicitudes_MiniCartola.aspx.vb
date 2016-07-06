@@ -18,9 +18,11 @@
             If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_MiniCartolaError.Visible = True
                 Me.LBL_MiniCartolaError.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.BTN_Cerrar.Visible = True
             Else
+                Me.BTN_Cerrar.Visible = False
                 Me.LBL_MiniCartolaError.Visible = True
-                Me.LBL_MiniCartolaError.Text = "IMPRIMIENDO..."
+                Me.LBL_MiniCartolaError.Text = ""
                 Me.LBL_Rut.Text = RutCliente
                 If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.LBL_Dv.Text = ""
@@ -109,6 +111,7 @@
                     End If
                 Catch ex As Exception
                 End Try
+                Response.Write("<script>window.print()</script>")
             End If
         Catch EX As Exception
             ' MsgBox(EX)

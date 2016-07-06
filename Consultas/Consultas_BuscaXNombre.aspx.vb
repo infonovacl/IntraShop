@@ -4,20 +4,6 @@
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_BuscaXNombre.Visible = True
         Me.LBL_BuscarXNombreError.Visible = False
-        Me.BTN_BuscarXNombre.Enabled = False
-        Me.BTN_Cerrar.Enabled = False
-        Me.TXT_BuscaXNombre.Focus()
-        System.Threading.Thread.Sleep(1000)
-        Me.Panel_BuscaXNombre.Visible = True
-        Me.LBL_BuscarXNombreError.Visible = False
-        Me.BTN_BuscarXNombre.Enabled = True
-        Me.BTN_Cerrar.Enabled = True
-        Me.TXT_BuscaXNombre.Focus()
-        System.Threading.Thread.Sleep(1000)
-        Me.Panel_BuscaXNombre.Visible = True
-        Me.LBL_BuscarXNombreError.Visible = False
-        Me.BTN_BuscarXNombre.Enabled = False
-        Me.BTN_Cerrar.Enabled = False
         Me.BTN_BuscarXNombre.Enabled = True
         Me.BTN_Cerrar.Enabled = True
         Me.TXT_BuscaXNombre.Focus()

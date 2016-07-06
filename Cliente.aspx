@@ -351,7 +351,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="11" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados
@@ -1411,7 +1411,7 @@ Laboral
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_SegurosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <asp:Panel ID="Panel_SegurosDetalle" runat="server" CssClass="panel_tab" Height="180px" ScrollBars="Vertical" Visible="False">
+                                <asp:Panel ID="Panel_SegurosDetalle" runat="server" CssClass="panel_tab" Height="170px" ScrollBars="Vertical" Visible="False">
                                     <asp:GridView ID="Grilla_SegurosDetalle" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
                                             <asp:BoundField DataField="column3" HeaderText="Descrip. Seguro"></asp:BoundField>
