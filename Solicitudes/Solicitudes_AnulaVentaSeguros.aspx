@@ -51,7 +51,7 @@
                                     <Columns>                                        
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%#Convert.ToBoolean(Eval("column4")) %>' />
+                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%#Convert.ToBoolean(Eval("column4"))%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>                                        
                                         <asp:BoundField HeaderText="Seguro" DataField="column1" />
