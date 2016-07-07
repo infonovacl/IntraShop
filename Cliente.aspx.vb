@@ -40,6 +40,8 @@
                 DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
                 If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                     Me.LBL_MensajeContratos.Visible = True
+                    Me.Tab_Consultas.Enabled = False
+                    Me.Tab_Consultas.Visible = False
                     Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
                     Me.TXT_ConsultaRutCliente.Focus()
                 Else
@@ -47,7 +49,7 @@
                     menu = Master.FindControl("TVM_Principal")
                     menu.Enabled = True
                     menu.Font.Strikeout = False
-                    Me.Tab_Consultas.Visible = True
+                    Me.Tab_Consultas.Enabled = True
                     Me.Tab_Consultas.ActiveTabIndex = 16
                     Me.LBL_MensajeContratos.Text = ""
                     Me.LBL_MensajeContratos.Visible = True
@@ -272,7 +274,7 @@
         End If
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
-        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 5 Then
+        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 And Me.Tab_Consultas.Enabled = True Then
             Me.LBL_MensajeContratos.Visible = False
             Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
@@ -1028,6 +1030,7 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = False
         menu.Font.Strikeout = True
+        Me.Tab_Consultas.Enabled = False
         LimpiaControles(Me.Controls)
         Me.TXT_ConsultaRutCliente.Focus()
     End Sub
@@ -1036,6 +1039,7 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = False
         menu.Font.Strikeout = True
+        Me.Tab_Consultas.Enabled = False
         For Each control As Control In controles
             If TypeOf control Is TextBox Then
                 DirectCast(control, TextBox).Text = String.Empty

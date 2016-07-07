@@ -159,6 +159,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="auto-style44">&nbsp;</td>
+                                <td class="auto-style45" colspan="3">
+                                    <asp:Label ID="LBL_Nombre2" runat="server" CssClass="etiquetas"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="auto-style18">
                                     <asp:Label ID="Label4" runat="server" CssClass="etiquetas" Text="Rut"></asp:Label>
                                 </td>

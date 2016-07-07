@@ -48,7 +48,7 @@
          }
          </style>
     </head>
-<body style="width: 761px; height: 6px; left: 5px;">
+<body style="width: 344px; height: 9px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div class="auto-style7">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -99,7 +99,7 @@
                             <asp:Label ID="Label5" runat="server" CssClass="etiquetas_tab" Text="Línea crédito Solicitada"></asp:Label>
                         </td>
                         <td class="auto-style14">
-                            <asp:Label ID="LBL_LineaCreditoSolicitada" runat="server" CssClass="etiquetas_tab">0</asp:Label>
+                            <asp:TextBox ID="TXT_LineaCreditoSolicitada" runat="server" CssClass="cajastextonumerico_tab"></asp:TextBox>
                         </td>
                         <td class="auto-style10">&nbsp;</td>
                     </tr>

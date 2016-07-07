@@ -7,6 +7,7 @@
             LlenaDDLEstadoCivil()
             LlenaDDLRegion()
             LlenaDDLDiaPago()
+            LlenaDDLLugaresEnvio()
             ObtieneDatosCliente()
             Me.Tab_DatosClientes.ActiveTabIndex = 0
             Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
@@ -97,8 +98,21 @@
             Me.DDL_EmpleadorRegion.DataSource = DataDSRegion.Tables(0)
             Me.DDL_EmpleadorRegion.DataBind()
         Catch EX As Exception
-            ' MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
+            ' MsgBox(EX)    
+        End Try
+    End Sub
+    Private Sub LlenaDDLLugaresEnvio()
+        Dim DataDSLugarEnvio As New Data.DataSet
+        Try
+            Dim STRLugarEnvio As String = "execute procedure procw_listador01 ('LENV')"
+            Dim DATALugarEnvio As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLugarEnvio, Globales.conn)
+            DATALugarEnvio.Fill(DataDSLugarEnvio, "PRUEBA")
+            Me.DDL_LugarEnvio.DataTextField = DataDSLugarEnvio.Tables(0).Columns("column4").ToString()
+            Me.DDL_LugarEnvio.DataValueField = DataDSLugarEnvio.Tables(0).Columns("column3").ToString()
+            Me.DDL_LugarEnvio.DataSource = DataDSLugarEnvio.Tables(0)
+            Me.DDL_LugarEnvio.DataBind()
+        Catch EX As Exception
+            'MsgBox(EX)
         End Try
     End Sub
     Private Sub ObtieneDatosCliente()
@@ -271,10 +285,10 @@
                 Else
                     Me.DDL_DiaPago.SelectedValue = DDL_DiaPago.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(33)).Value
                 End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'cargo empleador
-                    Me.TXT_LugarEnvioEC.Text = ""
+                If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'LUGAR ENVIO 
+                    Me.DDL_LugarEnvio.SelectedValue = 0
                 Else
-                    Me.TXT_LugarEnvioEC.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(34))
+                    Me.DDL_LugarEnvio.SelectedValue = DDL_LugarEnvio.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(34)).Value
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'mail
                     Me.TXT_CorreoElectronico.Text = ""

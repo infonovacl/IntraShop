@@ -34,7 +34,7 @@
          }
          .auto-style17 {
              height: 22px;
-             width: 220px;
+             width: 219px;
          }
          .auto-style18 {
              width: 220px;
@@ -72,6 +72,9 @@
          .auto-style28 {
              height: 16px;
          }
+         .auto-style29 {
+             width: 219px;
+         }
          </style>
      </head>
 <body style="width: 694px; height: 313px;">
@@ -81,7 +84,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -376,7 +379,7 @@
                                     <td class="auto-style25">
                                         <asp:Label ID="Label58" runat="server" CssClass="etiquetas_popup" Text="Región"></asp:Label>
                                     </td>
-                                    <td class="auto-style18">&nbsp;</td>
+                                    <td class="auto-style29">&nbsp;</td>
                                     <td colspan="2">
                                         <asp:Label ID="Label59" runat="server" CssClass="etiquetas_popup" Text="Comuna"></asp:Label>
                                     </td>
@@ -405,7 +408,7 @@
                                         <asp:TextBox ID="TXT_EmpleadorTelefono" runat="server" CssClass="cajastexto_popup" Width="90px"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" ControlToValidate="TXT_EmpleadorTelefono" CssClass="etiquetasmensajeerror" ErrorMessage="RegularExpressionValidator" ToolTip="Debe Ingresar Valores Numéricos" ValidationExpression="^[0-9]*">Error</asp:RegularExpressionValidator>
                                     </td>
-                                    <td class="auto-style18">
+                                    <td class="auto-style29">
                                         <asp:TextBox ID="TXT_EmpleadorAnexo" runat="server" CssClass="cajastexto_popup" Width="90px"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" ControlToValidate="TXT_EmpleadorAnexo" CssClass="etiquetasmensajeerror" ErrorMessage="RegularExpressionValidator" ToolTip="Debe Ingresar Valores Numéricos" ValidationExpression="^[0-9]*">Error</asp:RegularExpressionValidator>
                                     </td>
@@ -445,14 +448,15 @@
                                         </asp:DropDownList>
                                     </td>
                                     <td colspan="2" class="auto-style27">
-                                        <asp:TextBox ID="TXT_LugarEnvioEC" runat="server" CssClass="cajastexto_popup" Width="300px"></asp:TextBox>
+                                        <asp:DropDownList ID="DDL_LugarEnvio" runat="server" CssClass="dropdown_tab" Width="250px">
+                                        </asp:DropDownList>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="auto-style25">
                                         <asp:Label ID="Label66" runat="server" CssClass="etiquetas_popup" Text="Correo Eléctronico"></asp:Label>
                                     </td>
-                                    <td class="auto-style18">&nbsp;</td>
+                                    <td class="auto-style29">&nbsp;</td>
                                     <td colspan="2"></td>
                                 </tr>
                                 <tr>

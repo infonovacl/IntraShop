@@ -84,7 +84,7 @@
         }
     </script>
      <asp:UpdatePanel ID="UpdatePanel20" runat="server">
-                        <ContentTemplate>
+ <ContentTemplate>
     <div>   
         <table class="tablas">
             <tr>
@@ -98,8 +98,7 @@
                     <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" CssClass="botones" />
                     <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
                 </td>
-                <td class="auto-style8">
-                   
+                <td class="auto-style8">                   
                             <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" CssClass="cajastextoparametro" ReadOnly="True" Width="320px"></asp:TextBox>
                             <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" OnClientClick="BuscaNombre()" Width="20px" />                     
                 </td>
@@ -349,7 +348,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" ViewStateMode="Enabled" Enabled="False">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados
@@ -1464,8 +1463,7 @@ Laboral
                     </HeaderTemplate>                                       
                 </ajaxToolkit:TabPanel>
             </ajaxtoolkit:tabcontainer>
-            <br />
-             
+            <br />             
         </div>
                               </ContentTemplate>
                     </asp:UpdatePanel>

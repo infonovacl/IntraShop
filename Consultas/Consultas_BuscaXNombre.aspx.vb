@@ -3,33 +3,23 @@
     Public rutbuscado As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_BuscaXNombre.Visible = True
-        Me.LBL_BuscarXNombreError.Visible = False
-        Me.BTN_BuscarXNombre.Enabled = True
-        Me.BTN_Cerrar.Enabled = True
         Me.TXT_BuscaXNombre.Focus()
     End Sub
     Private Sub ObtieneNombres()
         Try
             Dim DATADSBuscaxNombrePopUp As New Data.DataSet
             DATADSBuscaxNombrePopUp.Clear()
-            Me.Grilla_BuscaXNombre.DataSource = Nothing
-            Me.Grilla_BuscaXNombre.DataBind()
-            Dim RutCliente As Integer
-            RutCliente = Session("rut")
             Dim STRBuscaxNombre As String = "execute procedure procw_busca_nombre ('" & TXT_BuscaXNombre.Text & "' )"
             Dim DATABuscaxNombre As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRBuscaxNombre, Globales.conn)
             DATABuscaxNombre.Fill(DATADSBuscaxNombrePopUp, "PRUEBA")
             If DATADSBuscaxNombrePopUp.Tables(0).Rows(0)(0) = 1 Then
-                Me.Panel_BuscaXNombre.Visible = True
                 Me.LBL_BuscarXNombreError.Visible = True
                 Me.LBL_BuscarXNombreError.Text = DATADSBuscaxNombrePopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                Me.Panel_BuscaXNombre.Visible = True
                 Me.LBL_BuscarXNombreError.Visible = False
                 Me.Grilla_BuscaXNombre.DataSource = DATADSBuscaxNombrePopUp.Tables(0).DefaultView
                 Me.Grilla_BuscaXNombre.DataBind()
                 Me.Grilla_BuscaXNombre.Columns(6).Visible = False
-
             End If
         Catch EX As Exception
             MsgBox(EX)
@@ -42,7 +32,6 @@
             IndiceGrillaBuscaxNombre = Me.Grilla_BuscaXNombre.SelectedIndex.ToString()
             Me.LBL_ClienteSeleccionado.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(6).Text
             Me.LBL_Rut.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text
-            Me.BTN_BuscarXNombre.Text = "ENVIAR"
             Me.Grilla_BuscaXNombre.Columns(6).Visible = False
         Catch EX As Exception
             MsgBox(EX)

@@ -111,7 +111,7 @@
                     End If
                 Catch ex As Exception
                 End Try
-                Response.Write("<script>window.print()</script>")
+                Response.Write("<script>window.print();window.onfocus=function(){ window.close();}</script>")
             End If
         Catch EX As Exception
             ' MsgBox(EX)
