@@ -35,10 +35,21 @@ function validar_rut(source, arguments) {
             width: 100%;
         }
         .auto-style4 {
-            height: 15px;
+            height: 14px;
         }
         .auto-style5 {
             width: 83px;
+        }
+        .auto-style7 {
+            height: 14px;
+            width: 90px;
+        }
+        .auto-style9 {
+            left: 0px;
+            bottom: 2px;
+        }
+        .auto-style10 {
+            width: 90px;
         }
     </style>
     </head>  
@@ -88,7 +99,7 @@ function validar_rut(source, arguments) {
                     </tr>
                     <tr>
                         <td colspan="2" class="auto-style1">
-                            <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" ValidationGroup="login" />
+                            <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" ValidationGroup="login" style="height: 26px" />
                         </td>
                         <td class="auto-style1">&nbsp;</td>
                     </tr>
@@ -133,24 +144,26 @@ function validar_rut(source, arguments) {
              </asp:UpdatePanel>
              <br />
                       </div>
-         <div id ="pie" runat="server">                                           
+         <div id ="pie" runat="server" class="auto-style9">                                           
              <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                  <ContentTemplate>
                      <table cellspacing="1" class="auto-style3">
                          <tr>
-                             <td>
+                             <td class="auto-style10">
                                  <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                              </td>
                              <td>
-                                 <asp:Label ID="LBL_UsuarioRutRegistrado" runat="server" CssClass="etiquetas" Text="1" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_UsuarioNombre" runat="server" CssClass="etiquetas" Text="1" ViewStateMode="Enabled"></asp:Label>
                              </td>
                          </tr>
                          <tr>
-                             <td class="auto-style4">
-                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
+                             <td class="auto-style7">
+                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Caja/Tienda"></asp:Label>
                              </td>
                              <td class="auto-style4">
-                                 <asp:Label ID="LBL_UsuarioCodigoTiendaRegistrado" runat="server" CssClass="etiquetas" Text="15" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_UsuarioCaja" runat="server" CssClass="etiquetas" Text="101" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_Slash" runat="server" CssClass="etiquetas" Text="/" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_UsuarioTienda" runat="server" CssClass="etiquetas" Text="15" ViewStateMode="Enabled"></asp:Label>
                              </td>
                          </tr>
                      </table>

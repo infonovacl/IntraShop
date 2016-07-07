@@ -1,11 +1,6 @@
 ﻿Partial Class Cliente
     Inherits System.Web.UI.Page
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'If Session("rutbuscado") <> "" Then
-        ' Me.TXT_ConsultaRutCliente.Text = Session("rutbuscado")
-        ' Me.TXT_ConsultaRutCliente.Focus()
-        ' End If
-        'Me.TXT_ConsultaRutCliente.Focus()
         If IsPostBack = False Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
@@ -34,15 +29,10 @@
     ' Return customers
     ' End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
-        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 5 Then
+        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
             'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
             ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
-            '   Master.Master.FindControl("TVM_Principal").
-            Dim menu As TreeView
-            menu = Master.FindControl("TVM_Principal")
-            menu.Enabled = True
-            menu.Font.Strikeout = False
-            Session("rutbuscado") = ""
+            '   Master.Master.FindControl("TVM_Principal").           
             Dim DataDSDatosCliente As New Data.DataSet
             Try
                 Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
@@ -50,8 +40,13 @@
                 DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
                 If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                     Me.LBL_MensajeContratos.Visible = True
-                    Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error              
+                    Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
+                    Me.TXT_ConsultaRutCliente.Focus()
                 Else
+                    Dim menu As TreeView
+                    menu = Master.FindControl("TVM_Principal")
+                    menu.Enabled = True
+                    menu.Font.Strikeout = False
                     Me.Tab_Consultas.Visible = True
                     Me.Tab_Consultas.ActiveTabIndex = 16
                     Me.LBL_MensajeContratos.Text = ""
@@ -268,6 +263,7 @@
                     Session("dv") = Me.TXT_ConsultaDV.Text
                 End If
             Catch ex As Exception
+                MsgBox(ex)
             End Try
         Else
             Me.LBL_MensajeContratos.Visible = True
@@ -298,7 +294,7 @@
                             Me.Grilla_Estados.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Estdos');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 1
                     Dim DataDSLaboral As New Data.DataSet
@@ -356,7 +352,7 @@
                             End If
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 2
                     Dim DataDSContratos As New Data.DataSet
@@ -376,7 +372,7 @@
                             Me.Grilla_Contratos.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Contratos');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 3
                     Dim DataDSModificaciones As New Data.DataSet
@@ -398,7 +394,7 @@
                             Me.Grilla_Modificaciones.DataBind()
                         End If
                     Catch EX As Exception
-                        ' Response.Write("<script>window.alert('Error al Obtener Modificaciones');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 4
                     Dim DataDSDescuentos As New Data.DataSet
@@ -424,7 +420,7 @@
                             Me.Grilla_Descuentos.Columns(7).Visible = False
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Descuentos');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 5
                     Dim DataDSConsultasDB As New Data.DataSet
@@ -444,7 +440,7 @@
                             Me.Grilla_ConsultasDB.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 6
                     Dim DataDSSolicitudes As New Data.DataSet
@@ -464,7 +460,7 @@
                             Me.Grilla_Solicitudes.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 7
                     Dim DataDSUltimosAbonos As New Data.DataSet
@@ -484,7 +480,7 @@
                             Me.Grilla_ResumenUltimosAbonos.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                        MsgBox(EX)
                     End Try
                     Dim DataDSResumenClasificaciones As New Data.DataSet
                     Try
@@ -503,7 +499,7 @@
                             Me.Grilla_ResumenUltimasClasificaciones.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                        MsgBox(EX)
                     End Try
                     Dim DataDSResumenOtros As New Data.DataSet
                     TXT_ResumenComprasTotales.Text = "0"
@@ -565,7 +561,7 @@
                             End If
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Solicitudes');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 8
                     Dim DataDSComentarios As New Data.DataSet
@@ -585,7 +581,7 @@
                             Me.Grilla_Comentarios.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 9
                     Dim DataDSPagos As New Data.DataSet
@@ -609,7 +605,7 @@
                             Me.Grilla_Pagos.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 10
                     Dim DataDSVentas As New Data.DataSet
@@ -634,7 +630,7 @@
                             Me.Grilla_Ventas.Columns(14).Visible = False
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 11
                     Dim DataDSRepacta As New Data.DataSet
@@ -654,8 +650,7 @@
                             Me.Grilla_Repactaciones.DataBind()
                         End If
                     Catch EX As Exception
-                        ' MsgBox(EX)
-                        'Response.Write("<script>window.alert('Error al Obtener Comentarios');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 12
                     Dim DataDSDeuda As New Data.DataSet
@@ -748,7 +743,7 @@
                             End If
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 13
                     Dim DataDSXPagar As New Data.DataSet
@@ -778,7 +773,7 @@
                             ' Me.GrillaAnioActual.FooterRow.Cells(3).Text = Format(sumaventaactual, "###,###,##0")
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 14
                     Dim DataDSSeguros As New Data.DataSet
@@ -800,7 +795,7 @@
                             Me.Grilla_Seguros.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                        MsgBox(EX)
                     End Try
                 Case 15
                     Dim DataDSSBIF As New Data.DataSet
@@ -820,7 +815,7 @@
                             Me.Grilla_SBIF.DataBind()
                         End If
                     Catch EX As Exception
-                        'Response.Write("<script>window.alert('Error al Obtener Datos Laborales');</script>")
+                        MsgBox(EX)
                     End Try
             End Select
         Else
@@ -854,7 +849,7 @@
             Me.Panel_Estados.Visible = False
             Me.Panel_EstadosDetalle.Visible = True
         Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub Grilla_Descuentos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Descuentos.SelectedIndexChanged
@@ -1025,6 +1020,7 @@
                 Me.Panel_VentasDetalle.Visible = True
             End If
         Catch EX As Exception
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub BTN_Limpiar_Click(sender As Object, e As EventArgs) Handles BTN_Limpiar.Click
@@ -1100,6 +1096,7 @@
                 Me.Panel_SegurosDetalle.Visible = True
             End If
         Catch EX As Exception
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub IBTN_SegurosDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_SegurosDetalle.Click
@@ -1269,7 +1266,7 @@
             Me.LBL_PagosError.Visible = False
             Me.Panel_Pagos.Visible = False
         Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener SubEstados');</script>")
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub IBTN_PagosDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_PagosDetalle.Click
@@ -1298,6 +1295,7 @@
     End Sub
     Protected Sub BTN_BuscaXNombre_Click(sender As Object, e As ImageClickEventArgs) Handles BTN_BuscaXNombre.Click
         LimpiaControles(Me.Controls)
+        ' Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
     End Sub
     Protected Sub Grilla_ConsultasDB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_ConsultasDB.SelectedIndexChanged
         Dim DataDSDetConsultasDBDetalle As New Data.DataSet
@@ -1330,6 +1328,7 @@
                 Me.Panel_ConsultasDBDetalles.Visible = True
             End If
         Catch EX As Exception
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub IBTN_ConsultasDBDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_ConsultasDBDetalle.Click

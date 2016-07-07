@@ -41,15 +41,15 @@
          }
          </style>
     <script language="javascript"> 
-        function pageLoad() {
-               window.focus();
-               document.getElementById('TXT_BuscaXNombre').focus();
-                             }      
+        //function pageLoad() {
+          //     window.focus();
+            //   document.getElementById('TXT_BuscaXNombre').focus();
+           //                  }      
            // setTimeout(function () { document.getElementById('TXT_BuscaXNombre').focus(); }, 50);
         function MandaRut() {
             var rutbuscado = document.getElementById("LBL_Rut").innerText;
             window.opener.document.getElementById('TXT_ConsultaRutCliente').value = rutbuscado;       
-            window.opener.document.getElementById('TXT_ConsultaRutCliente').focus();
+         //   window.opener.document.getElementById('TXT_ConsultaRutCliente').focus();
             window.close();
                             } 
 </script> 

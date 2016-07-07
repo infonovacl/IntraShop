@@ -37,20 +37,24 @@
             Dim partes() As String
             partes = Split(Me.TXT_UsuarioRut.Text, "-")
             Try
-                Dim DATADSLoginPopUp As New Data.DataSet
-                DATADSLoginPopUp.Clear()
+                Dim DATADSLogin As New Data.DataSet
+                DATADSLogin.Clear()
                 Dim RutCliente As Integer
                 RutCliente = Session("rut")
                 Dim STRLogin As String = "execute procedure procw_login  ('" & CType(partes(0), Integer) & "','" & partes(1) & "','" & Me.TXT_UsuarioContraseña.Text & "')"
                 Dim DATALogin As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLogin, Globales.conn)
-                DATALogin.Fill(DATADSLoginPopUp, "PRUEBA")
-                If DATADSLoginPopUp.Tables(0).Rows(0)(0) = 1 Then
+                DATALogin.Fill(DATADSLogin, "PRUEBA")
+                If DATADSLogin.Tables(0).Rows(0)(0) = 1 Then
                     Me.LBL_LoginError.Visible = True
-                    Me.LBL_LoginError.Text = DATADSLoginPopUp.Tables(0).Rows(0)(1) 'mensaje de error
+                    Me.LBL_LoginError.Text = DATADSLogin.Tables(0).Rows(0)(1) 'mensaje de error
                     Session("usuario_validado") = "no"
                     Me.Panel_menu.Visible = False
                 Else
                     Session("usuario_validado") = "si"
+                    'Me.LBL_UsuarioNombre.Text = Trim(DATADSLogin.Tables(0).Rows(0)(5)) & " " & Trim(DATADSLogin.Tables(0).Rows(0)(3))
+                    'Me.LBL_UsuarioTienda.Text = Trim(DATADSLogin.Tables(0).Rows(0)(6))
+
+                    'Me.LBL_UsuarioCaja.Text = Trim(DATADSLogin.Tables(0).Rows(0)(7))
                     Me.Panel_Login.Visible = False
                     Me.Panel_menu.Visible = True
                     Me.Panel_menu.Style.Add("position", "absolute")
@@ -58,15 +62,15 @@
                     Me.Panel_menu.Style.Add("height", "412px")
                     Me.Panel_menu.Style.Add("width", "210px")
                     Me.TVM_Principal.ExpandAll()
-                    Me.LBL_UsuarioRutRegistrado.Text = Session("usuario")
-                    Me.LBL_UsuarioCodigoTiendaRegistrado.Text = Session("Tienda")
+                    Me.LBL_UsuarioNombre.Text = Session("usuario")
+                    Me.LBL_UsuarioTienda.Text = Session("Tienda")
                     'If DATADSComentariosPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     ' Me.TXT_TiendaOrigen.Text = ""
                     ' Else
                     ' Me.TXT_TiendaOrigen.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(2)
                     Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
-                    Me.LBL_UsuarioRutRegistrado.Text = CType(partes(0), Integer) 'rut
-                    Session("usuario") = Me.LBL_UsuarioRutRegistrado.Text
+                    Me.LBL_UsuarioNombre.Text = CType(partes(0), Integer) 'rut
+                    Session("usuario") = Me.LBL_UsuarioNombre.Text
                     Session("tienda") = "15"
                     Session("caja") = "101"
                     Me.LBL_LoginError.Visible = False

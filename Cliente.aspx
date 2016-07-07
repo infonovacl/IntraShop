@@ -80,8 +80,7 @@
             sender._element.className = "";
         }
         function BuscaNombre() {
-            ventana = window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'BuscaCliente', 'top=150,width=630,height=310,left=220', scrollbars = 'NO', resizable = 'NO');
-            ventana.focus()
+            window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'BuscaCliente', 'top=150,width=630,height=310,left=220', scrollbars = 'NO', resizable = 'NO');          
         }
     </script>
      <asp:UpdatePanel ID="UpdatePanel20" runat="server">
@@ -102,8 +101,7 @@
                 <td class="auto-style8">
                    
                             <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" CssClass="cajastextoparametro" ReadOnly="True" Width="320px"></asp:TextBox>
-                            <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" OnClientClick="BuscaNombre()" Width="20px" />
-                     
+                            <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" OnClientClick="BuscaNombre()" Width="20px" />                     
                 </td>
             </tr>
         </table>    

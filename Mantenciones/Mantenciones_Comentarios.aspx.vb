@@ -46,11 +46,11 @@
             Me.TXT_Comentario.Focus()
             Dim RutCliente As Integer
             RutCliente = Session("rut")
-            Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & RutCliente & "' )"
+            Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & RutCliente & "')"
             Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, Globales.conn)
             DATAComentarios.Fill(DATADSComentariosPopUp, "PRUEBA")
             If DATADSComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
-                Me.BTN_Grabar.Enabled = False
+                Me.BTN_Grabar.Enabled = True
                 Me.LBL_ComentariosError.Visible = True
                 Me.LBL_ComentariosError.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else

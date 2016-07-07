@@ -315,7 +315,7 @@
                 '****************************************
             End If
         Catch EX As Exception
-            'MsgBox(EX)
+            MsgBox(EX)
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
         End Try
     End Sub

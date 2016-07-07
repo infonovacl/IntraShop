@@ -32,6 +32,7 @@
 
             End If
         Catch EX As Exception
+            MsgBox(EX)
         End Try
     End Sub
     Protected Sub Grilla_BuscaxNombre_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_BuscaXNombre.SelectedIndexChanged
