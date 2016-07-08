@@ -6,6 +6,7 @@
             menu = Master.FindControl("TVM_Principal")
             menu.Enabled = False
             menu.Font.Strikeout = True
+            Session("validado") = "no"
             Me.Focus()
             Me.TXT_ConsultaRutCliente.Focus()
         End If
@@ -40,8 +41,8 @@
                 DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
                 If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                     Me.LBL_MensajeContratos.Visible = True
-                    Me.Tab_Consultas.Enabled = False
-                    Me.Tab_Consultas.Visible = False
+                    Me.Tab_Consultas.ActiveTabIndex = 16
+                    Session("validado") = "no"
                     Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
                     Me.TXT_ConsultaRutCliente.Focus()
                 Else
@@ -49,11 +50,9 @@
                     menu = Master.FindControl("TVM_Principal")
                     menu.Enabled = True
                     menu.Font.Strikeout = False
-                    Me.Tab_Consultas.Enabled = True
                     Me.Tab_Consultas.ActiveTabIndex = 16
                     Me.LBL_MensajeContratos.Text = ""
                     Me.LBL_MensajeContratos.Visible = True
-
                     If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                         Me.TXT_ConsultaNombreCompleto.Text = ""
                     Else
@@ -263,6 +262,7 @@
                     End If
                     Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                     Session("dv") = Me.TXT_ConsultaDV.Text
+                    Session("validado") = "si"
                 End If
             Catch ex As Exception
                 MsgBox(ex)
@@ -274,7 +274,7 @@
         End If
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
-        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 And Me.Tab_Consultas.Enabled = True Then
+        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 And Session("validado") = "si" Then
             Me.LBL_MensajeContratos.Visible = False
             Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
@@ -1030,8 +1030,8 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = False
         menu.Font.Strikeout = True
-        Me.Tab_Consultas.Enabled = False
         LimpiaControles(Me.Controls)
+        Session("validado") = "no"
         Me.TXT_ConsultaRutCliente.Focus()
     End Sub
     Public Sub LimpiaControles(ByVal controles As ControlCollection)
@@ -1039,7 +1039,6 @@
         menu = Master.FindControl("TVM_Principal")
         menu.Enabled = False
         menu.Font.Strikeout = True
-        Me.Tab_Consultas.Enabled = False
         For Each control As Control In controles
             If TypeOf control Is TextBox Then
                 DirectCast(control, TextBox).Text = String.Empty
