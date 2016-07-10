@@ -36,7 +36,7 @@
             '   Master.Master.FindControl("TVM_Principal").           
             Dim DataDSDatosCliente As New Data.DataSet
             Try
-                Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
+                Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                 Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
                 DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
                 If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
@@ -157,7 +157,7 @@
                     If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then
                         Me.TXT_ConsultaPagosPeriodo.Text = "0"
                     Else
-                        Me.TXT_ConsultaPagosPeriodo.Text = DataDSDatosCliente.Tables(0).Rows(0)(25)
+                        Me.TXT_ConsultaPagosPeriodo.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(25), Integer), "###,###,##0")
                     End If
                     If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then
                         Me.TXT_ConsultaSaldo.Text = "0"
@@ -245,7 +245,7 @@
                     Else
                         Me.TXT_ConsultaValorVencimientoCuota6.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(42), Integer), "###,###,##0")
                     End If
-                    'If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then
+                    'If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then  '   EDAD
                     ' Me.LBL_Vencimiento6.Text = ""
                     ' Else
                     ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
@@ -260,6 +260,25 @@
                     Else
                         Me.TXT_ConsultaDireccRegion.Text = DataDSDatosCliente.Tables(0).Rows(0)(45)
                     End If
+                    Dim OpcionGeneral As Integer
+                    If DataDSDatosCliente.Tables(0).Rows(0)(47) Is System.DBNull.Value Then  '********ESTADO GENERAL 
+                        OpcionGeneral = 0
+                    Else
+                        OpcionGeneral = CType(DataDSDatosCliente.Tables(0).Rows(0)(47), Integer)
+                        If OpcionGeneral = 3 Then 'rechazo                                                  
+                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
+                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
+                        End If
+                        If OpcionGeneral = 2 Then 'verificacion                                               
+                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
+                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Rechazo
+                        End If
+                        If OpcionGeneral = 4 Then 'Bloqueado                                            
+                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Revisa Rechazo
+                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Verificacion
+                        End If
+
+                    End If
                     Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                     Session("dv") = Me.TXT_ConsultaDV.Text
                     Session("validado") = "si"
@@ -272,6 +291,15 @@
             Me.LBL_MensajeContratos.Text = "DEBE INGRESAR UN RUT VALIDO"
             Me.TXT_ConsultaRutCliente.Focus()
         End If
+    End Sub
+    Private Sub RecorrerTreeView(ByRef Nodos As TreeNodeCollection)
+        For Each Nodo As TreeNode In Nodos
+            If Nodo.ChildNodes.Count = 0 Then '' Si no tiene hijos
+                Nodo.SelectAction = TreeNodeSelectAction.Select
+            Else
+                RecorrerTreeView(Nodo.ChildNodes)
+            End If
+        Next
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 And Session("validado") = "si" Then
@@ -304,7 +332,6 @@
                         Dim STRLaboral As String = "execute procedure procw_cons_laboral ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                         Dim DATALaboral As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLaboral, Globales.conn)
                         DATALaboral.Fill(DataDSLaboral, "PRUEBA")
-                        ' MsgBox("DataDSLaboral")
                         If DataDSLaboral.Tables(0).Rows(0)(0) = 1 Then
                             Me.TBL_Laboral.Visible = False
                             Me.LBL_LaboralError.Visible = True
@@ -1028,6 +1055,7 @@
     Protected Sub BTN_Limpiar_Click(sender As Object, e As EventArgs) Handles BTN_Limpiar.Click
         Dim menu As TreeView
         menu = Master.FindControl("TVM_Principal")
+        RecorrerTreeView(menu.Nodes)
         menu.Enabled = False
         menu.Font.Strikeout = True
         LimpiaControles(Me.Controls)

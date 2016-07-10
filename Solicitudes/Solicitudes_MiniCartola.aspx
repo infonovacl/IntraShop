@@ -82,11 +82,6 @@
              text-align: left;
              width: 127px;
          }
-         .auto-style68 {
-             height: 9px;
-             text-align: left;
-             width: 127px;
-         }
          .auto-style70 {
              height: 9px;
              text-align: left;
@@ -155,13 +150,14 @@
                                     <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                                 </td>
                                 <td class="auto-style45" colspan="3">
-                                    <asp:Label ID="LBL_Nombre" runat="server" CssClass="etiquetas"></asp:Label>
+                                    <asp:Label ID="LBL_NombreS" runat="server" CssClass="etiquetas"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="auto-style44">&nbsp;</td>
                                 <td class="auto-style45" colspan="3">
-                                    <asp:Label ID="LBL_Nombre2" runat="server" CssClass="etiquetas"></asp:Label>
+                                    <asp:Label ID="LBL_ApellidoP" runat="server" CssClass="etiquetas"></asp:Label>
+                                    &nbsp;<asp:Label ID="LBL_ApellidoM" runat="server" CssClass="etiquetas"></asp:Label>
                                 </td>
                             </tr>
                             <tr>

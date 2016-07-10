@@ -99,7 +99,7 @@
                             <asp:Label ID="Label5" runat="server" CssClass="etiquetas_tab" Text="Línea crédito Solicitada"></asp:Label>
                         </td>
                         <td class="auto-style14">
-                            <asp:TextBox ID="TXT_LineaCreditoSolicitada" runat="server" CssClass="cajastextonumerico_tab"></asp:TextBox>
+                            <asp:Label ID="LBL_LineaCreditoSolicitada" runat="server" CssClass="etiquetas_tab">0</asp:Label>
                         </td>
                         <td class="auto-style10">&nbsp;</td>
                     </tr>
