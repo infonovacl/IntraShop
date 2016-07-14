@@ -18,6 +18,10 @@
             Me.Panel_menu.Style.Add("height", "412px")
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
+            Me.LBL_UsuarioNombre.Text = Session("nombreusuario")
+            Me.LBL_UsuarioCodigoTienda.Text = Session("tienda")
+            Me.LBL_UsuarioCaja.Text = Session("caja")
+            Me.LBL_UsuarioCajaNombreTienda.Text = Session("nombretienda")
         ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
             Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
             Me.Panel_menu.Visible = False
@@ -51,31 +55,55 @@
                     Me.Panel_menu.Visible = False
                 Else
                     Session("usuario_validado") = "si"
-                    'Me.LBL_UsuarioNombre.Text = Trim(DATADSLogin.Tables(0).Rows(0)(5)) & " " & Trim(DATADSLogin.Tables(0).Rows(0)(3))
-                    'Me.LBL_UsuarioTienda.Text = Trim(DATADSLogin.Tables(0).Rows(0)(6))
-
-                    'Me.LBL_UsuarioCaja.Text = Trim(DATADSLogin.Tables(0).Rows(0)(7))
-                    Me.Panel_Login.Visible = False
-                    Me.Panel_menu.Visible = True
-                    Me.Panel_menu.Style.Add("position", "absolute")
-                    Me.Panel_menu.Style.Add("top", "1px")
-                    Me.Panel_menu.Style.Add("height", "412px")
-                    Me.Panel_menu.Style.Add("width", "210px")
-                    Me.TVM_Principal.ExpandAll()
-                    Me.LBL_UsuarioNombre.Text = Session("usuario")
-                    Me.LBL_UsuarioTienda.Text = Session("Tienda")
-                    'If DATADSComentariosPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
-                    ' Me.TXT_TiendaOrigen.Text = ""
-                    ' Else
-                    ' Me.TXT_TiendaOrigen.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(2)
-                    Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
-                    Me.LBL_UsuarioNombre.Text = CType(partes(0), Integer) 'rut
-                    Session("usuario") = Me.LBL_UsuarioNombre.Text
-                    Session("tienda") = "15"
-                    Session("caja") = "101"
-                    Me.LBL_LoginError.Visible = False
-                End If
+                    Dim nombre, apellido, nombretienda As String
+                    If DATADSLogin.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                        nombre = ""
+                    Else
+                        If Trim(DATADSLogin.Tables(0).Rows(0)(5)).Length > 7 Then
+                            nombre = Trim(DATADSLogin.Tables(0).Rows(0)(5)).Substring(0, 8)
+                        Else
+                            nombre = Trim(DATADSLogin.Tables(0).Rows(0)(5))
+                        End If
+                    End If
+                    If DATADSLogin.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                        apellido = ""
+                    Else
+                        If Trim(DATADSLogin.Tables(0).Rows(0)(3)).Length > 11 Then
+                            apellido = Trim(DATADSLogin.Tables(0).Rows(0)(3)).Substring(0, 12)
+                        Else
+                            apellido = Trim(DATADSLogin.Tables(0).Rows(0)(3))
+                        End If
+                    End If
+                    Session("nombreusuario") = nombre & " " & apellido
+                    Session("tienda") = Trim(DATADSLogin.Tables(0).Rows(0)(2)) ' codigo tienda
+                    Session("caja") = Trim(DATADSLogin.Tables(0).Rows(0)(7)) 'nro caja
+                    If DATADSLogin.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                        nombretienda = ""
+                    Else
+                        If Trim(DATADSLogin.Tables(0).Rows(0)(6)).Length > 8 Then
+                            nombretienda = Trim(DATADSLogin.Tables(0).Rows(0)(6)).Substring(0, 8)
+                        Else
+                            nombretienda = Trim(DATADSLogin.Tables(0).Rows(0)(6))
+                        End If
+                    End If
+                    Session("nombretienda") = nombretienda
+                    Session("usuario") = CType(partes(0), Integer) 'rut
+                        Me.Panel_Login.Visible = False
+                        Me.Panel_menu.Visible = True
+                        Me.Panel_menu.Style.Add("position", "absolute")
+                        Me.Panel_menu.Style.Add("top", "1px")
+                        Me.Panel_menu.Style.Add("height", "412px")
+                        Me.Panel_menu.Style.Add("width", "210px")
+                        Me.TVM_Principal.ExpandAll()
+                        'If DATADSComentariosPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                        ' Me.TXT_TiendaOrigen.Text = ""
+                        ' Else
+                        ' Me.TXT_TiendaOrigen.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(2)
+                        Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
+                        Me.LBL_LoginError.Visible = False
+                    End If
             Catch EX As Exception
+                MsgBox(EX)
             End Try
         End If
     End Sub

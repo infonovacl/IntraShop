@@ -49,7 +49,7 @@
                             <asp:Panel ID="Panel_SegurosXContratar" runat="server" CssClass="panel_tab" Height="140px" ScrollBars="Vertical" Width="754px">
                                 <asp:GridView ID="Grilla_SeguroXContratar" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                                     <Columns>                                        
-                                        <asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Activo">
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%#Convert.ToBoolean(Eval("column4"))%>' />
                                             </ItemTemplate>

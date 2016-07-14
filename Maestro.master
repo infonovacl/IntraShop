@@ -42,14 +42,22 @@ function validar_rut(source, arguments) {
         }
         .auto-style7 {
             height: 14px;
-            width: 90px;
+            width: 48px;
         }
         .auto-style9 {
             left: 0px;
             bottom: 2px;
         }
-        .auto-style10 {
-            width: 90px;
+        .auto-style11 {
+            width: 48px;
+        }
+        .auto-style12 {
+            height: 14px;
+            width: 30px;
+        }
+        .auto-style13 {
+            height: 14px;
+            width: 99px;
         }
     </style>
     </head>  
@@ -73,7 +81,7 @@ function validar_rut(source, arguments) {
                             <asp:Label ID="Label8" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                         </td>
                         <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">13992731-1</asp:TextBox>
+                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">16737484-0</asp:TextBox>
                         </td>
                         <td class="auto-style5">
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" SetFocusOnError="True" ValidationGroup="login" ToolTip="Debe Ingresar Rut"></asp:RequiredFieldValidator>
@@ -84,7 +92,7 @@ function validar_rut(source, arguments) {
                             <asp:Label ID="Label9" runat="server" CssClass="etiquetas" Text="Contraseña"></asp:Label>
                         </td>
                         <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioContraseña" runat="server" Width="75px">213213</asp:TextBox>
+                            <asp:TextBox ID="TXT_UsuarioContraseña" runat="server" Width="75px">1234</asp:TextBox>
                         </td>
                         <td class="auto-style5">
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TXT_UsuarioContraseña" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" ValidationGroup="login" ToolTip="Debe ingresar una Contraseña"></asp:RequiredFieldValidator>
@@ -149,21 +157,27 @@ function validar_rut(source, arguments) {
                  <ContentTemplate>
                      <table cellspacing="1" class="auto-style3">
                          <tr>
-                             <td class="auto-style10">
+                             <td class="auto-style11">
                                  <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                              </td>
-                             <td>
-                                 <asp:Label ID="LBL_UsuarioNombre" runat="server" CssClass="etiquetas" Text="1" ViewStateMode="Enabled"></asp:Label>
+                             <td colspan="3">
+                                 <asp:Label ID="LBL_UsuarioNombre" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
                              </td>
                          </tr>
                          <tr>
                              <td class="auto-style7">
-                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Caja/Tienda"></asp:Label>
+                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
+                             </td>
+                             <td class="auto-style13">
+                                 <asp:Label ID="LBL_UsuarioCodigoTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_UsuarioTienda0" runat="server" CssClass="etiquetas" Text="/" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_UsuarioCajaNombreTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                             </td>
+                             <td class="auto-style12">
+                                 <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Caja"></asp:Label>
                              </td>
                              <td class="auto-style4">
-                                 <asp:Label ID="LBL_UsuarioCaja" runat="server" CssClass="etiquetas" Text="101" ViewStateMode="Enabled"></asp:Label>
-                                 <asp:Label ID="LBL_Slash" runat="server" CssClass="etiquetas" Text="/" ViewStateMode="Enabled"></asp:Label>
-                                 <asp:Label ID="LBL_UsuarioTienda" runat="server" CssClass="etiquetas" Text="15" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="LBL_UsuarioCaja" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
                              </td>
                          </tr>
                      </table>
