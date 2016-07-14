@@ -32,32 +32,21 @@ function validar_rut(source, arguments) {
             height: 30px;
         }
         .auto-style3 {
-            width: 100%;
-        }
-        .auto-style4 {
-            height: 14px;
+            width: 99%;
         }
         .auto-style5 {
             width: 83px;
-        }
-        .auto-style7 {
-            height: 14px;
-            width: 48px;
         }
         .auto-style9 {
             left: 0px;
             bottom: 2px;
         }
-        .auto-style11 {
-            width: 48px;
+        .auto-style14 {
+            left: 0px;
+            top: 130px;
         }
-        .auto-style12 {
-            height: 14px;
-            width: 30px;
-        }
-        .auto-style13 {
-            height: 14px;
-            width: 99px;
+        .auto-style15 {
+            width: 72px;
         }
     </style>
     </head>  
@@ -73,7 +62,7 @@ function validar_rut(source, arguments) {
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" ViewStateMode="Enabled">                                           
         </asp:ContentPlaceHolder>       
          </div>
-         <div id ="menulateral" runat="server">
+         <div id ="menulateral" runat="server" class="auto-style14">
             <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" ViewStateMode="Enabled">
                 <table class="tablalogin" >
                     <tr>
@@ -157,27 +146,33 @@ function validar_rut(source, arguments) {
                  <ContentTemplate>
                      <table cellspacing="1" class="auto-style3">
                          <tr>
-                             <td class="auto-style11">
+                             <td class="auto-style15" >
                                  <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                              </td>
                              <td colspan="3">
-                                 <asp:Label ID="LBL_UsuarioNombre" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                                 <asp:Label ID="UsuarioNombre" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
                              </td>
                          </tr>
                          <tr>
-                             <td class="auto-style7">
-                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
+                             <td class="auto-style15" >
+                                 <asp:Label ID="Label14" runat="server" CssClass="etiquetas" Text="Cód. Tienda"></asp:Label>
                              </td>
-                             <td class="auto-style13">
-                                 <asp:Label ID="LBL_UsuarioCodigoTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
-                                 <asp:Label ID="LBL_UsuarioTienda0" runat="server" CssClass="etiquetas" Text="/" ViewStateMode="Enabled"></asp:Label>
-                                 <asp:Label ID="LBL_UsuarioCajaNombreTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                             <td >
+                                 <asp:Label ID="CTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
                              </td>
-                             <td class="auto-style12">
+                             <td >
                                  <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Caja"></asp:Label>
                              </td>
-                             <td class="auto-style4">
-                                 <asp:Label ID="LBL_UsuarioCaja" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                             <td >
+                                 <asp:Label ID="Caja" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="auto-style15" >
+                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
+                             </td>
+                             <td  colspan="3">
+                                 <asp:Label ID="CajaNombreTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
                              </td>
                          </tr>
                      </table>

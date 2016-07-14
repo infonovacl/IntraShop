@@ -18,10 +18,10 @@
             Me.Panel_menu.Style.Add("height", "412px")
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
-            Me.LBL_UsuarioNombre.Text = Session("nombreusuario")
-            Me.LBL_UsuarioCodigoTienda.Text = Session("tienda")
-            Me.LBL_UsuarioCaja.Text = Session("caja")
-            Me.LBL_UsuarioCajaNombreTienda.Text = Session("nombretienda")
+            Me.UsuarioNombre.Text = Session("nombreusuario")
+            Me.CTienda.Text = Session("tienda")
+            Me.Caja.Text = Session("caja")
+            Me.CajaNombreTienda.Text = Session("nombretienda")
         ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
             Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
             Me.Panel_menu.Visible = False

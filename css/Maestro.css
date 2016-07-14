@@ -34,7 +34,7 @@
       color: black;
       background-color:lightblue;
       width: 210px;     
-      height: 415px;
+      height: 395px;
       float:left;
       position:absolute;
       top:130px;
@@ -42,7 +42,7 @@
 }
 #panelmenu
 {
-      height: 320px;
+      height: 300px;
       width: 210px;
       border:inset 1px lightgrey;
       background-color:white;
@@ -55,7 +55,7 @@
 }
 #pie
 {
-      height: 40px;
+      height: 60px;
       width: 210px;
       position:absolute;
       float:left;
