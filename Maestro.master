@@ -45,8 +45,11 @@ function validar_rut(source, arguments) {
             left: 0px;
             top: 130px;
         }
-        .auto-style15 {
-            width: 72px;
+        .auto-style16 {
+            width: 52px;
+        }
+        .auto-style17 {
+            width: 80px;
         }
     </style>
     </head>  
@@ -70,7 +73,7 @@ function validar_rut(source, arguments) {
                             <asp:Label ID="Label8" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                         </td>
                         <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">16737484-0</asp:TextBox>
+                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">16455215-2</asp:TextBox>
                         </td>
                         <td class="auto-style5">
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" SetFocusOnError="True" ValidationGroup="login" ToolTip="Debe Ingresar Rut"></asp:RequiredFieldValidator>
@@ -146,7 +149,7 @@ function validar_rut(source, arguments) {
                  <ContentTemplate>
                      <table cellspacing="1" class="auto-style3">
                          <tr>
-                             <td class="auto-style15" >
+                             <td class="auto-style16" >
                                  <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
                              </td>
                              <td colspan="3">
@@ -154,11 +157,11 @@ function validar_rut(source, arguments) {
                              </td>
                          </tr>
                          <tr>
-                             <td class="auto-style15" >
-                                 <asp:Label ID="Label14" runat="server" CssClass="etiquetas" Text="Cód. Tienda"></asp:Label>
+                             <td class="auto-style16" >
+                                 <asp:Label ID="Label14" runat="server" CssClass="etiquetas" Text="Cód. Tda."></asp:Label>
                              </td>
-                             <td >
-                                 <asp:Label ID="CTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                             <td class="auto-style17">
+                                 &nbsp;<asp:Label ID="CTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
                              </td>
                              <td >
                                  <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Caja"></asp:Label>
@@ -168,7 +171,7 @@ function validar_rut(source, arguments) {
                              </td>
                          </tr>
                          <tr>
-                             <td class="auto-style15" >
+                             <td class="auto-style16" >
                                  <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
                              </td>
                              <td  colspan="3">

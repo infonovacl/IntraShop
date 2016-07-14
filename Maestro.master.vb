@@ -80,8 +80,8 @@
                     If DATADSLogin.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
                         nombretienda = ""
                     Else
-                        If Trim(DATADSLogin.Tables(0).Rows(0)(6)).Length > 8 Then
-                            nombretienda = Trim(DATADSLogin.Tables(0).Rows(0)(6)).Substring(0, 8)
+                        If Trim(DATADSLogin.Tables(0).Rows(0)(6)).Length > 21 Then
+                            nombretienda = Trim(DATADSLogin.Tables(0).Rows(0)(6)).Substring(0, 21)
                         Else
                             nombretienda = Trim(DATADSLogin.Tables(0).Rows(0)(6))
                         End If

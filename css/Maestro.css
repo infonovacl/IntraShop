@@ -58,6 +58,7 @@
       height: 60px;
       width: 210px;
       position:absolute;
+	  background-color:whitesmoke;
       float:left;
 	  bottom:2px;
 }
