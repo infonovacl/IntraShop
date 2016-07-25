@@ -32,20 +32,20 @@
                 If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(23) Is System.DBNull.Value Then
                     Me.LBL_NombreS.Text = ""
                 Else
-                    Me.LBL_NombreS.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(23)
+                    Me.LBL_NombreS.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(23).ToString.ToUpper
                 End If
 
                 If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(24) Is System.DBNull.Value Then
-                Me.LBL_ApellidoP.Text = ""
-            Else
-                Me.LBL_ApellidoP.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(24)
-            End If
-            If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(25) Is System.DBNull.Value Then
-                Me.LBL_ApellidoM.Text = ""
-            Else
-                Me.LBL_ApellidoM.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(25)
-            End If
-            If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                    Me.LBL_ApellidoP.Text = ""
+                Else
+                    Me.LBL_ApellidoP.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(24).ToString.ToUpper
+                End If
+                If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(25) Is System.DBNull.Value Then
+                    Me.LBL_ApellidoM.Text = ""
+                Else
+                    Me.LBL_ApellidoM.Text = DATADSMiniCartolaPopUp.Tables(0).Rows(0)(25).ToString.ToUpper
+                End If
+                If DATADSMiniCartolaPopUp.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
                     Me.LBL_FechaEmision.Text = ""
                 Else
                     Me.LBL_FechaEmision.Text = Trim(DATADSMiniCartolaPopUp.Tables(0).Rows(0)(4))

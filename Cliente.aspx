@@ -45,14 +45,7 @@
             background-position: right;
             background-repeat: no-repeat;
         }        
-        .auto-style10 {
-            width: 70px;
-            height: 6px;
-        }
-        .auto-style11 {
-            height: 6px;
-        }
-    </style>
+        </style>
     <script script language="javascript" type="text/javascript">
         function pageLoad(sender, e) {
             var objTpDummy =
@@ -348,7 +341,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados
@@ -377,10 +370,8 @@ Estados
                                 <asp:Panel ID="Panel_EstadosDetalle" runat="server" Visible="False" Width="754px">
                                 <asp:Label ID="Label123" runat="server" CssClass="etiquetas_tab" Text="Descripción Sub-Estado "></asp:Label>
                                 <asp:TextBox ID="TXT_EstadoDescripcionSubEstado" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="350px">BLOQUEADO</asp:TextBox>
-                                <br />
-                                <br />
+                                    <br />
                                 <asp:ImageButton ID="IBTN_EstadosSubEstados" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                <br />
                                 </asp:Panel>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -946,9 +937,8 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_PagosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <br />
-                                <table cellspacing="1" class="auto-style3" style="width: 760px" id="TBL_DetallePagos" runat="server">
+                                <asp:Label ID="LBL_PagosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                            
+                                <table cellspacing="1" class="auto-style3" style="width: 760px" id="TBL_DetallePagos" runat="server" visible="False">
                                     <tr>
                                         <td>
                                             <asp:Label ID="Label143" runat="server" CssClass="etiquetas_tab" Text="Monto Capital"></asp:Label>
@@ -1082,10 +1072,9 @@ Laboral
                                         <td></td>
                                     </tr>
                                 </table>
-                                <asp:Label ID="LBL_PagosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
+                                <asp:Label ID="LBL_PagosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>                               
                                 <br />
-                                <asp:ImageButton ID="IBTN_PagosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                <br />
+                                <asp:ImageButton ID="IBTN_PagosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />                               
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </ContentTemplate>
@@ -1096,7 +1085,7 @@ Laboral
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:UpdatePanel ID="UpdatePanel13" runat="server">
-                            <ContentTemplate>
+                               <ContentTemplate>
                                 <asp:Panel ID="Panel_Ventas" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -1157,8 +1146,6 @@ Laboral
                                 <asp:Label ID="LBL_VentasDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
                                 <asp:ImageButton ID="IBTN_VentasDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                <br />
-                                <br />
                                 <br />
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -1429,7 +1416,6 @@ Laboral
                                 <asp:Label ID="LBL_SegurosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
                                 <asp:ImageButton ID="IBTN_SegurosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                <br />
                                 <br />
                             </ContentTemplate>
                         </asp:UpdatePanel>

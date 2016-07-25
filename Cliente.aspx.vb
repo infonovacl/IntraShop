@@ -310,6 +310,8 @@
                     Dim DataDSEstados As New Data.DataSet
                     Try
                         DataDSEstados.Clear()
+                        Me.LBL_EstadosError.Visible = False
+                        Me.Panel_EstadosDetalle.Visible = False
                         Dim STREstados As String = "execute procedure procw_cons_estados ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                         Dim DATAEstados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREstados, Globales.conn)
                         DATAEstados.Fill(DataDSEstados, "PRUEBA")
@@ -455,6 +457,8 @@
                     Dim DataDSConsultasDB As New Data.DataSet
                     Try
                         DataDSConsultasDB.Clear()
+                        Me.Panel_ConsultasDBDetalles.Visible = False
+                        Me.LBL_ConsultasDBDetalleError.Visible = False
                         Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                         Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
                         DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
@@ -628,6 +632,7 @@
                         Else
                             Me.Panel_Pagos.Visible = True
                             Me.LBL_PagosError.Visible = False
+                            Me.LBL_PagosDetalleError.Visible = False
                             Me.IBTN_PagosDetalle.Visible = False
                             Me.TBL_DetallePagos.Visible = False
                             Me.Grilla_Pagos.DataSource = DataDSPagos.Tables(0).DefaultView
@@ -649,6 +654,8 @@
                             Me.IBTN_VentasDetalle.Visible = False
                             Me.LBL_VentasError.Text = DataDSVentas.Tables(0).Rows(0)(1) ' mensaje de error
                         Else
+                            Me.Grilla_Ventas.Columns(13).Visible = True
+                            Me.Grilla_Ventas.Columns(14).Visible = True
                             Me.Panel_Ventas.Visible = True
                             Me.LBL_VentasError.Visible = False
                             Me.Panel_VentasDetalle.Visible = False
@@ -808,6 +815,8 @@
                     Dim DataDSSeguros As New Data.DataSet
                     Try
                         DataDSSeguros.Clear()
+                        Me.LBL_SegurosDetalleError.Visible = False
+                        Me.Panel_SegurosDetalle.Visible = False
                         Dim STRSeguros As String = "execute procedure procw_cons_seguro ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                         Dim DATASeguros As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSeguros, Globales.conn)
                         DATASeguros.Fill(DataDSSeguros, "PRUEBA")
@@ -1013,24 +1022,20 @@
     End Sub
     Protected Sub Grilla_Ventas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Ventas.SelectedIndexChanged
         Dim DataDSDetVenta As New Data.DataSet
-        Dim IndiceGrillaVentas As Integer = 0
-        Dim CodigoSucursal, CodigoNegocio As Integer
-        Dim NCaja As Integer
+        Dim IndiceGrillaVentas, CodigoSucursal, CodigoNegocio, NCaja, NBoleta As Integer
         Dim FechaVenta As String
-
-        Dim NBoleta As Integer
         Try
             DataDSDetVenta.Clear()
             IndiceGrillaVentas = Me.Grilla_Ventas.SelectedIndex.ToString()
             Me.Grilla_Ventas.Columns(13).Visible = True
             Me.Grilla_Ventas.Columns(14).Visible = True
-            CodigoSucursal = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(13).Text
-            CodigoNegocio = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(14).Text
+            CodigoSucursal = CType(Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(13).Text, Integer)
+            CodigoNegocio = CType(Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(14).Text, Integer)
             Me.Grilla_Ventas.Columns(13).Visible = False
             Me.Grilla_Ventas.Columns(14).Visible = False
-            NCaja = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(5).Text
+            NCaja = CType(Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(5).Text, Integer)
             FechaVenta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(3).Text
-            NBoleta = Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(6).Text
+            NBoleta = CType(Me.Grilla_Ventas.Rows(IndiceGrillaVentas).Cells(6).Text, Integer)
             Dim STRDetVenta As String = "execute procedure procw_cons_ventas_det (" & Me.TXT_ConsultaRutCliente.Text & "," & CodigoSucursal & "," & CodigoNegocio & "," & NCaja & ",'" & FechaVenta & "'," & NBoleta & ")"
             Dim DATADetVenta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetVenta, Globales.conn)
             DATADetVenta.Fill(DataDSDetVenta, "PRUEBA")
@@ -1113,7 +1118,7 @@
             Dim DATADetSeguro As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDetSeguro, Globales.conn)
             DATADetSeguro.Fill(DataDSDetSeguro, "PRUEBA")
             If DataDSDetSeguro.Tables(0).Rows(0)(0) = 1 Then ' algun error en consulta 
-                Me.LBL_VentasDetalleError.Visible = True
+                Me.LBL_SegurosDetalleError.Visible = True
                 Me.Panel_SegurosDetalle.Visible = False
                 Me.Panel_Seguros.Visible = False
                 Me.LBL_SegurosDetalleError.Text = DataDSDetSeguro.Tables(0).Rows(0)(1)
@@ -1320,6 +1325,8 @@
         TXT_PagosSaldoFavorFinal.Text = "0"
         TXT_PagosSaldoFavorInicial.Text = "0"
         TXT_PagosSeguros.Text = "0"
+        Me.LBL_PagosDetalleError.Visible = False
+        Me.TBL_DetallePagos.Visible = False
         Me.Panel_Pagos.Visible = True
     End Sub
     Private Sub BTN_ProcesaTab_Click(sender As Object, e As EventArgs) Handles BTN_ProcesaTab.Click
