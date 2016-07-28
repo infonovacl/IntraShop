@@ -13,6 +13,39 @@
             Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
         End If
     End Sub
+    Protected Sub DDL_RegionCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_RegionCliente.SelectedIndexChanged
+        If Me.DDL_RegionCliente.Items(0).Text = "SIN REGION" Then
+            Me.DDL_RegionCliente.Items.RemoveAt(0)
+        End If
+        If Me.DDL_RegionCliente.SelectedValue <> 0 Then
+            LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0", "cliente")
+        ElseIf Me.DDL_RegionCliente.SelectedValue = 0 Then
+            Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
+        End If
+    End Sub
+    Protected Sub DDL_ReferenciaRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_ReferenciaRegion.SelectedIndexChanged
+        If Me.DDL_ReferenciaRegion.Items(0).Text = "SIN REGION" Then
+            Me.DDL_ReferenciaRegion.Items.RemoveAt(0)
+        End If
+        If Me.DDL_ReferenciaRegion.SelectedValue <> 0 Then
+            LlenaDDLComuna(Me.DDL_ReferenciaRegion.SelectedValue, "0", "referencia")
+        ElseIf Me.DDL_ReferenciaRegion.SelectedValue = 0 Then
+            Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
+        End If
+    End Sub
+    Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
+        If Me.DDL_EmpleadorRegion.Items(0).Text = "SIN REGION" Then
+            Me.DDL_EmpleadorRegion.Items.RemoveAt(0)
+        End If
+        If Me.DDL_EmpleadorRegion.SelectedValue <> 0 Then
+            LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
+        ElseIf Me.DDL_EmpleadorRegion.SelectedValue = 0 Then
+            Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
+        End If
+    End Sub
+    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
+        'CIERRA VENTANA POPUP
+    End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
         Dim DataDSComuna As New Data.DataSet
         DataDSComuna.Clear()
@@ -194,33 +227,31 @@
                     Me.TXT_AlturaCalle.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(14))
                 End If
                 Dim RegionCliente As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then 'REGION CLIENTE
-                    Me.DDL_RegionCliente.SelectedValue = 0
+                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(15) = -1 Or DataDSDatosCliente.Tables(0).Rows(0)(15) = 0 Then 'REGION CLIENTE
+                    Me.DDL_RegionCliente.Items.Insert(0, "SIN REGION")
                     RegionCliente = 0
                 Else
-                    MsgBox(DataDSDatosCliente.Tables(0).Rows(0)(15))
                     Me.DDL_RegionCliente.SelectedValue = DDL_RegionCliente.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(15)).Value
                     RegionCliente = DataDSDatosCliente.Tables(0).Rows(0)(15)
                 End If
-
-                If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then 'n telefono
+                If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then 'n telefono fijo
                     Me.TXT_TelefonoFijo.Text = ""
                 Else
                     Me.TXT_TelefonoFijo.Text = DataDSDatosCliente.Tables(0).Rows(0)(17)
                 End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(18) Is System.DBNull.Value Then 'n telefono
+                If DataDSDatosCliente.Tables(0).Rows(0)(18) Is System.DBNull.Value Then 'n telefono celular
                     Me.TXT_TelefonoCelular.Text = ""
                 Else
                     Me.TXT_TelefonoCelular.Text = DataDSDatosCliente.Tables(0).Rows(0)(18)
                 End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then 'n telefono
+                If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then 'n telefono referencia
                     Me.TXT_ReferenciaNombre.Text = ""
                 Else
                     Me.TXT_ReferenciaNombre.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(19))
                 End If
                 Dim RegionReferencia As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Then 'REGION CLIENTE
-                    Me.DDL_ReferenciaRegion.SelectedValue = 0
+                If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(20) = -1 Or DataDSDatosCliente.Tables(0).Rows(0)(20) = 0 Then 'REGION REFERENCIA
+                    Me.DDL_ReferenciaRegion.Items.Insert(0, "SIN REGION")
                     RegionReferencia = 0
                 Else
                     Me.DDL_ReferenciaRegion.SelectedValue = DDL_ReferenciaRegion.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(20)).Value
@@ -258,15 +289,13 @@
                     Me.TXT_EmpleadorOficina.Text = DataDSDatosCliente.Tables(0).Rows(0)(27)
                 End If
                 Dim RegionEmpleador As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Then 'REGION EMPLEADOR
-                    Me.DDL_EmpleadorRegion.SelectedValue = 0
+                If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(28) = -1 Or DataDSDatosCliente.Tables(0).Rows(0)(28) = 0 Then 'REGION EMPLEADOR
+                    Me.DDL_EmpleadorRegion.Items.Insert(0, "SIN REGION")
                     RegionEmpleador = 0
                 Else
-                    MsgBox(DataDSDatosCliente.Tables(0).Rows(0)(28))
                     Me.DDL_EmpleadorRegion.SelectedValue = DDL_EmpleadorRegion.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(28)).Value
                     RegionEmpleador = DataDSDatosCliente.Tables(0).Rows(0)(28)
                 End If
-
                 If DataDSDatosCliente.Tables(0).Rows(0)(30) Is System.DBNull.Value Then 'fono empleador
                     Me.TXT_EmpleadorTelefono.Text = ""
                 Else
@@ -291,65 +320,54 @@
                     Me.DDL_LugarEnvio.SelectedValue = "0"
                 Else
                     If DataDSDatosCliente.Tables(0).Rows(0)(34) <> 3 Then
-                        Me.DDL_LugarEnvio.Items.Insert(0, DataDSDatosCliente.Tables(0).Rows(0)(34))
+                        Me.DDL_LugarEnvio.Items.Insert(0, DataDSDatosCliente.Tables(0).Rows(0)(34)) ' INSERTA OPCION NO PRESENTE EN LUGARES DE ENVIO INICIAL
                     End If
-                    '  Me.DDL_LugarEnvio.SelectedValue = DDL_LugarEnvio.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(34)).Value
+                    Me.DDL_LugarEnvio.SelectedValue = DDL_LugarEnvio.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(34)).Value
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'mail
-                            Me.TXT_CorreoElectronico.Text = ""
-                        Else
-                            Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
-                        End If
-                        If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then 'edad
-                            Me.TXT_Edad.Text = ""
-                        Else
-                            Me.TXT_Edad.Text = CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer)
-                        End If
-                        '*************************LLENA COMUNA 
-                        Dim ComunaCliente As Integer
-                        If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
-                            ComunaCliente = 0
-                        Else
-                            ComunaCliente = CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer)
-                        End If
-                        LlenaDDLComuna(RegionCliente, ComunaCliente, "cliente")
-                        '****************************************               
-                        '*************************LLENA REGION/COMUNA REFERENCIA
-                        Dim ComunaReferencia As Integer
-                        If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
-                            ComunaReferencia = 0
-                        Else
-                            ComunaReferencia = CType(DataDSDatosCliente.Tables(0).Rows(0)(21), Integer)
-                        End If
-                        LlenaDDLComuna(RegionReferencia, ComunaReferencia, "referencia")
-                        '****************************************
-                        '*************************LLENA REGION/COMUNA EMPLEADOR
-                        Dim ComunaEmpleador As Integer
-                        If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
-                            ComunaEmpleador = 0
-                        Else
-                            ComunaEmpleador = CType(DataDSDatosCliente.Tables(0).Rows(0)(29), Integer)
-                        End If
-                        LlenaDDLComuna(RegionEmpleador, ComunaEmpleador, "empleador")
-                        '****************************************
-                    End If
+                    Me.TXT_CorreoElectronico.Text = ""
+                Else
+                    Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
+                End If
+                If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then 'edad
+                    Me.TXT_Edad.Text = ""
+                Else
+                    Me.TXT_Edad.Text = CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer)
+                End If
+                '*************************LLENA COMUNA 
+                Dim ComunaCliente As Integer
+                If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
+                    ComunaCliente = 0
+                Else
+                    ComunaCliente = CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer)
+                End If
+                LlenaDDLComuna(RegionCliente, ComunaCliente, "cliente")
+                '****************************************               
+                '*************************LLENA REGION/COMUNA REFERENCIA
+                Dim ComunaReferencia As Integer
+                If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
+                    ComunaReferencia = 0
+                Else
+                    ComunaReferencia = CType(DataDSDatosCliente.Tables(0).Rows(0)(21), Integer)
+                End If
+                LlenaDDLComuna(RegionReferencia, ComunaReferencia, "referencia")
+                '****************************************
+                '*************************LLENA REGION/COMUNA EMPLEADOR
+                Dim ComunaEmpleador As Integer
+                If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
+                    ComunaEmpleador = 0
+                Else
+                    ComunaEmpleador = CType(DataDSDatosCliente.Tables(0).Rows(0)(29), Integer)
+                End If
+                LlenaDDLComuna(RegionEmpleador, ComunaEmpleador, "empleador")
+                '****************************************
+            End If
         Catch EX As Exception
             MsgBox(EX)
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
         End Try
     End Sub
-    Protected Sub DDL_RegionCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_RegionCliente.SelectedIndexChanged
-        LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0", "cliente")
-    End Sub
-    Protected Sub DDL_ReferenciaRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_ReferenciaRegion.SelectedIndexChanged
-        LlenaDDLComuna(Me.DDL_ReferenciaRegion.SelectedValue, "0", "referencia")
-    End Sub
-    Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
-        LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
-    End Sub
-    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
-        'CIERRA VENTANA POPUP
-    End Sub
+
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
         If Page.IsValid = True Then
             Dim valido As String
@@ -391,7 +409,7 @@
         If TXT_TelefonoCelular.Text = "11111111" Or TXT_TelefonoCelular.Text = "22222222" Or TXT_TelefonoCelular.Text = "33333333" Or
             TXT_TelefonoCelular.Text = "44444444" Or TXT_TelefonoCelular.Text = "55555555" Or TXT_TelefonoCelular.Text = "66666666" Or
             TXT_TelefonoCelular.Text = "77777777" Or TXT_TelefonoCelular.Text = "88888888" Or TXT_TelefonoCelular.Text = "99999999" Or
-            TXT_TelefonoCelular.Text = "00000000" Or TXT_TelefonoCelular.Text.Length <> 8 Then
+            TXT_TelefonoCelular.Text = "00000000" Then
             LBL_DatosClienteError.Visible = True
             LBL_DatosClienteError.Text = "Numero Celular Cliente Ingresado no es Válido"
             TXT_TelefonoCelular.Focus()
@@ -400,8 +418,8 @@
         If Me.RBL_ReferenciaTipoTelefono.SelectedValue = "C" Then
             If TXT_ReferenciaTelefono.Text = "11111111" Or TXT_ReferenciaTelefono.Text = "22222222" Or TXT_ReferenciaTelefono.Text = "33333333" Or
                 TXT_ReferenciaTelefono.Text = "44444444" Or TXT_ReferenciaTelefono.Text = "55555555" Or TXT_ReferenciaTelefono.Text = "66666666" Or
-                    TXT_ReferenciaTelefono.Text = "77777777" Or TXT_ReferenciaTelefono.Text = "88888888" Or TXT_ReferenciaTelefono.Text = "99999999" Or
-                    TXT_ReferenciaTelefono.Text = "00000000" Or TXT_ReferenciaTelefono.Text.Length <> 8 Then
+                TXT_ReferenciaTelefono.Text = "77777777" Or TXT_ReferenciaTelefono.Text = "88888888" Or TXT_ReferenciaTelefono.Text = "99999999" Or
+                TXT_ReferenciaTelefono.Text = "00000000" Then
                 LBL_DatosClienteError.Visible = True
                 LBL_DatosClienteError.Text = "Numero Celular Referencia Ingresado no es Válido"
                 TXT_ReferenciaTelefono.Focus()
@@ -422,8 +440,24 @@
             flag = 1
         End If
         If Me.TXT_EmpleadorNombre.Text <> "" And Me.DDL_EmpleadorRegion.SelectedIndex = -1 And Me.DDL_EmpleadorComuna.SelectedIndex = -1 Then
-            MsgBox(Me.DDL_EmpleadorRegion.SelectedIndex)
-            MsgBox(Me.DDL_EmpleadorComuna.SelectedIndex)
+            LBL_DatosClienteError.Visible = True
+            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Empleador"
+            DDL_EmpleadorRegion.Focus()
+            flag = 1
+        End If
+        If Me.DDL_RegionCliente.SelectedIndex = -1 Or Me.DDL_ComunaCliente.SelectedIndex = -1 Then
+            LBL_DatosClienteError.Visible = True
+            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Cliente"
+            DDL_RegionCliente.Focus()
+            flag = 1
+        End If
+        If Me.DDL_ReferenciaRegion.SelectedIndex = -1 Or Me.DDL_ReferenciaComuna.SelectedIndex = -1 Then
+            LBL_DatosClienteError.Visible = True
+            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Referencia"
+            DDL_ReferenciaRegion.Focus()
+            flag = 1
+        End If
+        If Me.DDL_EmpleadorRegion.SelectedIndex = -1 Or Me.DDL_EmpleadorComuna.SelectedIndex = -1 Then
             LBL_DatosClienteError.Visible = True
             LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Empleador"
             DDL_EmpleadorRegion.Focus()
