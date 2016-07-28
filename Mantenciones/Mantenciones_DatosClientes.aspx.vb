@@ -198,6 +198,7 @@
                     Me.DDL_RegionCliente.SelectedValue = 0
                     RegionCliente = 0
                 Else
+                    MsgBox(DataDSDatosCliente.Tables(0).Rows(0)(15))
                     Me.DDL_RegionCliente.SelectedValue = DDL_RegionCliente.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(15)).Value
                     RegionCliente = DataDSDatosCliente.Tables(0).Rows(0)(15)
                 End If
@@ -261,6 +262,7 @@
                     Me.DDL_EmpleadorRegion.SelectedValue = 0
                     RegionEmpleador = 0
                 Else
+                    MsgBox(DataDSDatosCliente.Tables(0).Rows(0)(28))
                     Me.DDL_EmpleadorRegion.SelectedValue = DDL_EmpleadorRegion.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(28)).Value
                     RegionEmpleador = DataDSDatosCliente.Tables(0).Rows(0)(28)
                 End If
@@ -286,51 +288,54 @@
                     Me.DDL_DiaPago.SelectedValue = DDL_DiaPago.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(33)).Value
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then 'LUGAR ENVIO 
-                    Me.DDL_LugarEnvio.SelectedValue = 0
+                    Me.DDL_LugarEnvio.SelectedValue = "0"
                 Else
-                    Me.DDL_LugarEnvio.SelectedValue = DDL_LugarEnvio.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(34)).Value
+                    If DataDSDatosCliente.Tables(0).Rows(0)(34) <> 3 Then
+                        Me.DDL_LugarEnvio.Items.Insert(0, DataDSDatosCliente.Tables(0).Rows(0)(34))
+                    End If
+                    '  Me.DDL_LugarEnvio.SelectedValue = DDL_LugarEnvio.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(34)).Value
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'mail
-                    Me.TXT_CorreoElectronico.Text = ""
-                Else
-                    Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
-                End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then 'edad
-                    Me.TXT_Edad.Text = ""
-                Else
-                    Me.TXT_Edad.Text = CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer)
-                End If
-                '*************************LLENA COMUNA 
-                Dim ComunaCliente As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
-                    ComunaCliente = 0
-                Else
-                    ComunaCliente = CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer)
-                End If
-                LlenaDDLComuna(RegionCliente, ComunaCliente, "cliente")
-                '****************************************               
-                '*************************LLENA REGION/COMUNA REFERENCIA
-                Dim ComunaReferencia As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
-                    ComunaReferencia = 0
-                Else
-                    ComunaReferencia = CType(DataDSDatosCliente.Tables(0).Rows(0)(21), Integer)
-                End If
-                LlenaDDLComuna(RegionReferencia, ComunaReferencia, "referencia")
-                '****************************************
-                '*************************LLENA REGION/COMUNA EMPLEADOR
-                Dim ComunaEmpleador As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
-                    ComunaEmpleador = 0
-                Else
-                    ComunaEmpleador = CType(DataDSDatosCliente.Tables(0).Rows(0)(29), Integer)
-                End If
-                LlenaDDLComuna(RegionEmpleador, ComunaEmpleador, "empleador")
-                '****************************************
-            End If
+                            Me.TXT_CorreoElectronico.Text = ""
+                        Else
+                            Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then 'edad
+                            Me.TXT_Edad.Text = ""
+                        Else
+                            Me.TXT_Edad.Text = CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer)
+                        End If
+                        '*************************LLENA COMUNA 
+                        Dim ComunaCliente As Integer
+                        If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
+                            ComunaCliente = 0
+                        Else
+                            ComunaCliente = CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer)
+                        End If
+                        LlenaDDLComuna(RegionCliente, ComunaCliente, "cliente")
+                        '****************************************               
+                        '*************************LLENA REGION/COMUNA REFERENCIA
+                        Dim ComunaReferencia As Integer
+                        If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
+                            ComunaReferencia = 0
+                        Else
+                            ComunaReferencia = CType(DataDSDatosCliente.Tables(0).Rows(0)(21), Integer)
+                        End If
+                        LlenaDDLComuna(RegionReferencia, ComunaReferencia, "referencia")
+                        '****************************************
+                        '*************************LLENA REGION/COMUNA EMPLEADOR
+                        Dim ComunaEmpleador As Integer
+                        If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
+                            ComunaEmpleador = 0
+                        Else
+                            ComunaEmpleador = CType(DataDSDatosCliente.Tables(0).Rows(0)(29), Integer)
+                        End If
+                        LlenaDDLComuna(RegionEmpleador, ComunaEmpleador, "empleador")
+                        '****************************************
+                    End If
         Catch EX As Exception
             MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
+            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
         End Try
     End Sub
     Protected Sub DDL_RegionCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_RegionCliente.SelectedIndexChanged
