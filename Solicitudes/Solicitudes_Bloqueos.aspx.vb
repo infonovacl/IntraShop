@@ -106,7 +106,10 @@
     Protected Sub BTN_SolicitaDesbloqueo_Click(sender As Object, e As EventArgs) Handles BTN_SolicitaDesbloqueo.Click
         Dim RutCliente As Integer
         RutCliente = Session("rut")
-        RevisaSinacofi(RutCliente)
+        Dim respuesta As Integer = RevisaSinacofi(RutCliente)
+        MsgBox(respuesta)
+        'Return -1 error        
+        'Return 1 -- > Cliente Registra Antecedentes Comerciales 
     End Sub
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
@@ -143,7 +146,7 @@
 
         'Reviso si hay consultas el mismo dia
         Try
-            Dim SQLDB = "SELECT DISTINCT antecedentes, edad, fec_nac , otros_datos1,score FROM consulta_db WHERE rut_cliente = " & Session("RutCliente") & " AND fecha =  current year to day"
+            Dim SQLDB = "SELECT DISTINCT antecedentes, edad, fec_nac , otros_datos1,score FROM consulta_db WHERE rut_cliente = " & Session("rut") & " AND fecha = today"
             Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
             DATADB.Fill(DATADSDB, "PRUEBA")
             If DATADSDB.Tables(0).Rows.Count > 0 Then
@@ -191,11 +194,11 @@
                 ' grabo en tabla de errores
                 Try
                     Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                    SQLDBerr = SQLDBerr & " VALUES ( " & Session("RutCliente") & ",  current year to day , current hour to second , 'ING'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("operador") & ")"
+                    SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ")"
                     Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                     DATADBerr.Fill(DATADSErr, "PRUEBA")
                 Catch EX As Exception
-                    'MsgBox(EX.Message)
+                    MsgBox(EX.Message)
                 End Try
                 Return -1
             Else
@@ -227,7 +230,7 @@
                     ' grabo en tabla de errores
                     Try
                         Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                        SQLDBerr = SQLDBerr & " VALUES ( " & Session("RutCliente") & ",  current year to day , current hour to second , 'ING'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("operador") & ")"
+                        SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ")"
                         Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                         DATADBerr.Fill(DATADSErr, "PRUEBA")
                     Catch EX As Exception
@@ -269,7 +272,7 @@
             End If
             Try  ' la variable sesion "FechaTrx" es today u otra fecha ??
                 Dim SQLDB = "INSERT INTO consulta_db (rut_cliente,fecha,hora,motivo,score,edad,antecedentes,otros_datos1,otros_datos2,otros_datos3,fec_nac,sucursal,caja,rut_resp,origen)"
-                SQLDB = SQLDB & " VALUES ( " & Session("RutCliente") & ",current year to day , current hour to second , 'ING'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("operador") & ",'S')"
+                SQLDB = SQLDB & " VALUES ( " & Session("rut") & ",current year to day , current hour to second , 'ING'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ",'S')"
                 Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
                 DATADB.Fill(DATADSCli2, "PRUEBA")
             Catch EX As Exception
@@ -277,17 +280,17 @@
             End Try
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                '' IngresaRechazo(Session("RutCliente"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
+                '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If Vedad < GEdadMin Or Vedad < EdadFraude Then
                 Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Minima ..."
-                '' IngresaRechazo(Session("RutCliente"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
+                '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If Vedad > GEdadMax Then
                 Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Maxima ..."
-                '' IngresaRechazo(Session("RutCliente"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
+                '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If protestos > 0 Then
@@ -299,7 +302,7 @@
                     Monto = Mid(node.selectSingleNode("@Monto").text, 1, InStr(1, node.selectSingleNode("@Monto").text, "."))
                     Try
                         Dim SQLDBDet = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1,desc2)"
-                        SQLDBDet = SQLDBDet & " VALUES ( " & Session("RutCliente") & ",  current year to day , current hour to second , 'ING','PR','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipDoc").text & "','" & Monto & "' )"
+                        SQLDBDet = SQLDBDet & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING','PR','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipDoc").text & "','" & Monto & "' )"
                         Dim DATADBDet As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet, Globales.conn)
                         DATADBDet.Fill(DATADSDet, "PRUEBA")
                     Catch EX As Exception
@@ -315,7 +318,7 @@
                     Monto = Mid(node.selectSingleNode("@Monto").text, 1, InStr(1, node.selectSingleNode("@Monto").text, "."))
                     Try
                         Dim SQLDBDet1 = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1,desc2)"
-                        SQLDBDet1 = SQLDBDet1 & " VALUES ( " & Session("RutCliente") & ",  current year to day , current hour to second , 'ING','MO','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipCred").text & "','" & Monto & "' )"
+                        SQLDBDet1 = SQLDBDet1 & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING','MO','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipCred").text & "','" & Monto & "' )"
                         Dim DATADBDet1 As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet1, Globales.conn)
                         DATADBDet1.Fill(DATADSDet1, "PRUEBA")
                     Catch EX As Exception
@@ -331,7 +334,7 @@
                     fechadetalle = ArmaFecha(node.selectSingleNode("@FechaCons").text)
                     Try
                         Dim SQLDBDet2 = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1)"
-                        SQLDBDet2 = SQLDBDet2 & " VALUES ( " & Session("RutCliente") & ",current year to day, current hour to second , 'ING','CN','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "' )"
+                        SQLDBDet2 = SQLDBDet2 & " VALUES ( " & Session("rut") & ",current year to day, current hour to second , 'ING','CN','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "' )"
                         Dim DATADBDet2 As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet2, Globales.conn)
                         DATADBDet2.Fill(DATADSDet2, "PRUEBA")
                     Catch EX As Exception
@@ -353,7 +356,7 @@
         Else
             ' busco la cantidad de consultas
             Try
-                Dim SQLDBDet = "SELECT count(*) FROM consulta_dbdet WHERE rut_cliente = " & Session("RutCliente") & " AND fecha =  current year to day  AND tipo = 'CN' "
+                Dim SQLDBDet = "SELECT count(*) FROM consulta_dbdet WHERE rut_cliente = " & Session("rut") & " AND fecha =  current year to day  AND tipo = 'CN' "
                 Dim DATADBDet As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet, Globales.conn)
                 DATADBDet.Fill(DATADSDBDet, "PRUEBA")
                 If DATADSDBDet.Tables(0).Rows.Count = 0 Or DATADSDBDet.Tables(0).Rows(0)(0) Is System.DBNull.Value Then
@@ -368,19 +371,19 @@
             Vfecnac = FecNac
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                ''  IngresaRechazo(Session("RutCliente"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
+                ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
 
-            If Vedad < gedadmin Or Vedad < EdadFraude Then
+            If Vedad < GEdadMin Or Vedad < EdadFraude Then
                 Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Minima ..."
-                ''  IngresaRechazo(Session("RutCliente"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
+                ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
 
-            If Vedad > gedadmax Then
+            If Vedad > GEdadMax Then
                 Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Maxima ..."
-                ''IngresaRechazo(Session("RutCliente"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
+                ''IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             ''Me.amat.Enabled = False

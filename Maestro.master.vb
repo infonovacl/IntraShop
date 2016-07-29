@@ -19,7 +19,7 @@
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
             Me.UsuarioNombre.Text = Session("nombreusuario")
-            Me.CTienda.Text = Session("tienda")
+            Me.CTienda.Text = Session("sucursal")
             Me.Caja.Text = Session("caja")
             Me.CajaNombreTienda.Text = Session("nombretienda")
         ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
@@ -75,7 +75,7 @@
                         End If
                     End If
                     Session("nombreusuario") = nombre & " " & apellido
-                    Session("tienda") = Trim(DATADSLogin.Tables(0).Rows(0)(2)) ' codigo tienda
+                    Session("sucursal") = Trim(DATADSLogin.Tables(0).Rows(0)(2)) ' codigo tienda
                     Session("caja") = Trim(DATADSLogin.Tables(0).Rows(0)(7)) 'nro caja
                     If DATADSLogin.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
                         nombretienda = ""

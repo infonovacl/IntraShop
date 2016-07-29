@@ -1,4 +1,4 @@
-﻿Partial Class Mantencion_DatosClientes
+﻿Partial Class Mantencion_Tarjetas
     Inherits System.Web.UI.Page
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
@@ -45,6 +45,12 @@
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
         'CIERRA VENTANA POPUP
+        Me.LBL_DatosClienteError.Visible = True
+        Me.LBL_DatosClienteError.Text = "Completo"
+        If Not IsClientScriptBlockRegistered("Cierra") Then
+            RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
+        End If
+        Me.LBL_DatosClienteError.Visible = False
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
         Dim DataDSComuna As New Data.DataSet
