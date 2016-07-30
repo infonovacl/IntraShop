@@ -30,14 +30,11 @@
          .auto-style12 {
              width: 690px;
              background-color: whitesmoke;
-             height: 625px;
+             height: 600px;
          }
          .auto-style17 {
              height: 22px;
              width: 219px;
-         }
-         .auto-style18 {
-             width: 220px;
          }
          .auto-style19 {
              width: 145px;
@@ -84,7 +81,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -349,8 +346,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <asp:TextBox ID="TXT_EmpleadorNombre" runat="server" CssClass="cajastexto_popup" Width="250px"></asp:TextBox>
-                                        &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" ControlToValidate="TXT_EmpleadorNombre" CssClass="etiquetasmensajeerror" Display="Dynamic" ErrorMessage="RegularExpressionValidator" ToolTip="Debe Ingresar sólo Caracteres Válidos" ValidationExpression="^[a-zA-Z ]*$">Error</asp:RegularExpressionValidator>
-                                    </td>
+                                        &nbsp;</td>
                                     <td colspan="2"></td>
                                 </tr>
                                 <tr>

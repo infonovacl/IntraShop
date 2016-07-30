@@ -11,6 +11,9 @@
             ObtieneDatosCliente()
             Me.Tab_DatosClientes.ActiveTabIndex = 0
             Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
+            Tab_DatosClientes.Tabs(2).Visible = False 'TAB CONTRATOS
+            Tab_DatosClientes.Tabs(3).Visible = False 'TAB SEGUROS
+            Tab_DatosClientes.Tabs(4).Visible = False 'TAB TARJETA
         End If
     End Sub
     Protected Sub DDL_RegionCliente_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_RegionCliente.SelectedIndexChanged
@@ -44,17 +47,16 @@
         End If
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
-        'CIERRA VENTANA POPUP
-        Me.LBL_Flag.Text = "Completo"
+        'CIERRA VENTANA POPUP       
         If Not IsClientScriptBlockRegistered("Cierra") Then
             RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
         End If
-        'window.onbeforeunload = Function() {
-        'var cierramal = document.getElementById("LBL_Flag").innerText;  
-        'If (cierramal!= "Completo") Then {
-        'Return "Está seguro que desea cerrar esta ventana?, todo el contenido sin guardar se perderá"
-        '}
-        '}
+        ''window.onbeforeunload = Function() {
+        ''var cierramal = document.getElementById("LBL_Flag").innerText;  
+        ''If (cierramal!= "Completo") Then {
+        ''Return "Está seguro que desea cerrar esta ventana?, todo el contenido sin guardar se perderá"
+        ''}
+        ''}
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
         Dim DataDSComuna As New Data.DataSet
@@ -377,7 +379,6 @@
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
         End Try
     End Sub
-
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
         If Page.IsValid = True Then
             Dim valido As String
@@ -482,5 +483,15 @@
     End Function
     Protected Sub BTN_Contrato_Click(sender As Object, e As EventArgs) Handles BTN_Contrato.Click
         Tab_DatosClientes.Tabs(2).Visible = True
+        Tab_DatosClientes.ActiveTabIndex = 2
     End Sub
+    Protected Sub BTN_Seguros_Click(sender As Object, e As EventArgs) Handles BTN_Seguros.Click
+        Tab_DatosClientes.Tabs(3).Visible = True
+        Tab_DatosClientes.ActiveTabIndex = 3
+    End Sub
+    Protected Sub BTN_Tarjeta_Click(sender As Object, e As EventArgs) Handles BTN_Tarjeta.Click
+        Tab_DatosClientes.Tabs(4).Visible = True
+        Tab_DatosClientes.ActiveTabIndex = 4
+    End Sub
+
 End Class

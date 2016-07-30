@@ -43,21 +43,6 @@
             Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
-    Protected Sub DDL_EstadoCivil_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EstadoCivil.SelectedIndexChanged
-        Try
-            If Trim(Me.DDL_EstadoCivil.SelectedItem.Text) = "SIN DATOS" Then
-                Me.DDL_EstadoCivil.SelectedIndex = 0
-                If DDL_EstadoCivil.Items.Count > 4 Then
-                    DDL_EstadoCivil.Items.RemoveAt(4)
-                End If
-            ElseIf Trim(Me.DDL_EstadoCivil.SelectedItem.Text) <> "SIN DATOS" Then
-                If DDL_EstadoCivil.Items.Count > 4 Then
-                    DDL_EstadoCivil.Items.RemoveAt(4)
-                End If
-            End If
-        Catch ex As Exception
-        End Try
-    End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
         'CIERRA VENTANA POPUP
     End Sub
@@ -214,6 +199,19 @@
                     Me.DDL_EstadoCivil.SelectedValue = 0
                 Else
                     Me.DDL_EstadoCivil.SelectedValue = DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)).Value
+                    Try
+                        If Trim(Me.DDL_EstadoCivil.SelectedItem.Text) = "SIN DATOS" Then
+                            Me.DDL_EstadoCivil.SelectedIndex = 0
+                            If DDL_EstadoCivil.Items.Count > 4 Then
+                                DDL_EstadoCivil.Items.RemoveAt(4)
+                            End If
+                        ElseIf Trim(Me.DDL_EstadoCivil.SelectedItem.Text) <> "SIN DATOS" Then
+                            If DDL_EstadoCivil.Items.Count > 4 Then
+                                DDL_EstadoCivil.Items.RemoveAt(4)
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     Me.TXT_CalleParticular.Text = ""
