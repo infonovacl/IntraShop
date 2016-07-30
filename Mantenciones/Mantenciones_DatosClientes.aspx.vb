@@ -199,7 +199,15 @@
                     Me.DDL_EstadoCivil.SelectedValue = 0
                 Else
                     Me.DDL_EstadoCivil.SelectedValue = DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)).Value
-                    'Me.DDL_EstadoCivil.SelectedIndex = DDL_EstadoCivil.Items.IndexOf(DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)))
+                    If Trim(Me.DDL_EstadoCivil.SelectedItem.Text) = "SIN DATOS" Then
+                        Me.DDL_EstadoCivil.SelectedIndex = 0
+                        Me.DDL_EstadoCivil.Items.Remove(DDL_EstadoCivil.Items.FindByText("SIN DATOS"))
+                    ElseIf trim(Me.DDL_EstadoCivil.SelectedItem.Text) <> "SIN DATOS" Then
+                        Dim removeListItem As ListItem = DDL_EstadoCivil.Items.FindByText("SIN DATOS")
+                        'MsgBox(removeListItem.Text & ".")
+                        DDL_EstadoCivil.Items.Remove(removeListItem)
+                        'Me.DDL_EstadoCivil.Items.Remove(DDL_EstadoCivil.Items.FindByText("SIN DATOS"))
+                    End If
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     Me.TXT_CalleParticular.Text = ""

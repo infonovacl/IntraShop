@@ -87,8 +87,8 @@
                         End If
                     End If
                     Session("nombretienda") = nombretienda
-                    Session("usuario") = CType(partes(0), Integer) 'rut
-                        Me.Panel_Login.Visible = False
+                    Session("usuario") = CType(partes(0), Integer) 'rut                   
+                    Me.Panel_Login.Visible = False
                         Me.Panel_menu.Visible = True
                         Me.Panel_menu.Style.Add("position", "absolute")
                         Me.Panel_menu.Style.Add("top", "1px")

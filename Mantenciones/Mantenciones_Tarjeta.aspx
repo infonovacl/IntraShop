@@ -6,12 +6,9 @@
     <link href="../css/EstilosShop.css" rel="stylesheet" />
     <title>Mantención Datos Cliente - Tarjetas</title>
  <script type="text/javascript">
-     window.onbeforeunload = function () {      
-        var cierramal = document.getElementById("LBL_DatosClienteError").innerText;         
-        if (cierramal != "Completo") {
-        return "Está seguro que desea cerrar esta ventana?, todo el contenido sin guardar se perderá"
-        }
-     }
+    // window.onload = function () {
+    //     window.opener.document.body.disabled = true;
+    // }
      </script>
      <style type="text/css">
          .auto-style3 {
@@ -105,6 +102,11 @@
                         <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />                         
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
+                            <asp:Label runat="server" CssClass="etiquetas_popup" ID="LBL_Flag" Text="Incompleto"></asp:Label>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
                         </td>
                     </tr>
                 </table>

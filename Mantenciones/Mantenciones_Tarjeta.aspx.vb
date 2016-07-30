@@ -45,12 +45,16 @@
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
         'CIERRA VENTANA POPUP
-        Me.LBL_DatosClienteError.Visible = True
-        Me.LBL_DatosClienteError.Text = "Completo"
+        Me.LBL_Flag.Text = "Completo"
         If Not IsClientScriptBlockRegistered("Cierra") Then
             RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
         End If
-        Me.LBL_DatosClienteError.Visible = False
+        'window.onbeforeunload = Function() {
+        'var cierramal = document.getElementById("LBL_Flag").innerText;  
+        'If (cierramal!= "Completo") Then {
+        'Return "Está seguro que desea cerrar esta ventana?, todo el contenido sin guardar se perderá"
+        '}
+        '}
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
         Dim DataDSComuna As New Data.DataSet

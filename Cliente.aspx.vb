@@ -459,6 +459,7 @@
                         DataDSConsultasDB.Clear()
                         Me.Panel_ConsultasDBDetalles.Visible = False
                         Me.LBL_ConsultasDBDetalleError.Visible = False
+                        Me.Grilla_ConsultasDB.Columns(9).Visible = True
                         Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & Me.TXT_ConsultaRutCliente.Text & "' )"
                         Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
                         DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
@@ -471,6 +472,7 @@
                             Me.LBL_ConsultasDBError.Visible = False
                             Me.Grilla_ConsultasDB.DataSource = DataDSConsultasDB.Tables(0).DefaultView
                             Me.Grilla_ConsultasDB.DataBind()
+                            Me.Grilla_ConsultasDB.Columns(9).Visible = False
                         End If
                     Catch EX As Exception
                         MsgBox(EX)
