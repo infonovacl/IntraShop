@@ -175,7 +175,7 @@
                                         </asp:RadioButtonList>
                                     </td>
                                     <td class="auto-style23">
-                                        <asp:DropDownList ID="DDL_EstadoCivil" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="120px">
+                                        <asp:DropDownList ID="DDL_EstadoCivil" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="120px" AutoPostBack="True">
                                         </asp:DropDownList>
                                     </td>
                                     <td class="auto-style20">

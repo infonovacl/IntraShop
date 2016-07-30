@@ -94,12 +94,8 @@
                         Me.Panel_menu.Style.Add("top", "1px")
                         Me.Panel_menu.Style.Add("height", "412px")
                         Me.Panel_menu.Style.Add("width", "210px")
-                        Me.TVM_Principal.ExpandAll()
-                        'If DATADSComentariosPopUp.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
-                        ' Me.TXT_TiendaOrigen.Text = ""
-                        ' Else
-                        ' Me.TXT_TiendaOrigen.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(2)
-                        Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
+                    Me.TVM_Principal.ExpandAll()
+                    Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
                         Me.LBL_LoginError.Visible = False
                     End If
             Catch EX As Exception

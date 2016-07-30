@@ -43,6 +43,21 @@
             Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
+    Protected Sub DDL_EstadoCivil_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EstadoCivil.SelectedIndexChanged
+        Try
+            If Trim(Me.DDL_EstadoCivil.SelectedItem.Text) = "SIN DATOS" Then
+                Me.DDL_EstadoCivil.SelectedIndex = 0
+                If DDL_EstadoCivil.Items.Count > 4 Then
+                    DDL_EstadoCivil.Items.RemoveAt(4)
+                End If
+            ElseIf Trim(Me.DDL_EstadoCivil.SelectedItem.Text) <> "SIN DATOS" Then
+                If DDL_EstadoCivil.Items.Count > 4 Then
+                    DDL_EstadoCivil.Items.RemoveAt(4)
+                End If
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
         'CIERRA VENTANA POPUP
     End Sub
@@ -199,15 +214,6 @@
                     Me.DDL_EstadoCivil.SelectedValue = 0
                 Else
                     Me.DDL_EstadoCivil.SelectedValue = DDL_EstadoCivil.Items.FindByValue(DataDSDatosCliente.Tables(0).Rows(0)(9)).Value
-                    If Trim(Me.DDL_EstadoCivil.SelectedItem.Text) = "SIN DATOS" Then
-                        Me.DDL_EstadoCivil.SelectedIndex = 0
-                        Me.DDL_EstadoCivil.Items.Remove(DDL_EstadoCivil.Items.FindByText("SIN DATOS"))
-                    ElseIf trim(Me.DDL_EstadoCivil.SelectedItem.Text) <> "SIN DATOS" Then
-                        Dim removeListItem As ListItem = DDL_EstadoCivil.Items.FindByText("SIN DATOS")
-                        'MsgBox(removeListItem.Text & ".")
-                        DDL_EstadoCivil.Items.Remove(removeListItem)
-                        'Me.DDL_EstadoCivil.Items.Remove(DDL_EstadoCivil.Items.FindByText("SIN DATOS"))
-                    End If
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     Me.TXT_CalleParticular.Text = ""
@@ -235,7 +241,7 @@
                     Me.TXT_AlturaCalle.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(14))
                 End If
                 Dim RegionCliente As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(15) = -1 Or DataDSDatosCliente.Tables(0).Rows(0)(15) = 0 Then 'REGION CLIENTE
+                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(15) = 0 Then 'REGION CLIENTE
                     Me.DDL_RegionCliente.Items.Insert(0, "SIN REGION")
                     RegionCliente = 0
                 Else
@@ -258,7 +264,7 @@
                     Me.TXT_ReferenciaNombre.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(19))
                 End If
                 Dim RegionReferencia As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(20) = -1 Or DataDSDatosCliente.Tables(0).Rows(0)(20) = 0 Then 'REGION REFERENCIA
+                If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(20) = 0 Then 'REGION REFERENCIA
                     Me.DDL_ReferenciaRegion.Items.Insert(0, "SIN REGION")
                     RegionReferencia = 0
                 Else
@@ -297,7 +303,7 @@
                     Me.TXT_EmpleadorOficina.Text = DataDSDatosCliente.Tables(0).Rows(0)(27)
                 End If
                 Dim RegionEmpleador As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(28) = -1 Or DataDSDatosCliente.Tables(0).Rows(0)(28) = 0 Then 'REGION EMPLEADOR
+                If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(28) = 0 Then 'REGION EMPLEADOR
                     Me.DDL_EmpleadorRegion.Items.Insert(0, "SIN REGION")
                     RegionEmpleador = 0
                 Else
@@ -375,7 +381,6 @@
             'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
         End Try
     End Sub
-
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
         If Page.IsValid = True Then
             Dim valido As String
