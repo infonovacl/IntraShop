@@ -480,4 +480,7 @@
         End If
         Return valido
     End Function
+    Protected Sub BTN_Contrato_Click(sender As Object, e As EventArgs) Handles BTN_Contrato.Click
+        Tab_DatosClientes.Tabs(2).Visible = True
+    End Sub
 End Class
