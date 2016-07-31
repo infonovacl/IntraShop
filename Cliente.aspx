@@ -52,8 +52,8 @@
             height: 12px;
         }
         .auto-style20 {
-            width: 17px;
-            height: 17px;
+            width: 19px;
+            height: 19px;
         }
         </style>
     <script script language="javascript" type="text/javascript">

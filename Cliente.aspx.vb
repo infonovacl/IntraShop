@@ -281,7 +281,6 @@
                             menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Revisa Rechazo
                             menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Verificacion
                         End If
-
                     End If
                     Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                     Session("dv") = Me.TXT_ConsultaDV.Text
