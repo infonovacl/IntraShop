@@ -444,13 +444,13 @@
                 flag = 1
             End If
         End If
-        If Me.TXT_ReferenciaNombre.Text <> "" And Me.DDL_ReferenciaRegion.SelectedIndex = -1 And Me.DDL_ReferenciaComuna.SelectedIndex = -1 Then
+        If Me.TXT_ReferenciaNombre.Text <> "" And (Me.DDL_ReferenciaRegion.SelectedIndex = -1 Or Me.DDL_ReferenciaComuna.SelectedIndex = -1) Then
             LBL_DatosClienteError.Visible = True
             LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Referencia"
             DDL_ReferenciaRegion.Focus()
             flag = 1
         End If
-        If Me.TXT_EmpleadorNombre.Text <> "" And Me.DDL_EmpleadorRegion.SelectedIndex = -1 And Me.DDL_EmpleadorComuna.SelectedIndex = -1 Then
+        If Me.TXT_EmpleadorNombre.Text <> "" And (Me.DDL_EmpleadorRegion.SelectedIndex = -1 Or Me.DDL_EmpleadorComuna.SelectedIndex = -1) Then
             LBL_DatosClienteError.Visible = True
             LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Empleador"
             DDL_EmpleadorRegion.Focus()
@@ -462,16 +462,10 @@
             DDL_RegionCliente.Focus()
             flag = 1
         End If
-        If Me.DDL_ReferenciaRegion.SelectedIndex = -1 Or Me.DDL_ReferenciaComuna.SelectedIndex = -1 Then
+        If Me.DDL_EstadoCivil.SelectedItem.Text = "SIN DATOS" Then
             LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Referencia"
-            DDL_ReferenciaRegion.Focus()
-            flag = 1
-        End If
-        If Me.DDL_EmpleadorRegion.SelectedIndex = -1 Or Me.DDL_EmpleadorComuna.SelectedIndex = -1 Then
-            LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Empleador"
-            DDL_EmpleadorRegion.Focus()
+            LBL_DatosClienteError.Text = "Debe Ingresar un Estado Civil válido"
+            DDL_EstadoCivil.Focus()
             flag = 1
         End If
         If flag = 0 Then
