@@ -34,6 +34,10 @@
             'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
             ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
             '   Master.Master.FindControl("TVM_Principal").           
+            Me.TXT_ConsultaRutCliente.Enabled = False
+            Me.TXT_ConsultaDV.Enabled = False
+            Me.TXT_ConsultaNombreCompleto.Enabled = False
+            Me.BTN_BuscaXNombre.Enabled = False
             Dim DataDSDatosCliente As New Data.DataSet
             Try
                 Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "')"
@@ -303,8 +307,8 @@
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 And Session("validado") = "si" Then
-            Me.LBL_MensajeContratos.Visible = False
-            Me.LBL_MensajeContratos.Text = ""
+            'Me.LBL_MensajeContratos.Visible = False
+            'Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
                 Case 0
                     Dim DataDSEstados As New Data.DataSet
@@ -859,9 +863,11 @@
                     End Try
             End Select
         Else
-            Me.LBL_MensajeContratos.Visible = True
-            Me.LBL_MensajeContratos.Text = "DEBE INGRESAR UN RUT VALIDO"
-            Me.TXT_ConsultaRutCliente.Focus()
+            If Me.LBL_MensajeContratos.Text = "" Then
+                Me.LBL_MensajeContratos.Visible = True
+                Me.LBL_MensajeContratos.Text = "DEBE INGRESAR UN RUT VALIDO"
+                Me.TXT_ConsultaRutCliente.Focus()
+            End If
         End If
     End Sub
     Protected Sub Grilla_Estados_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Estados.SelectedIndexChanged
@@ -1067,6 +1073,10 @@
         menu.Font.Strikeout = True
         LimpiaControles(Me.Controls)
         Session("validado") = "no"
+        Me.TXT_ConsultaRutCliente.Enabled = True
+        Me.TXT_ConsultaDV.Enabled = True
+        Me.TXT_ConsultaNombreCompleto.Enabled = True
+        Me.BTN_BuscaXNombre.Enabled = True
         Me.TXT_ConsultaRutCliente.Focus()
     End Sub
     Public Sub LimpiaControles(ByVal controles As ControlCollection)

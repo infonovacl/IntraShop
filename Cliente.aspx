@@ -28,15 +28,15 @@
             width: 235px;
         }
         .auto-style6 {
-            width: 260px;
+            width: 220px;
             height: 12px;
         }
         .auto-style8 {
-            width: 400px;
+            width: 380px;
             height: 12px;
         }
         .auto-style9 {
-            width: 220px;
+            width: 50px;
             height: 12px;
         }
         .loading
@@ -45,6 +45,16 @@
             background-position: right;
             background-repeat: no-repeat;
         }        
+        .auto-style19 {
+            left: 0px;
+            bottom: 2px;
+            width: 220px;
+            height: 12px;
+        }
+        .auto-style20 {
+            width: 17px;
+            height: 17px;
+        }
         </style>
     <script script language="javascript" type="text/javascript">
         function pageLoad(sender, e) {
@@ -88,11 +98,18 @@
                     <asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro" ReadOnly="True"></asp:TextBox>
                 </td>
                 <td class="auto-style9">
-                    <asp:Button ID="BTN_Buscar" runat="server" Text="BUSCAR" CssClass="botones" />
-                    <asp:Button ID="BTN_Limpiar" runat="server" Text="LIMPIAR" CssClass="botones" />
+                    <asp:UpdateProgress ID="UP1" runat="server" AssociatedUpdatePanelID="UpdatePanel20" DisplayAfter="100" Width="30px" DynamicLayout="False">
+                        <ProgressTemplate>
+                            <img class="auto-style20" src="Imagenes/cargando_popup_negro.gif" />
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
+                </td>
+                <td class="auto-style19">
+                    <asp:Button ID="BTN_Buscar" runat="server" CssClass="botones" Text="BUSCAR" />
+                    <asp:Button ID="BTN_Limpiar" runat="server" CssClass="botones" Text="LIMPIAR" />
                 </td>
                 <td class="auto-style8">                   
-                            <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" CssClass="cajastextoparametro" ReadOnly="True" Width="320px"></asp:TextBox>
+                            <asp:TextBox ID="TXT_ConsultaNombreCompleto" runat="server" CssClass="cajastextoparametro" ReadOnly="True" Width="300px"></asp:TextBox>
                             <asp:ImageButton ID="BTN_BuscaXNombre" runat="server" Height="20px" ImageUrl="~/Imagenes/lupa.jpg" OnClientClick="BuscaNombre()" Width="20px" />                     
                 </td>
             </tr>
