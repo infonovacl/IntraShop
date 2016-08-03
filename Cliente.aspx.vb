@@ -285,6 +285,7 @@
                     Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                     Session("dv") = Me.TXT_ConsultaDV.Text
                     Session("validado") = "si"
+                    Me.BTN_Buscar.Enabled = False
                 End If
             Catch ex As Exception
                 MsgBox(ex)
@@ -1076,6 +1077,7 @@
         Me.TXT_ConsultaDV.Enabled = True
         Me.TXT_ConsultaNombreCompleto.Enabled = True
         Me.BTN_BuscaXNombre.Enabled = True
+        Me.BTN_Buscar.Enabled = True
         Me.TXT_ConsultaRutCliente.Focus()
     End Sub
     Public Sub LimpiaControles(ByVal controles As ControlCollection)

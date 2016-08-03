@@ -46,18 +46,7 @@
             Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
-    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
-        'CIERRA VENTANA POPUP       
-        If Not IsClientScriptBlockRegistered("Cierra") Then
-            RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
-        End If
-        ''window.onbeforeunload = Function() {
-        ''var cierramal = document.getElementById("LBL_Flag").innerText;  
-        ''If (cierramal!= "Completo") Then {
-        ''Return "Está seguro que desea cerrar esta ventana?, todo el contenido sin guardar se perderá"
-        ''}
-        ''}
-    End Sub
+
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
         Dim DataDSComuna As New Data.DataSet
         DataDSComuna.Clear()
@@ -499,5 +488,22 @@
         Tab_DatosClientes.Tabs(4).Visible = True
         Tab_DatosClientes.ActiveTabIndex = 4
     End Sub
-
+    Protected Sub BTN_PopUp_Click(sender As Object, e As EventArgs) Handles BTN_PopUp.Click
+        'Response.Write("<script>window.open('/Consultas/Consultas_GestionCobranza.aspx','popup','width=800,height=500');</script>")
+        'If Not IsClientScriptBlockRegistered("popup") Then
+        ' RegisterClientScriptBlock("popup", "<script language='javascript'>window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');</script>")
+        ' End If
+    End Sub
+    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
+        'CIERRA VENTANA POPUP       
+        If Not IsClientScriptBlockRegistered("Cierra") Then
+            RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
+        End If
+        ''window.onbeforeunload = Function() {
+        ''var cierramal = document.getElementById("LBL_Flag").innerText;  
+        ''If (cierramal!= "Completo") Then {
+        ''Return "Está seguro que desea cerrar esta ventana?, todo el contenido sin guardar se perderá"
+        ''}
+        ''}
+    End Sub
 End Class

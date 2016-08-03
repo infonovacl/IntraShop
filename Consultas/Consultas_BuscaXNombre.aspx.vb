@@ -7,8 +7,11 @@
     End Sub
     Private Sub ObtieneNombres()
         Try
+            Me.Grilla_BuscaXNombre.Columns(6).Visible = True
             Dim DATADSBuscaxNombrePopUp As New Data.DataSet
             DATADSBuscaxNombrePopUp.Clear()
+            Me.Grilla_BuscaXNombre.DataSource = Nothing
+            Me.Grilla_BuscaXNombre.DataBind()
             Dim STRBuscaxNombre As String = "execute procedure procw_busca_nombre ('" & TXT_BuscaXNombre.Text & "' )"
             Dim DATABuscaxNombre As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRBuscaxNombre, Globales.conn)
             DATABuscaxNombre.Fill(DATADSBuscaxNombrePopUp, "PRUEBA")
@@ -16,6 +19,8 @@
                 Me.LBL_BuscarXNombreError.Visible = True
                 Me.LBL_BuscarXNombreError.Text = DATADSBuscaxNombrePopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
+                Me.LBL_ClienteSeleccionado.Text = ""
+                Me.LBL_Rut.Text = ""
                 Me.LBL_BuscarXNombreError.Visible = False
                 Me.Grilla_BuscaXNombre.DataSource = DATADSBuscaxNombrePopUp.Tables(0).DefaultView
                 Me.Grilla_BuscaXNombre.DataBind()
@@ -30,8 +35,8 @@
         Me.Grilla_BuscaXNombre.Columns(6).Visible = True
         Try
             IndiceGrillaBuscaxNombre = Me.Grilla_BuscaXNombre.SelectedIndex.ToString()
-            Me.LBL_ClienteSeleccionado.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(6).Text
-            Me.LBL_Rut.Text = Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text
+            Me.LBL_ClienteSeleccionado.Text = Trim(Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(6).Text)
+            Me.LBL_Rut.Text = Trim(Me.Grilla_BuscaXNombre.Rows(IndiceGrillaBuscaxNombre).Cells(1).Text)
             Me.Grilla_BuscaXNombre.Columns(6).Visible = False
         Catch EX As Exception
             MsgBox(EX)
