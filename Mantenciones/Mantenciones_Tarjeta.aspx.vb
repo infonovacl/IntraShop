@@ -479,6 +479,13 @@
     Protected Sub BTN_Contrato_Click(sender As Object, e As EventArgs) Handles BTN_Contrato.Click
         Tab_DatosClientes.Tabs(2).Visible = True
         Tab_DatosClientes.ActiveTabIndex = 2
+
+        If Not IsClientScriptBlockRegistered("popup") Then
+            RegisterClientScriptBlock("popup", "<script language='javascript'>window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');</script>")
+        End If
+        'Response.Write("<script>")
+        'Response.Write("window.open('../Doc/contrato_family.pdf', '_newtab');")
+        'Response.Write("</script>")
     End Sub
     Protected Sub BTN_Seguros_Click(sender As Object, e As EventArgs) Handles BTN_Seguros.Click
         Tab_DatosClientes.Tabs(3).Visible = True
