@@ -285,6 +285,7 @@
                     Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                     Session("dv") = Me.TXT_ConsultaDV.Text
                     Session("validado") = "si"
+                    Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
                     Me.BTN_Buscar.Enabled = False
                 End If
             Catch ex As Exception
