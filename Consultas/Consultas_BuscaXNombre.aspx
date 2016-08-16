@@ -45,7 +45,7 @@
             try {
                 var rutbuscado = document.getElementById("LBL_Rut").innerText;
                 window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;
-                setTimeout(window.close(), 8000);
+                setTimeout(window.close(), 80000);
                // window.close();
                 } 
             catch (e) {
@@ -65,7 +65,7 @@
                 </div>
             </ProgressTemplate>
         </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true" >
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
             <ContentTemplate>
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                 &nbsp;

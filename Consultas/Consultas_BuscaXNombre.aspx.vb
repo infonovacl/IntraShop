@@ -47,5 +47,4 @@
             Me.TXT_BuscaXNombre.Focus()
         End If
     End Sub
-
 End Class
