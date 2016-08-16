@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Consultas_BuscaXNombre.aspx.vb" Inherits="Consultas_BuscaXNombre" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Consultas_BuscaXNombre - Copy.aspx.vb" Inherits="Consultas_BuscaXNombre" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -42,15 +42,9 @@
          </style>
     <script script language="javascript" type="text/javascript"> 
         function MandaRut() {
-            try {
-                var rutbuscado = document.getElementById("LBL_Rut").innerText;
-                window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;
-                setTimeout(window.close(), 8000);
-               // window.close();
-                } 
-            catch (e) {
-                alert(e.name + " - " + e.message);
-                      }            
+           var rutbuscado = document.getElementById("LBL_Rut").innerText;
+           window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;         
+           window.close();
                             } 
     </script> 
     </head>
@@ -65,7 +59,7 @@
                 </div>
             </ProgressTemplate>
         </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true" >
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
             <ContentTemplate>
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                 &nbsp;
