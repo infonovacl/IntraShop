@@ -10,7 +10,7 @@ Partial Class Mantencion_Tarjeta_Contrato
         End If
     End Sub
     Protected Sub VerPDFContrato()
-        Dim embed As String = "<object data=""{0}"" type=""application/pdf"" width=""600px"" height=""500px"">"
+        Dim embed As String = "<object data=""{0}"" type=""application/pdf"" width=""600px"" height=""450px"">"
         embed += "If you are unable to view file, you can download from <a href = ""{0}"">here</a>"
         embed += " or download <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> to view the file."
         embed += "</object>"
