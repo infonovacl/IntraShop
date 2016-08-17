@@ -45,13 +45,14 @@
             try {
                 var rutbuscado = document.getElementById("LBL_Rut").innerText;
                 window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;
-                //setTimeout(window.close(), 8000);
-               // window.close();
-                } 
+                setTimeout(function () {
+                    self.close();
+                                        }, 2000);
+                      } 
             catch (e) {
                 //alert(e.name + " - " + e.message);
                       }            
-        }
+                            }               
     </script> 
     </head>
 <body style="width: 627px; height: 2px; left: 5px;" >
