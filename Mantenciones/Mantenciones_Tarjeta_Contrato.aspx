@@ -15,6 +15,12 @@
         var signatureForm = new SignatureForm(document.getElementById("signatureImage"));
         signatureForm.connect();
       }
+      function signForm() {
+          var _signatureImage = document.getElementById("signatureImage");
+         // var _hdnSignature = $("input[id$='_hdnSignature']");
+          document.getElementById("_hdnSignature").value = _signatureImage.src;
+          return true;
+      }
     </script>
      <style type="text/css">
          .auto-style7 {
@@ -49,11 +55,12 @@
          <div>
             <div id="signatureDiv">
                  Firma capturada:<br/>
-                <img id="signatureImage" class="auto-style14"/>
+            <img id="signatureImage"/>            
             </div>     
-           <object id="wgssSTU" type="application/x-wgssSTU"></object>
+             <br />
+          
         </div>
-                <br />
+                <br />            
                 <table class="auto-style7" align="center">
                     <tr>
                         <td class="auto-style9">
@@ -61,12 +68,17 @@
                             <br />
                             <br />
                             <asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />                         
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript:initDemo()" class="auto-style15"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript: initDemo()" class="auto-style15"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="BTN_Firmar" runat="server" CssClass="botones" Text="FIRMAR" OnClientClick="javascript:return signForm();" />
+                            &nbsp;&nbsp;&nbsp;                         
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />
+                            <asp:HiddenField ID="_hdnSignature"  runat="server" />
                         </td>
                     </tr>
                 </table>
     </div>  
+         <object id="wgssSTU" type="application/x-wgssSTU"></object>
     </form>
     </body>
 </html>

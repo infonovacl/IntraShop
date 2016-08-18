@@ -10,10 +10,16 @@
     <script src="Firma/demobuttons.js"></script>
     <script src="Firma/demoButtons_encryption.js"></script>
     <script src="Firma/sjcl.js"></script>
-    <script type="text/javascript">
+   <script type="text/javascript">
       function initDemo() {
         var signatureForm = new SignatureForm(document.getElementById("signatureImage"));
         signatureForm.connect();
+      }
+      function signForm() {
+          var _signatureImage = document.getElementById("signatureImage");
+         // var _hdnSignature = $("input[id$='_hdnSignature']");
+          document.getElementById("_hdnSignature").value = _signatureImage.src;
+          return true;
       }
     </script>
      <style type="text/css">
@@ -88,7 +94,7 @@
          }
          </style>
      </head>
-<body style="width: 694px; height: 313px;">
+<body style="width: 694px; height: 624px;">
     <form id="form1" runat="server">
     <div class="auto-style12">       
         <asp:ScriptManager runat="server" ID="ScriptManager1">
@@ -101,8 +107,7 @@
                         <td colspan="4" style="height: 24px" class="auto-style30">&nbsp;</td></tr><tr><td colspan="4" class="auto-style30">&nbsp;</td></tr>
                         <tr>
                             <td class="auto-style30" colspan="4">
-                                <asp:Button ID="BTN_Contrato" runat="server" CssClass="botones" Text="CONTRATO" Width="100px" OnClientClick="javascript:window.open('/Mantenciones/Mantenciones_Tarjeta_Contrato.aspx','popup','width=650,height=700');" />
-                            </td>
+                                &nbsp;</td>
                         </tr>
                         </table></ContentTemplate></cc2:TabPanel>
                     <cc2:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3" ><HeaderTemplate>Contrato</HeaderTemplate>
@@ -110,17 +115,17 @@
                               <div>
                                   <br />
                                   <br />
-            <div id="signatureDiv">
-                 Firma capturada:<br/>
-                <img id="signatureImage" class="auto-style14"/>
-            </div>     
-           <object id="wgssSTU" type="application/x-wgssSTU"></object>
-        </div>
-                              <input id="signButton" class="auto-style15" onclick="javascript:initDemo()" type="button" value="CAPTURAR FIRMA" />
+                                    <div id="signatureDiv">
+                                        Firma capturada:<br/>
+                                    <img id="signatureImage" class="auto-style14"/>
+                                    </div>     
+                                    <object id="wgssSTU" type="application/x-wgssSTU"></object>      
+                                <input id="signButton" class="botones" onclick="javascript:initDemo()" type="button" value="CAPTURAR FIRMA" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                <asp:Button ID="BTN_Firmar" runat="server" CssClass="botones" Text="FIRMAR" Width="100px" OnClientClick="javascript:return signForm();"/>                        
                               <br />
-                              <br />
-                              <br />
-                            <asp:Button ID="BTN_Seguros" runat="server" CssClass="botones" Text="SEGUROS" Width="100px" />
+                              <asp:HiddenField ID="_hdnSignature" runat="server" />
+                            </div>
                         </ContentTemplate>
                     </cc2:TabPanel>
                     <cc2:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4">
@@ -149,6 +154,8 @@
                         <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />                         
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button runat="server" Text="CONTRATO" CssClass="botones" Width="100px" ID="BTN_Contrato"></asp:Button>
                             <br />
                         </td>
                     </tr>

@@ -280,7 +280,7 @@ function SignatureForm(preview) {
       }
 
       m_btns[0].Text = "OK";
-      m_btns[1].Text = "Clear";
+      m_btns[1].Text = "Nuevo";
       m_btns[2].Text = "Cancel";
       m_btns[0].Click = btnOk_Click;
       m_btns[1].Click = btnClear_Click;
