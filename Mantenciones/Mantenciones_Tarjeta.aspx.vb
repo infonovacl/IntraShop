@@ -485,10 +485,6 @@ Partial Class Mantencion_Tarjetas
         Tab_DatosClientes.Tabs(2).Visible = True
         Tab_DatosClientes.ActiveTabIndex = 2
 
-        ' If Not IsClientScriptBlockRegistered("popup") Then
-        ' RegisterClientScriptBlock("popup", "<script language='javascript'>window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');</script>")
-        ' End If
-
     End Sub
     Protected Sub BTN_Seguros_Click(sender As Object, e As EventArgs) Handles BTN_Firmar.Click
         Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/contrato_family.pdf") ' PDF fuente      

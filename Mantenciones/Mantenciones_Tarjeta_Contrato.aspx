@@ -57,8 +57,7 @@
                  Firma capturada:<br/>
             <img id="signatureImage"/>            
             </div>     
-             <br />
-          
+             <br />          
         </div>
                 <br />            
                 <table class="auto-style7" align="center">

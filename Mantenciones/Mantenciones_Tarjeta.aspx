@@ -111,21 +111,28 @@
                         </tr>
                         </table></ContentTemplate></cc2:TabPanel>
                     <cc2:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3" ><HeaderTemplate>Contrato</HeaderTemplate>
-                        <ContentTemplate>
-                              <div>
-                                  <br />
-                                  <br />
-                                    <div id="signatureDiv">
-                                        Firma capturada:<br/>
-                                    <img id="signatureImage" class="auto-style14"/>
-                                    </div>     
-                                    <object id="wgssSTU" type="application/x-wgssSTU"></object>      
-                                <input id="signButton" class="botones" onclick="javascript:initDemo()" type="button" value="CAPTURAR FIRMA" />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="BTN_Firmar" runat="server" CssClass="botones" Text="FIRMAR" Width="100px" OnClientClick="javascript:return signForm();"/>                        
-                              <br />
-                              <asp:HiddenField ID="_hdnSignature" runat="server" />
-                            </div>
+                        <ContentTemplate>                              
+                                <div id="signatureDiv">
+                                    Firma capturada:<br/>
+                                <img id="signatureImage"/>     
+                                     <object id="wgssSTU" type="application/x-wgssSTU"></object>       
+                                </div>     
+                                <br />                                        
+                <br />            
+                <table class="auto-style7" align="center">
+                    <tr>
+                        <td class="auto-style9">
+                <asp:Label ID="Label1" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                            <br />
+                            <br />                           
+                            <input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript: initDemo()" class="auto-style15"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="BTN_Firmar" runat="server" CssClass="botones" Text="FIRMAR" OnClientClick="javascript:return signForm();" />
+                            &nbsp;&nbsp;&nbsp;                         
+                            <asp:Button ID="Button2" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />                          
+                        </td>
+                    </tr>
+                </table>
+    </div>         
                         </ContentTemplate>
                     </cc2:TabPanel>
                     <cc2:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4">
@@ -156,6 +163,9 @@
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button runat="server" Text="CONTRATO" CssClass="botones" Width="100px" ID="BTN_Contrato"></asp:Button>
+
+                            <asp:HiddenField runat="server" ID="_hdnSignature"></asp:HiddenField>
+
                             <br />
                         </td>
                     </tr>
