@@ -281,7 +281,7 @@ function SignatureForm(preview) {
 
       m_btns[0].Text = "OK";
       m_btns[1].Text = "Nuevo";
-      m_btns[2].Text = "Cancel";
+      m_btns[2].Text = "Cancelar";
       m_btns[0].Click = btnOk_Click;
       m_btns[1].Click = btnClear_Click;
       m_btns[2].Click = btnCancel_Click;
@@ -311,7 +311,7 @@ function SignatureForm(preview) {
 
       ctx.lineWidth = 1;
       ctx.strokeStyle = 'black';
-      ctx.font = "30px Arial";
+      ctx.font = "25px Arial";
 
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
