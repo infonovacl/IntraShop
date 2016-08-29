@@ -161,10 +161,10 @@ Partial Class Mantencion_Tarjetas
             Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
             DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
-                Me.LBL_DatosClienteError.Visible = True
-                Me.LBL_DatosClienteError.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.LBL_ErrorAbrirPDF.Visible = True
+                Me.LBL_ErrorAbrirPDF.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                Me.LBL_DatosClienteError.Visible = False
+                Me.LBL_ErrorAbrirPDF.Visible = False
                 If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                     Me.TXT_TiendaOrigen.Text = ""
                 Else
@@ -408,11 +408,11 @@ Partial Class Mantencion_Tarjetas
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then
-                        Me.LBL_DatosClienteError.Visible = True
-                        Me.LBL_DatosClienteError.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
+                        Me.LBL_ErrorAbrirPDF.Visible = True
+                        Me.LBL_ErrorAbrirPDF.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
                     Else
-                        Me.LBL_DatosClienteError.Visible = True
-                        Me.LBL_DatosClienteError.Text = "Actualizacion de registro exitosa"
+                        Me.LBL_ErrorAbrirPDF.Visible = True
+                        Me.LBL_ErrorAbrirPDF.Text = "Actualizacion de registro exitosa"
                     End If
                 Catch EX As Exception
                 End Try
@@ -426,8 +426,8 @@ Partial Class Mantencion_Tarjetas
             TXT_TelefonoCelular.Text = "44444444" Or TXT_TelefonoCelular.Text = "55555555" Or TXT_TelefonoCelular.Text = "66666666" Or
             TXT_TelefonoCelular.Text = "77777777" Or TXT_TelefonoCelular.Text = "88888888" Or TXT_TelefonoCelular.Text = "99999999" Or
             TXT_TelefonoCelular.Text = "00000000" Then
-            LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Numero Celular Cliente Ingresado no es Válido"
+            LBL_ErrorAbrirPDF.Visible = True
+            LBL_ErrorAbrirPDF.Text = "Numero Celular Cliente Ingresado no es Válido"
             TXT_TelefonoCelular.Focus()
             flag = 1
         End If
@@ -436,40 +436,40 @@ Partial Class Mantencion_Tarjetas
                 TXT_ReferenciaTelefono.Text = "44444444" Or TXT_ReferenciaTelefono.Text = "55555555" Or TXT_ReferenciaTelefono.Text = "66666666" Or
                 TXT_ReferenciaTelefono.Text = "77777777" Or TXT_ReferenciaTelefono.Text = "88888888" Or TXT_ReferenciaTelefono.Text = "99999999" Or
                 TXT_ReferenciaTelefono.Text = "00000000" Then
-                LBL_DatosClienteError.Visible = True
-                LBL_DatosClienteError.Text = "Numero Celular Referencia Ingresado no es Válido"
+                LBL_ErrorAbrirPDF.Visible = True
+                LBL_ErrorAbrirPDF.Text = "Numero Celular Referencia Ingresado no es Válido"
                 TXT_ReferenciaTelefono.Focus()
                 flag = 1
             End If
         ElseIf Me.RBL_ReferenciaTipoTelefono.SelectedValue = "F" Then
             If TXT_ReferenciaTelefono.Text.Length <> CType(Me.LBL_MaximoDigitoTelefono.Text, Integer) Then
-                LBL_DatosClienteError.Visible = True
-                LBL_DatosClienteError.Text = "Numero Fijo Referencia Ingresado no es Válido"
+                LBL_ErrorAbrirPDF.Visible = True
+                LBL_ErrorAbrirPDF.Text = "Numero Fijo Referencia Ingresado no es Válido"
                 TXT_ReferenciaTelefono.Focus()
                 flag = 1
             End If
         End If
         If Me.TXT_ReferenciaNombre.Text <> "" And (Me.DDL_ReferenciaRegion.SelectedIndex = -1 Or Me.DDL_ReferenciaComuna.SelectedIndex = -1) Then
-            LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Referencia"
+            LBL_ErrorAbrirPDF.Visible = True
+            LBL_ErrorAbrirPDF.Text = "Debe Ingresar Region y Comuna de Referencia"
             DDL_ReferenciaRegion.Focus()
             flag = 1
         End If
         If Me.TXT_EmpleadorNombre.Text <> "" And (Me.DDL_EmpleadorRegion.SelectedIndex = -1 Or Me.DDL_EmpleadorComuna.SelectedIndex = -1) Then
-            LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Empleador"
+            LBL_ErrorAbrirPDF.Visible = True
+            LBL_ErrorAbrirPDF.Text = "Debe Ingresar Region y Comuna de Empleador"
             DDL_EmpleadorRegion.Focus()
             flag = 1
         End If
         If Me.DDL_RegionCliente.SelectedIndex = -1 Or Me.DDL_ComunaCliente.SelectedIndex = -1 Then
-            LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Debe Ingresar Region y Comuna de Cliente"
+            LBL_ErrorAbrirPDF.Visible = True
+            LBL_ErrorAbrirPDF.Text = "Debe Ingresar Region y Comuna de Cliente"
             DDL_RegionCliente.Focus()
             flag = 1
         End If
         If Me.DDL_EstadoCivil.SelectedItem.Text = "SIN DATOS" Then
-            LBL_DatosClienteError.Visible = True
-            LBL_DatosClienteError.Text = "Debe Ingresar un Estado Civil válido"
+            LBL_ErrorAbrirPDF.Visible = True
+            LBL_ErrorAbrirPDF.Text = "Debe Ingresar un Estado Civil válido"
             DDL_EstadoCivil.Focus()
             flag = 1
         End If
@@ -524,7 +524,7 @@ Partial Class Mantencion_Tarjetas
             gfx.DrawImage(XImage, 220, 590, 200, 70)
             PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
         Catch ex As Exception
-            Me.LBL_DatosClienteError.Text = " ERROR FIRMANDO CONTRATO"
+            Me.LBL_ErrorAbrirPDF.Text = " ERROR FIRMANDO CONTRATO"
         End Try
 
         'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/" & _sImageFile)

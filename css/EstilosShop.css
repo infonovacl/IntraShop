@@ -104,6 +104,10 @@
                 width:75px;
                 height:22px;
 }
+.botones_ancho{
+                width:120px;
+                height:22px;
+}
 .tabla_tabcontainer{
                 border-style: none;
                 border-color: inherit;

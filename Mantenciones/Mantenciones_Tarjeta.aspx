@@ -92,6 +92,9 @@
          .auto-style30 {
              text-align: right;
          }
+         .auto-style31 {
+             height: 22px;
+         }
          </style>
      </head>
 <body style="width: 694px; height: 624px;">
@@ -112,8 +115,13 @@
                         </table></ContentTemplate></cc2:TabPanel>
                     <cc2:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3" ><HeaderTemplate>Contrato</HeaderTemplate>
                         <ContentTemplate>                              
+                                <br />
+                                <br />
+                                <br />
+                                <br />
                                 <div id="signatureDiv">
-                                    Firma capturada:<br/>
+                                    <asp:Label ID="Label70" runat="server" CssClass="etiquetas_popup" Text="Firma Capturada "></asp:Label>
+                                    <br/>
                                 <img id="signatureImage"/>     
                                      <object id="wgssSTU" type="application/x-wgssSTU"></object>       
                                 </div>     
@@ -125,10 +133,10 @@
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                             <br />
                             <br />                           
-                            <input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript: initDemo()" class="auto-style15"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript: initDemo()" class="botones_ancho"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_Firmar" runat="server" CssClass="botones" Text="FIRMAR" OnClientClick="javascript:return signForm();" />
                             &nbsp;&nbsp;&nbsp;                         
-                            <asp:Button ID="Button2" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />                          
+                            <asp:Button ID="BTN_VerContrato" runat="server" CssClass="botones_ancho" Text="VER CONTRATO" />                          
                         </td>
                     </tr>
                 </table>
