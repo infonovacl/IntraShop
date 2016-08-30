@@ -3,29 +3,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <link href="Firma/demoButtons.css" rel="stylesheet" />
-    <title>Mantención Datos Cliente - Tarjetas</title>    
-    <script src="Firma/BigInt.js"></script>
-    <script src="Firma/demobuttons.js"></script>
-    <script src="Firma/demoButtons_encryption.js"></script>
-    <script src="Firma/sjcl.js"></script>
-   <script type="text/javascript">
-      function initDemo() {
-        var signatureForm = new SignatureForm(document.getElementById("signatureImage"));
-        signatureForm.connect();
-      }
-      function signForm() {
-          var _signatureImage = document.getElementById("signatureImage");
-         // var _hdnSignature = $("input[id$='_hdnSignature']");
-          document.getElementById("_hdnSignature").value = _signatureImage.src;
-          return true;
-      }
-    </script>
+    <link href="../css/EstilosShop.css" rel="stylesheet" /> 
+    <title>Mantención Datos Cliente - Ver Contrato</title>       
      <style type="text/css">
          .auto-style7 {
              height: 30px;
-             width: 667px;
+             width: 600px;
              align: center;
          }         
          .auto-style9 {
@@ -34,29 +17,23 @@
              text-align: center;
          }
          .auto-style12 {
-             width: 690px;
+             width: 601px;
              background-color: whitesmoke;
              height: 625px;
          }
          </style>
      </head>
-<body style="width: 694px; height: 624px;">
+<body style="width: 600px; height: 620px;">
     <form id="form1" runat="server">
     <div class="auto-style12">       
-        <asp:ScriptManager runat="server" ID="ScriptManager1">
-        </asp:ScriptManager>
-                <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+        <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+        <br />   
+                <asp:Label ID="LBL_VerPDFError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
                 <table class="auto-style7" align="center">
                     <tr>
-                        <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />                         
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button runat="server" Text="CONTRATO" CssClass="botones" Width="100px" ID="BTN_Contrato"></asp:Button>
-
-                            <asp:HiddenField runat="server" ID="_hdnSignature"></asp:HiddenField>
-
+                        <td class="auto-style9">                        
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />                           
                             <br />
                         </td>
                     </tr>

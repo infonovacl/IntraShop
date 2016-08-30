@@ -507,7 +507,6 @@ Partial Class Mantencion_Tarjetas
             gfx = XGraphics.FromPdfPage(pp)
             gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(230, 530))
             gfx.DrawString(Session("nombrecliente"), font, XBrushes.Black, New XVector(230, 510))
-
             '****************************************************
             Dim _sImage As String = _hdnSignature.Value.Replace("data:image/jpeg;base64,", "")
             Dim _rgbBytes As Byte() = Convert.FromBase64String(_sImage)
@@ -551,13 +550,6 @@ Partial Class Mantencion_Tarjetas
         End If
     End Sub
     Protected Sub BTN_VerContrato_Click(sender As Object, e As EventArgs) Handles BTN_VerContrato.Click
-        VerPDFContrato()
     End Sub
-    Protected Sub VerPDFContrato()
-        Dim embed As String = "<object data=""{0}"" type=""application/pdf"" width=""600px"" height=""200px"">"
-        embed += "Si no puede ver el archivo, ud. puede descargar desde <a href = ""{0}"">Acá</a>"
-        embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
-        embed += "</object>"
-        ' Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/contrato_family.pdf"))
-    End Sub
+
 End Class

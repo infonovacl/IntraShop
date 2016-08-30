@@ -92,8 +92,14 @@
          .auto-style30 {
              text-align: right;
          }
-         .auto-style31 {
+         .auto-style32 {
              height: 22px;
+             width: 180px;
+         }
+         .auto-style33 {
+             height: 57px;
+             width: 667px;
+             align: center;
          }
          </style>
      </head>
@@ -133,10 +139,10 @@
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                             <br />
                             <br />                           
-                            <input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript: initDemo()" class="botones_ancho"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" id="signButton" value="CAPTURAR FIRMA" onClick="javascript: initDemo()" class="auto-style32"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_Firmar" runat="server" CssClass="botones" Text="FIRMAR" OnClientClick="javascript:return signForm();" />
                             &nbsp;&nbsp;&nbsp;                         
-                            <asp:Button ID="BTN_VerContrato" runat="server" CssClass="botones_ancho" Text="VER CONTRATO" />                          
+                            <asp:Button ID="BTN_VerContrato" runat="server" CssClass="botones_anchoX2" Text="VER CONTRATO" Height="22px" OnClientClick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()" />                          
                         </td>
                     </tr>
                 </table>
@@ -162,19 +168,15 @@
                 </cc2:TabContainer>
             </ContentTemplate>
         </asp:UpdatePanel>
-                <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
-                <br />
-                <table class="auto-style7" align="center">
+                <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>             
+                <table class="auto-style33" align="center">
                     <tr>
                         <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />                         
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
                             <asp:Button runat="server" Text="CONTRATO" CssClass="botones" Width="100px" ID="BTN_Contrato"></asp:Button>
-
-                            <asp:HiddenField runat="server" ID="_hdnSignature"></asp:HiddenField>
-
-                            <br />
+                            <asp:HiddenField runat="server" ID="_hdnSignature"></asp:HiddenField>                           
                         </td>
                     </tr>
                 </table>
