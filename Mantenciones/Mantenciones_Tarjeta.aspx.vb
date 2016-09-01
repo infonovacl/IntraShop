@@ -483,6 +483,17 @@ Partial Class Mantencion_Tarjetas
     Protected Sub BTN_Contrato_Click(sender As Object, e As EventArgs) Handles BTN_Contrato.Click
         Tab_DatosClientes.Tabs(2).Visible = True
         Tab_DatosClientes.ActiveTabIndex = 2
+        Try
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
+            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
+            If (System.IO.File.Exists(File)) Then
+                Me.BTN_VerContrato.Enabled = True
+            Else
+                Me.BTN_VerContrato.Enabled = False
+            End If
+        Catch ex As Exception
+            Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
+        End Try
     End Sub
     Protected Sub BTN_Firmar_Click(sender As Object, e As EventArgs) Handles BTN_Firmar.Click
         Try
@@ -523,9 +534,19 @@ Partial Class Mantencion_Tarjetas
             gfx.DrawImage(XImage, 220, 590, 200, 70)
             PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
         Catch ex As Exception
-            Me.LBL_DatosClienteError.Text = " ERROR FIRMANDO CONTRATO"
+            Me.LBL_DatosClienteError.Text = "ERROR FIRMANDO CONTRATO"
         End Try
-
+        Try
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
+            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
+            If (System.IO.File.Exists(File)) Then
+                Me.BTN_VerContrato.Enabled = True
+            Else
+                Me.BTN_VerContrato.Enabled = False
+            End If
+        Catch ex As Exception
+            Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
+        End Try
         'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/" & _sImageFile)
         'If (System.IO.File.Exists(File)) Then
         ' System.IO.File.Delete(File)
