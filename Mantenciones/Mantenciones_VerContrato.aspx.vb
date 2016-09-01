@@ -22,12 +22,12 @@ Partial Class Mantencion_Tarjetas
         embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
         embed += "</object>"
         Try
-            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
-            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
+            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
             If (System.IO.File.Exists(File)) Then
                 'System.IO.File.Delete(File)
-                'Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
-                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf"))
+                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                'Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf"))
             Else
                 LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
             End If

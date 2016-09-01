@@ -493,7 +493,7 @@ Partial Class Mantencion_Tarjetas
             For Pg = 0 To PDFDoc.Pages.Count - 1
                 PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
             Next
-            PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+            PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
             Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
             Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
