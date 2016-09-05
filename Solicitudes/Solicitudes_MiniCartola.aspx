@@ -115,16 +115,6 @@
 <body style="width: 506px; height: 18px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div>
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-                    </asp:ScriptManager>
-        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
-            <ProgressTemplate>
-                <div class="update">
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
-            <ContentTemplate>
                 <table class="auto-style9">
                     <caption>
                         <table class="auto-style11">
@@ -302,9 +292,7 @@
                                 &nbsp;</td>
                         </tr>
                     </caption>
-                </table>             
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                </table>                                     
         <br />
         <br />    
     </div>
