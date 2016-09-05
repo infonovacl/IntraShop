@@ -77,11 +77,11 @@
 <body style="width: 694px; height: 313px;">
     <form id="form1" runat="server">
     <div class="auto-style12">       
-        <asp:ScriptManager runat="server" ID="ScriptManager1">
-        </asp:ScriptManager>
-        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+           <asp:UpdatePanel ID="UpdatePanel2" runat="server">
             <ContentTemplate>
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
+        <asp:ScriptManager runat="server" ID="ScriptManagerDatosClientes" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
+        </asp:ScriptManager>        
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -472,7 +472,7 @@
                         </ContentTemplate>
                     </cc2:TabPanel>
                 </cc2:TabContainer>
-            </ContentTemplate>
+                  </ContentTemplate>
         </asp:UpdatePanel>
                 <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />

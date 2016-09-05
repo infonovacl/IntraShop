@@ -54,7 +54,6 @@
                 Me.LBL_AdicionalesError.Visible = False
                 Me.Grilla_Adicionales.DataSource = DATADSAdicionalesPopUp.Tables(0).DefaultView
                 Me.Grilla_Adicionales.DataBind()
-                Me.BTN_Grabar.Enabled = False
             End If
         Catch EX As Exception
         End Try

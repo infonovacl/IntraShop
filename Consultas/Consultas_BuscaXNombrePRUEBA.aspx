@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Consultas_BuscaXNombre - Copy.aspx.vb" Inherits="Consultas_BuscaXNombre" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" EnableViewState="true" CodeFile="Consultas_BuscaXNombrePRUEBA.aspx.vb" Inherits="Consultas_BuscaXNombre" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -7,7 +7,7 @@
      <style type="text/css">      
          .auto-style1 {
              width: 629px;
-             height: 16px;
+             height: 349px;
              left: 5px;
          }
          .auto-style3 {
@@ -42,16 +42,23 @@
          </style>
     <script script language="javascript" type="text/javascript"> 
         function MandaRut() {
-           var rutbuscado = document.getElementById("LBL_Rut").innerText;
-           window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;         
-           window.close();
-                            } 
+            try {
+                var rutbuscado = document.getElementById("LBL_Rut").innerText;
+                window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;
+                setTimeout(function () {
+                    self.close();
+                                        }, 2000);
+                      } 
+            catch (e) {
+                //alert(e.name + " - " + e.message);
+                      }            
+                            }               
     </script> 
     </head>
 <body style="width: 627px; height: 2px; left: 5px;" >
     <form id="form1" runat="server" class="auto-style1" defaultbutton="BTN_BuscarXNombre" defaultfocus="TXT_BuscaXNombre">
     <div class="auto-style7">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="120">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="120" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
                     </asp:ScriptManager>
         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
             <ProgressTemplate>
@@ -59,7 +66,7 @@
                 </div>
             </ProgressTemplate>
         </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" >
             <ContentTemplate>
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                 &nbsp;
@@ -91,6 +98,11 @@
                             <asp:Label ID="LBL_ClienteSeleccionado" runat="server" CssClass="etiquetasimportante"></asp:Label>
                         </td>
                     </tr>
+        </ContentTemplate>             
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="BTN_BuscarXNombre" EventName="Click" />
+            </Triggers>
+        </asp:UpdatePanel>    
                     <tr>
                         <td>
                             <asp:Label ID="LBL_BuscarXNombreError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
@@ -108,8 +120,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                        
         <br />    
     </div>
     </form>

@@ -42,17 +42,10 @@
          </style>
     <script script language="javascript" type="text/javascript"> 
         function MandaRut() {
-            try {
-                var rutbuscado = document.getElementById("LBL_Rut").innerText;
-                window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;
-                setTimeout(function () {
-                    self.close();
-                }, 1500);
-            }
-            catch (e) {
-                //alert(e.name + " - " + e.message);
-            }
-        }
+           var rutbuscado = document.getElementById("LBL_Rut").innerText;
+           window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;         
+           window.close();
+                            } 
     </script> 
     </head>
 <body style="width: 627px; height: 2px; left: 5px;" >

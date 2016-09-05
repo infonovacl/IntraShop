@@ -3,9 +3,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1- strict.dtd"> 
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
-<meta name="robots" content="noodp,noydir" /> 
       <link href="css/EstilosShop.css" rel="stylesheet" />
     <style type="text/css"> 
         .completionList {
@@ -358,7 +355,7 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="9" ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados

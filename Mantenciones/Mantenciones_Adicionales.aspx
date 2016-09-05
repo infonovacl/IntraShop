@@ -38,11 +38,6 @@
              height: 22px;
              width: 41px;
          }
-         .auto-style18 {
-             width: 760px;
-             left: 5px;
-             height: 2px;
-         }
          .auto-style19 {
              text-align: center;
          }
@@ -51,7 +46,7 @@
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div class="div_popup">
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
                     </asp:ScriptManager>
         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
             <ProgressTemplate>
@@ -82,108 +77,114 @@
                         </Columns>
                     </asp:GridView>
                 </asp:Panel>
-                <asp:Panel ID="Panel_AdicionalesDetalle" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Visible="False">
-                    <table cellspacing="1" class="auto-style5">
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:Label ID="Label84" runat="server" CssClass="etiquetas_tab" Text="Tarjetas Adicionales"></asp:Label>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style15">
-                                <asp:Label ID="Label83" runat="server" CssClass="etiquetas_tab" Text="Empleador"></asp:Label>
-                            </td>
-                            <td class="auto-style17">&nbsp;</td>
-                            <td class="auto-style6"></td>
-                            <td class="auto-style6"></td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:TextBox ID="TXT_AdicionalRut" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
-                                &nbsp;<asp:Label ID="Label92" runat="server" CssClass="etiquetas_tab" Text="-"></asp:Label>
-                                &nbsp;<asp:TextBox ID="TXT_AdicionalDv" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="20px"></asp:TextBox>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style15">
-                                <asp:Label ID="Label85" runat="server" CssClass="etiquetas_tab" Text="Nombres"></asp:Label>
-                            </td>
-                            <td class="auto-style17">&nbsp;</td>
-                            <td class="auto-style6">
-                                <asp:Label ID="Label86" runat="server" CssClass="etiquetas_tab" Text="Apellido Paterno"></asp:Label>
-                            </td>
-                            <td class="auto-style6">
-                                <asp:Label ID="Label87" runat="server" CssClass="etiquetas_tab" Text="Apellido Materno"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:TextBox ID="TXT_AdicionalNombres" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>
-                                <asp:TextBox ID="TXT_AdicionalAPaterno" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="TXT_AdicionalAMaterno" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:Label ID="Label88" runat="server" CssClass="etiquetas_tab" Text="Fecha Nacimiento"></asp:Label>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>
-                                <asp:Label ID="Label89" runat="server" CssClass="etiquetas_tab" Text="Sexo"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="Label90" runat="server" CssClass="etiquetas_tab" Text="Parentesco"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:TextBox ID="TXT_AdicionalFechaNacimiento" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>
-                                <asp:TextBox ID="TXT_AdicionalSexo" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
-                            </td>
-                            <td>
-                                <asp:TextBox ID="TXT_AdicionalParentesco" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:Label ID="Label91" runat="server" CssClass="etiquetas_tab" Text="Estado Vigente"></asp:Label>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>
-                                <asp:Label ID="Label93" runat="server" CssClass="etiquetas_tab" Text="Fecha Ingreso"></asp:Label>
-                            </td>
-                            <td class="auto-style19" rowspan="2">
-                                <asp:ImageButton ID="IBTN_AdicionalesDetalle" runat="server" CssClass="boton_volver" ImageUrl="~/Imagenes/mano_volver.jpg" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style14">
-                                <asp:DropDownList ID="DDL_EstadoAdicionales" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="140px">
-                                    <asp:ListItem Value="0">VIGENTE</asp:ListItem>
-                                    <asp:ListItem Value="1">NO VIGENTE</asp:ListItem>
-                                </asp:DropDownList>
-                            </td>
-                            <td class="auto-style16">&nbsp;</td>
-                            <td>
-                                <asp:TextBox ID="TXT_AdicionalFechaIng" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
-                            </td>
-                        </tr>
-                    </table>
-                </asp:Panel>
+        </ContentTemplate>             
+        </asp:UpdatePanel>       
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <asp:Panel ID="Panel_AdicionalesDetalle" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Visible="False">
+                            <table cellspacing="1" class="auto-style5">
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:Label ID="Label84" runat="server" CssClass="etiquetas_tab" Text="Tarjetas Adicionales"></asp:Label>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style15">
+                                        <asp:Label ID="Label83" runat="server" CssClass="etiquetas_tab" Text="Empleador"></asp:Label>
+                                    </td>
+                                    <td class="auto-style17">&nbsp;</td>
+                                    <td class="auto-style6"></td>
+                                    <td class="auto-style6"></td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:TextBox ID="TXT_AdicionalRut" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
+                                        &nbsp;<asp:Label ID="Label92" runat="server" CssClass="etiquetas_tab" Text="-"></asp:Label>
+                                        &nbsp;<asp:TextBox ID="TXT_AdicionalDv" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="20px"></asp:TextBox>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style15">
+                                        <asp:Label ID="Label85" runat="server" CssClass="etiquetas_tab" Text="Nombres"></asp:Label>
+                                    </td>
+                                    <td class="auto-style17">&nbsp;</td>
+                                    <td class="auto-style6">
+                                        <asp:Label ID="Label86" runat="server" CssClass="etiquetas_tab" Text="Apellido Paterno"></asp:Label>
+                                    </td>
+                                    <td class="auto-style6">
+                                        <asp:Label ID="Label87" runat="server" CssClass="etiquetas_tab" Text="Apellido Materno"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:TextBox ID="TXT_AdicionalNombres" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>
+                                        <asp:TextBox ID="TXT_AdicionalAPaterno" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TXT_AdicionalAMaterno" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:Label ID="Label88" runat="server" CssClass="etiquetas_tab" Text="Fecha Nacimiento"></asp:Label>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>
+                                        <asp:Label ID="Label89" runat="server" CssClass="etiquetas_tab" Text="Sexo"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="Label90" runat="server" CssClass="etiquetas_tab" Text="Parentesco"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:TextBox ID="TXT_AdicionalFechaNacimiento" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>
+                                        <asp:TextBox ID="TXT_AdicionalSexo" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TXT_AdicionalParentesco" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="180px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:Label ID="Label91" runat="server" CssClass="etiquetas_tab" Text="Estado Vigente"></asp:Label>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>
+                                        <asp:Label ID="Label93" runat="server" CssClass="etiquetas_tab" Text="Fecha Ingreso"></asp:Label>
+                                    </td>
+                                    <td class="auto-style19" rowspan="2">
+                                        <asp:ImageButton ID="IBTN_AdicionalesDetalle" runat="server" CssClass="boton_volver" ImageUrl="~/Imagenes/mano_volver.jpg" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style14">
+                                        <asp:DropDownList ID="DDL_EstadoAdicionales" runat="server" CssClass="dropdown_tab" ViewStateMode="Enabled" Width="140px">
+                                            <asp:ListItem Value="0">VIGENTE</asp:ListItem>
+                                            <asp:ListItem Value="1">NO VIGENTE</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </td>
+                                    <td class="auto-style16">&nbsp;</td>
+                                    <td>
+                                        <asp:TextBox ID="TXT_AdicionalFechaIng" runat="server" CssClass="cajastexto_tab" ReadOnly="True" Width="80px"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
+                    </ContentTemplate>
+        </asp:UpdatePanel>
                 <table class="auto-style3">
                     <tr>
                         <td>
@@ -201,8 +202,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                     
         <br />    
     </div>
     </form>
