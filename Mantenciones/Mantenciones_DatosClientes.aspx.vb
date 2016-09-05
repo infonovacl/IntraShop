@@ -45,6 +45,7 @@
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
         'CIERRA VENTANA POPUP
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
     Private Sub LlenaDDLComuna(ByVal region As Integer, ByVal CODcomuna As Integer, ByVal tipocomuna As String)
         Dim DataDSComuna As New Data.DataSet

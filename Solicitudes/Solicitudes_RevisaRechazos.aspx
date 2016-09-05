@@ -31,7 +31,7 @@
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div class="div_popup">
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
                     </asp:ScriptManager>
         <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
             <ProgressTemplate>

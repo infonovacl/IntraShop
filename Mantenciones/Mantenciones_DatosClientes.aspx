@@ -30,7 +30,7 @@
          .auto-style12 {
              width: 690px;
              background-color: whitesmoke;
-             height: 600px;
+             height: 620px;
          }
          .auto-style17 {
              height: 22px;
@@ -74,16 +74,6 @@
          }
          </style>
      </head>
-    <script script language="javascript" type="text/javascript"> 
-        function CierraVentana() {
-            try {
-                setTimeout(function () {self.close();}, 1000);
-                }
-            catch (e) {
-                //alert(e.name + " - " + e.message);
-            }
-        }
-    </script> 
 <body style="width: 694px; height: 313px;">
     <form id="form1" runat="server">
     <div class="auto-style12">       
@@ -490,7 +480,7 @@
                     <tr>
                         <td class="auto-style9"><asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />                         
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                         
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="CierraVentana()" />
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                         </td>
                     </tr>
                 </table>

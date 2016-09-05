@@ -9,6 +9,8 @@
         Try
             Dim DATADSBuscaxNombrePopUp As New Data.DataSet
             DATADSBuscaxNombrePopUp.Clear()
+            Me.LBL_ClienteSeleccionado.Text = ""
+            Me.LBL_Rut.Text = ""
             Me.Grilla_BuscaXNombre.DataSource = Nothing
             Me.Grilla_BuscaXNombre.DataBind()
             Dim STRBuscaxNombre As String = "execute procedure procw_busca_nombre ('" & TXT_BuscaXNombre.Text & "' )"

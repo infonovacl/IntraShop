@@ -679,6 +679,8 @@
                     Dim DataDSRepacta As New Data.DataSet
                     Try
                         DataDSRepacta.Clear()
+                        Me.LBL_RepactacionesError.Visible = False
+                        Me.Panel_Repactaciones.Visible = False
                         Dim STRRepacta As String = "execute procedure procw_cons_repacta ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                         Dim DATARepacta As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRepacta, Globales.conn)
                         DATARepacta.Fill(DataDSRepacta, "PRUEBA")
@@ -792,6 +794,8 @@
                     Dim DataDSXPagar As New Data.DataSet
                     Try
                         DataDSXPagar.Clear()
+                        Me.LBL_XPagarError.Visible = False
+                        Me.Panel_XPagar.Visible = False
                         Dim STRXPagar As String = "execute procedure procw_cons_porpagar ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                         Dim DATAXPagar As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRXPagar, Globales.conn)
                         DATAXPagar.Fill(DataDSXPagar, "PRUEBA")
@@ -808,12 +812,10 @@
                             For X = 0 To Me.Grilla_XPagar.Rows.Count - 1
                                 sumatotalcuota = sumatotalcuota + CType(Me.Grilla_XPagar.Rows(X).Cells(8).Text, Long)
                                 sumatotalpendiente = sumatotalpendiente + CType(Me.Grilla_XPagar.Rows(X).Cells(9).Text, Long)
-                                'sumaventaactual = sumaventaactual + CType(Me.GrillaAnioActual.Rows(X).Cells(3).Text, Long)
                             Next
                             Me.Grilla_XPagar.FooterRow.Cells(0).Text = "SUB-TOTAL"
                             Me.Grilla_XPagar.FooterRow.Cells(8).Text = Format(sumatotalcuota, "###,###,##0")
                             Me.Grilla_XPagar.FooterRow.Cells(9).Text = Format(sumatotalpendiente, "###,###,##0")
-                            ' Me.GrillaAnioActual.FooterRow.Cells(3).Text = Format(sumaventaactual, "###,###,##0")
                         End If
                     Catch EX As Exception
                         MsgBox(EX)
@@ -846,6 +848,8 @@
                     Dim DataDSSBIF As New Data.DataSet
                     Try
                         DataDSSBIF.Clear()
+                        Me.LBL_SBIFError.Visible = False
+                        Me.Panel_SBIF.Visible = False
                         Dim STRSBIF As String = "execute procedure procw_cons_sbif ('" & Me.TXT_ConsultaRutCliente.Text & "')"
                         Dim DATASBIF As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSBIF, Globales.conn)
                         DATASBIF.Fill(DataDSSBIF, "PRUEBA")

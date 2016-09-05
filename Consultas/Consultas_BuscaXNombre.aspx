@@ -6,12 +6,12 @@
     <title>Busqueda Cliente X Nombre</title>
      <style type="text/css">      
          .auto-style1 {
-             width: 629px;
+             width: 593px;
              height: 16px;
              left: 5px;
          }
          .auto-style3 {
-             width: 610px;
+             width: 599px;
                left: 5px;
          }
          .auto-style4 {
@@ -22,7 +22,7 @@
              background-color: white;
          }
          .auto-style7 {
-             width: 615px;
+             width: 644px;
              background-color: whitesmoke;
              height: 342px;
          }
@@ -35,9 +35,9 @@
              top: 438px;
          }
          .auto-style10 {
-             width: 610px;
+             width: 598px;
              left: 5px;
-             height: 15px;
+             height: 20px;
          }
          </style>
     <script script language="javascript" type="text/javascript"> 
@@ -68,6 +68,7 @@
         </asp:UpdateProgress>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
             <ContentTemplate>
+                &nbsp;
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                 &nbsp;
                 <asp:TextBox ID="TXT_BuscaXNombre" runat="server" CssClass="cajastexto" Width="350px"  ></asp:TextBox>
@@ -75,8 +76,8 @@
                 <asp:Button ID="BTN_BuscarXNombre" runat="server" CssClass="botones" Text="BUSCAR" />
                 <br />
                 <br />
-                <asp:Panel ID="Panel_BuscaXNombre" runat="server" CssClass="auto-style5" ScrollBars="Vertical" Height="173px" Width="600px">               
-                    <asp:GridView ID="Grilla_BuscaXNombre" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="582px">
+                <asp:Panel ID="Panel_BuscaXNombre" runat="server" CssClass="auto-style5" ScrollBars="Vertical" Height="173px" Width="634px">               
+                    <asp:GridView ID="Grilla_BuscaXNombre" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="613px">
                         <Columns>
                             <asp:CommandField ButtonType="Image" SelectImageUrl="~/Imagenes/mano.jpg" ShowSelectButton="True" />
                             <asp:BoundField DataField="column3" HeaderText="Rut Cliente">
@@ -93,6 +94,7 @@
                 <table class="auto-style3">
                     <tr>
                         <td class="auto-style8">
+                            &nbsp;
                             <asp:Label ID="Label2" runat="server" CssClass="etiquetasimportante" Text="Cliente Seleccionado"></asp:Label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Label ID="LBL_ClienteSeleccionado" runat="server" CssClass="etiquetasimportante"></asp:Label>
@@ -100,6 +102,7 @@
                     </tr>
                     <tr>
                         <td>
+                            &nbsp; 
                             <asp:Label ID="LBL_BuscarXNombreError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                             &nbsp; 
                             <div class="auto-style9">
