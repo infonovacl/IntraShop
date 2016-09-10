@@ -1,8 +1,5 @@
 ﻿<%@ Master Language="VB" CodeFile="Maestro.master.vb" Inherits="Maestro" EnableViewState="true"%>
 <!DOCTYPE html>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" /> 
-<meta name="robots" content="noodp,noydir" /> 
 <html>
 <head runat="server">
     <title>Sistema Administrativo Web </title>
@@ -34,9 +31,6 @@ function validar_rut(source, arguments) {
         .auto-style1 {
             height: 30px;
         }
-        .auto-style3 {
-            width: 99%;
-        }
         .auto-style5 {
             width: 83px;
         }
@@ -47,6 +41,9 @@ function validar_rut(source, arguments) {
         .auto-style14 {
             left: 0px;
             top: 130px;
+        }
+        .auto-style3 {
+            width: 99%;
         }
         .auto-style16 {
             width: 52px;
@@ -60,7 +57,6 @@ function validar_rut(source, arguments) {
     <form id="fondo" runat="server" >
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server">
-             <asp:TextBox ID="TXT_RutMaster" runat="server" Width="91px" ViewStateMode="Enabled"></asp:TextBox>
              <asp:ScriptManager ID="ScriptManagerMaestro" runat="server" AsyncPostBackTimeout="360000" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
              </asp:ScriptManager>
              </div>
@@ -148,8 +144,6 @@ function validar_rut(source, arguments) {
              <br />
                       </div>
          <div id ="pie" runat="server" class="auto-style9">                                           
-                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                                    <ContentTemplate>
                                         <table cellspacing="1" class="auto-style3">
                                             <tr>
                                                 <td class="auto-style16" >
@@ -181,8 +175,6 @@ function validar_rut(source, arguments) {
                                                 </td>
                                             </tr>
                                         </table>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
            </div>
       </div>
 </form>

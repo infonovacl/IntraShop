@@ -4,27 +4,12 @@ Imports System.Data.SqlClient
 Imports System.Web.Security
 Partial Class Maestro
     Inherits System.Web.UI.MasterPage
-    Public Property PropertyMasterTextBox2() As TextBox
-        Get
-            Return TXT_RutMaster
-        End Get
-        Set(value As TextBox)
-            TXT_RutMaster = value
-        End Set
-    End Property
-    Public Property PropertyMasterLabelUsuario() As Label
-        Get
-            Return UsuarioNombre
-        End Get
-        Set(value2 As Label)
-            UsuarioNombre = value2
-        End Set
-    End Property
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'If Not Me.Page.User.Identity.IsAuthenticated Then
-        ' FormsAuthentication.RedirectToLoginPage()
-        ' End If
         If IsPostBack = False And Page.User.Identity.IsAuthenticated = True Then
+            Me.UsuarioNombre.Text = Session("nombreusuario")
+            Me.CTienda.Text = Session("sucursal")
+            Me.Caja.Text = Session("caja")
+            Me.CajaNombreTienda.Text = Session("nombretienda")
             Me.LBL_LoginError.Visible = True
             Me.LBL_LoginError.Text = ""
             Me.Panel_menu.Visible = True
@@ -33,16 +18,15 @@ Partial Class Maestro
             Me.Panel_menu.Style.Add("height", "412px")
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
-            ' ElseIf IsPostBack = False And Not Page.User.Identity.IsAuthenticated Then
-            ' Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
-            'Me.Panel_menu.Visible = False
         ElseIf IsPostBack = True And Page.User.Identity.IsAuthenticated = True Then
-            Me.Panel_menu.Visible = True
-            Me.Panel_menu.Style.Add("position", "absolute")
-            Me.Panel_menu.Style.Add("top", "1px")
-            Me.Panel_menu.Style.Add("height", "412px")
-            Me.Panel_menu.Style.Add("width", "210px")
-            Me.TVM_Principal.ExpandAll()
+            If Me.Panel_menu.Visible = False Then
+                Me.Panel_menu.Visible = True
+                Me.Panel_menu.Style.Add("position", "absolute")
+                Me.Panel_menu.Style.Add("top", "1px")
+                Me.Panel_menu.Style.Add("height", "412px")
+                Me.Panel_menu.Style.Add("width", "210px")
+                Me.TVM_Principal.ExpandAll()
+            End If
         End If
     End Sub
     Protected Sub BTN_Entrar_Click(sender As Object, e As EventArgs) Handles BTN_Entrar.Click
@@ -120,5 +104,13 @@ Partial Class Maestro
     Protected Sub TXT_UsuarioRut_TextChanged(sender As Object, e As EventArgs) Handles TXT_UsuarioRut.TextChanged
         Me.LBL_LoginError.Visible = False
         Me.LBL_LoginError.Text = ""
+    End Sub
+    Protected Sub TVM_Principal_SelectedNodeChanged(sender As Object, e As EventArgs) Handles TVM_Principal.SelectedNodeChanged
+        If Me.TVM_Principal.SelectedNode.Text = "Salir" Then
+            Session.Clear()
+            Session.Abandon()
+            FormsAuthentication.SignOut()
+            FormsAuthentication.RedirectToLoginPage()
+        End If
     End Sub
 End Class

@@ -9,20 +9,13 @@ Partial Class _Default
             partes = Split(Me.Login1.UserName, "-")
             Dim DATADSLogin As New Data.DataSet
             DATADSLogin.Clear()
-            Dim RutCliente As Integer
-            RutCliente = Session("rut")
-            Globales.conn.Open()
             Dim STRLogin As String = "execute procedure procw_login  ('" & CType(partes(0), Integer) & "','" & partes(1) & "','" & Trim(Me.Login1.Password) & "')"
             Dim DATALogin As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLogin, Globales.conn)
             DATALogin.Fill(DATADSLogin, "PRUEBA")
-            Globales.conn.Close()
             If DATADSLogin.Tables(0).Rows(0)(0) = 1 Then
-                Me.Login1.FailureText = DATADSLogin.Tables(0).Rows(0)(1) 'mensaje de error
-                Session("usuario_validado") = "no"
-                Login1.FailureText = "Usuario y/o contraseña no son correctos."
+                Me.Login1.FailureText = DATADSLogin.Tables(0).Rows(0)(1) 'mensaje de error                       
                 e.Authenticated = False
             Else
-                Session("usuario_validado") = "si"
                 Dim nombre, apellido, nombretienda As String
                 If DATADSLogin.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
                     nombre = ""
@@ -43,10 +36,6 @@ Partial Class _Default
                     End If
                 End If
                 Session("nombreusuario") = nombre & " " & apellido
-                'Label mpLabel = (Label)Page.Master.FindControl("Label_welcome")
-                'Dim nusuario As Label = Me.Page.Master.FindControl("usuarionombre")
-                'nusuario.Text = nombre & " " & apellido
-                Me.Master.PropertyMasterLabelUsuario.Text = nombre & " " & apellido
                 Session("sucursal") = Trim(DATADSLogin.Tables(0).Rows(0)(2)) ' codigo tienda
                 Session("caja") = Trim(DATADSLogin.Tables(0).Rows(0)(7)) 'nro caja
                 If DATADSLogin.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
@@ -65,17 +54,5 @@ Partial Class _Default
         Catch EX As Exception
             MsgBox(EX)
         End Try
-        'Dim userid As String
-        'Select Case userId
-        ' Case -1
-        ' Login1.FailureText = "Username and/or password is incorrect."
-        ' Exit Select
-        ' Case -2
-        ' Login1.FailureText = "Account has not been activated."
-        ' Exit Select
-        ' Case Else
-        ' FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
-        ' Exit Select
-        'End Select
     End Sub
 End Class

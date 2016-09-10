@@ -31,9 +31,7 @@
     ' End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
-            'Me.TXT_RutCliente.Text = Master.PropertyMasterTextBox2
-            ' Master.PropertyMasterTextBox2.Text = Me.TXT_RutCliente.Text
-            '   Master.Master.FindControl("TVM_Principal").           
+
             Me.TXT_ConsultaRutCliente.Enabled = False
             Me.TXT_ConsultaDV.Enabled = False
             Me.TXT_ConsultaNombreCompleto.Enabled = False
