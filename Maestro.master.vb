@@ -12,6 +12,14 @@ Partial Class Maestro
             TXT_RutMaster = value
         End Set
     End Property
+    Public Property PropertyMasterLabelUsuario() As Label
+        Get
+            Return UsuarioNombre
+        End Get
+        Set(value2 As Label)
+            UsuarioNombre = value2
+        End Set
+    End Property
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         'If Not Me.Page.User.Identity.IsAuthenticated Then
         ' FormsAuthentication.RedirectToLoginPage()
@@ -25,10 +33,10 @@ Partial Class Maestro
             Me.Panel_menu.Style.Add("height", "412px")
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
-            Me.UsuarioNombre.Text = Session("nombreusuario")
-            Me.CTienda.Text = Session("sucursal")
-            Me.Caja.Text = Session("caja")
-            Me.CajaNombreTienda.Text = Session("nombretienda")
+            'Me.UsuarioNombre.Text = Session("nombreusuario")
+            'Me.CTienda.Text = Session("sucursal")
+            'Me.Caja.Text = Session("caja")
+            'Me.CajaNombreTienda.Text = Session("nombretienda")
         ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
             Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
             Me.Panel_menu.Visible = False
@@ -42,13 +50,13 @@ Partial Class Maestro
         End If
     End Sub
     Protected Sub BTN_Entrar_Click(sender As Object, e As EventArgs) Handles BTN_Entrar.Click
-        Me.LBL_LoginError.Visible = False
-        Me.LBL_LoginError.Text = ""
-        If Page.IsValid = True Then
-            Dim partes() As String
-            partes = Split(Me.TXT_UsuarioRut.Text, "-")
-            Autenticar(CType(partes(0), Integer), partes(1), Trim(Me.TXT_UsuarioContraseña.Text))
-        End If
+        'Me.LBL_LoginError.Visible = False
+        'Me.LBL_LoginError.Text = ""
+        'If Page.IsValid = True Then
+        ' Dim partes() As String
+        'partes = Split(Me.TXT_UsuarioRut.Text, "-")
+        'Autenticar(CType(partes(0), Integer), partes(1), Trim(Me.TXT_UsuarioContraseña.Text))
+        ' End If
     End Sub
     Private Function Autenticar(ByVal rut_usuario, ByVal dv_usuario, ByVal clave)
         Try

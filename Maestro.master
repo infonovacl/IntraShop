@@ -148,9 +148,7 @@ function validar_rut(source, arguments) {
              <br />
                       </div>
          <div id ="pie" runat="server" class="auto-style9">                                           
-             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                 <ContentTemplate>
-                     <table cellspacing="1" class="auto-style3">
+                                <table cellspacing="1" class="auto-style3">
                          <tr>
                              <td class="auto-style16" >
                                  <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
@@ -182,8 +180,6 @@ function validar_rut(source, arguments) {
                              </td>
                          </tr>
                      </table>
-                 </ContentTemplate>
-             </asp:UpdatePanel>
            </div>
       </div>
 </form>
