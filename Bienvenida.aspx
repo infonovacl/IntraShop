@@ -26,70 +26,64 @@ function validar_rut(source, arguments) {
                 <asp:Label ID="Label2" runat="server" CssClass="auto-style1" Text="Administrativo Web"></asp:Label>
             </h1>
             <p>
-                &nbsp;</p>
-            <p>
-                &nbsp;</p>
-            <br />
-            <div style="text-align: left">
-                <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DestinationPageUrl="~/Cliente.aspx" DisplayRememberMe="False" Font-Names="Verdana" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px">
-                    <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
-                    <LabelStyle CssClass="etiquetas" />
-                    <LayoutTemplate>
-                        <table cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
-                            <tr>
-                                <td>
-                                    <table cellpadding="0" style="height:187px;width:760px;">
-                                        <tr>
-                                            <td align="center" colspan="3" style="color:White;background-color:#5D7B9D;font-size:0.9em;font-weight:bold;">Iniciar Sesión</td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" class="etiquetas" style="width: 243px">
-                                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" CssClass="etiquetasimportante">Usuario :</asp:Label>
-                                            </td>
-                                            <td style="width: 309px">
-                                                &nbsp;&nbsp;
-                                                <asp:TextBox ID="UserName" runat="server" CssClass="etiquetas" Font-Size="11pt" Width="120px"></asp:TextBox>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" Display="Dynamic" ErrorMessage="  RUT NO ES VÁLIDO" SetFocusOnError="True" ValidationGroup="login"></asp:CustomValidator>
-                                            </td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ClientvalidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" ErrorMessage="User Name is required." ForeColor="Red" ToolTip="User Name is required." ValidationGroup="Login1">Debe Ingresar Usuario</asp:RequiredFieldValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" class="etiquetas" style="width: 243px">
-                                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="etiquetasimportante">Password:</asp:Label>
-                                            </td>
-                                            <td style="width: 309px">
-                                                &nbsp;&nbsp;
-                                                <asp:TextBox ID="Password" runat="server" CssClass="etiquetas" Font-Size="11pt" TextMode="Password" Width="120px"></asp:TextBox>
-                                                &nbsp;&nbsp;&nbsp;
-                                            </td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" CssClass="etiquetasmensaje" ErrorMessage="Password is required." ForeColor="Red" ToolTip="Password is required." ValidationGroup="Login1">Debe Ingresar Contraseña</asp:RequiredFieldValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center" colspan="3" style="color:Red;">
-                                                <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" style="text-align: center">
-                                                <asp:Button ID="LoginButton" runat="server" BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" CssClass="etiquetasimportante" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284775" Height="30px" Text="Iniciar Sesión" ValidationGroup="Login1"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </LayoutTemplate>
-                    <LoginButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" CssClass="etiquetas" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284775" Height="30px" />
-                    <TextBoxStyle CssClass="etiquetas" Font-Size="11pt" />
-                    <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" Font-Size="0.9em" ForeColor="White" />
-                </asp:Login>
-            </div>
-            <br />
-            <br />
+                </p>
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                <ContentTemplate>
+                    <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DestinationPageUrl="~/Cliente.aspx" DisplayRememberMe="False" Font-Names="Verdana" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px">
+                        <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
+                        <LabelStyle CssClass="etiquetas" />
+                        <LayoutTemplate>
+                            <table cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+                                <tr>
+                                    <td>
+                                        <table cellpadding="0" style="height:187px;width:760px;">
+                                            <tr>
+                                                <td align="center" colspan="3" style="color:White;background-color:#5D7B9D;font-size:0.9em;font-weight:bold;">Iniciar Sesión</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right" class="etiquetas" style="width: 271px">
+                                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" CssClass="etiquetasimportante">Usuario :</asp:Label>
+                                                </td>
+                                                <td style="width: 309px; text-align: left;">&nbsp;&nbsp;&nbsp;
+                                                    <asp:TextBox ID="UserName" runat="server" CssClass="etiquetas" Font-Size="11pt" Width="120px"></asp:TextBox>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" Display="Dynamic" ErrorMessage="  RUT NO ES VÁLIDO" SetFocusOnError="True" ValidationGroup="login"></asp:CustomValidator>
+                                                </td>
+                                                <td>
+                                                    <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ClientvalidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" ErrorMessage="User Name is required." ForeColor="Red" ToolTip="User Name is required." ValidationGroup="Login1">Debe Ingresar Usuario</asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right" class="etiquetas" style="width: 271px">
+                                                    <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="etiquetasimportante">Password:</asp:Label>
+                                                </td>
+                                                <td style="width: 309px; text-align: left;">&nbsp;&nbsp;&nbsp; 
+                                                    <asp:TextBox ID="Password" runat="server" CssClass="etiquetas" Font-Size="11pt" TextMode="Password" Width="120px"></asp:TextBox>
+                                                    &nbsp;&nbsp;&nbsp; </td>
+                                                <td>
+                                                    <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" CssClass="etiquetasmensaje" ErrorMessage="Password is required." ForeColor="Red" ToolTip="Password is required." ValidationGroup="Login1">Debe Ingresar Contraseña</asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" colspan="3" style="color:Red; height: 29px;">
+                                                    <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="text-align: center">
+                                                    <asp:Button ID="LoginButton" runat="server" BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" CssClass="etiquetasimportante" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284775" Height="30px" Text="Iniciar Sesión" ValidationGroup="Login1" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </LayoutTemplate>
+                        <LoginButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" CssClass="etiquetas" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284775" Height="30px" />
+                        <TextBoxStyle CssClass="etiquetas" Font-Size="11pt" />
+                        <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" Font-Size="0.9em" ForeColor="White" />
+                    </asp:Login>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </asp:Panel>
 </asp:Content>

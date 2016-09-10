@@ -1,6 +1,5 @@
 ﻿Imports System.Data
 Imports System.Configuration
-Imports System.Data.SqlClient
 Imports System.Web.Security
 Partial Class _Default
     Inherits System.Web.UI.Page
@@ -19,9 +18,11 @@ Partial Class _Default
             Globales.conn.Close()
             If DATADSLogin.Tables(0).Rows(0)(0) = 1 Then
                 Me.Login1.FailureText = DATADSLogin.Tables(0).Rows(0)(1) 'mensaje de error
-                ' Session("usuario_validado") = "no"
+                Session("usuario_validado") = "no"
+                Login1.FailureText = "Usuario y/o contraseña no son correctos."
+                e.Authenticated = False
             Else
-                'Session("usuario_validado") = "si"
+                Session("usuario_validado") = "si"
                 Dim nombre, apellido, nombretienda As String
                 If DATADSLogin.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
                     nombre = ""
@@ -59,35 +60,22 @@ Partial Class _Default
                 End If
                 Session("nombretienda") = nombretienda
                 Session("usuario") = CType(partes(0), Integer) 'rut  
-
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
-
-
-
-                'Me.Panel_Login.Visible = False
-                'Me.Panel_menu.Visible = True
-                'Me.Panel_menu.Style.Add("position", "absolute")
-                'Me.Panel_menu.Style.Add("top", "1px")
-                'Me.Panel_menu.Style.Add("height", "412px")
-                'Me.Panel_menu.Style.Add("width", "210px")
-                'Me.TVM_Principal.ExpandAll()
-                'Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
-                'Me.LBL_LoginError.Visible = False
+                e.Authenticated = True
             End If
         Catch EX As Exception
             MsgBox(EX)
         End Try
-        Dim userid As String
-        Select Case userId
-            Case -1
-                Login1.FailureText = "Username and/or password is incorrect."
-                Exit Select
-            Case -2
-                Login1.FailureText = "Account has not been activated."
-                Exit Select
-            Case Else
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
-                Exit Select
-        End Select
+        'Dim userid As String
+        'Select Case userId
+        ' Case -1
+        ' Login1.FailureText = "Username and/or password is incorrect."
+        ' Exit Select
+        ' Case -2
+        ' Login1.FailureText = "Account has not been activated."
+        ' Exit Select
+        ' Case Else
+        ' FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet)
+        ' Exit Select
+        'End Select
     End Sub
 End Class

@@ -148,38 +148,41 @@ function validar_rut(source, arguments) {
              <br />
                       </div>
          <div id ="pie" runat="server" class="auto-style9">                                           
-                                <table cellspacing="1" class="auto-style3">
-                         <tr>
-                             <td class="auto-style16" >
-                                 <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
-                             </td>
-                             <td colspan="3">
-                                 <asp:Label ID="UsuarioNombre" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="auto-style16" >
-                                 <asp:Label ID="Label14" runat="server" CssClass="etiquetas" Text="Cód. Tda."></asp:Label>
-                             </td>
-                             <td class="auto-style17">
-                                 &nbsp;<asp:Label ID="CTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
-                             </td>
-                             <td >
-                                 <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Caja"></asp:Label>
-                             </td>
-                             <td >
-                                 <asp:Label ID="Caja" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="auto-style16" >
-                                 <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
-                             </td>
-                             <td  colspan="3">
-                                 <asp:Label ID="CajaNombreTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
-                             </td>
-                         </tr>
-                     </table>
+                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                    <ContentTemplate>
+                                        <table cellspacing="1" class="auto-style3">
+                                            <tr>
+                                                <td class="auto-style16" >
+                                                    <asp:Label ID="Label10" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
+                                                </td>
+                                                <td colspan="3">
+                                                    <asp:Label ID="UsuarioNombre" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="auto-style16" >
+                                                    <asp:Label ID="Label14" runat="server" CssClass="etiquetas" Text="Cód. Tda."></asp:Label>
+                                                </td>
+                                                <td class="auto-style17">&nbsp;<asp:Label ID="CTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                                                </td>
+                                                <td >
+                                                    <asp:Label ID="Label13" runat="server" CssClass="etiquetas" Text="Caja"></asp:Label>
+                                                </td>
+                                                <td >
+                                                    <asp:Label ID="Caja" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="auto-style16" >
+                                                    <asp:Label ID="Label12" runat="server" CssClass="etiquetas" Text="Tienda"></asp:Label>
+                                                </td>
+                                                <td  colspan="3">
+                                                    <asp:Label ID="CajaNombreTienda" runat="server" CssClass="etiquetas" ViewStateMode="Enabled"></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
            </div>
       </div>
 </form>

@@ -24,7 +24,7 @@ Partial Class Maestro
         'If Not Me.Page.User.Identity.IsAuthenticated Then
         ' FormsAuthentication.RedirectToLoginPage()
         ' End If
-        If IsPostBack = False And Session("usuario_validado") = "si" Then
+        If IsPostBack = False And Page.User.Identity.IsAuthenticated = True Then
             Me.LBL_LoginError.Visible = True
             Me.LBL_LoginError.Text = ""
             Me.Panel_menu.Visible = True
@@ -33,14 +33,10 @@ Partial Class Maestro
             Me.Panel_menu.Style.Add("height", "412px")
             Me.Panel_menu.Style.Add("width", "210px")
             Me.TVM_Principal.ExpandAll()
-            'Me.UsuarioNombre.Text = Session("nombreusuario")
-            'Me.CTienda.Text = Session("sucursal")
-            'Me.Caja.Text = Session("caja")
-            'Me.CajaNombreTienda.Text = Session("nombretienda")
-        ElseIf IsPostBack = False And Session("usuario_validado") = "no" Then
-            Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
-            Me.Panel_menu.Visible = False
-        ElseIf IsPostBack = True And Session("usuario_validado") = "si" Then
+            ' ElseIf IsPostBack = False And Not Page.User.Identity.IsAuthenticated Then
+            ' Response.Write("<script>window.open(""Bienvenida.aspx"", ""_self"")</script>")
+            'Me.Panel_menu.Visible = False
+        ElseIf IsPostBack = True And Page.User.Identity.IsAuthenticated = True Then
             Me.Panel_menu.Visible = True
             Me.Panel_menu.Style.Add("position", "absolute")
             Me.Panel_menu.Style.Add("top", "1px")
