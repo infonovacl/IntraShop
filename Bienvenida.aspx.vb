@@ -50,6 +50,8 @@ Partial Class _Default
                 Session("nombretienda") = nombretienda
                 Session("usuario") = CType(partes(0), Integer) 'rut  
                 e.Authenticated = True
+                Response.Write("<script>window.alert('SI PASO LOGIN');</script>")
+                'Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
             End If
         Catch EX As Exception
             MsgBox(EX)

@@ -1,12 +1,17 @@
 ﻿Partial Class Cliente
     Inherits System.Web.UI.Page
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If IsPostBack = False Then
+        If IsPostBack = False And Page.User.Identity.IsAuthenticated = True Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
             menu.Enabled = False
             menu.Font.Strikeout = True
-            Session("validado") = "no"
+            Dim panelmenu As Panel
+            panelmenu = Master.FindControl("Panel_menu")
+            panelmenu.Visible = True
+            Dim panelcerrarsesion As Panel
+            panelcerrarsesion = Master.FindControl("Panel_Login")
+            panelcerrarsesion.Visible = True
             Me.Focus()
             Me.TXT_ConsultaRutCliente.Focus()
         End If
@@ -44,7 +49,6 @@
                     If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                         Me.LBL_MensajeContratos.Visible = True
                         Me.Tab_Consultas.ActiveTabIndex = 16
-                        Session("validado") = "no"
                         Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
                         Me.TXT_ConsultaRutCliente.Focus()
                     Else
@@ -282,7 +286,6 @@
                         End If
                         Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
                         Session("dv") = Me.TXT_ConsultaDV.Text
-                        Session("validado") = "si"
                         Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
                         Me.BTN_Buscar.Enabled = False
                     End If
@@ -311,7 +314,7 @@
         Next
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
-        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 And Session("validado") = "si" Then
+        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
             'Me.LBL_MensajeContratos.Visible = False
             'Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
@@ -1081,7 +1084,6 @@
         menu.Enabled = False
         menu.Font.Strikeout = True
         LimpiaControles(Me.Controls)
-        Session("validado") = "no"
         Me.TXT_ConsultaRutCliente.Enabled = True
         Me.TXT_ConsultaDV.Enabled = True
         Me.TXT_ConsultaNombreCompleto.Enabled = True

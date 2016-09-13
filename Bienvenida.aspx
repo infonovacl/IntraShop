@@ -18,7 +18,7 @@ function validar_rut(source, arguments) {
         arguments.IsValid = true;
 }
 </script>
-      <asp:Panel ID="Panel1" runat="server" style="text-align: center" Height="67px">
+      <asp:Panel ID="Panel1" runat="server" style="text-align: center" Height="98px">
             <h1>
                 <asp:Label ID="Label1" runat="server" CssClass="auto-style1" Text="Bienvenidos a Sistema" TabIndex="92"></asp:Label>
                 <br />
@@ -37,7 +37,7 @@ function validar_rut(source, arguments) {
 <br />
 <br />
 <br />
-            <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DestinationPageUrl="~/Cliente.aspx" DisplayRememberMe="False" Font-Names="Arial" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px" TabIndex="90">
+            <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DisplayRememberMe="False" Font-Names="Arial" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px" TabIndex="90" DestinationPageUrl="~/Cliente.aspx">
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
                 <LabelStyle CssClass="etiquetas" />
                 <LayoutTemplate>
