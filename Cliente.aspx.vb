@@ -30,269 +30,275 @@
     ' Return customers
     ' End Function
     Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
-        If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
-
-            Me.TXT_ConsultaRutCliente.Enabled = False
-            Me.TXT_ConsultaDV.Enabled = False
-            Me.TXT_ConsultaNombreCompleto.Enabled = False
-            Me.BTN_BuscaXNombre.Enabled = False
-            Dim DataDSDatosCliente As New Data.DataSet
-            Try
-                Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "')"
-                Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
-                DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
-                If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
-                    Me.LBL_MensajeContratos.Visible = True
-                    Me.Tab_Consultas.ActiveTabIndex = 16
-                    Session("validado") = "no"
-                    Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
-                    Me.TXT_ConsultaRutCliente.Focus()
-                Else
-                    Dim menu As TreeView
-                    menu = Master.FindControl("TVM_Principal")
-                    menu.Enabled = True
-                    menu.Font.Strikeout = False
-                    Me.Tab_Consultas.ActiveTabIndex = 16
-                    Me.LBL_MensajeContratos.Text = ""
-                    Me.LBL_MensajeContratos.Visible = True
-                    If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaNombreCompleto.Text = ""
+        If Page.User.Identity.IsAuthenticated = True Then
+            If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
+                Me.TXT_ConsultaRutCliente.Enabled = False
+                Me.TXT_ConsultaDV.Enabled = False
+                Me.TXT_ConsultaNombreCompleto.Enabled = False
+                Me.BTN_BuscaXNombre.Enabled = False
+                Dim DataDSDatosCliente As New Data.DataSet
+                Try
+                    Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "')"
+                    Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
+                    DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
+                    If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
+                        Me.LBL_MensajeContratos.Visible = True
+                        Me.Tab_Consultas.ActiveTabIndex = 16
+                        Session("validado") = "no"
+                        Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
+                        Me.TXT_ConsultaRutCliente.Focus()
                     Else
-                        Me.TXT_ConsultaNombreCompleto.Text = DataDSDatosCliente.Tables(0).Rows(0)(2)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDireccCalle.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccCalle.Text = DataDSDatosCliente.Tables(0).Rows(0)(3)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDireccNumero.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccNumero.Text = DataDSDatosCliente.Tables(0).Rows(0)(4)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDireccDepto.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccDepto.Text = DataDSDatosCliente.Tables(0).Rows(0)(5)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDireccVilla.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccVilla.Text = DataDSDatosCliente.Tables(0).Rows(0)(6)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDireccAltura.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccAltura.Text = DataDSDatosCliente.Tables(0).Rows(0)(7)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaTeleFonoParticular.Text = ""
-                    Else
-                        Me.TXT_ConsultaTeleFonoParticular.Text = DataDSDatosCliente.Tables(0).Rows(0)(8)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaTeleFonoCelular.Text = ""
-                    Else
-                        Me.TXT_ConsultaTeleFonoCelular.Text = DataDSDatosCliente.Tables(0).Rows(0)(9)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(11) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaFolioContrato.Text = ""
-                    Else
-                        Me.TXT_ConsultaFolioContrato.Text = DataDSDatosCliente.Tables(0).Rows(0)(11)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(14) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDiaPago.Text = ""
-                    Else
-                        Me.TXT_ConsultaDiaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
-                        Session("diapago") = DataDSDatosCliente.Tables(0).Rows(0)(14)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaLineaCredito.Text = ""
-                    Else
-                        Me.TXT_ConsultaLineaCredito.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(15), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaCupoDisponible.Text = ""
-                    Else
-                        Me.TXT_ConsultaCupoDisponible.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaEstadoGeneral.Text = ""
-                    Else
-                        Me.TXT_ConsultaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(17)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(18) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaFechaEstadoGeneral.Text = ""
-                    Else
-                        Me.TXT_ConsultaFechaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(18)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaFechaUltimaMantención.Text = ""
-                    Else
-                        Me.TXT_ConsultaFechaUltimaMantención.Text = DataDSDatosCliente.Tables(0).Rows(0)(19)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaNumeroSucursal.Text = ""
-                    Else
-                        Me.TXT_ConsultaNumeroSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(20)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaNombreSucursal.Text = ""
-                    Else
-                        Me.TXT_ConsultaNombreSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(21)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(22) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDireccComuna.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccComuna.Text = DataDSDatosCliente.Tables(0).Rows(0)(22)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(23) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaFechaPago.Text = ""
-                    Else
-                        Me.TXT_ConsultaFechaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(23)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaMontoAPago.Text = "0"
-                    Else
-                        Me.TXT_ConsultaMontoAPago.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(24), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaPagosPeriodo.Text = "0"
-                    Else
-                        Me.TXT_ConsultaPagosPeriodo.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(25), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaSaldo.Text = "0"
-                    Else
-                        Me.TXT_ConsultaSaldo.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(26), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(27) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDiasMora.Text = "0"
-                    Else
-                        Me.TXT_ConsultaDiasMora.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(27), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaTotalDeuda.Text = "0"
-                    Else
-                        Me.TXT_ConsultaTotalDeuda.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(28), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
-                        Me.LBL_MensajeAvance.Text = ""
-                    Else
-                        Me.LBL_MensajeAvance.Text = DataDSDatosCliente.Tables(0).Rows(0)(29)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(30) Is System.DBNull.Value Then
+                        Dim menu As TreeView
+                        menu = Master.FindControl("TVM_Principal")
+                        menu.Enabled = True
+                        menu.Font.Strikeout = False
+                        Me.Tab_Consultas.ActiveTabIndex = 16
                         Me.LBL_MensajeContratos.Text = ""
-                    Else
-                        Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(30)
-                    End If
-                    '******************************CUOTAS 
-                    If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then
-                        Me.LBL_Vencimiento1.Text = "-"
-                    Else
-                        Me.LBL_Vencimiento1.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(32) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaValorVencimientoCuota1.Text = "0"
-                    Else
-                        Me.TXT_ConsultaValorVencimientoCuota1.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(32), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then
-                        Me.LBL_Vencimiento2.Text = "-"
-                    Else
-                        Me.LBL_Vencimiento2.Text = DataDSDatosCliente.Tables(0).Rows(0)(33)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaValorVencimientoCuota2.Text = "0"
-                    Else
-                        Me.TXT_ConsultaValorVencimientoCuota2.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(34), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then
-                        Me.LBL_Vencimiento3.Text = "-"
-                    Else
-                        Me.LBL_Vencimiento3.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaValorVencimientoCuota3.Text = "0"
-                    Else
-                        Me.TXT_ConsultaValorVencimientoCuota3.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(37) Is System.DBNull.Value Then
-                        Me.LBL_Vencimiento4.Text = "-"
-                    Else
-                        Me.LBL_Vencimiento4.Text = DataDSDatosCliente.Tables(0).Rows(0)(37)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(38) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaValorVencimientoCuota4.Text = "0"
-                    Else
-                        Me.TXT_ConsultaValorVencimientoCuota4.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(38), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(39) Is System.DBNull.Value Then
-                        Me.LBL_Vencimiento5.Text = "-"
-                    Else
-                        Me.LBL_Vencimiento5.Text = DataDSDatosCliente.Tables(0).Rows(0)(39)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(40) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaValorVencimientoCuota5.Text = "0"
-                    Else
-                        Me.TXT_ConsultaValorVencimientoCuota5.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(40), Integer), "###,###,##0")
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(41) Is System.DBNull.Value Then
-                        Me.LBL_Vencimiento6.Text = "-"
-                    Else
-                        Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(41)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(42) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaValorVencimientoCuota6.Text = "0"
-                    Else
-                        Me.TXT_ConsultaValorVencimientoCuota6.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(42), Integer), "###,###,##0")
-                    End If
-                    'If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then  '   EDAD
-                    ' Me.LBL_Vencimiento6.Text = ""
-                    ' Else
-                    ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
-                    ' End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(44) Is System.DBNull.Value Then
-                        Me.TXT_ConsultaDV.Text = ""
-                    Else
-                        Me.TXT_ConsultaDV.Text = DataDSDatosCliente.Tables(0).Rows(0)(44)
-                    End If
-                    If DataDSDatosCliente.Tables(0).Rows(0)(45) Is System.DBNull.Value Then  '********REGION 
-                        Me.TXT_ConsultaDireccRegion.Text = ""
-                    Else
-                        Me.TXT_ConsultaDireccRegion.Text = DataDSDatosCliente.Tables(0).Rows(0)(45)
-                    End If
-                    Dim OpcionGeneral As Integer
-                    If DataDSDatosCliente.Tables(0).Rows(0)(47) Is System.DBNull.Value Then  '********ESTADO GENERAL 
-                        OpcionGeneral = 0
-                    Else
-                        OpcionGeneral = CType(DataDSDatosCliente.Tables(0).Rows(0)(47), Integer)
-                        If OpcionGeneral = 3 Then 'rechazo                                                  
-                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
-                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
+                        Me.LBL_MensajeContratos.Visible = True
+                        If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaNombreCompleto.Text = ""
+                        Else
+                            Me.TXT_ConsultaNombreCompleto.Text = DataDSDatosCliente.Tables(0).Rows(0)(2)
                         End If
-                        If OpcionGeneral = 2 Then 'verificacion                                               
-                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
-                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Rechazo
+                        If DataDSDatosCliente.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDireccCalle.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccCalle.Text = DataDSDatosCliente.Tables(0).Rows(0)(3)
                         End If
-                        If OpcionGeneral = 4 Then 'Bloqueado                                            
-                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Revisa Rechazo
-                            menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Verificacion
+                        If DataDSDatosCliente.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDireccNumero.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccNumero.Text = DataDSDatosCliente.Tables(0).Rows(0)(4)
                         End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDireccDepto.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccDepto.Text = DataDSDatosCliente.Tables(0).Rows(0)(5)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDireccVilla.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccVilla.Text = DataDSDatosCliente.Tables(0).Rows(0)(6)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(7) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDireccAltura.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccAltura.Text = DataDSDatosCliente.Tables(0).Rows(0)(7)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(8) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaTeleFonoParticular.Text = ""
+                        Else
+                            Me.TXT_ConsultaTeleFonoParticular.Text = DataDSDatosCliente.Tables(0).Rows(0)(8)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaTeleFonoCelular.Text = ""
+                        Else
+                            Me.TXT_ConsultaTeleFonoCelular.Text = DataDSDatosCliente.Tables(0).Rows(0)(9)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(11) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaFolioContrato.Text = ""
+                        Else
+                            Me.TXT_ConsultaFolioContrato.Text = DataDSDatosCliente.Tables(0).Rows(0)(11)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(14) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDiaPago.Text = ""
+                        Else
+                            Me.TXT_ConsultaDiaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
+                            Session("diapago") = DataDSDatosCliente.Tables(0).Rows(0)(14)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaLineaCredito.Text = ""
+                        Else
+                            Me.TXT_ConsultaLineaCredito.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(15), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(16) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaCupoDisponible.Text = ""
+                        Else
+                            Me.TXT_ConsultaCupoDisponible.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(16), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaEstadoGeneral.Text = ""
+                        Else
+                            Me.TXT_ConsultaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(17)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(18) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaFechaEstadoGeneral.Text = ""
+                        Else
+                            Me.TXT_ConsultaFechaEstadoGeneral.Text = DataDSDatosCliente.Tables(0).Rows(0)(18)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaFechaUltimaMantención.Text = ""
+                        Else
+                            Me.TXT_ConsultaFechaUltimaMantención.Text = DataDSDatosCliente.Tables(0).Rows(0)(19)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaNumeroSucursal.Text = ""
+                        Else
+                            Me.TXT_ConsultaNumeroSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(20)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(21) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaNombreSucursal.Text = ""
+                        Else
+                            Me.TXT_ConsultaNombreSucursal.Text = DataDSDatosCliente.Tables(0).Rows(0)(21)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(22) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDireccComuna.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccComuna.Text = DataDSDatosCliente.Tables(0).Rows(0)(22)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(23) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaFechaPago.Text = ""
+                        Else
+                            Me.TXT_ConsultaFechaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(23)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaMontoAPago.Text = "0"
+                        Else
+                            Me.TXT_ConsultaMontoAPago.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(24), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaPagosPeriodo.Text = "0"
+                        Else
+                            Me.TXT_ConsultaPagosPeriodo.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(25), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaSaldo.Text = "0"
+                        Else
+                            Me.TXT_ConsultaSaldo.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(26), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(27) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDiasMora.Text = "0"
+                        Else
+                            Me.TXT_ConsultaDiasMora.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(27), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaTotalDeuda.Text = "0"
+                        Else
+                            Me.TXT_ConsultaTotalDeuda.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(28), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(29) Is System.DBNull.Value Then
+                            Me.LBL_MensajeAvance.Text = ""
+                        Else
+                            Me.LBL_MensajeAvance.Text = DataDSDatosCliente.Tables(0).Rows(0)(29)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(30) Is System.DBNull.Value Then
+                            Me.LBL_MensajeContratos.Text = ""
+                        Else
+                            Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(30)
+                        End If
+                        '******************************CUOTAS 
+                        If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then
+                            Me.LBL_Vencimiento1.Text = "-"
+                        Else
+                            Me.LBL_Vencimiento1.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(32) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaValorVencimientoCuota1.Text = "0"
+                        Else
+                            Me.TXT_ConsultaValorVencimientoCuota1.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(32), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(33) Is System.DBNull.Value Then
+                            Me.LBL_Vencimiento2.Text = "-"
+                        Else
+                            Me.LBL_Vencimiento2.Text = DataDSDatosCliente.Tables(0).Rows(0)(33)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(34) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaValorVencimientoCuota2.Text = "0"
+                        Else
+                            Me.TXT_ConsultaValorVencimientoCuota2.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(34), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then
+                            Me.LBL_Vencimiento3.Text = "-"
+                        Else
+                            Me.LBL_Vencimiento3.Text = DataDSDatosCliente.Tables(0).Rows(0)(35)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaValorVencimientoCuota3.Text = "0"
+                        Else
+                            Me.TXT_ConsultaValorVencimientoCuota3.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(36), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(37) Is System.DBNull.Value Then
+                            Me.LBL_Vencimiento4.Text = "-"
+                        Else
+                            Me.LBL_Vencimiento4.Text = DataDSDatosCliente.Tables(0).Rows(0)(37)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(38) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaValorVencimientoCuota4.Text = "0"
+                        Else
+                            Me.TXT_ConsultaValorVencimientoCuota4.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(38), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(39) Is System.DBNull.Value Then
+                            Me.LBL_Vencimiento5.Text = "-"
+                        Else
+                            Me.LBL_Vencimiento5.Text = DataDSDatosCliente.Tables(0).Rows(0)(39)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(40) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaValorVencimientoCuota5.Text = "0"
+                        Else
+                            Me.TXT_ConsultaValorVencimientoCuota5.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(40), Integer), "###,###,##0")
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(41) Is System.DBNull.Value Then
+                            Me.LBL_Vencimiento6.Text = "-"
+                        Else
+                            Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(41)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(42) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaValorVencimientoCuota6.Text = "0"
+                        Else
+                            Me.TXT_ConsultaValorVencimientoCuota6.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(42), Integer), "###,###,##0")
+                        End If
+                        'If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then  '   EDAD
+                        ' Me.LBL_Vencimiento6.Text = ""
+                        ' Else
+                        ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
+                        ' End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(44) Is System.DBNull.Value Then
+                            Me.TXT_ConsultaDV.Text = ""
+                        Else
+                            Me.TXT_ConsultaDV.Text = DataDSDatosCliente.Tables(0).Rows(0)(44)
+                        End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(45) Is System.DBNull.Value Then  '********REGION 
+                            Me.TXT_ConsultaDireccRegion.Text = ""
+                        Else
+                            Me.TXT_ConsultaDireccRegion.Text = DataDSDatosCliente.Tables(0).Rows(0)(45)
+                        End If
+                        Dim OpcionGeneral As Integer
+                        If DataDSDatosCliente.Tables(0).Rows(0)(47) Is System.DBNull.Value Then  '********ESTADO GENERAL 
+                            OpcionGeneral = 0
+                        Else
+                            OpcionGeneral = CType(DataDSDatosCliente.Tables(0).Rows(0)(47), Integer)
+                            If OpcionGeneral = 3 Then 'rechazo                                                  
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
+                            End If
+                            If OpcionGeneral = 2 Then 'verificacion                                               
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Rechazo
+                            End If
+                            If OpcionGeneral = 4 Then 'Bloqueado                                            
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Revisa Rechazo
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Verificacion
+                            End If
+                        End If
+                        Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
+                        Session("dv") = Me.TXT_ConsultaDV.Text
+                        Session("validado") = "si"
+                        Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
+                        Me.BTN_Buscar.Enabled = False
                     End If
-                    Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
-                    Session("dv") = Me.TXT_ConsultaDV.Text
-                    Session("validado") = "si"
-                    Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
-                    Me.BTN_Buscar.Enabled = False
-                End If
-            Catch ex As Exception
-                MsgBox(ex)
-            End Try
+                Catch ex As Exception
+                    MsgBox(ex)
+                End Try
+            Else
+                Me.LBL_MensajeContratos.Visible = True
+                Me.LBL_MensajeContratos.Text = "DEBE INGRESAR UN RUT VALIDO"
+                Me.TXT_ConsultaRutCliente.Focus()
+            End If
         Else
-            Me.LBL_MensajeContratos.Visible = True
-            Me.LBL_MensajeContratos.Text = "DEBE INGRESAR UN RUT VALIDO"
-            Me.TXT_ConsultaRutCliente.Focus()
+            Session.Clear()
+            Session.Abandon()
+            FormsAuthentication.SignOut()
+            FormsAuthentication.RedirectToLoginPage()
         End If
     End Sub
     Private Sub RecorrerTreeView(ByRef Nodos As TreeNodeCollection)

@@ -49,9 +49,11 @@
 }
 #panellogin
 {
-      height: 200px;
+      top:100px;
+      height: 30px;
       width: 205px;
       border:inset 2px lightgrey;
+      position:absolute;
 }
 #pie
 {
@@ -75,8 +77,6 @@
      background-color:Transparent;
      border:none;
 }
-
-
 /*Item: DIV (Hovered)*/
 .ItemHoveredDIV 
 {
@@ -94,8 +94,6 @@
      cursor:hand;
      cursor:pointer;
 }
-
-
 /*Item: DIV (Selected)*/
 .ItemSelectedDIV 
 {
@@ -112,8 +110,6 @@
      cursor:hand;
      cursor:pointer;
 }
-
-
 /*Separator: TD*/
 .SeparatorTD
 {

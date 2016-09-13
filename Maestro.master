@@ -28,19 +28,9 @@ function validar_rut(source, arguments) {
 }
 </script>
     <style type="text/css">
-        .auto-style1 {
-            height: 30px;
-        }
-        .auto-style5 {
-            width: 83px;
-        }
         .auto-style9 {
             left: 0px;
             bottom: 2px;
-        }
-        .auto-style14 {
-            left: 0px;
-            top: 130px;
         }
         .auto-style3 {
             width: 99%;
@@ -51,64 +41,34 @@ function validar_rut(source, arguments) {
         .auto-style17 {
             width: 80px;
         }
+        .auto-style18 {
+            left: 0px;
+            top: 0px;
+        }
+        .auto-style20 {
+            text-align: center;
+        }
     </style>
     </head>  
 <body>
     <form id="fondo" runat="server" >
      <div id="contenedor" runat="server">
-         <div id ="logo" runat="server">
+         <div id ="logo" runat="server" class="auto-style18">
              <asp:ScriptManager ID="ScriptManagerMaestro" runat="server" AsyncPostBackTimeout="360000" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
              </asp:ScriptManager>
              </div>
          <div id ="contenido" runat="server">            
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" ViewStateMode="Enabled">                                           
+            <div class="auto-style20">
+            </div>
         </asp:ContentPlaceHolder>       
          </div>
-         <div id ="menulateral" runat="server" class="auto-style14">
-            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" ViewStateMode="Enabled">
-                <table class="tablalogin" >
-                    <tr>
-                        <td style="text-align: left">
-                            <asp:Label ID="Label8" runat="server" CssClass="etiquetas" Text="Usuario "></asp:Label>
-                        </td>
-                        <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioRut" runat="server" Width="75px" MaxLength="10">16455215-2</asp:TextBox>
-                        </td>
-                        <td class="auto-style5">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" SetFocusOnError="True" ValidationGroup="login" ToolTip="Debe Ingresar Rut"></asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left">
-                            <asp:Label ID="Label9" runat="server" CssClass="etiquetas" Text="Contraseña"></asp:Label>
-                        </td>
-                        <td class="auto-style5">
-                            <asp:TextBox ID="TXT_UsuarioContraseña" runat="server" Width="75px">1234</asp:TextBox>
-                        </td>
-                        <td class="auto-style5">
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TXT_UsuarioContraseña" CssClass="etiquetasmensajeerror" ErrorMessage="ERROR" ValidationGroup="login" ToolTip="Debe ingresar una Contraseña"></asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <asp:Label ID="lbl1" runat="server" CssClass="etiquetas"></asp:Label>
-                            <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="TXT_UsuarioRut" CssClass="etiquetasmensajeerror" Display="Dynamic" ErrorMessage="RUT NO ES VÁLIDO" ValidationGroup="login" SetFocusOnError="True"></asp:CustomValidator>
-                            <asp:Label ID="LBL_LoginError" ClientID="LBL_LoginError" runat="server" CssClass="etiquetasmensajeerror" ViewStateMode="Disabled"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="auto-style1">
-                            <asp:Button ID="BTN_Entrar" runat="server" Text="ENTRAR" ValidationGroup="login" style="height: 26px" />
-                        </td>
-                        <td class="auto-style1">&nbsp;</td>
-                    </tr>
-                </table>
-            </asp:Panel>
+         <div id ="menulateral" runat="server" class="menulateral">
              <asp:UpdatePanel ID="UpdatePanel1" runat="server" ViewStateMode="Enabled">
                  <ContentTemplate>
-                     <asp:Panel ID="Panel_menu"  CssClass="panelmenu" runat="server" BackColor="White"  ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled">
+                     <asp:Panel ID="Panel_menu"  CssClass="panelmenu" runat="server" BackColor="White"  ScrollBars="Vertical" Visible="False" ViewStateMode="Enabled" Height="372px">
                          <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                         <asp:TreeView ID="TVM_Principal"  ExpandDepth="1" Font-Size="10pt" Height="16px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px" ViewStateMode="Enabled" Font-Strikeout="False"  HoverNodeStyle-CssClass="ItemHoveredDIV" SelectedNodeStyle-CssClass="ItemSelectedDIV"  runat="server">
+                         <asp:TreeView ID="TVM_Principal"  ExpandDepth="2" Font-Size="10pt" Height="38px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px" ViewStateMode="Enabled" Font-Strikeout="False"  HoverNodeStyle-CssClass="ItemHoveredDIV" SelectedNodeStyle-CssClass="ItemSelectedDIV"  runat="server" CssClass="cajastexto">
                              <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" BackColor="#6666FF" />
                              <Nodes>
                                  <asp:TreeNode Text="Cliente" Value="Cliente" NavigateUrl="~/Cliente.aspx" Selected="True">
@@ -116,7 +76,7 @@ function validar_rut(source, arguments) {
                                      <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
                                          <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx','DatosClientes','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
                                          <asp:TreeNode Text="Comentarios" Value="Comentarios" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','Comentarios','top=260,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx','Adicionales','top=260,width=770,height=280,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
+                                         <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx','Adicionales','top=260,width=770,height=290,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                      <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente" SelectAction="Expand">
                                          <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx','Rechazos','top=130,width=770,height=520,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
@@ -132,7 +92,6 @@ function validar_rut(source, arguments) {
                                          <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza" NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
                                      </asp:TreeNode>
                                  </asp:TreeNode>
-                                 <asp:TreeNode Text="Salir" Value="Salir"></asp:TreeNode>
                              </Nodes>
                              <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
                              <ParentNodeStyle Font-Bold="False" />
@@ -141,7 +100,9 @@ function validar_rut(source, arguments) {
                      </asp:Panel>
                  </ContentTemplate>
              </asp:UpdatePanel>
-             <br />
+            <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" ViewStateMode="Enabled" Visible="False">
+                <asp:LinkButton ID="LNKB_CerrarSesion" runat="server" CssClass="etiquetas_cerrarsesion">Cerrar Sesión</asp:LinkButton>
+            </asp:Panel>
                       </div>
          <div id ="pie" runat="server" class="auto-style9">                                           
                                         <table cellspacing="1" class="auto-style3">

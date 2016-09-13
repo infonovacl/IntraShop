@@ -20,13 +20,24 @@ function validar_rut(source, arguments) {
 </script>
       <asp:Panel ID="Panel1" runat="server" style="text-align: center" Height="67px">
             <h1>
-                <asp:Label ID="Label1" runat="server" CssClass="auto-style1" Text="Bienvenidos a Sistema"></asp:Label>
+                <asp:Label ID="Label1" runat="server" CssClass="auto-style1" Text="Bienvenidos a Sistema" TabIndex="92"></asp:Label>
                 <br />
-                <asp:Label ID="Label2" runat="server" CssClass="auto-style1" Text="Administrativo Web"></asp:Label>
+                <asp:Label ID="Label2" runat="server" CssClass="auto-style1" Text="Administrativo Web" TabIndex="91"></asp:Label>
             </h1>
           <br />
            <br />
-            <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DestinationPageUrl="~/Cliente.aspx" DisplayRememberMe="False" Font-Names="Arial" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px">
+           <br />
+           <br />
+           <br />
+        </asp:Panel>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+            <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DestinationPageUrl="~/Cliente.aspx" DisplayRememberMe="False" Font-Names="Arial" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px" TabIndex="90">
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
                 <LabelStyle CssClass="etiquetas" />
                 <LayoutTemplate>
@@ -52,7 +63,7 @@ function validar_rut(source, arguments) {
                                     </tr>
                                     <tr>
                                         <td align="right" class="etiquetas" style="width: 271px">
-                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="etiquetasimportante">Password:</asp:Label>
+                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="etiquetasimportante">Contraseña:</asp:Label>
                                         </td>
                                         <td style="width: 309px; text-align: left;">&nbsp;&nbsp;&nbsp;
                                             <asp:TextBox ID="Password" runat="server" CssClass="etiquetas" Font-Size="11pt" TabIndex="1" TextMode="Password" Width="120px"></asp:TextBox>
@@ -68,7 +79,7 @@ function validar_rut(source, arguments) {
                                     </tr>
                                     <tr>
                                         <td colspan="3" style="text-align: center">
-                                            <asp:Button ID="LoginButton" runat="server" BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" CssClass="etiquetasimportante" Font-Names="Arial" Font-Size="11pt" ForeColor="#284775" Height="30px" TabIndex="3" Text="Iniciar Sesión" ValidationGroup="Login1" />
+                                            <asp:Button ID="LoginButton" runat="server" BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" CssClass="etiquetasimportante" Font-Names="Arial" Font-Size="11pt" ForeColor="#284775" Height="30px" TabIndex="3" Text="Iniciar Sesión" ValidationGroup="Login1"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -81,7 +92,6 @@ function validar_rut(source, arguments) {
                 <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" Font-Size="0.9em" ForeColor="White" />
             </asp:Login>
            <br />
-           <br />
-           <br />
-        </asp:Panel>
+<br />
+<br />
 </asp:Content>
