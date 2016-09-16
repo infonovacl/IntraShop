@@ -52,6 +52,10 @@
             width: 19px;
             height: 19px;
         }
+        .style1
+        {
+            width: 55px;
+        }
         </style>
     <script script language="javascript" type="text/javascript">
         function pageLoad(sender, e) {
@@ -118,7 +122,7 @@
                     <td style="width: 82px">
                         <asp:Label ID="Label2" runat="server" Text="Tienda " CssClass="etiquetas"></asp:Label>
                     </td>
-                    <td style="width: 74px">
+                    <td class="style1">
                         <asp:TextBox ID="TXT_ConsultaNumeroSucursal" runat="server" CssClass="cajastexto" Width="50px" ReadOnly="True"></asp:TextBox>
                     </td>
                     <td style="width: 64px">
@@ -144,10 +148,10 @@
                     <td colspan="2" style="height: 20px">
                         <asp:TextBox ID="TXT_ConsultaEstadoGeneral" runat="server" Width="170px" CssClass="cajastexto" ReadOnly="True"></asp:TextBox>
                     </td>
-                    <td style="height: 20px">
+                    <td style="height: 20px; width: 90px;">
                         <asp:Label ID="Label5" runat="server" Text="Fecha " CssClass="etiquetas"></asp:Label>
                     </td>
-                    <td style="height: 20px; width: 61px;">
+                    <td style="height: 20px; width: 65px;">
                         <asp:TextBox ID="TXT_ConsultaFechaEstadoGeneral" runat="server" CssClass="cajastexto" Width="60px" ReadOnly="True"></asp:TextBox>
                         </td>
                     <td colspan="2" style="height: 20px; text-align: center; width:340px;">
@@ -355,7 +359,10 @@
             </table>
         </div>
         <div id="div_TabConsultas">
-            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  BorderColor="#FFCC00" BorderStyle="Outset" Height="215px" Width="770px" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" ViewStateMode="Enabled">
+            <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  
+                BorderColor="#FFCC00" BorderStyle="Outset" Height="210px" Width="770px" 
+                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" 
+                ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados

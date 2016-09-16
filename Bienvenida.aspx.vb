@@ -49,13 +49,18 @@ Partial Class _Default
                 End If
                 Session("nombretienda") = nombretienda
                 Session("usuario") = CType(partes(0), Integer) 'rut  
+
                 e.Authenticated = True
-                Response.Write("<script>window.alert('SI PASO LOGIN');</script>")
-                'Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
+                ' Response.Redirect("Cliente.aspx")
             End If
         Catch EX As Exception
             MsgBox(EX)
         End Try
     End Sub
-
+    Protected Sub Login1_LoggedIn(ByVal sender As Object, ByVal e As System.EventArgs) Handles Login1.LoggedIn
+        Response.Redirect("Cliente.aspx")
+    End Sub
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Page.Form.DefaultFocus = Login1.FindControl("Username").ClientID
+    End Sub
 End Class

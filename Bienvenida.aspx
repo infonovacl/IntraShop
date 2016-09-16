@@ -58,7 +58,11 @@ function validar_rut(source, arguments) {
                                             <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" Display="Dynamic" ErrorMessage="  RUT NO ES VÁLIDO" SetFocusOnError="True" TabIndex="5" ValidationGroup="login"></asp:CustomValidator>
                                         </td>
                                         <td style="text-align: left">
-                                            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ClientvalidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" ErrorMessage="User Name is required." ForeColor="Red" TabIndex="6" ToolTip="User Name is required." ValidationGroup="Login1">Debe Ingresar Usuario</asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" 
+                                                ClientvalidationFunction="validar_rut" ControlToValidate="UserName" 
+                                                CssClass="etiquetasmensaje" ErrorMessage="User Name is required." 
+                                                ForeColor="Red" TabIndex="6" ToolTip="User Name is required." 
+                                                ValidationGroup="Login1" SetFocusOnError="True">Debe Ingresar Usuario</asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -69,7 +73,10 @@ function validar_rut(source, arguments) {
                                             <asp:TextBox ID="Password" runat="server" CssClass="etiquetas" Font-Size="11pt" TabIndex="1" TextMode="Password" Width="120px"></asp:TextBox>
                                             &nbsp;&nbsp;&nbsp; </td>
                                         <td style="text-align: left">
-                                            <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" CssClass="etiquetasmensaje" ErrorMessage="Password is required." ForeColor="Red" TabIndex="7" ToolTip="Password is required." ValidationGroup="Login1">Debe Ingresar Contraseña</asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" 
+                                                ControlToValidate="Password" CssClass="etiquetasmensaje" 
+                                                ErrorMessage="Password is required." ForeColor="Red" TabIndex="7" 
+                                                ToolTip="Password is required." ValidationGroup="Login1" SetFocusOnError="True">Debe Ingresar Contraseña</asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
                                     <tr>

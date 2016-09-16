@@ -14,27 +14,16 @@
             panelcerrarsesion.Visible = True
             Me.Focus()
             Me.TXT_ConsultaRutCliente.Focus()
+        ElseIf IsPostBack = True Then
+            Dim panelmenu As Panel
+            panelmenu = Master.FindControl("Panel_menu")
+            panelmenu.Visible = True
+            Dim panelcerrarsesion As Panel
+            panelcerrarsesion = Master.FindControl("Panel_Login")
+            panelcerrarsesion.Visible = True
         End If
     End Sub
-    ' <System.Web.Script.Services.ScriptMethod(),
-    '     System.Web.Services.WebMethod()>
-    ' Public Shared Function BuscaXNombre(ByVal prefixText As String, ByVal count As Integer) As List(Of String)
-    ' Dim conn2 As Data.Odbc.OdbcConnection = New Data.Odbc.OdbcConnection
-    '     conn2.ConnectionString = ConfigurationManager.ConnectionStrings("ConnectionString_FamilyShop").ConnectionString
-    ' Dim cmd As Data.Odbc.OdbcCommand = New Data.Odbc.OdbcCommand
-    '     cmd.CommandText = "execute procedure procw_busca_nombre ('" & prefixText & "')"
-    '     ' cmd.Parameters.AddWithValue("@SearchText", prefixText)
-    '     cmd.Connection = conn2
-    '     conn2.Open()
-    ' Dim customers As List(Of String) = New List(Of String)
-    ' Dim sdr As Data.Odbc.OdbcDataReader = cmd.ExecuteReader
-    ' While sdr.Read
-    '         customers.Add(sdr(7).ToString)
-    ' End While
-    '     conn2.Close()
-    ' Return customers
-    ' End Function
-    Protected Sub BTN_Buscar_Click(sender As Object, e As EventArgs) Handles BTN_Buscar.Click
+    Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
         If Page.User.Identity.IsAuthenticated = True Then
             If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
                 Me.TXT_ConsultaRutCliente.Enabled = False
@@ -313,7 +302,7 @@
             End If
         Next
     End Sub
-    Protected Sub Tab_Consultas_ActiveTabChanged(sender As Object, e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
+    Protected Sub Tab_Consultas_ActiveTabChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
             'Me.LBL_MensajeContratos.Visible = False
             'Me.LBL_MensajeContratos.Text = ""
