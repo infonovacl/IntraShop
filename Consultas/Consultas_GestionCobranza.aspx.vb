@@ -24,8 +24,9 @@
                         Me.Grilla_GestionUnidad.DataSource = DataDSUnidad.Tables(0).DefaultView
                         Me.Grilla_GestionUnidad.DataBind()
                     End If
-                Catch EX As Exception
-                    '  MsgBox(EX)
+                Catch EX1 As Exception
+                    Me.LBL_CobranzaUnidadError.Visible = True
+                    Me.LBL_CobranzaUnidadError.Text = EX1.Message
                 End Try
             Case 2
                 Dim DataDSExterna As New Data.DataSet
@@ -47,8 +48,9 @@
                         Me.Grilla_CobranzaExterna.DataSource = DataDSExterna.Tables(0).DefaultView
                         Me.Grilla_CobranzaExterna.DataBind()
                     End If
-                Catch EX As Exception
-                    '  MsgBox(EX)
+                Catch EX2 As Exception
+                    Me.LBL_CobranzaExternaError.Visible = True
+                    Me.LBL_CobranzaExternaError.Text = EX2.Message
                 End Try
             Case 3
                 Dim DataDSDicom As New Data.DataSet
@@ -70,8 +72,9 @@
                         Me.Grilla_CobranzaDicom.DataSource = DataDSDicom.Tables(0).DefaultView
                         Me.Grilla_CobranzaDicom.DataBind()
                     End If
-                Catch EX As Exception
-                    '  MsgBox(EX)
+                Catch EX3 As Exception
+                    Me.LBL_CobranzaDicomError.Visible = True
+                    Me.LBL_CobranzaDicomError.Text = EX3.Message
                 End Try
         End Select
     End Sub
@@ -95,8 +98,9 @@
                 Me.Grilla_GestionTelefonica.DataSource = DataDSCobranzaTelefonica.Tables(0).DefaultView
                 Me.Grilla_GestionTelefonica.DataBind()
             End If
-        Catch EX As Exception
-            '  MsgBox(EX)
+        Catch EX4 As Exception
+            Me.LBL_CobranzaTelefonicaError.Visible = True
+            Me.LBL_CobranzaTelefonicaError.Text = EX4.Message
         End Try
     End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -104,5 +108,8 @@
             Me.Tab_GestionCobranza.ActiveTabIndex = 0
             CargaInicial()
         End If
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class

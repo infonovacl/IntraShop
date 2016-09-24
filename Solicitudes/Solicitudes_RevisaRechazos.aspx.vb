@@ -24,8 +24,9 @@
             Else
                 Me.BTN_RevisionDataBusiness.Enabled = True
             End If
-        Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+        Catch EX3 As Exception
+            Me.LBL_LevantaRechazoError.Visible = True
+            Me.LBL_LevantaRechazoError.Text = EX3.Message
         End Try
     End Sub
     Private Sub ObtieneConsultasDataBusiness()
@@ -47,8 +48,9 @@
                 Me.Grilla_ConsultasDB.DataSource = DataDSConsultasDB.Tables(0).DefaultView
                 Me.Grilla_ConsultasDB.DataBind()
             End If
-        Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+        Catch EX1 As Exception
+            Me.LBL_ConsultasDBError.Visible = True
+            Me.LBL_ConsultasDBError.Text = EX1.Message
         End Try
     End Sub
     Private Sub LlenaCheckBoxRechazos()
@@ -83,6 +85,14 @@
                 Next
             End If
         Catch ex As Exception
+            Me.LBL_ListaRechazosError.Visible = True
+            Me.LBL_ListaRechazosError.Text = ex.Message
         End Try
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+    End Sub
+    Protected Sub BTN_RevisionDataBusiness_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_RevisionDataBusiness.Click
+
     End Sub
 End Class

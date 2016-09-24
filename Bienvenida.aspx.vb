@@ -61,6 +61,7 @@ Partial Class _Default
         Response.Redirect("Cliente.aspx")
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        'Me.Focus()
         Page.Form.DefaultFocus = Login1.FindControl("Username").ClientID
     End Sub
 End Class

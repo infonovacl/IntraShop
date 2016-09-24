@@ -45,9 +45,10 @@
             try {
                 var rutbuscado = document.getElementById("LBL_Rut").innerText;
                 window.opener.document.getElementById('TXT_ConsultaRutCliente').innerText = rutbuscado;
-                setTimeout(function () {
-                    self.close();
-                }, 1500);
+                window.close();
+              //  setTimeout(function () {
+              //      self.close();
+              //  }, 500);
             }
             catch (e) {
                 //alert(e.name + " - " + e.message);
@@ -57,17 +58,7 @@
     </head>
 <body style="width: 627px; height: 2px; left: 5px;" >
     <form id="form1" runat="server" class="auto-style1" defaultbutton="BTN_BuscarXNombre" defaultfocus="TXT_BuscaXNombre">
-    <div class="auto-style7">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="120">
-                    </asp:ScriptManager>
-        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
-            <ProgressTemplate>
-                <div class="update">
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
-            <ContentTemplate>
+    <div class="auto-style7">     
                 &nbsp;
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Nombre Cliente"></asp:Label>
                 &nbsp;
@@ -118,8 +109,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                                             
         <br />    
     </div>
     </form>

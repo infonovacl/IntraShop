@@ -122,7 +122,8 @@
                                 <td class="auto-style74" colspan="4">
                                     <asp:Label ID="LBL_MiniCartolaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" Visible="False" />
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" 
+                                        Visible="False" />
                                 </td>
                             </tr>
                             <tr>

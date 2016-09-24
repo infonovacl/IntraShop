@@ -27,7 +27,8 @@
                 Me.Grilla_BuscaXNombre.DataBind()
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_BuscarXNombreError.Visible = True
+            Me.LBL_BuscarXNombreError.Text = EX.Message
         End Try
     End Sub
     Protected Sub Grilla_BuscaxNombre_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_BuscaXNombre.SelectedIndexChanged

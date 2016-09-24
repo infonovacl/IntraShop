@@ -26,6 +26,8 @@
                 Me.LBL_AumentoCupoError.Text = "AUMENTO DE CUPO CURSADO" ' mensaje de proceso
             End If
         Catch EX As Exception
+            Me.LBL_AumentoCupoError.Visible = True
+            Me.LBL_AumentoCupoError.Text = EX.Message
         End Try
 
     End Sub
@@ -70,7 +72,13 @@
                     Me.LBL_EstadoEvaluacion.Text = DATADSAumentoCupoPopUp.Tables(0).Rows(0)(6)
                 End If
             End If
-        Catch EX As Exception
+        Catch EX2 As Exception
+            Me.LBL_AumentoCupoError.Visible = True
+            Me.LBL_AumentoCupoError.Text = EX2.Message
         End Try
+    End Sub
+
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class

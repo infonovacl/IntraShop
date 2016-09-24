@@ -125,7 +125,11 @@
                 Response.Write("<script>window.print();window.onfocus=function(){ window.close();}</script>")
             End If
         Catch EX As Exception
-            ' MsgBox(EX)
+            Me.LBL_MiniCartolaError.Visible = True
+            Me.LBL_MiniCartolaError.Text = EX.Message
         End Try
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class

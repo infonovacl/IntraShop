@@ -27,6 +27,8 @@
                 Me.LBL_CambioDiaPagoError.Text = "CAMBIO DE DIA DE PAGO CURSADO" ' mensaje de error
             End If
         Catch EX As Exception
+            Me.LBL_CambioDiaPagoError.Visible = True
+            Me.LBL_CambioDiaPagoError.Text = EX.Message
         End Try
     End Sub
     Private Sub ObtieneDiasPago()
@@ -51,7 +53,12 @@
                 Me.DDL_NuevoDiaPago.DataSource = DATADSCambioDiaPagoPopUp.Tables(0)
                 Me.DDL_NuevoDiaPago.DataBind()
             End If
-        Catch EX As Exception
+        Catch EX2 As Exception
+            Me.LBL_CambioDiaPagoError.Visible = True
+            Me.LBL_CambioDiaPagoError.Text = EX2.Message
         End Try
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class

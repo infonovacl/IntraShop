@@ -516,8 +516,12 @@ Partial Class Mantencion_Tarjetas
 
             pp = PDFDoc2.Pages(2) ' Pagina nro. 3
             gfx = XGraphics.FromPdfPage(pp)
-            gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(230, 530))
             gfx.DrawString(Session("nombrecliente"), font, XBrushes.Black, New XVector(230, 510))
+            gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(230, 530))         
+            gfx.DrawString(Me.TXT_CorreoElectronico.Text, font, XBrushes.Black, New XVector(230, 550))
+            gfx.DrawString(Me.TXT_CalleParticular.Text & " " & Me.TXT_NumeroCasa.Text & " " & Me.TXT_NumeroDepto.Text, font, XBrushes.Black, New XVector(230, 570))
+            gfx.DrawString(Me.DDL_ComunaCliente.SelectedItem.Text, font, XBrushes.Black, New XVector(230, 590))
+            gfx.DrawString("FAMILYCARD", font, XBrushes.Black, New XVector(230, 610))
             '****************************************************
             Dim _sImage As String = _hdnSignature.Value.Replace("data:image/jpeg;base64,", "")
             Dim _rgbBytes As Byte() = Convert.FromBase64String(_sImage)
@@ -533,6 +537,12 @@ Partial Class Mantencion_Tarjetas
             Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/Contrato/" + _sImageFile)) ' inserta firma          
             gfx.DrawImage(XImage, 220, 590, 200, 70)
             PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+            Dim Img64 As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/" & _sImageFile) 'BORRAR IMAGEN 64 
+            Me.Label1.Text = Img64
+            If (System.IO.File.Exists(Img64) = True) Then
+                System.IO.File.Delete(Img64)
+            End If
         Catch ex As Exception
             Me.LBL_DatosClienteError.Text = "ERROR FIRMANDO CONTRATO"
         End Try
@@ -544,13 +554,12 @@ Partial Class Mantencion_Tarjetas
             Else
                 Me.BTN_VerContrato.Enabled = False
             End If
+          
         Catch ex As Exception
+            MsgBox(ex)
             Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
         End Try
-        'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/" & _sImageFile)
-        'If (System.IO.File.Exists(File)) Then
-        ' System.IO.File.Delete(File)
-        ' End If
+        
         'Tab_DatosClientes.Tabs(3).Visible = True
         'Tab_DatosClientes.ActiveTabIndex = 3
     End Sub
@@ -564,11 +573,12 @@ Partial Class Mantencion_Tarjetas
         ' RegisterClientScriptBlock("popup", "<script language='javascript'>window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');</script>")
         ' End If
     End Sub
-    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
         'CIERRA VENTANA POPUP       
-        If Not IsClientScriptBlockRegistered("Cierra") Then
-            RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
-        End If
+        'If Not IsClientScriptBlockRegistered("Cierra") Then
+        ' RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
+        ' End If
     End Sub
     Protected Sub BTN_VerContrato_Click(sender As Object, e As EventArgs) Handles BTN_VerContrato.Click
     End Sub

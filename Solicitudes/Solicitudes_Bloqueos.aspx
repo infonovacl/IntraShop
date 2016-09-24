@@ -34,16 +34,6 @@
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div class="div_popup">
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-                    </asp:ScriptManager>
-        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
-            <ProgressTemplate>
-                <div class="update">
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
-            <ContentTemplate>
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" Text="Seleccione estados de bloqueo"></asp:Label>
                 <br />
                 <table class="auto-style11">
@@ -103,16 +93,16 @@
                     <tr>
                         <td class="auto-style9">
                             &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_GrabaBloqueos" runat="server" CssClass="botones" Text="GRABAR" />
-                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
+                            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_AntecComerciales" 
+                                runat="server" CssClass="botones" Enabled="False" Text="ANTEC. COMERCIALES" 
+                                Width="180px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_SolicitaDesbloqueo" runat="server" CssClass="botones" Text="SOLICITA DESBLOQUEO" Width="180px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                         </td>
                     </tr>
-                </table>
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                </table>                       
         <br />    
     </div>
     </form>

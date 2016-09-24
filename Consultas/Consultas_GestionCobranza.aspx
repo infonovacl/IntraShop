@@ -49,19 +49,26 @@
         <asp:ScriptManager runat="server" ID="ScriptManager1" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
         </asp:ScriptManager>
        
-                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="3" Height="510px" Width="680px">
+                <cc3:TabContainer ID="Tab_GestionCobranza" runat="server" 
+            OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="1" 
+            Height="510px" Width="680px">
                     <cc3:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1"><HeaderTemplate>
 Cobranza Telefónica
 </HeaderTemplate>
 <ContentTemplate>
-    <asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" Height="500px" ScrollBars="Vertical" Width="660px">
-        <asp:GridView ID="Grilla_GestionTelefonica" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="641px">
+    <asp:Panel ID="Panel_CobranzaTelefonica" runat="server" CssClass="panel_tab" 
+        Height="500px" ScrollBars="Vertical" Width="670px">
+        <asp:GridView ID="Grilla_GestionTelefonica" runat="server" 
+            AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" 
+            Width="651px">
             <Columns>
                 <asp:BoundField DataField="column3" DataFormatString="{0:d}" HeaderText="Fecha">
-                <ItemStyle Width="70px" />
+                <ItemStyle Width="60px" />
                 </asp:BoundField>
                 <asp:BoundField DataField="column4" HeaderText="Hora" />
-                <asp:BoundField DataField="column5" HeaderText="Tipo Fono" />
+                <asp:BoundField DataField="column5" HeaderText="Tipo Fono" >
+                <ItemStyle Width="40px" />
+                </asp:BoundField>
                 <asp:BoundField DataField="column6" HeaderText="Fono">
                 <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundField>
@@ -69,7 +76,8 @@ Cobranza Telefónica
                 <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundField>
                 <asp:BoundField DataField="column8" HeaderText="Gestión" />
-                <asp:BoundField DataField="column9" DataFormatString="{0:d}" HeaderText="Fecha Compromiso">
+                <asp:BoundField DataField="column9" DataFormatString="{0:d}" 
+                    HeaderText="Fecha Comp.">
                 <ItemStyle Width="80px" />
                 </asp:BoundField>
                 <asp:BoundField DataField="column10" HeaderText="U. Gestión" />
@@ -153,7 +161,7 @@ PaloBlanco
                 <table class="auto-style7" align="center">
                     <tr>
                         <td class="auto-style9">                    
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" OnClientClick="javascript:window.close();" />
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                         </td>
                     </tr>
                 </table>

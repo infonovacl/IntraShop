@@ -13,29 +13,30 @@
     Private Sub HabilitaBotones()
         Dim DataDSHabilitaBotones As New Data.DataSet
         Dim RutCliente As Integer
-        Me.BTN_RevisionDataBusiness.Enabled = False
-        Me.BTN_RevisionDataBusiness.Enabled = False
+        Me.BTN_AntecComerciales.Enabled = False
+        Me.BTN_AntecComerciales.Enabled = False
         RutCliente = Session("rut")
         Try
             DataDSHabilitaBotones.Clear()
-            Dim STRHabilitaBotones As String = "execute procedure procw_habi_bloq ('" & RutCliente & "' )"
+            Dim STRHabilitaBotones As String = "execute procedure procw_habi_bloq ('" & RutCliente & "')"
             Dim DATAHabilitaBotones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRHabilitaBotones, Globales.conn)
             DATAHabilitaBotones.Fill(DataDSHabilitaBotones, "PRUEBA")
             If DataDSHabilitaBotones.Tables(0).Rows(0)(0) = 1 Then
-                Me.BTN_RevisionDataBusiness.Enabled = False
+                Me.BTN_AntecComerciales.Enabled = False
                 Me.BTN_SolicitaDesbloqueo.Enabled = False
                 Me.LBL_HabilitaBotonesError.Visible = True
                 Me.LBL_HabilitaBotonesError.Text = DataDSHabilitaBotones.Tables(0).Rows(0)(1) ' mensaje de error
             Else
                 If DataDSHabilitaBotones.Tables(0).Rows(0)(3) = 1 Then
-                    Me.BTN_RevisionDataBusiness.Enabled = True
+                    Me.BTN_AntecComerciales.Enabled = True
                 End If
                 If DataDSHabilitaBotones.Tables(0).Rows(0)(4) = 1 Then
                     Me.BTN_SolicitaDesbloqueo.Enabled = True
                 End If
             End If
         Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+            Me.LBL_HabilitaBotonesError.Visible = True
+            Me.LBL_HabilitaBotonesError.Text = EX.Message
         End Try
     End Sub
     Private Sub ObtieneConsultasDataBusiness()
@@ -44,7 +45,7 @@
         RutCliente = Session("rut")
         Try
             DataDSConsultasDB.Clear()
-            Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "' )"
+            Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "')"
             Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
             DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
             If DataDSConsultasDB.Tables(0).Rows(0)(0) = 1 Then
@@ -57,8 +58,9 @@
                 Me.Grilla_ConsultasDB.DataSource = DataDSConsultasDB.Tables(0).DefaultView
                 Me.Grilla_ConsultasDB.DataBind()
             End If
-        Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+        Catch EX2 As Exception
+            Me.LBL_ConsultasDBError.Visible = True
+            Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
     End Sub
     Private Sub LlenaCheckBoxBloqueos()
@@ -100,19 +102,13 @@
                     End If
                 Next
             End If
-        Catch ex As Exception
+        Catch ex3 As Exception
+            Me.LBL_ListaBloqueosError.Visible = True
+            Me.LBL_ListaBloqueosError.Text = ex3.Message
         End Try
     End Sub
     Protected Sub BTN_SolicitaDesbloqueo_Click(sender As Object, e As EventArgs) Handles BTN_SolicitaDesbloqueo.Click
-        Dim RutCliente As Integer
-        RutCliente = Session("rut") + Session("dv")
-        Dim respuesta As Integer = RevisaSinacofi(RutCliente)
-        If respuesta = 1 Then
-            ObtieneConsultasDataBusiness()
-        End If
-        Me.BTN_SolicitaDesbloqueo.Enabled = False
-        'Return -1 error        
-        'Return 1 -- > Cliente Registra Antecedentes Comerciales 
+       
     End Sub
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
@@ -501,4 +497,21 @@
         End If
         Return ""
     End Function
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+    End Sub
+    Protected Sub BTN_GrabaBloqueos_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_GrabaBloqueos.Click
+
+    End Sub
+    Protected Sub BTN_AntecComerciales_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
+        Dim RutCliente As Integer
+        RutCliente = Session("rut") + Session("dv")
+        Dim respuesta As Integer = RevisaSinacofi(RutCliente)
+        If respuesta = 1 Then
+            ObtieneConsultasDataBusiness()
+        End If
+        Me.BTN_SolicitaDesbloqueo.Enabled = False
+        'Return -1 error        
+        'Return 1 -- > Cliente Registra Antecedentes Comerciales 
+    End Sub
 End Class

@@ -17,14 +17,15 @@
             Dim DATALevantaRechazo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRLevantaRechazo, Globales.conn)
             DATALevantaRechazo.Fill(DataDSLevantaRechazo, "PRUEBA")
             If DataDSLevantaRechazo.Tables(0).Rows(0)(0) = 1 Then
-                Me.BTN_RevisionDataBusiness.Enabled = False   ''DESHABILITA BOTON 
+                Me.BTN_AntecComerciales.Enabled = False   ''DESHABILITA BOTON 
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = DataDSLevantaRechazo.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                Me.BTN_RevisionDataBusiness.Enabled = True
+                Me.BTN_AntecComerciales.Enabled = True
             End If
         Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+            Me.LBL_ConsultasDBError.Visible = True
+            Me.LBL_ConsultasDBError.Text = EX.Message
         End Try
     End Sub
     Private Sub ObtieneConsultasDataBusiness()
@@ -46,8 +47,16 @@
                 Me.Grilla_ConsultasDB.DataSource = DataDSConsultasDB.Tables(0).DefaultView
                 Me.Grilla_ConsultasDB.DataBind()
             End If
-        Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+        Catch EX2 As Exception
+            Me.LBL_ConsultasDBError.Visible = True
+            Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+    End Sub
+
+    Protected Sub BTN_RevisionDataBusiness_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
+
     End Sub
 End Class

@@ -26,6 +26,8 @@
                 Me.Grilla_SeguroXContratar.DataBind()
             End If
         Catch ex As Exception
+            Me.LBL_SegurosXContratarError.Visible = True
+            Me.LBL_SegurosXContratarError.Text = ex.Message
         End Try
     End Sub
     Private Sub LlenaSegurosPosiblesAnular()
@@ -51,5 +53,8 @@
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
 
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class
