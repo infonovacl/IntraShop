@@ -55,7 +55,7 @@ function validar_rut(source, arguments) {
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server" class="auto-style18">
              <asp:ScriptManager ID="ScriptManagerMaestro" runat="server" 
-                 AsyncPostBackTimeout="0" EnableViewState="False" LoadScriptsBeforeUI="False" 
+                 AsyncPostBackTimeout="720" EnableViewState="False" LoadScriptsBeforeUI="False" 
                  ScriptMode="Release">
              </asp:ScriptManager>
              </div>

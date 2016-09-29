@@ -4,7 +4,7 @@
         Select Case Me.Tab_GestionCobranza.ActiveTabIndex.ToString
             Case 0
                 CargaInicial()
-            Case 1
+            Case 1               
                 Dim DataDSUnidad As New Data.DataSet
                 Dim RutCliente As Integer
                 RutCliente = Session("rut")
@@ -17,18 +17,18 @@
                         Me.Grilla_GestionUnidad.Visible = False
                         Me.Panel_CobranzaUnidad.Visible = False
                         Me.LBL_CobranzaUnidadError.Visible = True
-                        Me.LBL_CobranzaUnidadError.Text = DataDSUnidad.Tables(0).Rows(0)(1) ' mensaje de error
+                        Me.LBL_CobranzaUnidadError.Text = DataDSUnidad.Tables(0).Rows(0)(1) ' mensaje de error                       
                     Else
                         Me.Panel_CobranzaUnidad.Visible = True
                         Me.LBL_CobranzaUnidadError.Visible = False
                         Me.Grilla_GestionUnidad.DataSource = DataDSUnidad.Tables(0).DefaultView
-                        Me.Grilla_GestionUnidad.DataBind()
-                    End If
+                        Me.Grilla_GestionUnidad.DataBind()                       
+                    End If                    
                 Catch EX1 As Exception
                     Me.LBL_CobranzaUnidadError.Visible = True
                     Me.LBL_CobranzaUnidadError.Text = EX1.Message
                 End Try
-            Case 2
+            Case 2               
                 Dim DataDSExterna As New Data.DataSet
                 Dim RutCliente As Integer
                 RutCliente = Session("rut")
@@ -47,7 +47,7 @@
                         Me.LBL_CobranzaExternaError.Visible = False
                         Me.Grilla_CobranzaExterna.DataSource = DataDSExterna.Tables(0).DefaultView
                         Me.Grilla_CobranzaExterna.DataBind()
-                    End If
+                    End If                  
                 Catch EX2 As Exception
                     Me.LBL_CobranzaExternaError.Visible = True
                     Me.LBL_CobranzaExternaError.Text = EX2.Message
@@ -56,7 +56,7 @@
                 Dim DataDSDicom As New Data.DataSet
                 Dim RutCliente As Integer
                 RutCliente = Session("rut")
-                Try
+                Try                  
                     DataDSDicom.Clear()
                     Dim STRDicom As String = "execute procedure procw_cons_dicom ('" & RutCliente & "' )"
                     Dim DATADicom As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDicom, Globales.conn)
@@ -71,7 +71,7 @@
                         Me.LBL_CobranzaDicomError.Visible = False
                         Me.Grilla_CobranzaDicom.DataSource = DataDSDicom.Tables(0).DefaultView
                         Me.Grilla_CobranzaDicom.DataBind()
-                    End If
+                    End If                   
                 Catch EX3 As Exception
                     Me.LBL_CobranzaDicomError.Visible = True
                     Me.LBL_CobranzaDicomError.Text = EX3.Message
@@ -82,7 +82,8 @@
         Dim DataDSCobranzaTelefonica As New Data.DataSet
         Dim RutCliente As Integer
         RutCliente = Session("rut")
-        Try
+        Me.Tab_GestionCobranza.ActiveTabIndex = 0
+        Try        
             DataDSCobranzaTelefonica.Clear()
             Dim STRCobranzaTelefonica As String = "execute procedure procw_cons_gestel ('" & RutCliente & "' )"
             Dim DATACobranzaTelefonica As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRCobranzaTelefonica, Globales.conn)
@@ -91,13 +92,13 @@
                 Me.Grilla_GestionTelefonica.Visible = False
                 Me.Panel_CobranzaTelefonica.Visible = False
                 Me.LBL_CobranzaTelefonicaError.Visible = True
-                Me.LBL_CobranzaTelefonicaError.Text = DataDSCobranzaTelefonica.Tables(0).Rows(0)(1) ' mensaje de error
-            Else
+                Me.LBL_CobranzaTelefonicaError.Text = DataDSCobranzaTelefonica.Tables(0).Rows(0)(1) ' mensaje de error               
+            Else              
                 Me.Panel_CobranzaTelefonica.Visible = True
                 Me.LBL_CobranzaTelefonicaError.Visible = False
                 Me.Grilla_GestionTelefonica.DataSource = DataDSCobranzaTelefonica.Tables(0).DefaultView
-                Me.Grilla_GestionTelefonica.DataBind()
-            End If
+                Me.Grilla_GestionTelefonica.DataBind()               
+            End If           
         Catch EX4 As Exception
             Me.LBL_CobranzaTelefonicaError.Visible = True
             Me.LBL_CobranzaTelefonicaError.Text = EX4.Message

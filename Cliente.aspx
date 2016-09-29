@@ -82,7 +82,7 @@
         }
     </script>
     <asp:UpdatePanel ID="UpdatePanel_Cabecera" runat="server" 
-        UpdateMode="Conditional" ChildrenAsTriggers="False">
+    UpdateMode="Conditional" ChildrenAsTriggers="False">
     <ContentTemplate>
     <div>   
         <table class="tablas">
@@ -375,7 +375,7 @@
         <div id="div_TabConsultas">
             <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  
                 BorderColor="#FFCC00" BorderStyle="Outset" Height="212px" Width="770px" 
-                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" 
+                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" 
                 ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>

@@ -125,19 +125,11 @@
         Dim XMLConsulta As MSXML.DOMDocument
         Dim Soap As String = "<?xml version=""1.0"" encoding=""utf-8""?> <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:web=""http://infomax.cl/webservices/""><soapenv:Header/><soapenv:Body><web:ejecutaServicio><web:reqmsg><XCReqQry inst=""0770"" clnt=""761181386"" user=""761181386"" pswd=""sinacofi"" flag=""00"" rutc=""761181386"" rutu=""27"" tipc=""N"" rqid=""0"" rsid=""0""> <XCReqQrySvc srvc=""ADVANCED"" vers=""00"" prm1=""" & Rutdigito & """ prm2=""""/></XCReqQry></web:reqmsg></web:ejecutaServicio> </soapenv:Body></soapenv:Envelope>"
         Dim DATADSDB, DATADSErr, DATADSCli2, DATADSDet, DATADSDet1, DATADSDet2, DATADSDBDet As New Data.DataSet
-
-        'Dim GEdadMax, GEdadMin, EdadFraude As Integer
-        'GEdadMax = Session("EdadMax") '**************** de donde saco este valor??
-        'GEdadMin = Session("EdadMin") '**************** de donde saco este valor??
-        'EdadFraude = Session("EdadFraude") '**************** de donde saco este valor??
         Antec = ""
         VNombre = ""
 
         Dim FecNac As Date
         Dim Edad As String
-        'Dim FechaActual As Date = Date.Now.ToShortDateString
-        'Dim HoraActual As DateTime = Format(DateTime.Now, "HH:mm:ss")
-
         Dim NombreRazonSocialXML As String
         Dim ScoreXML As String
         Dim FechaNacXML As String
@@ -243,13 +235,6 @@
             Else
                 Session("Antec") = "NO"
             End If
-            ''If sexo = "F" Then
-            '' Me.RadioButtonF.Checked = True
-            '' Me.RadioButtonM.Checked = False
-            ''Else
-            ''   Me.RadioButtonM.Checked = True
-            ''  Me.RadioButtonF.Checked = False
-            '' End If
             If FechaNacXML = "" Or Trim(FechaNacXML) = "" Then
                 FechaNacXML = "01-01-1900"
                 Vfecnac = FechaNacXML
@@ -280,21 +265,8 @@
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
-            ''If Vedad < GEdadMin Or Vedad < EdadFraude Then
-            '' Me.LBL_ConsultasDBError.Visible = True
-            '' Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Minima ..."
-            '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
-            ''Return -1
-            ''End If
-            ''  If Vedad > GEdadMax Then
-            '' Me.LBL_ConsultasDBError.Visible = True
-            '' Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Maxima ..."
-            '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
-            ''Return -1
-            ''End If
             If protestos > 0 Then
                 ' protestos
                 Monto = 0
@@ -344,9 +316,6 @@
                     End Try
                 Next
             End If
-            ''Me.amat.Enabled = True
-            ''Me.apat.Enabled = True
-            ''Me.nombre.Enabled = True
             If Session("Antec") = "NO" Then
                 ' saca los datos
                 Desarma(VNombre)
@@ -375,22 +344,8 @@
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
-            ''If Vedad < GEdadMin Or Vedad < EdadFraude Then
-            '' Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Minima ..."
-            ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
-            ''Return -1
-            ''End If
-            ''If Vedad > GEdadMax Then
-            ''Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Maxima ..."
-            ''IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
-            '' Return -1
-            ''End If
-            ''Me.amat.Enabled = False
-            ''Me.apat.Enabled = False
-            ''Me.nombre.Enabled = False
             If Antec = "NO" Then
                 ' saca los datos
                 Desarma(VNombre)

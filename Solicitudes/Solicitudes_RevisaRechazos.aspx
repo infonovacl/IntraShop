@@ -74,7 +74,8 @@
                 <table align="center" class="auto-style7">
                     <tr>
                         <td class="auto-style9">
-                            <asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
+                            <asp:Button ID="BTN_AntecComerciales" runat="server" CssClass="botones" 
+                                Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                         </td>

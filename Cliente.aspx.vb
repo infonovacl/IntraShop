@@ -305,6 +305,7 @@
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
+            'Me.Tab_Consultas.Tabs(8).Enabled = True
             Me.LBL_MensajeContratos.Visible = False
             Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString

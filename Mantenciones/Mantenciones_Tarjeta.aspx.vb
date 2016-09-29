@@ -15,7 +15,7 @@ Partial Class Mantencion_Tarjetas
             LlenaDDLLugaresEnvio()
             ObtieneDatosCliente()
             Me.Tab_DatosClientes.ActiveTabIndex = 0
-            Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
+            Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)         
             Tab_DatosClientes.Tabs(2).Visible = False 'TAB CONTRATOS
             Tab_DatosClientes.Tabs(3).Visible = False 'TAB SEGUROS
             Tab_DatosClientes.Tabs(4).Visible = False 'TAB TARJETA
@@ -85,8 +85,7 @@ Partial Class Mantencion_Tarjetas
                 End If
             End If
         Catch EX As Exception
-            'MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLEstadoCivil()
@@ -100,7 +99,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_EstadoCivil.DataSource = DataDSEstadoCivil.Tables(0)
             Me.DDL_EstadoCivil.DataBind()
         Catch EX As Exception
-            'MsgBox(EX)
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLDiaPago()
@@ -114,7 +113,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_DiaPago.DataSource = DataDSDiaPago.Tables(0)
             Me.DDL_DiaPago.DataBind()
         Catch EX As Exception
-            'MsgBox(EX)
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLRegion()
@@ -136,7 +135,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_EmpleadorRegion.DataSource = DataDSRegion.Tables(0)
             Me.DDL_EmpleadorRegion.DataBind()
         Catch EX As Exception
-            ' MsgBox(EX)    
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLLugaresEnvio()
@@ -150,7 +149,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_LugarEnvio.DataSource = DataDSLugarEnvio.Tables(0)
             Me.DDL_LugarEnvio.DataBind()
         Catch EX As Exception
-            'MsgBox(EX)
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub ObtieneDatosCliente()
@@ -380,8 +379,7 @@ Partial Class Mantencion_Tarjetas
                 '****************************************
             End If
         Catch EX As Exception
-            'MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
+           Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
@@ -415,8 +413,10 @@ Partial Class Mantencion_Tarjetas
                         Me.LBL_DatosClienteError.Text = "Actualizacion de registro exitosa"
                     End If
                 Catch EX As Exception
+                    Me.LBL_DatosClienteError.Text = EX.Message
                 End Try
             Else
+                Me.LBL_DatosClienteError.Text = "HA OCURRIDO UN ERROR DE VALIDACION, REVISE DATOS"
             End If
         End If
     End Sub
@@ -480,12 +480,22 @@ Partial Class Mantencion_Tarjetas
         End If
         Return valido
     End Function
-    Protected Sub BTN_Contrato_Click(sender As Object, e As EventArgs) Handles BTN_Contrato.Click
+    Protected Sub BTN_Contrato_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Contrato.Click
+        Try
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/Contrato/"), "Contrato_FamilyShop*" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            If (ExisteContrato.Length > 0) Then
+                Me.BTN_VerContrato.Enabled = True
+            Else
+                Me.BTN_VerContrato.Enabled = False
+                Me.LBL_ContratoError.Text = "CLIENTE NO TIENE ARCHIVO-CONTRATO"
+            End If
+        Catch ex As Exception
+            Me.LBL_ContratoError.Text = ex.Message
+        End Try
         Tab_DatosClientes.Tabs(2).Visible = True
         Tab_DatosClientes.ActiveTabIndex = 2
         Try
             Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
-            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
             If (System.IO.File.Exists(File)) Then
                 Me.BTN_VerContrato.Enabled = True
             Else
@@ -495,9 +505,12 @@ Partial Class Mantencion_Tarjetas
             Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
         End Try
     End Sub
-    Protected Sub BTN_Firmar_Click(sender As Object, e As EventArgs) Handles BTN_Firmar.Click
+    Protected Sub BTN_Firmar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Firmar.Click
+        ' If Me.signatureImage.Src = Nothing Then
+        'Me.LBL_ContratoError.Text = "FIRMA INGRESADA NO VÁLIDA,INTÉNTELO NUEVAMENTE"
+        'Else
         Try
-            Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_family.pdf") ' PDF fuente      
+            Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_original.pdf") ' PDF fuente      
             Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
             Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
             Dim Pg As Integer       'copio pdf original y lo guardo con otro nombre 
@@ -517,7 +530,7 @@ Partial Class Mantencion_Tarjetas
             pp = PDFDoc2.Pages(2) ' Pagina nro. 3
             gfx = XGraphics.FromPdfPage(pp)
             gfx.DrawString(Session("nombrecliente"), font, XBrushes.Black, New XVector(230, 510))
-            gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(230, 530))         
+            gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(230, 530))
             gfx.DrawString(Me.TXT_CorreoElectronico.Text, font, XBrushes.Black, New XVector(230, 550))
             gfx.DrawString(Me.TXT_CalleParticular.Text & " " & Me.TXT_NumeroCasa.Text & " " & Me.TXT_NumeroDepto.Text, font, XBrushes.Black, New XVector(230, 570))
             gfx.DrawString(Me.DDL_ComunaCliente.SelectedItem.Text, font, XBrushes.Black, New XVector(230, 590))
@@ -539,7 +552,7 @@ Partial Class Mantencion_Tarjetas
             PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
             Dim Img64 As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/" & _sImageFile) 'BORRAR IMAGEN 64 
-            Me.Label1.Text = Img64
+            Me.LBL_ContratoError.Text = Img64
             If (System.IO.File.Exists(Img64) = True) Then
                 System.IO.File.Delete(Img64)
             End If
@@ -548,20 +561,16 @@ Partial Class Mantencion_Tarjetas
         End Try
         Try
             Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
-            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
             If (System.IO.File.Exists(File)) Then
                 Me.BTN_VerContrato.Enabled = True
             Else
                 Me.BTN_VerContrato.Enabled = False
             End If
-          
         Catch ex As Exception
-            MsgBox(ex)
             Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
         End Try
-        
-        'Tab_DatosClientes.Tabs(3).Visible = True
-        'Tab_DatosClientes.ActiveTabIndex = 3
+        ' End If
+
     End Sub
     Protected Sub BTN_Tarjeta_Click(sender As Object, e As EventArgs) Handles BTN_Tarjeta.Click
         Tab_DatosClientes.Tabs(4).Visible = True
@@ -575,12 +584,8 @@ Partial Class Mantencion_Tarjetas
     End Sub
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Cerrar.Click
         Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
-        'CIERRA VENTANA POPUP       
-        'If Not IsClientScriptBlockRegistered("Cierra") Then
-        ' RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
-        ' End If
+        'CIERRA VENTANA POPUP           
     End Sub
     Protected Sub BTN_VerContrato_Click(sender As Object, e As EventArgs) Handles BTN_VerContrato.Click
     End Sub
-
 End Class
