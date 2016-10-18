@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
-    <title>MiniCartola</title>
+    <title>MiniCartola</title>    
      <style type="text/css">      
          .auto-style1 {
              width: 346px;
-             height: 12px;
+             height: 447px;
              left: 5px;
          }
          .auto-style9 {
@@ -99,22 +99,11 @@
              text-align: left;
              height: 16px;
          }
-         </style>
-     <script language="javascript"> 
-        //if (navigator.appName == "Microsoft Internet Explorer")
-        //{ 
-        //  var PrintCommand = '<object ID="PrintCommandObject" WIDTH=0 HEIGHT=0
-        //CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>';
-        //document.body.insertAdjacentHTML('beforeEnd', PrintCommand); 
-        //PrintCommandObject.ExecWB(6, -1); PrintCommandObject.outerHTML = ""; 
-        //} 
-        //else { 
-        //window.print();
-      </script>
+         </style>   
     </head>
 <body style="width: 506px; height: 18px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div>
+    <div id="div_print">   
                 <table class="auto-style9">
                     <caption>
                         <table class="auto-style11">
@@ -122,7 +111,8 @@
                                 <td class="auto-style74" colspan="4">
                                     <asp:Label ID="LBL_MiniCartolaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" Visible="False" />
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" 
+                                        Visible="False" />
                                 </td>
                             </tr>
                             <tr>
@@ -216,6 +206,7 @@
                             </tr>
                             <tr>
                                 <td class="auto-style72" colspan="2">
+                                    <br />
                                     <asp:Label ID="Label18" runat="server" CssClass="etiquetas" Text="Vencimientos "></asp:Label>
                                     <asp:Label ID="Label19" runat="server" CssClass="etiquetas" Text="Proximos 5 Meses"></asp:Label>
                                 </td>
@@ -276,6 +267,20 @@
                                 <td class="auto-style16">&nbsp;</td>
                             </tr>
                             <tr>
+                                <td class="auto-style70">
+                                    &nbsp;</td>
+                                <td class="auto-style66">
+                                    &nbsp;</td>
+                                <td class="auto-style16">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style70">
+                                    .</td>
+                                <td class="auto-style66">
+                                    &nbsp;</td>
+                                <td class="auto-style16">&nbsp;</td>
+                            </tr>
+                            <tr>
                                 <td class="auto-style72" colspan="3">
                                     <asp:GridView ID="GrillaCuotas" runat="server" AutoGenerateColumns="False" Visible="False">
                                         <Columns>
@@ -292,9 +297,7 @@
                                 &nbsp;</td>
                         </tr>
                     </caption>
-                </table>                                     
-        <br />
-        <br />    
+                </table>                                       
     </div>
     </form>
     </body>

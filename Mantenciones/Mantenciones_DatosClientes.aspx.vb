@@ -376,8 +376,8 @@
                 '****************************************
             End If
         Catch EX As Exception
-            'MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
+            Me.LBL_DatosClienteError.Visible = True
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
@@ -411,6 +411,8 @@
                         Me.LBL_DatosClienteError.Text = "Actualizacion de registro exitosa"
                     End If
                 Catch EX As Exception
+                    Me.LBL_DatosClienteError.Visible = True
+                    Me.LBL_DatosClienteError.Text = EX.Message
                 End Try
             Else
             End If

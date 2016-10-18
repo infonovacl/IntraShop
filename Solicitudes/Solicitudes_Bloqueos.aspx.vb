@@ -13,29 +13,30 @@
     Private Sub HabilitaBotones()
         Dim DataDSHabilitaBotones As New Data.DataSet
         Dim RutCliente As Integer
-        Me.BTN_RevisionDataBusiness.Enabled = False
-        Me.BTN_RevisionDataBusiness.Enabled = False
+        Me.BTN_AntecComerciales.Enabled = False
+        Me.BTN_AntecComerciales.Enabled = False
         RutCliente = Session("rut")
         Try
             DataDSHabilitaBotones.Clear()
-            Dim STRHabilitaBotones As String = "execute procedure procw_habi_bloq ('" & RutCliente & "' )"
+            Dim STRHabilitaBotones As String = "execute procedure procw_habi_bloq ('" & RutCliente & "')"
             Dim DATAHabilitaBotones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRHabilitaBotones, Globales.conn)
             DATAHabilitaBotones.Fill(DataDSHabilitaBotones, "PRUEBA")
             If DataDSHabilitaBotones.Tables(0).Rows(0)(0) = 1 Then
-                Me.BTN_RevisionDataBusiness.Enabled = False
+                Me.BTN_AntecComerciales.Enabled = False
                 Me.BTN_SolicitaDesbloqueo.Enabled = False
                 Me.LBL_HabilitaBotonesError.Visible = True
                 Me.LBL_HabilitaBotonesError.Text = DataDSHabilitaBotones.Tables(0).Rows(0)(1) ' mensaje de error
             Else
                 If DataDSHabilitaBotones.Tables(0).Rows(0)(3) = 1 Then
-                    Me.BTN_RevisionDataBusiness.Enabled = True
+                    Me.BTN_AntecComerciales.Enabled = True
                 End If
                 If DataDSHabilitaBotones.Tables(0).Rows(0)(4) = 1 Then
                     Me.BTN_SolicitaDesbloqueo.Enabled = True
                 End If
             End If
         Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+            Me.LBL_HabilitaBotonesError.Visible = True
+            Me.LBL_HabilitaBotonesError.Text = EX.Message
         End Try
     End Sub
     Private Sub ObtieneConsultasDataBusiness()
@@ -44,7 +45,7 @@
         RutCliente = Session("rut")
         Try
             DataDSConsultasDB.Clear()
-            Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "' )"
+            Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "')"
             Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
             DATAConsultasDB.Fill(DataDSConsultasDB, "PRUEBA")
             If DataDSConsultasDB.Tables(0).Rows(0)(0) = 1 Then
@@ -57,8 +58,9 @@
                 Me.Grilla_ConsultasDB.DataSource = DataDSConsultasDB.Tables(0).DefaultView
                 Me.Grilla_ConsultasDB.DataBind()
             End If
-        Catch EX As Exception
-            'Response.Write("<script>window.alert('Error al Obtener ConsultasDB');</script>")
+        Catch EX2 As Exception
+            Me.LBL_ConsultasDBError.Visible = True
+            Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
     End Sub
     Private Sub LlenaCheckBoxBloqueos()
@@ -100,19 +102,13 @@
                     End If
                 Next
             End If
-        Catch ex As Exception
+        Catch ex3 As Exception
+            Me.LBL_ListaBloqueosError.Visible = True
+            Me.LBL_ListaBloqueosError.Text = ex3.Message
         End Try
     End Sub
     Protected Sub BTN_SolicitaDesbloqueo_Click(sender As Object, e As EventArgs) Handles BTN_SolicitaDesbloqueo.Click
-        Dim RutCliente As Integer
-        RutCliente = Session("rut") + Session("dv")
-        Dim respuesta As Integer = RevisaSinacofi(RutCliente)
-        If respuesta = 1 Then
-            ObtieneConsultasDataBusiness()
-        End If
-        Me.BTN_SolicitaDesbloqueo.Enabled = False
-        'Return -1 error        
-        'Return 1 -- > Cliente Registra Antecedentes Comerciales 
+       
     End Sub
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
@@ -130,18 +126,11 @@
         Dim Soap As String = "<?xml version=""1.0"" encoding=""utf-8""?> <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:web=""http://infomax.cl/webservices/""><soapenv:Header/><soapenv:Body><web:ejecutaServicio><web:reqmsg><XCReqQry inst=""0770"" clnt=""761181386"" user=""761181386"" pswd=""sinacofi"" flag=""00"" rutc=""761181386"" rutu=""27"" tipc=""N"" rqid=""0"" rsid=""0""> <XCReqQrySvc srvc=""ADVANCED"" vers=""00"" prm1=""" & Rutdigito & """ prm2=""""/></XCReqQry></web:reqmsg></web:ejecutaServicio> </soapenv:Body></soapenv:Envelope>"
         Dim DATADSDB, DATADSErr, DATADSCli2, DATADSDet, DATADSDet1, DATADSDet2, DATADSDBDet As New Data.DataSet
 
-        'Dim GEdadMax, GEdadMin, EdadFraude As Integer
-        'GEdadMax = Session("EdadMax") '**************** de donde saco este valor??
-        'GEdadMin = Session("EdadMin") '**************** de donde saco este valor??
-        'EdadFraude = Session("EdadFraude") '**************** de donde saco este valor??
         Antec = ""
         VNombre = ""
 
         Dim FecNac As Date
         Dim Edad As String
-        'Dim FechaActual As Date = Date.Now.ToShortDateString
-        'Dim HoraActual As DateTime = Format(DateTime.Now, "HH:mm:ss")
-
         Dim NombreRazonSocialXML As String
         Dim ScoreXML As String
         Dim FechaNacXML As String
@@ -247,13 +236,6 @@
             Else
                 Session("Antec") = "NO"
             End If
-            ''If sexo = "F" Then
-            '' Me.RadioButtonF.Checked = True
-            '' Me.RadioButtonM.Checked = False
-            ''Else
-            ''   Me.RadioButtonM.Checked = True
-            ''  Me.RadioButtonF.Checked = False
-            '' End If
             If FechaNacXML = "" Or Trim(FechaNacXML) = "" Then
                 FechaNacXML = "01-01-1900"
                 Vfecnac = FechaNacXML
@@ -286,19 +268,7 @@
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
                 '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
-            End If
-            ''If Vedad < GEdadMin Or Vedad < EdadFraude Then
-            '' Me.LBL_ConsultasDBError.Visible = True
-            '' Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Minima ..."
-            '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
-            ''Return -1
-            ''End If
-            ''  If Vedad > GEdadMax Then
-            '' Me.LBL_ConsultasDBError.Visible = True
-            '' Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Maxima ..."
-            '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
-            ''Return -1
-            ''End If
+            End If     
             If protestos > 0 Then
                 ' protestos
                 Monto = 0
@@ -347,10 +317,7 @@
                         '     MsgBox(EX.Message)
                     End Try
                 Next
-            End If
-            ''Me.amat.Enabled = True
-            ''Me.apat.Enabled = True
-            ''Me.nombre.Enabled = True
+            End If  
             If Session("Antec") = "NO" Then
                 ' saca los datos
                 Desarma(VNombre)
@@ -381,20 +348,7 @@
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
                 ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
-            End If
-            ''If Vedad < GEdadMin Or Vedad < EdadFraude Then
-            '' Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Minima ..."
-            ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Minima", Vedad) ''************** Falta funcion IngresaRechazo
-            ''Return -1
-            ''End If
-            ''If Vedad > GEdadMax Then
-            ''Me.LBL_ConsultasDBError.Text = "Cliente No Cumple con Edad Maxima ..."
-            ''IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Cumple con Edad Maxima", Vedad) ''************** Falta funcion IngresaRechazo
-            '' Return -1
-            ''End If
-            ''Me.amat.Enabled = False
-            ''Me.apat.Enabled = False
-            ''Me.nombre.Enabled = False
+            End If  
             If Antec = "NO" Then
                 ' saca los datos
                 Desarma(VNombre)
@@ -473,32 +427,38 @@
                         VAMat = Mid(NombreCompleto, tres + 1)
                         VAPat = Mid(NombreCompleto, dos + 1, tres - dos)
                         VNom = Mid(NombreCompleto, 1, dos - 1)
-                        ''apat.Text = VAPat
-                        ''amat.Text = VAMat
-                        ''nombre.Text = VNom
                     Else 'vienen cuatro nombres
                         VAMat = Mid(NombreCompleto, tres + 1)
                         VAPat = Mid(NombreCompleto, dos + 1, mas - tres + 1)
                         VNom = Mid(NombreCompleto, 1, uno - 1)
-                        ''apat.Text = Trim(VAPat)
-                        ''amat.Text = Trim(VAMat)
-                        ''nombre.Text = Trim(VNom)
                     End If
                 Else
                     VAMat = Mid(NombreCompleto, dos + 1)
                     VAPat = Mid(NombreCompleto, uno + 1, dos - uno)
                     VNom = Mid(NombreCompleto, 1, uno - 1)
-                    ''apat.Text = VAPat
-                    ''amat.Text = VAMat
-                    ''nombre.Text = VNom
                 End If
             Else
                 VAPat = Mid(NombreCompleto, uno + 1)
                 VNom = Mid(NombreCompleto, 1, uno - 1)
-                ''apat.Text = VAPat
-                ''nombre.Text = VNom
             End If
         End If
         Return ""
     End Function
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+    End Sub
+    Protected Sub BTN_GrabaBloqueos_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_GrabaBloqueos.Click
+
+    End Sub
+    Protected Sub BTN_AntecComerciales_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
+        Dim RutCliente As Integer
+        RutCliente = Session("rut") + Session("dv")
+        Dim respuesta As Integer = RevisaSinacofi(RutCliente)
+        If respuesta = 1 Then
+            ObtieneConsultasDataBusiness()
+        End If
+        Me.BTN_SolicitaDesbloqueo.Enabled = False
+        'Return -1 error        
+        'Return 1 -- > Cliente Registra Antecedentes Comerciales 
+    End Sub
 End Class

@@ -50,17 +50,7 @@
     </head>
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div class="auto-style20">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
-                    </asp:ScriptManager>
-        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
-            <ProgressTemplate>
-                <div class="update">
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
-            <ContentTemplate>
+    <div class="auto-style20">             
                 <asp:Panel ID="Panel_Adicionales" runat="server" CssClass="panel_tab" ScrollBars="Vertical">               
                     <asp:GridView ID="Grilla_Adicionales" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="730px">
                         <Columns>
@@ -81,11 +71,7 @@
                             <asp:BoundField DataField="column13" HeaderText="Sexo" />
                         </Columns>
                     </asp:GridView>
-                </asp:Panel>
-        </ContentTemplate>             
-        </asp:UpdatePanel>       
-                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                    <ContentTemplate>
+                </asp:Panel>       
                         <asp:Panel ID="Panel_AdicionalesDetalle" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Visible="False">
                             <table cellspacing="1" class="auto-style5">
                                 <tr>
@@ -187,9 +173,7 @@
                                     </td>
                                 </tr>
                             </table>
-                        </asp:Panel>
-                    </ContentTemplate>
-        </asp:UpdatePanel>
+                        </asp:Panel>                  
                 <table class="auto-style3">
                     <tr>
                         <td>
@@ -203,11 +187,10 @@
                                     <br />
                                     <asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                                 </td>
                             </tr>
-                        </table>
-                     
+                        </table>                    
         <br />    
     </div>
     </form>

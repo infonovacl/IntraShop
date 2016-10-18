@@ -65,7 +65,8 @@
                 height:11px;
                 text-transform: uppercase;
                 color:black;
- }
+        text-align: left;
+}
 .cajastextonumerico{
                 font-family:Arial;
                 font-size:11px;
@@ -118,6 +119,7 @@
 .botones_anchoX2{
                 width:180px;
                 height:22px;
+    text-align: center;
 }
 .tabla_tabcontainer{
                 border-style: none;
@@ -158,6 +160,21 @@
                 z-index: 500 !important;
                 opacity: 0.8;
                 overflow: hidden;
+}
+.update_tabcliente 
+{   
+    position: absolute; 
+    top: 314px; 
+    left: 2px; 
+    width: 771px; 
+    height: 275px;  
+    background-image: url('../Imagenes/cargando_popup_negro.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #e4e4e6;
+    z-index: 500 !important;
+    opacity: 0.8;
+    overflow: hidden;
 }
 .dropdown_tab{
                 font-family:Arial;

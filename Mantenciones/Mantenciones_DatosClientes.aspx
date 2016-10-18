@@ -76,9 +76,7 @@
      </head>
 <body style="width: 694px; height: 313px;">
     <form id="form1" runat="server">
-    <div class="auto-style12">       
-           <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-            <ContentTemplate>
+    <div class="auto-style12">                 
         <asp:ScriptManager runat="server" ID="ScriptManagerDatosClientes" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
         </asp:ScriptManager>        
                 <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
@@ -240,12 +238,10 @@
                                         </asp:DropDownList>
                                     </td>
                                     <td colspan="2">
-                                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                            <ContentTemplate>
+                                     
                                                 <asp:DropDownList ID="DDL_ComunaCliente" runat="server" CssClass="dropdown_tab" Width="250px">
                                                 </asp:DropDownList>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
+                                          
                                     </td>
                                 </tr>
                                 <tr>
@@ -472,8 +468,6 @@
                         </ContentTemplate>
                     </cc2:TabPanel>
                 </cc2:TabContainer>
-                  </ContentTemplate>
-        </asp:UpdatePanel>
                 <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
                 <table class="auto-style7" align="center">

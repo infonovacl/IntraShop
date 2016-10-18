@@ -279,7 +279,8 @@
                         Me.BTN_Buscar.Enabled = False
                     End If
                 Catch ex As Exception
-                    MsgBox(ex)
+                    Me.LBL_MensajeError.Visible = True
+                    Me.LBL_MensajeError.Text = ex.Message
                 End Try
             Else
                 Me.LBL_MensajeContratos.Visible = True
@@ -304,8 +305,9 @@
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
-            'Me.LBL_MensajeContratos.Visible = False
-            'Me.LBL_MensajeContratos.Text = ""
+            'Me.Tab_Consultas.Tabs(8).Enabled = True
+            Me.LBL_MensajeContratos.Visible = False
+            Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
                 Case 0
                     Dim DataDSEstados As New Data.DataSet
@@ -326,8 +328,9 @@
                             Me.Grilla_Estados.DataSource = DataDSEstados.Tables(0).DefaultView
                             Me.Grilla_Estados.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX0 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX0.Message
                     End Try
                 Case 1
                     Dim DataDSLaboral As New Data.DataSet
@@ -383,8 +386,9 @@
                                 Me.TXT_LaboralIngresos.Text = Format(CType(DataDSLaboral.Tables(0).Rows(0)(9), Integer), "###,###,##0")
                             End If
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX1 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX1.Message
                     End Try
                 Case 2
                     Dim DataDSContratos As New Data.DataSet
@@ -403,8 +407,9 @@
                             Me.Grilla_Contratos.DataSource = DataDSContratos.Tables(0).DefaultView
                             Me.Grilla_Contratos.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX2 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX2.Message
                     End Try
                 Case 3
                     Dim DataDSModificaciones As New Data.DataSet
@@ -425,8 +430,9 @@
                             Me.Grilla_Modificaciones.DataSource = DataDSModificaciones.Tables(0).DefaultView
                             Me.Grilla_Modificaciones.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX3 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX3.Message
                     End Try
                 Case 4
                     Dim DataDSDescuentos As New Data.DataSet
@@ -451,8 +457,9 @@
                             Me.Grilla_Descuentos.DataBind()
                             Me.Grilla_Descuentos.Columns(7).Visible = False
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX4 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX4.Message
                     End Try
                 Case 5
                     Dim DataDSConsultasDB As New Data.DataSet
@@ -475,8 +482,9 @@
                             Me.Grilla_ConsultasDB.DataBind()
                             Me.Grilla_ConsultasDB.Columns(9).Visible = False
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX5 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX5.Message
                     End Try
                 Case 6
                     Dim DataDSSolicitudes As New Data.DataSet
@@ -495,8 +503,9 @@
                             Me.Grilla_Solicitudes.DataSource = DataDSSolicitudes.Tables(0).DefaultView
                             Me.Grilla_Solicitudes.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX6 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX6.Message
                     End Try
                 Case 7
                     Dim DataDSUltimosAbonos As New Data.DataSet
@@ -515,8 +524,9 @@
                             Me.Grilla_ResumenUltimosAbonos.DataSource = DataDSUltimosAbonos.Tables(0).DefaultView
                             Me.Grilla_ResumenUltimosAbonos.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX7 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX7.Message
                     End Try
                     Dim DataDSResumenClasificaciones As New Data.DataSet
                     Try
@@ -534,8 +544,9 @@
                             Me.Grilla_ResumenUltimasClasificaciones.DataSource = DataDSResumenClasificaciones.Tables(0).DefaultView
                             Me.Grilla_ResumenUltimasClasificaciones.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX7 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX7.Message
                     End Try
                     Dim DataDSResumenOtros As New Data.DataSet
                     TXT_ResumenComprasTotales.Text = "0"
@@ -596,8 +607,9 @@
                                 Me.TXT_ResumenPagosTotales.Text = Format(DataDSResumenOtros.Tables(0).Rows(0)(9), "###,###,##0")
                             End If
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX7 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX7.Message
                     End Try
                 Case 8
                     Dim DataDSComentarios As New Data.DataSet
@@ -616,8 +628,9 @@
                             Me.Grilla_Comentarios.DataSource = DataDSComentarios.Tables(0).DefaultView
                             Me.Grilla_Comentarios.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX8 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX8.Message
                     End Try
                 Case 9
                     Dim DataDSPagos As New Data.DataSet
@@ -641,8 +654,9 @@
                             Me.Grilla_Pagos.DataSource = DataDSPagos.Tables(0).DefaultView
                             Me.Grilla_Pagos.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX9 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX9.Message
                     End Try
                 Case 10
                     Dim DataDSVentas As New Data.DataSet
@@ -668,8 +682,9 @@
                             Me.Grilla_Ventas.Columns(13).Visible = False
                             Me.Grilla_Ventas.Columns(14).Visible = False
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX10 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX10.Message
                     End Try
                 Case 11
                     Dim DataDSRepacta As New Data.DataSet
@@ -690,8 +705,9 @@
                             Me.Grilla_Repactaciones.DataSource = DataDSRepacta.Tables(0).DefaultView
                             Me.Grilla_Repactaciones.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX11 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX11.Message
                     End Try
                 Case 12
                     Dim DataDSDeuda As New Data.DataSet
@@ -783,8 +799,9 @@
                                 Me.TXT_DeudaTotal.Text = Format(CType(DataDSDeuda.Tables(0).Rows(0)(16), Integer), "###,###,##0")
                             End If
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX12 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX12.Message
                     End Try
                 Case 13
                     Dim DataDSXPagar As New Data.DataSet
@@ -813,8 +830,9 @@
                             Me.Grilla_XPagar.FooterRow.Cells(8).Text = Format(sumatotalcuota, "###,###,##0")
                             Me.Grilla_XPagar.FooterRow.Cells(9).Text = Format(sumatotalpendiente, "###,###,##0")
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX13 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX13.Message
                     End Try
                 Case 14
                     Dim DataDSSeguros As New Data.DataSet
@@ -837,8 +855,9 @@
                             Me.Grilla_Seguros.DataSource = DataDSSeguros.Tables(0).DefaultView
                             Me.Grilla_Seguros.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX14 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX14.Message
                     End Try
                 Case 15
                     Dim DataDSSBIF As New Data.DataSet
@@ -859,8 +878,9 @@
                             Me.Grilla_SBIF.DataSource = DataDSSBIF.Tables(0).DefaultView
                             Me.Grilla_SBIF.DataBind()
                         End If
-                    Catch EX As Exception
-                        MsgBox(EX)
+                    Catch EX15 As Exception
+                        Me.LBL_MensajeError.Visible = True
+                        Me.LBL_MensajeError.Text = EX15.Message
                     End Try
             End Select
         Else
@@ -896,7 +916,8 @@
             Me.Panel_Estados.Visible = False
             Me.Panel_EstadosDetalle.Visible = True
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_MensajeError.Visible = True
+            Me.LBL_MensajeError.Text = EX.Message
         End Try
     End Sub
     Protected Sub Grilla_Descuentos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Descuentos.SelectedIndexChanged
@@ -1026,7 +1047,8 @@
             Me.LBL_DescuentosError.Visible = False
             Me.Panel_Descuentos.Visible = False
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_MensajeError.Visible = True
+            Me.LBL_MensajeError.Text = EX.Message
         End Try
     End Sub
     Protected Sub Grilla_Ventas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Ventas.SelectedIndexChanged
@@ -1063,7 +1085,8 @@
                 Me.Panel_VentasDetalle.Visible = True
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_MensajeError.Visible = True
+            Me.LBL_MensajeError.Text = EX.Message
         End Try
     End Sub
     Protected Sub BTN_Limpiar_Click(sender As Object, e As EventArgs) Handles BTN_Limpiar.Click
@@ -1145,7 +1168,8 @@
                 Me.Panel_SegurosDetalle.Visible = True
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_MensajeError.Visible = True
+            Me.LBL_MensajeError.Text = EX.Message
         End Try
     End Sub
     Protected Sub IBTN_SegurosDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_SegurosDetalle.Click
@@ -1315,7 +1339,8 @@
             Me.LBL_PagosError.Visible = False
             Me.Panel_Pagos.Visible = False
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_MensajeError.Visible = True
+            Me.LBL_MensajeError.Text = EX.Message
         End Try
     End Sub
     Protected Sub IBTN_PagosDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_PagosDetalle.Click
@@ -1379,7 +1404,8 @@
                 Me.Panel_ConsultasDBDetalles.Visible = True
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_MensajeError.Visible = True
+            Me.LBL_MensajeError.Text = EX.Message
         End Try
     End Sub
     Protected Sub IBTN_ConsultasDBDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_ConsultasDBDetalle.Click

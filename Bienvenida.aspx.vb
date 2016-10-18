@@ -54,13 +54,15 @@ Partial Class _Default
                 ' Response.Redirect("Cliente.aspx")
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            Me.Login1.FailureText = EX.Message
+            e.Authenticated = False
         End Try
     End Sub
     Protected Sub Login1_LoggedIn(ByVal sender As Object, ByVal e As System.EventArgs) Handles Login1.LoggedIn
         Response.Redirect("Cliente.aspx")
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        'Me.Focus()
         Page.Form.DefaultFocus = Login1.FindControl("Username").ClientID
     End Sub
 End Class

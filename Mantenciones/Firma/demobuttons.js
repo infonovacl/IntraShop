@@ -362,7 +362,7 @@ function SignatureForm(preview) {
       {
         if (m_usingEncryption)
         {
-         // m_tablet.startCapture(0xc0ffee); 'descomentar si no funciona
+          m_tablet.startCapture(0xc0ffee); //'descomentar si no funciona
         }
       }
       catch (e)
@@ -372,7 +372,7 @@ function SignatureForm(preview) {
       // Enable the pen data on the screen (if not already)
       m_tablet.setInkingMode(0x01);
     } else {
-      alert("Pad no conectado");
+      alert("PAD NO CONECTADO, REVISE CONEXION");
     }
   }
 

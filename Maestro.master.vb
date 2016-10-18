@@ -12,7 +12,7 @@ Partial Class Maestro
             Me.Panel_menu.Visible = False
         ElseIf IsPostBack = False And Page.User.Identity.IsAuthenticated = True Then ' POSTBACK DESDE LOGIN
             'Response.Redirect("Cliente.aspx", "_self")
-            '    'Response.Write("<script>window.alert('MENSAJE2');</script>")
+            'Response.Write("<script>window.alert('MENSAJE2');</script>")
             Me.UsuarioNombre.Text = Session("nombreusuario")
             Me.CTienda.Text = Session("sucursal")
             Me.Caja.Text = Session("caja")

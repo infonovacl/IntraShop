@@ -33,7 +33,8 @@
                 Me.TXT_Comentario.Focus()
             End If
         Catch EX As Exception
-            MsgBox(EX)
+            Me.LBL_ComentariosError.Visible = True
+            Me.LBL_ComentariosError.Text = EX.Message         
         End Try
     End Sub
     Private Sub ObtieneComentarios()
@@ -60,7 +61,13 @@
                 Me.Grilla_Comentarios.DataSource = DATADSComentariosPopUp.Tables(0).DefaultView
                 Me.Grilla_Comentarios.DataBind()
             End If
-        Catch EX As Exception
+        Catch EX2 As Exception
+            Me.LBL_ComentariosError.Visible = True
+            Me.LBL_ComentariosError.Text = EX2.Message
         End Try
+    End Sub
+
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class

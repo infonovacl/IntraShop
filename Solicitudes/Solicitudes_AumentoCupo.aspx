@@ -51,16 +51,6 @@
 <body style="width: 344px; height: 9px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div class="auto-style7">
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-                    </asp:ScriptManager>
-        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
-            <ProgressTemplate>
-                <div class="update">
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
-            <ContentTemplate>
                 <table cellspacing="1" class="auto-style5">
                     <tr>
                         <td>
@@ -130,12 +120,10 @@
                                 <td class="auto-style4">                                   
                                     <asp:Button ID="BTN_Grabar" runat="server" CssClass="botones" Text="GRABAR" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
+                                    <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                                 </td>
                             </tr>
-                        </table>
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                        </table>                        
         <br />    
     </div>
     </form>

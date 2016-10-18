@@ -32,19 +32,10 @@
     </head>
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div class="auto-style10">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
-                    </asp:ScriptManager>
-        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
-            <ProgressTemplate>
-                <div class="update">
-                </div>
-            </ProgressTemplate>
-        </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
-            <ContentTemplate>
-                <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" Text="CONSULTAS DataBusiness"></asp:Label>
-                <br />
+    <div class="auto-style10">    
+                <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" 
+                    Text="ANTECEDENTES COMERCIALES"></asp:Label>
+                <br />              
                 <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" Height="220px" ScrollBars="Vertical" Width="754px">
                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                         <Columns>
@@ -63,21 +54,21 @@
                             <asp:BoundField DataField="column12" HeaderText="Cod.Motivo" Visible="False" />
                         </Columns>
                     </asp:GridView>
-                </asp:Panel>
+                </asp:Panel>                 
                 <asp:Label ID="LBL_ConsultasDBError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                 <br />
                 <br />
                 <table align="center" class="auto-style7">
                     <tr>
                         <td class="auto-style9">
-                            <asp:Button ID="BTN_RevisionDataBusiness" runat="server" CssClass="botones" Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
+                            <asp:Button ID="BTN_AntecComerciales" runat="server" CssClass="botones" 
+                                Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="BTN_Cerrar0" runat="server" CssClass="botones" OnClientClick="javascript:window.close();" Text="CERRAR" />
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
                         </td>
                     </tr>
                 </table>
-                    </ContentTemplate>             
-        </asp:UpdatePanel>                            
+                                           
         <br />    
     </div>
     </form>

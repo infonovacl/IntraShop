@@ -43,11 +43,13 @@
 #signatureDiv {
   float:left;
   margin-right:15px;
+    width: 441px;
+    height: 220px;
 }
 
 #signatureImage {
-  width:300px;
-  height:150px;
+  width:420px;
+  height:200px;
   border:1px solid black;
 }
 

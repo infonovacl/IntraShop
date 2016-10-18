@@ -15,7 +15,7 @@ Partial Class Mantencion_Tarjetas
             LlenaDDLLugaresEnvio()
             ObtieneDatosCliente()
             Me.Tab_DatosClientes.ActiveTabIndex = 0
-            Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
+            Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)         
             Tab_DatosClientes.Tabs(2).Visible = False 'TAB CONTRATOS
             Tab_DatosClientes.Tabs(3).Visible = False 'TAB SEGUROS
             Tab_DatosClientes.Tabs(4).Visible = False 'TAB TARJETA
@@ -85,8 +85,7 @@ Partial Class Mantencion_Tarjetas
                 End If
             End If
         Catch EX As Exception
-            'MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLEstadoCivil()
@@ -100,7 +99,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_EstadoCivil.DataSource = DataDSEstadoCivil.Tables(0)
             Me.DDL_EstadoCivil.DataBind()
         Catch EX As Exception
-            'MsgBox(EX)
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLDiaPago()
@@ -114,7 +113,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_DiaPago.DataSource = DataDSDiaPago.Tables(0)
             Me.DDL_DiaPago.DataBind()
         Catch EX As Exception
-            'MsgBox(EX)
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLRegion()
@@ -136,7 +135,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_EmpleadorRegion.DataSource = DataDSRegion.Tables(0)
             Me.DDL_EmpleadorRegion.DataBind()
         Catch EX As Exception
-            ' MsgBox(EX)    
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub LlenaDDLLugaresEnvio()
@@ -150,7 +149,7 @@ Partial Class Mantencion_Tarjetas
             Me.DDL_LugarEnvio.DataSource = DataDSLugarEnvio.Tables(0)
             Me.DDL_LugarEnvio.DataBind()
         Catch EX As Exception
-            'MsgBox(EX)
+            Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Private Sub ObtieneDatosCliente()
@@ -380,8 +379,7 @@ Partial Class Mantencion_Tarjetas
                 '****************************************
             End If
         Catch EX As Exception
-            'MsgBox(EX)
-            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientes');</script>")
+           Me.LBL_DatosClienteError.Text = EX.Message
         End Try
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
@@ -415,8 +413,10 @@ Partial Class Mantencion_Tarjetas
                         Me.LBL_DatosClienteError.Text = "Actualizacion de registro exitosa"
                     End If
                 Catch EX As Exception
+                    Me.LBL_DatosClienteError.Text = EX.Message
                 End Try
             Else
+                Me.LBL_DatosClienteError.Text = "HA OCURRIDO UN ERROR DE VALIDACION, REVISE DATOS"
             End If
         End If
     End Sub
@@ -480,97 +480,297 @@ Partial Class Mantencion_Tarjetas
         End If
         Return valido
     End Function
-    Protected Sub BTN_Contrato_Click(sender As Object, e As EventArgs) Handles BTN_Contrato.Click
+    Protected Sub BTN_Contrato_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Contrato.Click        
         Tab_DatosClientes.Tabs(2).Visible = True
         Tab_DatosClientes.ActiveTabIndex = 2
+        Me.BTN_SeguroSV.Visible = True
+        RevisoArchivoContrato()
+    End Sub
+    Protected Sub BTN_FirmarContrato_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_FirmarContrato.Click
         Try
-            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
-            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
-            If (System.IO.File.Exists(File)) Then
-                Me.BTN_VerContrato.Enabled = True
+            If Me._hdnSignature.Value <> Nothing Then
+                Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_template.pdf") ' PDF fuente      
+                Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
+                Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
+                Dim Pg As Integer       'copio pdf original y lo guardo con otro nombre 
+                For Pg = 0 To PDFDoc.Pages.Count - 1
+                    PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
+                Next
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
+                Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
+                Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
+                Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
+                gfx.DrawString(Trim(Me.TXT_Nombres.Text), font, XBrushes.Black, New XVector(355, 126))
+                gfx.DrawString(Trim(Me.TXT_APaterno.Text) & " " & Trim(Me.TXT_AMaterno.Text), font, XBrushes.Black, New XVector(65, 139))
+                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
+                gfx.DrawString(Trim(Me.TXT_CalleParticular.Text) & " NRO " & Trim(Me.TXT_NumeroCasa.Text) & " " & Trim(Me.TXT_NumeroDepto.Text), font, XBrushes.Black, New XVector(170, 152))
+                gfx.DrawString(Trim(Me.DDL_ComunaCliente.SelectedItem.Text), font, XBrushes.Black, New XVector(80, 166))
+
+                pp = PDFDoc2.Pages(8) ' Pagina nro. 9
+                gfx = XGraphics.FromPdfPage(pp)
+                gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(130, 740))
+                gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(170, 740))
+                gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
+                '****************************************************
+                Dim _sImage As String = _hdnSignature.Value.Replace("data:image/jpeg;base64,", "")
+                Dim _rgbBytes As Byte() = Convert.FromBase64String(_sImage)
+                Dim _sImageFile As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
+                _sImageFile += ".jpg"
+
+                Using imageFile As FileStream = New FileStream(Server.MapPath("~/Doc/Contrato/" + _sImageFile), FileMode.Create)
+                    imageFile.Write(_rgbBytes, 0, _rgbBytes.Length)
+                    imageFile.Flush()
+                    imageFile.Dispose()
+                End Using
+
+                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/Contrato/" + _sImageFile)) ' inserta firma          
+                gfx.DrawImage(XImage, 210, 535, 200, 100)
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim Img64Contrato As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/" & _sImageFile) 'BORRAR IMAGEN 64 
+                BorraFirmaUsada(Img64Contrato)
+                RevisoArchivoContrato()
+                Me.LBL_ContratoError.Text = "CONTRATO FIRMADO EXITOSAMENTE"
             Else
-                Me.BTN_VerContrato.Enabled = False
+                Me.LBL_ContratoError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
             End If
         Catch ex As Exception
-            Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
+            Me.LBL_ContratoError.Text = ex.Message
         End Try
     End Sub
-    Protected Sub BTN_Firmar_Click(sender As Object, e As EventArgs) Handles BTN_Firmar.Click
+    'Protected Sub BTN_Tarjeta_Click(sender As Object, e As EventArgs) Handles BTN_Tarjeta.Click
+    '    Tab_DatosClientes.Tabs(4).Visible = True
+    '    Tab_DatosClientes.ActiveTabIndex = 4
+    'End Sub    
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>") 'CIERRA VENTANA POPUP   
+    End Sub
+    Protected Sub BTN_VerContrato_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_VerContrato.Click
+    End Sub
+    Protected Sub BTN_SeguroSV_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_SeguroSV.Click      
+        Tab_DatosClientes.Tabs(3).Visible = True
+        Tab_DatosClientes.ActiveTabIndex = 3
+        Me.BTN_SeguroSP.Visible = True
+        RevisoArchivoSeguroVida()
+    End Sub
+    Protected Sub BTN_FirmarSV_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_FirmarSV.Click
         Try
-            Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_family.pdf") ' PDF fuente      
+            If Me._hdnSignatureSV.Value <> Nothing Then
+                Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_template.pdf") ' PDF fuente      
+                Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
+                Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
+                Dim Pg As Integer       'copio pdf original y lo guardo con otro nombre 
+                For Pg = 0 To PDFDoc.Pages.Count - 1
+                    PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
+                Next
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
+                Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) ' pagina 1
+                Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
+                Dim font As XFont = New XFont("Arial", 10, XFontStyle.Regular)
+                gfx.DrawString(Trim(Me.TXT_APaterno.Text) & " " & Trim(Me.TXT_AMaterno.Text) & " " & Trim(Me.TXT_Nombres.Text), font, XBrushes.Black, New XVector(65, 144))
+                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(490, 144))
+                gfx.DrawString(Trim(Me.TXT_CalleParticular.Text) & " NRO " & Trim(Me.TXT_NumeroCasa.Text) & " " & Trim(Me.TXT_NumeroDepto.Text), font, XBrushes.Black, New XVector(65, 170))
+                gfx.DrawString(Trim(Me.DDL_ComunaCliente.SelectedItem.Text), font, XBrushes.Black, New XVector(355, 170))
+
+                gfx.DrawString(Trim(Me.TXT_TelefonoFijo.Text), font, XBrushes.Black, New XVector(65, 195))
+                gfx.DrawString(Trim(Me.TXT_TelefonoCelular.Text), font, XBrushes.Black, New XVector(270, 195))
+                gfx.DrawString(Trim(Me.TXT_CorreoElectronico.Text), font, XBrushes.Black, New XVector(380, 195))
+
+                gfx.DrawString(Trim(Me.TXT_FechaNac.Text), font, XBrushes.Black, New XVector(65, 220))
+                gfx.DrawString(Trim(Me.RBL_Sexo.SelectedItem.Text), font, XBrushes.Black, New XVector(190, 220))
+                gfx.DrawString(Trim(Me.DDL_EstadoCivil.SelectedItem.Text), font, XBrushes.Black, New XVector(255, 220))
+
+                pp = PDFDoc2.Pages(3) ' Pagina nro. 4
+                gfx = XGraphics.FromPdfPage(pp)
+                gfx.DrawString(Now.Day & "-" & Now.Month & "-" & Now.Year, font, XBrushes.Black, New XVector(75, 85))
+                '****************************************************
+                pp = PDFDoc2.Pages(6) ' Pagina nro. 7
+                gfx = XGraphics.FromPdfPage(pp)
+                gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(110, 690))
+                gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(160, 690))
+                gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(200, 690))
+                '****************************************************
+                Dim _sImageSV As String = _hdnSignatureSV.Value.Replace("data:image/jpeg;base64,", "")
+                Dim _rgbBytesSV As Byte() = Convert.FromBase64String(_sImageSV)
+                Dim _sImageFileSV As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
+                _sImageFileSV += ".jpg"
+                Using imageFileSV As FileStream = New FileStream(Server.MapPath("~/Doc/SeguroVida/" + _sImageFileSV), FileMode.Create)
+                    imageFileSV.Write(_rgbBytesSV, 0, _rgbBytesSV.Length)
+                    imageFileSV.Flush()
+                    imageFileSV.Dispose()
+                End Using
+                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/" + _sImageFileSV)) ' inserta firma          
+                gfx.DrawImage(XImage, 210, 500, 200, 100)
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim Img64SV As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/" & _sImageFileSV) 'BORRAR IMAGEN 64           
+                RevisoArchivoSeguroVida()
+                Me.LBL_SeguroVidaError.Text = "SEGURO DE VIDA FIRMADO EXITOSAMENTE"
+                BorraFirmaUsada(Img64SV)
+            Else
+                Me.LBL_SeguroVidaError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
+            End If
+        Catch ex As Exception
+            Me.LBL_SeguroVidaError.Text = ex.Message '"ERROR FIRMANDO SEGURO VIDA"
+        End Try
+    End Sub
+    Private Function BorraFirmaUsada(ByVal RutArchivo)
+        Try
+            If (System.IO.File.Exists(RutArchivo) = True) Then
+                System.IO.File.Delete(RutArchivo)
+            End If
+        Catch ex As Exception
+            Me.LBL_DatosClienteError.Text = ex.Message
+        End Try
+    End Function
+    Protected Sub BTN_VerPREContrato_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_VerPREContrato.Click
+        Try
+            Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_template.pdf") ' PDF fuente      
             Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
             Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
             Dim Pg As Integer       'copio pdf original y lo guardo con otro nombre 
             For Pg = 0 To PDFDoc.Pages.Count - 1
                 PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
             Next
-            PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+            PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
-            Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+            Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
             Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
             Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
             Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
-            Dim font As XFont = New XFont("Arial", 10, XFontStyle.Regular)
-            gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(260, 122))
-            gfx.DrawString(Session("nombrecliente"), font, XBrushes.Black, New XVector(150, 158))
+            Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
+            gfx.DrawString(Trim(Me.TXT_Nombres.Text), font, XBrushes.Black, New XVector(355, 126))
+            gfx.DrawString(Trim(Me.TXT_APaterno.Text) & " " & Trim(Me.TXT_AMaterno.Text), font, XBrushes.Black, New XVector(65, 139))
+            gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
+            gfx.DrawString(Trim(Me.TXT_CalleParticular.Text) & " NRO " & Trim(Me.TXT_NumeroCasa.Text) & " " & Trim(Me.TXT_NumeroDepto.Text), font, XBrushes.Black, New XVector(170, 152))
+            gfx.DrawString(Trim(Me.DDL_ComunaCliente.SelectedItem.Text), font, XBrushes.Black, New XVector(80, 166))
 
-            pp = PDFDoc2.Pages(2) ' Pagina nro. 3
+            pp = PDFDoc2.Pages(8) ' Pagina nro. 9
             gfx = XGraphics.FromPdfPage(pp)
-            gfx.DrawString(" " & Session("rut") & " - " & Session("dv"), font, XBrushes.Black, New XVector(230, 530))
-            gfx.DrawString(Session("nombrecliente"), font, XBrushes.Black, New XVector(230, 510))
-            '****************************************************
-            Dim _sImage As String = _hdnSignature.Value.Replace("data:image/jpeg;base64,", "")
-            Dim _rgbBytes As Byte() = Convert.FromBase64String(_sImage)
-            Dim _sImageFile As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
-            _sImageFile += ".jpg"
-
-            Using imageFile As FileStream = New FileStream(Server.MapPath("~/Doc/Contrato/" + _sImageFile), FileMode.Create)
-                imageFile.Write(_rgbBytes, 0, _rgbBytes.Length)
-                imageFile.Flush()
-                imageFile.Dispose()
-            End Using
-
-            Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/Contrato/" + _sImageFile)) ' inserta firma          
-            gfx.DrawImage(XImage, 220, 590, 200, 70)
-            PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+            gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(130, 740))
+            gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(170, 740))
+            gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
+            PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
         Catch ex As Exception
-            Me.LBL_DatosClienteError.Text = "ERROR FIRMANDO CONTRATO"
+            Me.LBL_DatosClienteError.Text = "ERROR PRE-VISUALIZANDO CONTRATO"
         End Try
-        Try
-            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "_" & Session("dv") & ".pdf")
-            'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_15742915_9.pdf")
-            If (System.IO.File.Exists(File)) Then
-                Me.BTN_VerContrato.Enabled = True
-            Else
-                Me.BTN_VerContrato.Enabled = False
-            End If
-        Catch ex As Exception
-            Me.LBL_DatosClienteError.Text = "ERROR CARGANDO ARCHIVO PDF"
-        End Try
-        'Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/" & _sImageFile)
-        'If (System.IO.File.Exists(File)) Then
-        ' System.IO.File.Delete(File)
-        ' End If
-        'Tab_DatosClientes.Tabs(3).Visible = True
-        'Tab_DatosClientes.ActiveTabIndex = 3
-    End Sub
-    Protected Sub BTN_Tarjeta_Click(sender As Object, e As EventArgs) Handles BTN_Tarjeta.Click
-        Tab_DatosClientes.Tabs(4).Visible = True
-        Tab_DatosClientes.ActiveTabIndex = 4
-    End Sub
-    Protected Sub BTN_PopUp_Click(sender As Object, e As EventArgs) Handles BTN_PopUp.Click
-        'Response.Write("<script>window.open('/Consultas/Consultas_GestionCobranza.aspx','popup','width=800,height=500');</script>")
-        'If Not IsClientScriptBlockRegistered("popup") Then
-        ' RegisterClientScriptBlock("popup", "<script language='javascript'>window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');</script>")
-        ' End If
-    End Sub
-    Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
-        'CIERRA VENTANA POPUP       
-        If Not IsClientScriptBlockRegistered("Cierra") Then
-            RegisterClientScriptBlock("Cierra", "<script language='javascript'>window.close();</script>")
+        If Not IsClientScriptBlockRegistered("popup") Then
+            RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPreContrato.aspx','VerPREContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
         End If
     End Sub
-    Protected Sub BTN_VerContrato_Click(sender As Object, e As EventArgs) Handles BTN_VerContrato.Click
-    End Sub
+    Protected Sub BTN_FirmarSP_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_FirmarSP.Click
+        Try
+            If Me._hdnSignatureSP.Value <> Nothing Then
+                Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_template.pdf") ' PDF fuente      
+                Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
+                Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
+                Dim Pg As Integer       'copio pdf original y lo guardo con otro nombre 
+                For Pg = 0 To PDFDoc.Pages.Count - 1
+                    PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
+                Next
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
+                Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) ' pagina 1
+                Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
+                Dim font As XFont = New XFont("Times New Roman", 10, XFontStyle.Regular)
+                gfx.DrawString(Trim(Session("nombretienda")), font, XBrushes.Black, New XVector(355, 228))
+                gfx.DrawString(Trim(Me.TXT_APaterno.Text) & " " & Trim(Me.TXT_AMaterno.Text) & " " & Trim(Me.TXT_Nombres.Text), font, XBrushes.Black, New XVector(65, 278))
+                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(65, 305))
+                gfx.DrawString(Trim(Me.TXT_CalleParticular.Text) & " NRO " & Trim(Me.TXT_NumeroCasa.Text) & " " & Trim(Me.TXT_NumeroDepto.Text), font, XBrushes.Black, New XVector(65, 355))
+                gfx.DrawString(Trim(Me.DDL_ComunaCliente.SelectedItem.Text), font, XBrushes.Black, New XVector(450, 355))
+
+                gfx.DrawString(Trim(Me.TXT_TelefonoCelular.Text), font, XBrushes.Black, New XVector(450, 330))
+                If Trim(Me.TXT_TelefonoCelular.Text) = "" Then
+                    gfx.DrawString(Trim(Me.TXT_TelefonoFijo.Text), font, XBrushes.Black, New XVector(450, 330))
+                End If
+                gfx.DrawString(Trim(Me.TXT_CorreoElectronico.Text), font, XBrushes.Black, New XVector(65, 378))
+                gfx.DrawString(Trim(Me.TXT_FechaNac.Text), font, XBrushes.Black, New XVector(65, 330))
+                gfx.DrawString(Trim(Me.RBL_Sexo.SelectedItem.Text), font, XBrushes.Black, New XVector(305, 378))
+                gfx.DrawString(Trim(Me.DDL_EstadoCivil.SelectedItem.Text), font, XBrushes.Black, New XVector(305, 330))
+
+                pp = PDFDoc2.Pages(9) ' Pagina nro. 10
+                gfx = XGraphics.FromPdfPage(pp)
+                gfx.DrawString(Now.Day & "-" & Now.Month & "-" & Now.Year, font, XBrushes.Black, New XVector(195, 380))
+                '****************************************************
+                Dim _sImageSP As String = _hdnSignatureSP.Value.Replace("data:image/jpeg;base64,", "")
+                Dim _rgbBytesSP As Byte() = Convert.FromBase64String(_sImageSP)
+                Dim _sImageFileSP As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
+                _sImageFileSP += ".jpg"
+
+                Using imageFileSP As FileStream = New FileStream(Server.MapPath("~/Doc/SeguroProteccion/" + _sImageFileSP), FileMode.Create)
+                    imageFileSP.Write(_rgbBytesSP, 0, _rgbBytesSP.Length)
+                    imageFileSP.Flush()
+                    imageFileSP.Dispose()
+                End Using
+
+                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/" + _sImageFileSP)) ' inserta firma          
+                gfx.DrawImage(XImage, 210, 180, 200, 100)
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim Img64Sp As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/" & _sImageFileSP) 'BORRAR IMAGEN 64             
+                RevisoArchivoSeguroProteccion()
+                Me.LBL_SeguroProteccionError.Text = "SEGURO DE PROTECCION FIRMADO EXITOSAMENTE"
+                BorraFirmaUsada(Img64Sp)
+            Else
+                Me.LBL_SeguroProteccionError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
+            End If
+        Catch ex As Exception
+            Me.LBL_SeguroProteccionError.Text = ex.Message
+        End Try        
+    End Sub
+    Protected Sub BTN_SeguroSP_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_SeguroSP.Click
+        Tab_DatosClientes.Tabs(4).Visible = True
+        Tab_DatosClientes.ActiveTabIndex = 4
+        RevisoArchivoSeguroProteccion()
+    End Sub
+    Protected Sub RevisoArchivoSeguroProteccion()
+        Try
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/"), "seguro_proteccion_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            If (ExisteContrato.Length > 0) Then
+                Me.BTN_VerSP.Enabled = True
+                Me.LBL_SeguroProteccionError.Text = "CLIENTE YA TIENE ESTE SEGURO FIRMADO"
+            Else
+                Me.BTN_VerSP.Enabled = False
+                Me.LBL_SeguroProteccionError.Text = "CLIENTE NO TIENE ARCHIVO-SEGURO PROTECCION"
+            End If
+        Catch ex As Exception
+            Me.LBL_SeguroProteccionError.Text = ex.Message
+        End Try
+    End Sub
+    Protected Sub RevisoArchivoSeguroVida()
+        Try
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/"), "seguro_vida_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            If (ExisteContrato.Length > 0) Then
+                Me.BTN_VerSV.Enabled = True
+                Me.LBL_SeguroVidaError.Text = "CLIENTE YA TIENE ESTE SEGURO FIRMADO"
+            Else
+                Me.BTN_VerSV.Enabled = False
+                Me.LBL_SeguroVidaError.Text = "CLIENTE NO TIENE ARCHIVO-SEGURO VIDA"
+            End If
+        Catch ex As Exception
+            Me.LBL_SeguroVidaError.Text = ex.Message
+        End Try
+    End Sub
+    Protected Sub RevisoArchivoContrato()
+        Try
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/Contrato/"), "Contrato_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            If (ExisteContrato.Length > 0) Then
+                Me.BTN_VerContrato.Enabled = True
+                Me.LBL_ContratoError.Text = "CLIENTE YA TIENE ESTE CONTRATO FIRMADO"
+            Else
+                Me.BTN_VerContrato.Enabled = False
+                Me.LBL_ContratoError.Text = "CLIENTE NO TIENE ARCHIVO-CONTRATO"
+            End If
+        Catch ex As Exception
+            Me.LBL_ContratoError.Text = ex.Message
+        End Try
+    End Sub
 End Class

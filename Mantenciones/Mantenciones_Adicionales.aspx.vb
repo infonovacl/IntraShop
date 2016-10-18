@@ -28,8 +28,9 @@
                 Me.LBL_AdicionalesError.Visible = False
                 ObtieneAdicionales()
             End If
-        Catch EX As Exception
-            ' MsgBox(EX)
+        Catch EX2 As Exception
+            Me.LBL_AdicionalesError.Visible = True
+            Me.LBL_AdicionalesError.Text = EX2.Message
         End Try
     End Sub
     Private Sub ObtieneAdicionales()
@@ -56,6 +57,8 @@
                 Me.Grilla_Adicionales.DataBind()
             End If
         Catch EX As Exception
+            Me.LBL_AdicionalesError.Visible = True
+            Me.LBL_AdicionalesError.Text = EX.Message
         End Try
     End Sub
     Protected Sub Grilla_Adicionales_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Adicionales.SelectedIndexChanged
@@ -76,8 +79,9 @@
             Me.DDL_EstadoAdicionales.ClearSelection()
             Me.DDL_EstadoAdicionales.Items.FindByText(Trim(Me.Grilla_Adicionales.Rows(IndiceGrillaAdicionales).Cells(8).Text)).Selected = True
             Me.BTN_Grabar.Enabled = True
-        Catch EX As Exception
-            'MsgBox(EX)
+        Catch EX3 As Exception
+            Me.LBL_AdicionalesError.Visible = True
+            Me.LBL_AdicionalesError.Text = EX3.Message
         End Try
     End Sub
     Protected Sub IBTN_AdicionalesDetalle_Click(sender As Object, e As ImageClickEventArgs) Handles IBTN_AdicionalesDetalle.Click
@@ -94,5 +98,8 @@
         Me.Panel_AdicionalesDetalle.Visible = False
         Me.DDL_EstadoAdicionales.SelectedIndex = 0
         Me.BTN_Grabar.Enabled = False
+    End Sub
+    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
 End Class

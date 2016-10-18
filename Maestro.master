@@ -54,7 +54,9 @@ function validar_rut(source, arguments) {
     <form id="fondo" runat="server" >
      <div id="contenedor" runat="server">
          <div id ="logo" runat="server" class="auto-style18">
-             <asp:ScriptManager ID="ScriptManagerMaestro" runat="server" AsyncPostBackTimeout="360000" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
+             <asp:ScriptManager ID="ScriptManagerMaestro" runat="server" 
+                 AsyncPostBackTimeout="720" EnableViewState="False" LoadScriptsBeforeUI="False" 
+                 ScriptMode="Release">
              </asp:ScriptManager>
              </div>
          <div id ="contenido" runat="server">            
@@ -63,39 +65,66 @@ function validar_rut(source, arguments) {
             </div>
         </asp:ContentPlaceHolder>       
          </div>
-         <div id ="menulateral" runat="server" class="menulateral">            
-                     <asp:Panel ID="Panel_menu"  CssClass="panelmenu" runat="server" BackColor="White"  ScrollBars="Vertical" Visible="False" ViewStateMode="Disabled" Height="372px">
-                         <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
-                         <asp:TreeView ID="TVM_Principal"  ExpandDepth="2" Font-Size="10pt" Height="38px" ImageSet="WindowsHelp" NodeWrap="True" Width="190px" ViewStateMode="Enabled" Font-Strikeout="False"  HoverNodeStyle-CssClass="ItemHoveredDIV" SelectedNodeStyle-CssClass="ItemSelectedDIV"  runat="server">
-                             <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" BackColor="#6666FF" />
-                             <Nodes>
-                                 <asp:TreeNode Text="Cliente" Value="Cliente" NavigateUrl="~/Cliente.aspx" Selected="True">
-                                     <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Tarjeta.aspx','Tarjetas','top=90,left=220,width=690,height=610',titlebar='NO',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()" Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
-                                     <asp:TreeNode Text="Mantenciones" Value="Mantenciones" SelectAction="Expand">
-                                         <asp:TreeNode Text="Datos del Cliente" Value="Datos del Cliente" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx','DatosClientes','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Comentarios" Value="Comentarios" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','Comentarios','top=260,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Adicionales" Value="Adicionales" NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx','Adicionales','top=260,width=770,height=290,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                     </asp:TreeNode>
-                                     <asp:TreeNode Text="Solicitudes de Cliente" Value="Solicitudes de Cliente" SelectAction="Expand">
-                                         <asp:TreeNode Text="Revisa Rechazos" Value="Revisa Rechazos" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx','Rechazos','top=130,width=770,height=520,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_Bloqueos.aspx','Bloqueos','top=130,width=770,height=500,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AnulaVentaSeguros.aspx','Seguros','top=220,width=770,height=420,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Aumento Cupo" Value="Aumento Cupo" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AumentoCupo.aspx','AumentoCupo','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Cambio Día Pago" Value="Cambio Día Pago" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="Revisa Verificación" Value="Revisa Verificación" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaVerificacion.aspx','RevisaVerificacion','top=130,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                         <asp:TreeNode Text="MiniCartola" Value="MiniCartola" NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartola.aspx','MiniCartola','top=130,width=350,height=390,left=220',scrollbars='NO',resizable='NO');my_window.focus()"></asp:TreeNode>
-                                     </asp:TreeNode>
-                                     <asp:TreeNode Text="Consultas" Value="Consultas" SelectAction="Expand">
-                                         <asp:TreeNode Text="Estado de Pago" Value="Estado de Pago" NavigateUrl="http://www.familyshop.cl/estado-de-cuenta" Target="_blank"></asp:TreeNode>
-                                         <asp:TreeNode Text="Gestion de Cobranza" Value="Gestion de Cobranza" NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"></asp:TreeNode>
-                                     </asp:TreeNode>
-                                 </asp:TreeNode>
-                             </Nodes>
-                             <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
-                             <ParentNodeStyle Font-Bold="False" />
-                             <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px" />
-                         </asp:TreeView>
-                     </asp:Panel>               
+         <div id ="menulateral" runat="server" class="menulateral">                                
+                             <asp:Panel ID="Panel_menu" runat="server" BackColor="White" 
+                                 CssClass="panelmenu" Height="372px" ScrollBars="Vertical" 
+                                 ViewStateMode="Disabled" Visible="False">
+                                 <asp:UpdatePanel ID="UpdatePanel_Menu" runat="server">                                                            
+                                     <ContentTemplate>
+                                       <asp:Label ID="Label3" runat="server" CssClass="etiquetas" Text="Menú Principal :"></asp:Label>
+                                         <asp:TreeView ID="TVM_Principal" runat="server" ExpandDepth="2" 
+                                             Font-Size="10pt" Font-Strikeout="False" Height="38px" 
+                                             HoverNodeStyle-CssClass="ItemHoveredDIV" ImageSet="WindowsHelp" NodeWrap="True" 
+                                             SelectedNodeStyle-CssClass="ItemSelectedDIV" ViewStateMode="Enabled" 
+                                             Width="190px">
+                                             <HoverNodeStyle BackColor="#6666FF" Font-Underline="True" ForeColor="#6666AA" />
+                                             <Nodes>
+                                                 <asp:TreeNode NavigateUrl="~/Cliente.aspx" Selected="True" Text="Cliente" 
+                                                     Value="Cliente">
+                                                     <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Tarjeta.aspx','Tarjetas','top=90,left=220,width=690,height=610',titlebar='NO',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()" 
+                                                         Text="Tarjeta" Value="Tarjeta"></asp:TreeNode>
+                                                     <asp:TreeNode SelectAction="Expand" Text="Mantenciones" Value="Mantenciones">
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx','DatosClientes','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()" 
+                                                             Text="Datos del Cliente" Value="Datos del Cliente"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx','Comentarios','top=260,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Comentarios" Value="Comentarios"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx','Adicionales','top=260,width=770,height=290,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Adicionales" Value="Adicionales"></asp:TreeNode>
+                                                     </asp:TreeNode>
+                                                     <asp:TreeNode SelectAction="Expand" Text="Solicitudes de Cliente" 
+                                                         Value="Solicitudes de Cliente">
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx','Rechazos','top=130,width=770,height=520,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Revisa Rechazos" Value="Revisa Rechazos"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_Bloqueos.aspx','Bloqueos','top=130,width=770,height=500,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Bloqueos/Desbloqueos" Value="Bloqueos/Desbloqueos"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AnulaVentaSeguros.aspx','Seguros','top=220,width=770,height=420,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Venta/Anulación Seguro" Value="Venta/Anulación Seguro"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_AumentoCupo.aspx','AumentoCupo','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Aumento Cupo" Value="Aumento Cupo"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Cambio Día Pago" Value="Cambio Día Pago"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaVerificacion.aspx','RevisaVerificacion','top=130,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Revisa Verificación" Value="Revisa Verificación"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartola.aspx','MiniCartola','top=130,width=350,height=390,left=220',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
+                                                     </asp:TreeNode>
+                                                     <asp:TreeNode SelectAction="Expand" Text="Consultas" Value="Consultas">
+                                                         <asp:TreeNode NavigateUrl="http://www.familyshop.cl/estado-de-cuenta" 
+                                                             Target="_blank" Text="Estado de Pago" Value="Estado de Pago"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()" 
+                                                             Text="Gestion de Cobranza" Value="Gestion de Cobranza"></asp:TreeNode>
+                                                     </asp:TreeNode>
+                                                 </asp:TreeNode>
+                                             </Nodes>
+                                             <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" 
+                                                 HorizontalPadding="5px" NodeSpacing="0px" VerticalPadding="1px" />
+                                             <ParentNodeStyle Font-Bold="False" />
+                                             <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" 
+                                                 HorizontalPadding="0px" VerticalPadding="0px" />
+                                         </asp:TreeView>
+                                   </ContentTemplate>
+                                 </asp:UpdatePanel> 
+                             </asp:Panel>                        
             <asp:Panel ID="Panel_Login" runat="server" CssClass="panellogin" ViewStateMode="Disabled" Visible="False">
                 <asp:LinkButton ID="LNKB_CerrarSesion" runat="server" CssClass="etiquetas_cerrarsesion">Cerrar Sesión</asp:LinkButton>
             </asp:Panel>                

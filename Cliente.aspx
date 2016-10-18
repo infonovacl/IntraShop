@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" EnableViewState="true" AutoEventWireup ="false" CodeFile="Cliente.aspx.vb" Inherits="Cliente" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/Maestro.master" ValidateRequest="false" EnableViewState="true" AutoEventWireup ="false" CodeFile="Cliente.aspx.vb" Inherits="Cliente" %>
 <%@ MasterType virtualpath="~/Maestro.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -55,7 +55,7 @@
         .style1
         {
             width: 55px;
-        }
+        }    
         </style>
     <script script language="javascript" type="text/javascript">
         function pageLoad(sender, e) {
@@ -76,19 +76,14 @@
             var objBoton = '<%=BTN_ProcesaTab.ClientID%>'
             var objO = document.getElementById(objBoton);
             objO.click();
-        }
-        function OnClientPopulating(sender, e) {
-            sender._element.className = "loading";
-        }
-        function OnClientCompleted(sender, e) {
-            sender._element.className = "";
-        }
+        }       
         function BuscaNombre() {
             window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'BuscaCliente', 'top=150,width=650,height=310,left=220', scrollbars = 'NO', resizable = 'NO');          
         }
     </script>
-     <asp:UpdatePanel ID="UpdatePanel20" runat="server">
- <ContentTemplate>
+    <asp:UpdatePanel ID="UpdatePanel_Cabecera" runat="server" 
+    UpdateMode="Conditional" ChildrenAsTriggers="False">
+    <ContentTemplate>
     <div>   
         <table class="tablas">
             <tr>
@@ -99,11 +94,13 @@
                     <asp:TextBox ID="TXT_ConsultaDV" runat="server" MaxLength="1" Width="16px" CssClass="cajastextoparametro" ReadOnly="True"></asp:TextBox>
                 </td>
                 <td class="auto-style9">
-                    <asp:UpdateProgress ID="UP1" runat="server" AssociatedUpdatePanelID="UpdatePanel20" DisplayAfter="100" Width="30px" DynamicLayout="False">
+                  <asp:UpdateProgress ID="UP1" runat="server" 
+                        AssociatedUpdatePanelID="UpdatePanel_Cabecera" DisplayAfter="1" Width="30px" 
+                        DynamicLayout="False">
                         <ProgressTemplate>
-                            <img class="auto-style20" src="Imagenes/cargando_popup_negro.gif" />
+                            <img class="auto-style20" src="Imagenes/cargando_popup_negro.gif" />                           
                         </ProgressTemplate>
-                    </asp:UpdateProgress>
+                    </asp:UpdateProgress> 
                 </td>
                 <td class="auto-style19">
                     <asp:Button ID="BTN_Buscar" runat="server" CssClass="botones" Text="BUSCAR" />
@@ -155,7 +152,18 @@
                         <asp:TextBox ID="TXT_ConsultaFechaEstadoGeneral" runat="server" CssClass="cajastexto" Width="60px" ReadOnly="True"></asp:TextBox>
                         </td>
                     <td colspan="2" style="height: 20px; text-align: center; width:340px;">
-                    <asp:Label ID="LBL_MensajeContratos" runat="server" CssClass="etiquetasmensaje" ></asp:Label>
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="False" 
+                            UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:Label ID="LBL_MensajeContratos" runat="server" CssClass="etiquetasmensaje"></asp:Label>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="BTN_Buscar" EventName="Click" />
+                                <asp:AsyncPostBackTrigger ControlID="BTN_Limpiar" EventName="Click" />
+                                <asp:AsyncPostBackTrigger ControlID="Tab_Consultas" 
+                                    EventName="ActiveTabChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
             </table>
@@ -231,12 +239,7 @@
                 <td>
                         <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas" style="display:none"></asp:Label>
                     </td>
-                <td>
-                            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                                <ContentTemplate>
-                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button" style="display:none"  />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+                <td>                          
                 </td>
             </tr>
         </table>
@@ -330,7 +333,7 @@
                         <asp:Label ID="LBL_Vencimiento6" runat="server" CssClass="etiquetas">-</asp:Label>
                     </td>
                     <td>
-                    <asp:Label ID="LBL_MensajeAvance0" runat="server" CssClass="etiquetasmensaje"></asp:Label>
+                    <asp:Label ID="LBL_MensajeError" runat="server" CssClass="etiquetasmensaje"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -357,19 +360,28 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </div>       
+        
+                                     
+<asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel_TabConsulta" DisplayAfter="1">
+            <ProgressTemplate>
+                <div class="update_tabcliente">
+                </div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>                         
+ <asp:UpdatePanel ID="UpdatePanel_TabConsulta" runat="server"  UpdateMode="Conditional" >
+ <ContentTemplate>
+ <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button" style="display:none"  />
         <div id="div_TabConsultas">
             <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  
-                BorderColor="#FFCC00" BorderStyle="Outset" Height="210px" Width="770px" 
-                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" 
+                BorderColor="#FFCC00" BorderStyle="Outset" Height="212px" Width="770px" 
+                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" 
                 ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
 Estados
                     </HeaderTemplate>          
                     <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-                            <ContentTemplate>
                                 <asp:Panel ID="Panel_Estados" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Estados" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -394,17 +406,13 @@ Estados
                                     <br />
                                 <asp:ImageButton ID="IBTN_EstadosSubEstados" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
                                 </asp:Panel>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel2" ID="TabPanel2">
                     <HeaderTemplate>
 Laboral
                     </HeaderTemplate>
-                    <ContentTemplate>
-                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-                    <ContentTemplate>
+                    <ContentTemplate>               
                     <table id="TBL_Laboral" runat="server" class="tabla_tabcontainer" style="width: 752px">
                     <tr>
                     <td style="margin-left: 40px; width: 155px;">
@@ -475,18 +483,14 @@ Laboral
                                         <td style="text-align: right; width: 209px;"></td>
                                     </tr>
                                 </table>
-                                <asp:Label ID="LBL_LaboralError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_LaboralError" runat="server" CssClass="etiquetas_tab"></asp:Label>                          
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel3" runat="server" HeaderText="TabPanel3">
                     <HeaderTemplate>
                         Contratos
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                     
                                 <asp:Panel ID="Panel_Contratos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Contratos" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -501,18 +505,14 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_ContratosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_ContratosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                           
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel4" runat="server" HeaderText="TabPanel4">
                     <HeaderTemplate>
                         Modificaciones
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                       
                                 <asp:Panel ID="Panel_Modificaciones" runat="server" CssClass="panel_tab" ScrollBars="Both">
                                     <asp:GridView ID="Grilla_Modificaciones" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -529,18 +529,14 @@ Laboral
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_ModificacionesError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <br />
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <br />                          
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel5" runat="server" HeaderText="TabPanel5">
                     <HeaderTemplate>
                         Descuentos
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                        
                                 <asp:Panel ID="Panel_Descuentos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Descuentos" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -557,11 +553,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_DescuentosError" runat="server" CssClass="etiquetas_tab"></asp:Label>   
-                        </ContentTemplate>
-                        </asp:UpdatePanel>  
-                                <asp:UpdatePanel ID="UpdatePanel21" runat="server">
-                                    <ContentTemplate>
+                                <asp:Label ID="LBL_DescuentosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                                                          
                                         <table id="TBL_DescuentosDetalle" runat="server" cellspacing="1" class="auto-style3" style="width: 760px" visible="False">
                                             <tr runat="server">
                                                 <td runat="server">
@@ -698,18 +690,14 @@ Laboral
                                         </table>
                                            <asp:Label ID="LBL_DescuentosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
-                                <asp:ImageButton ID="IBTN_DescuentosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                                <asp:ImageButton ID="IBTN_DescuentosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />                                 
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel6" runat="server" HeaderText="TabPanel6">
                     <HeaderTemplate>
                         Antec.Comerciales
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel19" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                       
                                 <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Width="754px">
                                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -732,11 +720,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_ConsultasDBError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        </ContentTemplate>
-                        </asp:UpdatePanel>
-                                <asp:UpdatePanel ID="UpdatePanel22" runat="server">
-                                    <ContentTemplate>
+                                <asp:Label ID="LBL_ConsultasDBError" runat="server" CssClass="etiquetas_tab"></asp:Label>                       
                                         <asp:Panel ID="Panel_ConsultasDBDetalles" runat="server" CssClass="panel_tab" Height="160px" ScrollBars="Vertical" Visible="False">
                                             <asp:GridView ID="Grilla_ConsultasDBDetalles" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                                                 <Columns>
@@ -751,18 +735,14 @@ Laboral
                                         </asp:Panel>
                                         <asp:Label ID="LBL_ConsultasDBDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
-                                <asp:ImageButton ID="IBTN_ConsultasDBDetalle" runat="server" CssClass="boton_volver" ImageUrl="~/Imagenes/mano_volver.jpg" />
-                                    </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:ImageButton ID="IBTN_ConsultasDBDetalle" runat="server" CssClass="boton_volver" ImageUrl="~/Imagenes/mano_volver.jpg" />                                    
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel7" runat="server" HeaderText="TabPanel7">
                     <HeaderTemplate>
                         Solicitudes
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                      
                                 <asp:Panel ID="Panel_Solicitudes" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Solicitudes" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -780,18 +760,14 @@ Laboral
                                     </asp:GridView>
                                 </asp:Panel>
                                 <asp:Label ID="LBL_SolicitudesError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                                <br />
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <br />                           
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel8" runat="server" HeaderText="TabPanel8">
                     <HeaderTemplate>
                         Resumen Cuenta
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel10" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                        
                                 <table class="auto-style2" style="width: 765px; height: 174px;">
                                     <tr>
                                         <td style="width: 224px">
@@ -898,18 +874,14 @@ Laboral
                                             <asp:TextBox ID="TXT_ResumenPagosTotales" runat="server" CssClass="cajastextonumerico_tab" ReadOnly="True" Width="100px"></asp:TextBox>
                                         </td>
                                     </tr>
-                                </table>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                </table>                          
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel11" runat="server" HeaderText="TabPanel11">
                     <HeaderTemplate>
                         Comentarios
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel11" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                       
                                 <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -925,9 +897,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_ComentariosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_ComentariosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                           
                         <br />
                         <br />
                     </ContentTemplate>
@@ -936,9 +906,7 @@ Laboral
                     <HeaderTemplate>
                         Pagos
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel12" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                       
                                 <asp:Panel ID="Panel_Pagos" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Pagos" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="720px">
                                         <Columns>
@@ -960,11 +928,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_PagosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        </ContentTemplate>
-                        </asp:UpdatePanel>                            
-                                <asp:UpdatePanel ID="UpdatePanel23" runat="server">
-                                    <ContentTemplate>
+                                <asp:Label ID="LBL_PagosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                                                                                
                                         <table id="TBL_DetallePagos" runat="server" cellspacing="1" class="auto-style3" style="width: 760px" visible="False">
                                             <tr runat="server">
                                                 <td runat="server">
@@ -1102,17 +1066,13 @@ Laboral
                                             <asp:Label ID="LBL_PagosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>                               
                                 <br />
                                 <asp:ImageButton ID="IBTN_PagosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" /> 
-                                    </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </ContentTemplate>
+                                    </ContentTemplate>                       
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel10" runat="server" HeaderText="TabPanel10">
                     <HeaderTemplate>
                         Ventas
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel13" runat="server">
-                               <ContentTemplate>
+                    <ContentTemplate>                      
                                 <asp:Panel ID="Panel_Ventas" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Ventas" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -1142,11 +1102,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_VentasError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        </ContentTemplate>
-                        </asp:UpdatePanel>
-                                <asp:UpdatePanel ID="UpdatePanel24" runat="server">
-                                    <ContentTemplate>
+                                <asp:Label ID="LBL_VentasError" runat="server" CssClass="etiquetas_tab"></asp:Label>                       
                                         <asp:Panel ID="Panel_VentasDetalle" runat="server" CssClass="panel_tab" Height="160px" ScrollBars="Vertical" Visible="False">
                                             <asp:GridView ID="Grilla_VentasDetalle" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                                                 <Columns>
@@ -1176,18 +1132,14 @@ Laboral
                                         </asp:Panel>
                                          <asp:Label ID="LBL_VentasDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
-                                <asp:ImageButton ID="IBTN_VentasDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                    </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:ImageButton ID="IBTN_VentasDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />                                  
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel12" runat="server" HeaderText="TabPanel12">
                     <HeaderTemplate>
                         Repactaciones
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel14" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                     
                                 <asp:Panel ID="Panel_Repactaciones" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Repactaciones" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="726px">
                                         <Columns>
@@ -1213,18 +1165,14 @@ Laboral
                                     </asp:GridView>
                                     <br />
                                 </asp:Panel>
-                                <asp:Label ID="LBL_RepactacionesError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_RepactacionesError" runat="server" CssClass="etiquetas_tab"></asp:Label>                            
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel13" runat="server" HeaderText="TabPanel13">
                     <HeaderTemplate>
                         Deuda
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel15" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                       
                                 <table id="TBL_Deuda" runat="server" class="tabla_tabcontainer">
                                     <tr>
                                         <td style="margin-left: 40px; width: 155px;">
@@ -1343,18 +1291,14 @@ Laboral
                                         </td>
                                     </tr>
                                 </table>
-                                <asp:Label ID="LBL_DeudaError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_DeudaError" runat="server" CssClass="etiquetas_tab"></asp:Label>                           
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel14" runat="server" HeaderText="TabPanel14">
                     <HeaderTemplate>
                         Por Pagar
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel16" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                      
                                 <asp:Panel ID="Panel_XPagar" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_XPagar" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px" ShowFooter="True"  Width="737px">
                                         <Columns>
@@ -1390,18 +1334,14 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_XPagarError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_XPagarError" runat="server" CssClass="etiquetas_tab"></asp:Label>                            
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel15" runat="server" HeaderText="TabPanel15">
                     <HeaderTemplate>
                         Seguros
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel17" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                        
                                 <asp:Panel ID="Panel_Seguros" runat="server" CssClass="panel_tab" ScrollBars="Vertical">
                                     <asp:GridView ID="Grilla_Seguros" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="737px">
                                         <Columns>
@@ -1424,11 +1364,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_SegurosError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                        </ContentTemplate>
-                        </asp:UpdatePanel>
-                                <asp:UpdatePanel ID="UpdatePanel25" runat="server">
-                                    <ContentTemplate>
+                                <asp:Label ID="LBL_SegurosError" runat="server" CssClass="etiquetas_tab"></asp:Label>                                                      
                                         <asp:Panel ID="Panel_SegurosDetalle" runat="server" CssClass="panel_tab" Height="170px" ScrollBars="Vertical" Visible="False">
                                             <asp:GridView ID="Grilla_SegurosDetalle" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                                                 <Columns>
@@ -1449,18 +1385,14 @@ Laboral
                                         </asp:Panel>
                                 <asp:Label ID="LBL_SegurosDetalleError" runat="server" CssClass="etiquetas_tab"></asp:Label>
                                 <br />
-                                <asp:ImageButton ID="IBTN_SegurosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />
-                                    </ContentTemplate>
-                        </asp:UpdatePanel>
+                                <asp:ImageButton ID="IBTN_SegurosDetalle" runat="server" ImageUrl="~/Imagenes/mano_volver.jpg" CssClass="boton_volver" />                                 
                     </ContentTemplate> 
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel16" runat="server" HeaderText="TabPanel16">
                     <HeaderTemplate>
                         SBIF
                     </HeaderTemplate>
-                    <ContentTemplate>
-                        <asp:UpdatePanel ID="UpdatePanel18" runat="server">
-                            <ContentTemplate>
+                    <ContentTemplate>                       
                                 <asp:Panel ID="Panel_SBIF" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Width="300px">
                                     <asp:GridView ID="Grilla_SBIF" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab"  Height="16px"  Width="258px">
                                         <Columns>
@@ -1471,9 +1403,7 @@ Laboral
                                         </Columns>
                                     </asp:GridView>
                                 </asp:Panel>
-                                <asp:Label ID="LBL_SBIFError" runat="server" CssClass="etiquetas_tab"></asp:Label>
-                            </ContentTemplate>             
-                        </asp:UpdatePanel>
+                                <asp:Label ID="LBL_SBIFError" runat="server" CssClass="etiquetas_tab"></asp:Label>                            
                     </ContentTemplate>                                        
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel ID="TabPanel17" runat="server" HeaderText="TabPanel17">
@@ -1483,7 +1413,17 @@ Laboral
                 </ajaxToolkit:TabPanel>
             </ajaxtoolkit:tabcontainer>
             <br />             
-        </div>
-                              </ContentTemplate>
-                    </asp:UpdatePanel>
+        </div>         
+        </ContentTemplate>                   
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="Tab_Consultas" EventName="ActiveTabChanged" />
+     </Triggers>
+        </asp:UpdatePanel> 
+         </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="BTN_Buscar" EventName="Click" />
+            <asp:AsyncPostBackTrigger ControlID="BTN_Limpiar" EventName="Click" />
+            <asp:AsyncPostBackTrigger ControlID="BTN_BuscaXNombre" EventName="Click" />
+        </Triggers>
+   </asp:UpdatePanel>  
 </asp:Content>
