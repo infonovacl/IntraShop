@@ -101,9 +101,6 @@
         If respuesta = 1 Then
             ObtieneConsultasDataBusiness()
         End If
-        Me.BTN_AntecComerciales.Enabled = False
-        'Return -1 error        
-        'Return 1 -- > Cliente Registra Antecedentes Comerciales 
     End Sub
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
@@ -120,7 +117,6 @@
         Dim XMLConsulta As MSXML.DOMDocument
         Dim Soap As String = "<?xml version=""1.0"" encoding=""utf-8""?> <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:web=""http://infomax.cl/webservices/""><soapenv:Header/><soapenv:Body><web:ejecutaServicio><web:reqmsg><XCReqQry inst=""0770"" clnt=""761181386"" user=""761181386"" pswd=""sinacofi"" flag=""00"" rutc=""761181386"" rutu=""27"" tipc=""N"" rqid=""0"" rsid=""0""> <XCReqQrySvc srvc=""ADVANCED"" vers=""00"" prm1=""" & Rutdigito & """ prm2=""""/></XCReqQry></web:reqmsg></web:ejecutaServicio> </soapenv:Body></soapenv:Envelope>"
         Dim DATADSDB, DATADSErr, DATADSCli2, DATADSDet, DATADSDet1, DATADSDet2, DATADSDBDet As New Data.DataSet
-
         Antec = ""
         VNombre = ""
 
@@ -261,7 +257,6 @@
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If protestos > 0 Then
@@ -341,7 +336,6 @@
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If Antec = "NO" Then
@@ -422,19 +416,30 @@
                         VAMat = Mid(NombreCompleto, tres + 1)
                         VAPat = Mid(NombreCompleto, dos + 1, tres - dos)
                         VNom = Mid(NombreCompleto, 1, dos - 1)
+                        ''apat.Text = VAPat
+                        ''amat.Text = VAMat
+                        ''nombre.Text = VNom
                     Else 'vienen cuatro nombres
                         VAMat = Mid(NombreCompleto, tres + 1)
                         VAPat = Mid(NombreCompleto, dos + 1, mas - tres + 1)
                         VNom = Mid(NombreCompleto, 1, uno - 1)
+                        ''apat.Text = Trim(VAPat)
+                        ''amat.Text = Trim(VAMat)
+                        ''nombre.Text = Trim(VNom)
                     End If
                 Else
                     VAMat = Mid(NombreCompleto, dos + 1)
                     VAPat = Mid(NombreCompleto, uno + 1, dos - uno)
                     VNom = Mid(NombreCompleto, 1, uno - 1)
+                    ''apat.Text = VAPat
+                    ''amat.Text = VAMat
+                    ''nombre.Text = VNom
                 End If
             Else
                 VAPat = Mid(NombreCompleto, uno + 1)
                 VNom = Mid(NombreCompleto, 1, uno - 1)
+                ''apat.Text = VAPat
+                ''nombre.Text = VNom
             End If
         End If
         Return ""
