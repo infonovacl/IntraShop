@@ -37,7 +37,11 @@ function validar_rut(source, arguments) {
 <br />
 <br />
 <br />
-            <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" DisplayRememberMe="False" Font-Names="Arial" Font-Size="11pt" ForeColor="#333333" Height="187px" style="font-size: 12pt" Width="760px" TabIndex="90" DestinationPageUrl="~/Cliente.aspx">
+            <asp:Login ID="Login1" runat="server" BackColor="#F7F6F3" 
+        BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" 
+        DisplayRememberMe="False" Font-Names="Arial" Font-Size="11pt" 
+        ForeColor="#333333" Height="187px" style="font-size: 12pt; text-align: center;" 
+        Width="760px" TabIndex="90" DestinationPageUrl="~/Cliente.aspx">
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
                 <LabelStyle CssClass="etiquetas" />
                 <LayoutTemplate>
@@ -49,11 +53,13 @@ function validar_rut(source, arguments) {
                                         <td align="center" colspan="3" style="color:White;background-color:#5D7B9D;font-size:0.9em;font-weight:bold;">Iniciar Sesión</td>
                                     </tr>
                                     <tr>
-                                        <td align="right" class="etiquetas" style="width: 271px">
-                                            <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" CssClass="etiquetasimportante">Usuario :</asp:Label>
+                                        <td align="right" class="etiquetas" style="width: 271px; text-align: right;">
+                                            <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" 
+                                                CssClass="etiquetasimportante_login">Usuario :</asp:Label>
                                         </td>
                                         <td style="width: 309px; text-align: left;">&nbsp;&nbsp;&nbsp;
-                                            <asp:TextBox ID="UserName" runat="server" CssClass="etiquetas" Font-Size="11pt" Width="120px"></asp:TextBox>
+                                            <asp:TextBox ID="UserName" runat="server" CssClass="etiquetas_login" 
+                                                Font-Size="11pt" Width="120px" AutoCompleteType="Disabled"></asp:TextBox>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" Display="Dynamic" ErrorMessage="  RUT NO ES VÁLIDO" SetFocusOnError="True" TabIndex="5" ValidationGroup="login"></asp:CustomValidator>
                                         </td>
@@ -66,11 +72,13 @@ function validar_rut(source, arguments) {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="right" class="etiquetas" style="width: 271px">
-                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="etiquetasimportante">Contraseña:</asp:Label>
+                                        <td align="right" class="etiquetas" style="width: 271px; text-align: right;">
+                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" 
+                                                CssClass="etiquetasimportante_login">Contraseña:</asp:Label>
                                         </td>
                                         <td style="width: 309px; text-align: left;">&nbsp;&nbsp;&nbsp;
-                                            <asp:TextBox ID="Password" runat="server" CssClass="etiquetas" Font-Size="11pt" TabIndex="1" TextMode="Password" Width="120px"></asp:TextBox>
+                                            <asp:TextBox ID="Password" runat="server" CssClass="etiquetas_login" 
+                                                Font-Size="11pt" TabIndex="1" TextMode="Password" Width="120px"></asp:TextBox>
                                             &nbsp;&nbsp;&nbsp; </td>
                                         <td style="text-align: left">
                                             <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" 

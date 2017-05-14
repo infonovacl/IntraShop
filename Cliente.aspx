@@ -78,7 +78,7 @@
             objO.click();
         }       
         function BuscaNombre() {
-            window.open('/Consultas/Consultas_BuscaXNombre.aspx', 'BuscaCliente', 'top=150,width=650,height=310,left=220', scrollbars = 'NO', resizable = 'NO');          
+            window.open('/Consultas/Consultas_BuscaXNombre2.aspx', 'BuscaCliente', 'top=150,width=650,height=310,left=220', scrollbars = 'NO', resizable = 'NO');          
         }
     </script>
     <asp:UpdatePanel ID="UpdatePanel_Cabecera" runat="server" 
@@ -95,7 +95,7 @@
                 </td>
                 <td class="auto-style9">
                   <asp:UpdateProgress ID="UP1" runat="server" 
-                        AssociatedUpdatePanelID="UpdatePanel_Cabecera" DisplayAfter="1" Width="30px" 
+                        AssociatedUpdatePanelID="UpdatePanel_Cabecera" DisplayAfter="20" Width="30px" 
                         DynamicLayout="False">
                         <ProgressTemplate>
                             <img class="auto-style20" src="Imagenes/cargando_popup_negro.gif" />                           
@@ -375,7 +375,7 @@
         <div id="div_TabConsultas">
             <ajaxtoolkit:tabcontainer ID="Tab_Consultas" runat="server"  
                 BorderColor="#FFCC00" BorderStyle="Outset" Height="212px" Width="770px" 
-                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="14" 
+                OnClientActiveTabChanged="clientActiveTabChanged" ActiveTabIndex="0" 
                 ViewStateMode="Enabled">
                 <ajaxToolkit:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1">
                     <HeaderTemplate>
@@ -922,7 +922,7 @@ Laboral
                                             <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Monto Pagado">
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="column1" HeaderText="Cód. Sucursal">
+                                            <asp:BoundField DataField="column10" HeaderText="Cód. Sucursal">
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
                                         </Columns>
@@ -1309,9 +1309,11 @@ Laboral
                                             <asp:BoundField DataField="column5" HeaderText="Nro. Boleta" />
                                             <asp:BoundField DataField="column6" HeaderText="Nro. Cuota" />
                                             <asp:BoundField DataField="column7" DataFormatString="{0:N0}" HeaderText="Capital">
+                                            <FooterStyle Font-Bold="True" HorizontalAlign="Right" />
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="column8" DataFormatString="{0:N0}" HeaderText="Interés">
+                                            <FooterStyle Font-Bold="True" HorizontalAlign="Right" />
                                             <ItemStyle HorizontalAlign="Right" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="column9" DataFormatString="{0:N0}" HeaderText="Honorario">

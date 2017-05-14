@@ -37,7 +37,7 @@
                 </div>
             </ProgressTemplate>
         </asp:UpdateProgress>
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server" EnableViewState="true">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <asp:Panel ID="Panel_Comentarios" runat="server" CssClass="panel_tab" ScrollBars="Vertical">               
                     <asp:GridView ID="Grilla_Comentarios" runat="server" AutoGenerateColumns="False" EnableViewState="true" CssClass="grillas_tab" Height="16px" Width="730px">

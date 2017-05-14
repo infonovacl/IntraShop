@@ -25,7 +25,6 @@
              height: 22px;
          }
          .auto-style14 {
-             width: 166px;
          }
          .auto-style15 {
              height: 22px;
@@ -75,12 +74,10 @@
                         <asp:Panel ID="Panel_AdicionalesDetalle" runat="server" CssClass="panel_tab" ScrollBars="Vertical" Visible="False">
                             <table cellspacing="1" class="auto-style5">
                                 <tr>
-                                    <td class="auto-style14">
-                                        <asp:Label ID="Label84" runat="server" CssClass="etiquetas_tab" Text="Tarjetas Adicionales"></asp:Label>
+                                    <td class="auto-style14" colspan="4">
+                                        <asp:Label ID="Label84" runat="server" CssClass="etiquetasimportante" 
+                                            Text="Tarjetas Adicionales"></asp:Label>
                                     </td>
-                                    <td class="auto-style16">&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr>
                                     <td class="auto-style15">

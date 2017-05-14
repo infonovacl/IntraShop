@@ -25,6 +25,8 @@
                     Me.LBL_ComentariosError.Text = DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
                 Else
                     ObtieneComentarios()
+                    Me.LBL_ComentariosError.Visible = True
+                    Me.LBL_ComentariosError.Text = "COMENTARIO INGRESADO"
                 End If
             Else
                 Me.BTN_Grabar.Enabled = True
@@ -56,17 +58,16 @@
                 Me.LBL_ComentariosError.Text = DATADSComentariosPopUp.Tables(0).Rows(0)(1) ' mensaje de error
             Else
                 Me.Panel_Comentarios.Visible = True
-                Me.BTN_Grabar.Enabled = True
-                Me.LBL_ComentariosError.Visible = False
+                Me.BTN_Grabar.Enabled = True                
                 Me.Grilla_Comentarios.DataSource = DATADSComentariosPopUp.Tables(0).DefaultView
                 Me.Grilla_Comentarios.DataBind()
+              
             End If
         Catch EX2 As Exception
             Me.LBL_ComentariosError.Visible = True
             Me.LBL_ComentariosError.Text = EX2.Message
         End Try
     End Sub
-
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
         Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub

@@ -2,13 +2,14 @@
     Inherits System.Web.UI.Page
     Dim Ciudad As String
     Dim Direccion As String
+    Public DATADSConsultaSubEstadoPopUp As New Data.DataSet
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.LBL_ListaBloqueosError.Visible = False
         If Not IsPostBack Then
             LlenaCheckBoxBloqueos()
             ObtieneConsultasDataBusiness()
             HabilitaBotones()
-        End If
+        End If        
     End Sub
     Private Sub HabilitaBotones()
         Dim DataDSHabilitaBotones As New Data.DataSet
@@ -27,10 +28,10 @@
                 Me.LBL_HabilitaBotonesError.Visible = True
                 Me.LBL_HabilitaBotonesError.Text = DataDSHabilitaBotones.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                If DataDSHabilitaBotones.Tables(0).Rows(0)(3) = 1 Then
+                If DataDSHabilitaBotones.Tables(0).Rows(0)(2) = 1 Then
                     Me.BTN_AntecComerciales.Enabled = True
                 End If
-                If DataDSHabilitaBotones.Tables(0).Rows(0)(4) = 1 Then
+                If DataDSHabilitaBotones.Tables(0).Rows(0)(3) = 1 Then
                     Me.BTN_SolicitaDesbloqueo.Enabled = True
                 End If
             End If
@@ -62,53 +63,32 @@
             Me.LBL_ConsultasDBError.Visible = True
             Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
-    End Sub
-    Private Sub LlenaCheckBoxBloqueos()
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
-        Try
-            Dim DATADSConsultaSubEstadoPopUp As New Data.DataSet
-            DATADSConsultaSubEstadoPopUp.Clear()
-            Dim STRConsultaSubEstado As String = "execute procedure procw_cons_subest ('" & RutCliente & "','4')"
-            Dim DATAConsultaSubEstado As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultaSubEstado, Globales.conn)
-            DATAConsultaSubEstado.Fill(DATADSConsultaSubEstadoPopUp, "PRUEBA")
-            If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(0) = 1 Then
-                Me.LBL_ListaBloqueosError.Visible = True
-                Me.LBL_ListaBloqueosError.Text = DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(1) ' mensaje de error              
-            Else
-                Dim x As Integer
-                For x = 0 To DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count - 1
-                    Dim item As New ListItem()
-                    item.Text = DATADSConsultaSubEstadoPopUp.Tables(0).Rows(x)(3)
-                    item.Value = DATADSConsultaSubEstadoPopUp.Tables(0).Rows(x)(2)
-                    If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(x)(5) = 1 Then
-                        item.Selected = True
-                    Else
-                        item.Selected = False
-                    End If
-                    If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(x)(4).ToString = "S" Then
-                        item.Enabled = True
-                    Else
-                        item.Enabled = False
-                    End If
-                    Me.CHBL_BloqueosCliente.Items.Add(item)
-                Next
-                Dim y As Integer
-                For y = 0 To DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count - 1
-                    If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(y)(4).ToString = "S" Then
-                        CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: blue;")
-                    Else
-                        CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: red;")
-                    End If
-                Next
-            End If
-        Catch ex3 As Exception
-            Me.LBL_ListaBloqueosError.Visible = True
-            Me.LBL_ListaBloqueosError.Text = ex3.Message
-        End Try
-    End Sub
+    End Sub  
     Protected Sub BTN_SolicitaDesbloqueo_Click(sender As Object, e As EventArgs) Handles BTN_SolicitaDesbloqueo.Click
-       
+        Dim DataDSSolicitaDesbloqueo As New Data.DataSet
+        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
+        RutCliente = Session("rut")
+        CodSucursal = Session("sucursal")
+        CodCaja = Session("caja")
+        Responsable = Session("usuario")
+        Try
+            DataDSSolicitaDesbloqueo.Clear()         
+            Dim STRSolicitaDesbloqueo As String = "execute procedure procw_ingr_solic ('" & RutCliente & "'," & CodSucursal & "," & CodCaja & "," & Responsable & ",'DESB')"
+            Dim DATASolicitaDesbloqueo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaDesbloqueo, Globales.conn)            
+            DATASolicitaDesbloqueo.Fill(DataDSSolicitaDesbloqueo, "PRUEBA")
+            If DataDSSolicitaDesbloqueo.Tables(0).Rows(0)(0) = 1 Then             
+                Me.LBL_ConsultasDBError.Visible = True
+                Me.LBL_ConsultasDBError.Text = DataDSSolicitaDesbloqueo.Tables(0).Rows(0)(1) ' mensaje de error
+            ElseIf DataDSSolicitaDesbloqueo.Tables(0).Rows(0)(0) = 0 Then
+                Me.LBL_ConsultasDBError.Visible = True
+                Me.LBL_ConsultasDBError.Text = DataDSSolicitaDesbloqueo.Tables(0).Rows(0)(1) ' mensaje exito
+            End If
+            Me.CHBL_BloqueosCliente.Items.Clear()
+            LlenaCheckBoxBloqueos()
+        Catch EX2 As Exception
+            Me.LBL_ConsultasDBError.Visible = True
+            Me.LBL_ConsultasDBError.Text = EX2.Message
+        End Try
     End Sub
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
@@ -185,11 +165,11 @@
                 ' grabo en tabla de errores
                 Try
                     Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                    SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ")"
+                    SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'BLO'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ")"
                     Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                     DATADBerr.Fill(DATADSErr, "PRUEBA")
                 Catch EX As Exception
-                    MsgBox(EX.Message)
+                    'MsgBox(EX.Message)
                 End Try
                 Return -1
             Else
@@ -222,7 +202,7 @@
                     ' grabo en tabla de errores
                     Try
                         Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                        SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ")"
+                        SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'BLO'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ")"
                         Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                         DATADBerr.Fill(DATADSErr, "PRUEBA")
                     Catch EX As Exception
@@ -257,7 +237,7 @@
             End If
             Try  ' la variable sesion "FechaTrx" es today u otra fecha ??
                 Dim SQLDB = "INSERT INTO consulta_db (rut_cliente,fecha,hora,motivo,score,edad,antecedentes,otros_datos1,otros_datos2,otros_datos3,fec_nac,sucursal,caja,rut_resp,origen)"
-                SQLDB = SQLDB & " VALUES ( " & Session("rut") & ",current year to day , current hour to second , 'ING'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ",'S')"
+                SQLDB = SQLDB & " VALUES ( " & Session("rut") & ",current year to day , current hour to second , 'BLO'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & Session("sucursal") & "," & Session("caja") & "," & Session("usuario") & ",'S')"
                 Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
                 DATADB.Fill(DATADSCli2, "PRUEBA")
             Catch EX As Exception
@@ -278,7 +258,7 @@
                     Monto = Mid(node.selectSingleNode("@Monto").text, 1, InStr(1, node.selectSingleNode("@Monto").text, "."))
                     Try
                         Dim SQLDBDet = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1,desc2)"
-                        SQLDBDet = SQLDBDet & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING','PR','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipDoc").text & "','" & Monto & "' )"
+                        SQLDBDet = SQLDBDet & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'BLO','PR','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipDoc").text & "','" & Monto & "' )"
                         Dim DATADBDet As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet, Globales.conn)
                         DATADBDet.Fill(DATADSDet, "PRUEBA")
                     Catch EX As Exception
@@ -294,7 +274,7 @@
                     Monto = Mid(node.selectSingleNode("@Monto").text, 1, InStr(1, node.selectSingleNode("@Monto").text, "."))
                     Try
                         Dim SQLDBDet1 = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1,desc2)"
-                        SQLDBDet1 = SQLDBDet1 & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'ING','MO','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipCred").text & "','" & Monto & "' )"
+                        SQLDBDet1 = SQLDBDet1 & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'BLO','MO','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipCred").text & "','" & Monto & "' )"
                         Dim DATADBDet1 As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet1, Globales.conn)
                         DATADBDet1.Fill(DATADSDet1, "PRUEBA")
                     Catch EX As Exception
@@ -310,7 +290,7 @@
                     fechadetalle = ArmaFecha(node.selectSingleNode("@FechaCons").text)
                     Try
                         Dim SQLDBDet2 = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1)"
-                        SQLDBDet2 = SQLDBDet2 & " VALUES ( " & Session("rut") & ",current year to day, current hour to second , 'ING','CN','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "' )"
+                        SQLDBDet2 = SQLDBDet2 & " VALUES ( " & Session("rut") & ",current year to day, current hour to second , 'BLO','CN','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "' )"
                         Dim DATADBDet2 As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet2, Globales.conn)
                         DATADBDet2.Fill(DATADSDet2, "PRUEBA")
                     Catch EX As Exception
@@ -444,21 +424,158 @@
         End If
         Return ""
     End Function
-    Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
-        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+    Private Sub LlenaCheckBoxBloqueos()
+        Dim RutCliente As Integer
+        RutCliente = Session("rut")
+        Me.CHBL_BloqueosCliente.Items.Clear()
+        DATADSConsultaSubEstadoPopUp.Clear()
+        Grilla_Bloqueos.DataSource = Nothing
+        Grilla_Bloqueos.DataBind()
+        Try           
+            Dim STRConsultaSubEstado As String = "execute procedure procw_cons_subest ('" & RutCliente & "','4')"
+            Dim DATAConsultaSubEstado As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultaSubEstado, Globales.conn)
+            DATAConsultaSubEstado.Fill(DATADSConsultaSubEstadoPopUp, "PRUEBA")
+            Me.Grilla_Bloqueos.DataSource = Me.DATADSConsultaSubEstadoPopUp.Tables(0).DefaultView
+            Me.Grilla_Bloqueos.DataBind()
+            If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(0) = 1 Then             
+                Response.Write("<script>window.alert('ERROR: " & Trim(DATADSConsultaSubEstadoPopUp.Tables(0).Rows(0)(1)) & "');</script>")
+                Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+            Else
+                Dim x As Integer
+                For x = 0 To Me.Grilla_Bloqueos.Rows.Count - 1
+                    Dim item As New ListItem()
+                    item.Text = Me.Grilla_Bloqueos.Rows(x).Cells(1).Text()  'texto
+                    item.Value = Me.Grilla_Bloqueos.Rows(x).Cells(0).Text()  'codigo bloqueo
+                    If Me.Grilla_Bloqueos.Rows(x).Cells(3).Text() = 1 Then 'marcado o no
+                        item.Selected = True
+                    Else
+                        item.Selected = False
+                    End If
+                    If Me.Grilla_Bloqueos.Rows(x).Cells(2).Text() = "S" Then
+                        item.Enabled = True
+                    Else 'If 'Me.Grilla_Bloqueos.Rows(x).Cells(2).Text() = "N" And item.Selected = True Then
+                        ' item.Enabled = False
+                    End If
+                    Me.CHBL_BloqueosCliente.Items.Add(item)
+                Next
+                ColoreaBloqueos()
+            End If
+        Catch ex3 As Exception
+            Me.LBL_ListaBloqueosError.Visible = True
+            Me.LBL_ListaBloqueosError.Text = ex3.Message
+        End Try
+    End Sub
+    Private Sub ColoreaBloqueos()
+        Dim y As Integer
+        If DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count > 0 Then
+            For y = 0 To DATADSConsultaSubEstadoPopUp.Tables(0).Rows.Count - 1
+                If DATADSConsultaSubEstadoPopUp.Tables(0).Rows(y)(4).ToString = "S" Then
+                    CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: blue;")
+                Else
+                    CHBL_BloqueosCliente.Items(y).Attributes.Add("style", "color: red;")
+                    If CHBL_BloqueosCliente.Items(y).Selected = True Then
+                        CHBL_BloqueosCliente.Items(y).Enabled = False
+                    End If
+                End If
+            Next
+        End If
     End Sub
     Protected Sub BTN_GrabaBloqueos_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_GrabaBloqueos.Click
-
+        Dim DataDSBloqueos As New Data.DataSet
+        Dim RutCliente, Responsable As Integer
+        Me.LBL_ConsultasDBError.Text = ""
+        Me.LBL_HabilitaBotonesError.Text = ""
+        RutCliente = Session("rut")
+        Responsable = Session("usuario")        
+        Dim item As ListItem
+        Dim flag As Integer = 0
+        For Each item In CHBL_BloqueosCliente.Items 'recorro checkboxlist
+            Dim x As Integer
+            For x = 0 To Me.Grilla_Bloqueos.Rows.Count - 1
+                If item.Value = Me.Grilla_Bloqueos.Rows(x).Cells(0).Text() Then
+                    If Me.Grilla_Bloqueos.Rows(x).Cells(3).Text() = 1 And item.Selected = False Then ' SI SE QUITO EL BLOQUEO
+                        Try
+                            DataDSBloqueos.Clear()
+                            Dim STRBloqueos As String = "execute procedure procw_elim_bloqueo ('" & RutCliente & "','" & item.Value & "','" & Responsable & "')"
+                            Dim DATABloqueos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRBloqueos, Globales.conn)
+                            DATABloqueos.Fill(DataDSBloqueos, "PRUEBA")
+                            If DataDSBloqueos.Tables(0).Rows(0)(0) = 1 Then
+                                Me.LBL_ConsultasDBError.Visible = True
+                                Me.LBL_ConsultasDBError.Text = DataDSBloqueos.Tables(0).Rows(0)(1) ' mensaje de error
+                            ElseIf DataDSBloqueos.Tables(0).Rows(0)(0) = 0 Then
+                                flag = 1
+                                Me.LBL_ConsultasDBError.Visible = True
+                                Me.LBL_ConsultasDBError.Text = DataDSBloqueos.Tables(0).Rows(0)(1) ' mensaje exito
+                            End If
+                        Catch EX2 As Exception
+                            Me.LBL_ConsultasDBError.Visible = True
+                            Me.LBL_ConsultasDBError.Text = EX2.Message
+                        End Try
+                    ElseIf Me.Grilla_Bloqueos.Rows(x).Cells(3).Text() = 0 And item.Selected = True Then ' SI SE BLOQUEO
+                        Try
+                            DataDSBloqueos.Clear()
+                            Dim STRBloqueos As String = "execute procedure procw_agrega_bloqueo ('" & RutCliente & "','" & item.Value & "','" & Responsable & "')"
+                            Dim DATABloqueos As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRBloqueos, Globales.conn)
+                            DATABloqueos.Fill(DataDSBloqueos, "PRUEBA")
+                            If DataDSBloqueos.Tables(0).Rows(0)(0) = 1 Then
+                                Me.LBL_HabilitaBotonesError.Visible = True
+                                Me.LBL_HabilitaBotonesError.Text = DataDSBloqueos.Tables(0).Rows(0)(1) ' mensaje de error
+                            ElseIf DataDSBloqueos.Tables(0).Rows(0)(0) = 0 Then
+                                flag = 1
+                                Me.LBL_HabilitaBotonesError.Visible = True
+                                Me.LBL_HabilitaBotonesError.Text = DataDSBloqueos.Tables(0).Rows(0)(1) ' mensaje exito
+                            End If
+                        Catch EX2 As Exception
+                            Me.LBL_HabilitaBotonesError.Visible = True
+                            Me.LBL_HabilitaBotonesError.Text = EX2.Message
+                        End Try
+                    End If
+                End If
+            Next
+        Next
+        If flag = 0 Then
+            Me.LBL_HabilitaBotonesError.Visible = True
+            Me.LBL_HabilitaBotonesError.Text = "NO HUBIERON CAMBIOS EN EL ESTADO DE LOS BLOQUEOS"
+        End If
+        LlenaCheckBoxBloqueos()      
     End Sub
     Protected Sub BTN_AntecComerciales_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
-        Dim RutCliente As Integer
+        Me.LBL_ConsultasDBError.Visible = True
+        Me.LBL_ConsultasDBError.Text = "CONSULTANDO ANTECEDENTES COMERCIALES..."
+        Me.BTN_AntecComerciales.Enabled = False
+        Dim RutCliente As String
         RutCliente = Session("rut") + Session("dv")
         Dim respuesta As Integer = RevisaSinacofi(RutCliente)
-        If respuesta = 1 Then
-            ObtieneConsultasDataBusiness()
-        End If
-        Me.BTN_SolicitaDesbloqueo.Enabled = False
-        'Return -1 error        
+
+        ObtieneConsultasDataBusiness()
+
+        Dim DataDSSolicitudLevantamiento As New Data.DataSet
+        Dim CodSucursal, CodCaja, Responsable As Integer
+        Dim Antecedentes As String
+        Dim RutClienteSinDv As Integer
+        RutClienteSinDv = Session("rut")
+        CodSucursal = Session("sucursal")
+        CodCaja = Session("caja")
+        Responsable = Session("usuario")
+        Antecedentes = Session("Antec")
+        Try
+            DataDSSolicitudLevantamiento.Clear()
+            Dim STRSolicitudLevantamiento As String = "execute procedure procw_solicitud (" & RutClienteSinDv & "," & CodSucursal & "," & CodCaja & ",current year to day," & Responsable & ",'" & Antecedentes & "')"
+            Dim DATASolicitudLevantamiento As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitudLevantamiento, Globales.conn)
+            DATASolicitudLevantamiento.Fill(DataDSSolicitudLevantamiento, "PRUEBA")
+            If DataDSSolicitudLevantamiento.Tables(0).Rows(0)(0) = 1 Then
+                Me.BTN_AntecComerciales.Enabled = False
+                Me.BTN_SolicitaDesbloqueo.Enabled = False
+                Me.LBL_HabilitaBotonesError.Visible = True
+                Me.LBL_HabilitaBotonesError.Text = DataDSSolicitudLevantamiento.Tables(0).Rows(0)(1) ' mensaje de error          
+            End If
+        Catch EX As Exception
+            Me.LBL_HabilitaBotonesError.Visible = True
+            Me.LBL_HabilitaBotonesError.Text = EX.Message
+        End Try
+        Me.LBL_ConsultasDBError.Visible = True
+        Me.LBL_ConsultasDBError.Text = "CONSULTA FINALIZADA"
+
         'Return 1 -- > Cliente Registra Antecedentes Comerciales 
     End Sub
 End Class

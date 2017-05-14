@@ -194,7 +194,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(8) Is System.DBNull.Value Then ' fecha nacimiento
                     Me.TXT_FechaNac.Text = ""
                 Else
-                    Me.TXT_FechaNac.Text = DataDSDatosCliente.Tables(0).Rows(0)(8)
+                    Me.TXT_FechaNac.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(8))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then 'estado civil                  
                     Me.DDL_EstadoCivil.SelectedValue = 0
@@ -222,12 +222,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(11) Is System.DBNull.Value Then 'n casa
                     Me.TXT_NumeroCasa.Text = ""
                 Else
-                    Me.TXT_NumeroCasa.Text = DataDSDatosCliente.Tables(0).Rows(0)(11)
+                    Me.TXT_NumeroCasa.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(11))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(12) Is System.DBNull.Value Then 'n depto
                     Me.TXT_NumeroDepto.Text = ""
                 Else
-                    Me.TXT_NumeroDepto.Text = DataDSDatosCliente.Tables(0).Rows(0)(12)
+                    Me.TXT_NumeroDepto.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(12))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(13) Is System.DBNull.Value Then 'n depto
                     Me.TXT_VillaPoblacion.Text = ""
@@ -250,12 +250,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(17) Is System.DBNull.Value Then 'n telefono fijo
                     Me.TXT_TelefonoFijo.Text = ""
                 Else
-                    Me.TXT_TelefonoFijo.Text = DataDSDatosCliente.Tables(0).Rows(0)(17)
+                    Me.TXT_TelefonoFijo.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(17))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(18) Is System.DBNull.Value Then 'n telefono celular
                     Me.TXT_TelefonoCelular.Text = ""
                 Else
-                    Me.TXT_TelefonoCelular.Text = DataDSDatosCliente.Tables(0).Rows(0)(18)
+                    Me.TXT_TelefonoCelular.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(18))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then 'n telefono referencia
                     Me.TXT_ReferenciaNombre.Text = ""
@@ -279,7 +279,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(23) Is System.DBNull.Value Then 'n telefono referencia
                     Me.TXT_ReferenciaTelefono.Text = ""
                 Else
-                    Me.TXT_ReferenciaTelefono.Text = DataDSDatosCliente.Tables(0).Rows(0)(23)
+                    Me.TXT_ReferenciaTelefono.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(23))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then 'nombre empleador
                     Me.TXT_EmpleadorNombre.Text = ""
@@ -294,12 +294,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then 'numero direccion empleador
                     Me.TXT_EmpleadorNumero.Text = ""
                 Else
-                    Me.TXT_EmpleadorNumero.Text = DataDSDatosCliente.Tables(0).Rows(0)(26)
+                    Me.TXT_EmpleadorNumero.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(26))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(27) Is System.DBNull.Value Then 'oficina/depto empleador
                     Me.TXT_EmpleadorOficina.Text = ""
                 Else
-                    Me.TXT_EmpleadorOficina.Text = DataDSDatosCliente.Tables(0).Rows(0)(27)
+                    Me.TXT_EmpleadorOficina.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(27))
                 End If
                 Dim RegionEmpleador As Integer
                 If DataDSDatosCliente.Tables(0).Rows(0)(28) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(28) = 0 Then 'REGION EMPLEADOR
@@ -312,12 +312,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(30) Is System.DBNull.Value Then 'fono empleador
                     Me.TXT_EmpleadorTelefono.Text = ""
                 Else
-                    Me.TXT_EmpleadorTelefono.Text = DataDSDatosCliente.Tables(0).Rows(0)(30)
+                    Me.TXT_EmpleadorTelefono.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(30))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(31) Is System.DBNull.Value Then 'anexo empleador
                     Me.TXT_EmpleadorAnexo.Text = ""
                 Else
-                    Me.TXT_EmpleadorAnexo.Text = DataDSDatosCliente.Tables(0).Rows(0)(31)
+                    Me.TXT_EmpleadorAnexo.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(31))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(32) Is System.DBNull.Value Then 'cargo empleador
                     Me.TXT_EmpleadorCargo.Text = ""
@@ -392,15 +392,31 @@
                     RutCliente = Session("rut")
                     usuario = Session("usuario")
                     codigotienda = Session("sucursal")
+                    Dim region_empleador, region_cliente, region_referencia As Integer
+                    If Me.DDL_RegionCliente.SelectedValue = "SIN REGION" Then
+                        region_cliente = 0
+                    Else
+                        region_cliente = DDL_RegionCliente.SelectedValue
+                    End If
+                    If Me.DDL_ReferenciaRegion.SelectedValue = "SIN REGION" Then
+                        region_referencia = 0
+                    Else
+                        region_referencia = DDL_ReferenciaRegion.SelectedValue
+                    End If
+                    If Me.DDL_EmpleadorRegion.SelectedValue = "SIN REGION" Then
+                        region_empleador = 0
+                    Else
+                        region_empleador = DDL_EmpleadorRegion.SelectedValue
+                    End If
                     Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & RutCliente & "','" _
-                                                            & Me.TXT_Nombres.Text.ToUpper & "','" & Me.TXT_APaterno.Text.ToUpper & "','" & Me.TXT_AMaterno.Text.ToUpper & "','" & Me.RBL_Sexo.SelectedValue & "','" _
-                                                            & Me.DDL_EstadoCivil.SelectedValue & "','" & Me.TXT_CalleParticular.Text.ToUpper & "','" & Me.TXT_NumeroCasa.Text.ToUpper & "','" & Me.TXT_NumeroDepto.Text.ToUpper & "','" _
-                                                            & Me.TXT_VillaPoblacion.Text.ToUpper & "','" & Me.TXT_AlturaCalle.Text.ToUpper & "','" & Me.DDL_RegionCliente.SelectedValue & "','" & Me.DDL_ComunaCliente.SelectedValue & "','" _
-                                                            & Me.TXT_TelefonoFijo.Text.ToUpper & "','" & Me.TXT_TelefonoCelular.Text.ToUpper & "','" & Me.TXT_ReferenciaNombre.Text.ToUpper & "','" & Me.DDL_ReferenciaRegion.SelectedValue & "','" _
+                                                            & Trim(Me.TXT_Nombres.Text.ToUpper) & "','" & Trim(Me.TXT_APaterno.Text.ToUpper) & "','" & Trim(Me.TXT_AMaterno.Text.ToUpper) & "','" & Me.RBL_Sexo.SelectedValue & "','" _
+                                                            & Me.DDL_EstadoCivil.SelectedValue & "','" & Trim(Me.TXT_CalleParticular.Text.ToUpper) & "','" & Trim(Me.TXT_NumeroCasa.Text.ToUpper) & "','" & Trim(Me.TXT_NumeroDepto.Text.ToUpper) & "','" _
+                                                            & Trim(Me.TXT_VillaPoblacion.Text.ToUpper) & "','" & Trim(Me.TXT_AlturaCalle.Text.ToUpper) & "','" & region_cliente & "','" & Me.DDL_ComunaCliente.SelectedValue & "','" _
+                                                            & Trim(Me.TXT_TelefonoFijo.Text.ToUpper) & "','" & Trim(Me.TXT_TelefonoCelular.Text.ToUpper) & "','" & Trim(Me.TXT_ReferenciaNombre.Text.ToUpper) & "','" & region_referencia & "','" _
                                                             & Me.DDL_ReferenciaComuna.Text.ToUpper & "','" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "','" & Me.TXT_ReferenciaTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorNombre.Text.ToUpper & "','" _
-                                                            & Me.TXT_EmpleadorDireccion.Text.ToUpper & "','" & Me.TXT_EmpleadorNumero.Text.ToUpper & "','" & Me.TXT_EmpleadorOficina.Text.ToUpper & "','" & Me.DDL_EmpleadorRegion.SelectedValue & "','" _
-                                                            & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Me.TXT_EmpleadorTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorAnexo.Text.ToUpper & "','" & Me.TXT_EmpleadorCargo.Text.ToUpper & "','" _
-                                                            & Me.TXT_CorreoElectronico.Text.ToUpper & "','" & usuario & "','" & codigotienda & "')"
+                                                            & Trim(Me.TXT_EmpleadorDireccion.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorNumero.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorOficina.Text.ToUpper) & "','" & region_empleador & "','" _
+                                                            & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Trim(Me.TXT_EmpleadorTelefono.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorAnexo.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorCargo.Text.ToUpper) & "','" _
+                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & usuario & "','" & codigotienda & "')"
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then
@@ -408,13 +424,12 @@
                         Me.LBL_DatosClienteError.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje de error
                     Else
                         Me.LBL_DatosClienteError.Visible = True
-                        Me.LBL_DatosClienteError.Text = "Actualizacion de registro exitosa"
+                        Me.LBL_DatosClienteError.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje exito
                     End If
                 Catch EX As Exception
                     Me.LBL_DatosClienteError.Visible = True
                     Me.LBL_DatosClienteError.Text = EX.Message
-                End Try
-            Else
+                End Try           
             End If
         End If
     End Sub

@@ -24,6 +24,7 @@
         End If
     End Sub
     Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
+        Dim DeudaCast As Integer
         If Page.User.Identity.IsAuthenticated = True Then
             If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
                 Me.TXT_ConsultaRutCliente.Enabled = False
@@ -240,11 +241,11 @@
                         Else
                             Me.TXT_ConsultaValorVencimientoCuota6.Text = Format(CType(DataDSDatosCliente.Tables(0).Rows(0)(42), Integer), "###,###,##0")
                         End If
-                        'If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then  '   EDAD
-                        ' Me.LBL_Vencimiento6.Text = ""
-                        ' Else
-                        ' Me.LBL_Vencimiento6.Text = DataDSDatosCliente.Tables(0).Rows(0)(43)
-                        ' End If
+                        If DataDSDatosCliente.Tables(0).Rows(0)(43) Is System.DBNull.Value Then  '  Deuda Cast
+                            DeudaCast = 0
+                        Else
+                            DeudaCast = DataDSDatosCliente.Tables(0).Rows(0)(43)
+                        End If
                         If DataDSDatosCliente.Tables(0).Rows(0)(44) Is System.DBNull.Value Then
                             Me.TXT_ConsultaDV.Text = ""
                         Else
@@ -262,15 +263,21 @@
                             OpcionGeneral = CType(DataDSDatosCliente.Tables(0).Rows(0)(47), Integer)
                             If OpcionGeneral = 3 Then 'rechazo                                                  
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
-                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
                             End If
                             If OpcionGeneral = 2 Then 'verificacion                                               
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Rechazo
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
                             End If
                             If OpcionGeneral = 4 Then 'Bloqueado                                            
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Revisa Rechazo
-                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).SelectAction = TreeNodeSelectAction.None ' Verificacion
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).SelectAction = TreeNodeSelectAction.None ' Verificacion
+                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
+                            End If
+                            If OpcionGeneral = 6 Then 'Bloqueado 
+                                LBL_MensajeAvance1.Text = "Castigo Pendiente $ " & DeudaCast
                             End If
                         End If
                         Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
@@ -306,8 +313,8 @@
     Protected Sub Tab_Consultas_ActiveTabChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
             'Me.Tab_Consultas.Tabs(8).Enabled = True
-            Me.LBL_MensajeContratos.Visible = False
-            Me.LBL_MensajeContratos.Text = ""
+            'Me.LBL_MensajeContratos.Visible = False
+            'Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
                 Case 0
                     Dim DataDSEstados As New Data.DataSet
@@ -821,12 +828,16 @@
                             Me.LBL_XPagarError.Visible = False
                             Me.Grilla_XPagar.DataSource = DataDSXPagar.Tables(0).DefaultView
                             Me.Grilla_XPagar.DataBind()
-                            Dim X, sumatotalcuota, sumatotalpendiente As Long
+                            Dim X, sumatotalcuota, sumatotalpendiente, sumacapital, sumainteres As Long
                             For X = 0 To Me.Grilla_XPagar.Rows.Count - 1
+                                sumacapital = sumacapital + CType(Me.Grilla_XPagar.Rows(X).Cells(4).Text, Long)
+                                sumainteres = sumainteres + CType(Me.Grilla_XPagar.Rows(X).Cells(5).Text, Long)
                                 sumatotalcuota = sumatotalcuota + CType(Me.Grilla_XPagar.Rows(X).Cells(8).Text, Long)
                                 sumatotalpendiente = sumatotalpendiente + CType(Me.Grilla_XPagar.Rows(X).Cells(9).Text, Long)
                             Next
                             Me.Grilla_XPagar.FooterRow.Cells(0).Text = "SUB-TOTAL"
+                            Me.Grilla_XPagar.FooterRow.Cells(4).Text = Format(sumacapital, "###,###,##0")
+                            Me.Grilla_XPagar.FooterRow.Cells(5).Text = Format(sumainteres, "###,###,##0")
                             Me.Grilla_XPagar.FooterRow.Cells(8).Text = Format(sumatotalcuota, "###,###,##0")
                             Me.Grilla_XPagar.FooterRow.Cells(9).Text = Format(sumatotalpendiente, "###,###,##0")
                         End If
@@ -1139,8 +1150,8 @@
         Me.Tab_Consultas.ActiveTabIndex = 16
         Me.LBL_MensajeAvance.Text = ""
         Me.LBL_MensajeContratos.Text = ""
-        Me.LBL_MensajeAvance.Visible = False
-        Me.LBL_MensajeContratos.Visible = False
+        'Me.LBL_MensajeAvance.Visible = False
+        'Me.LBL_MensajeContratos.Visible = False
     End Sub
     Protected Sub Grilla_Seguros_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_Seguros.SelectedIndexChanged
         Dim DataDSDetSeguro As New Data.DataSet

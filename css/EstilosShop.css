@@ -3,7 +3,22 @@
                 font-size:11px;
                 font-weight:bold;
                 color:black;
+                text-align: left;
+}
+.etiquetas_login{ 
+                font-family:Arial;
+                font-size:11px;
+                font-weight:bold;
+                color:black;
                 text-align: right;
+}
+.etiquetas_titulo{ 
+                font-family:Arial;
+                font-size:14px;
+                font-weight:bold;
+                color:black;
+                text-align: left;
+                text-decoration: underline;
 }
 .etiquetas_tab{ 
                 font-family:Arial;
@@ -17,14 +32,15 @@
                 font-size:11px;
                 font-weight:bold;
                 color:black;
-                text-align: left;
+                text-align: center;
 }
 .etiquetas_cerrarsesion{ 
                 font-family:Arial;
-                font-size:12px;
+                font-size:8pt;
                 font-weight:bold;
                 color:blue;
                 text-align: left;
+                font-style: italic;
 }
 .etiquetas_tabtotales{ 
                 font-family:Arial;
@@ -43,14 +59,35 @@
                 font-family:Arial;
                 font-size:14px;
                 font-weight:bold;               
-                text-transform: uppercase;      
+                text-transform: uppercase;                
+}
+.etiquetas_introdoc{ 
+                font-family:Arial;
+                font-size:13px;
+                font-weight:bold;   
+                color:Black;            
+                text-transform: uppercase;                
+}
+.etiquetasimportante_login{ 
+                font-family:Arial;
+                font-size:14px;
+                font-weight:bold;               
+                text-transform: uppercase;   
+                text-align:right;             
 }
 .etiquetasmensajeerror {
                 font-family:Arial;
-                font-size:10px;
+                font-size:11px;
                 font-weight:bold;
                 color:red;         
-                text-transform: uppercase;      
+                text-transform: uppercase;
+                text-align: left;
+}
+.checkboxlist{ 
+                font-family:Arial;
+                font-size:12px;        
+                font-weight:bold;      
+                text-align: left;
 }
 .cajastextoparametro{
                 font-family:Arial;
@@ -65,7 +102,7 @@
                 height:11px;
                 text-transform: uppercase;
                 color:black;
-        text-align: left;
+                text-align: left;
 }
 .cajastextonumerico{
                 font-family:Arial;
@@ -119,7 +156,7 @@
 .botones_anchoX2{
                 width:180px;
                 height:22px;
-    text-align: center;
+                text-align: center;
 }
 .tabla_tabcontainer{
                 border-style: none;
@@ -147,7 +184,7 @@
                 width: 765px;
                 background-color:whitesmoke;
 }
-.update {
+.update{
                 position: fixed;
                 top: 0px;
                 left: 0px;
@@ -161,8 +198,7 @@
                 opacity: 0.8;
                 overflow: hidden;
 }
-.update_tabcliente 
-{   
+.update_tabcliente{   
     position: absolute; 
     top: 314px; 
     left: 2px; 

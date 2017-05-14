@@ -362,7 +362,7 @@ function SignatureForm(preview) {
       {
         if (m_usingEncryption)
         {
-          m_tablet.startCapture(0xc0ffee); //'descomentar si no funciona
+         // m_tablet.startCapture(0xc0ffee); //'descomentar si no funciona //comentado es mas rapido 
         }
       }
       catch (e)

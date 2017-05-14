@@ -27,10 +27,28 @@
              width: 422px;
          }
          </style>
+            <script script language="javascript" type="text/javascript">
+                function CierraVentana() {
+                    var prm = Sys.WebForms.PageRequestManager.getInstance();
+                    prm.dispose();
+                    self.close();
+                }
+    </script>
     </head>
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div class="div_popup">
+    <div class="div_popup">          
+                <asp:ScriptManager ID="ScriptManager1" runat="server"  AsyncPostBackTimeout="720" EnableViewState="False" LoadScriptsBeforeUI="False" 
+                 ScriptMode="Release">
+                </asp:ScriptManager>
+                 <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
+            <ProgressTemplate>
+                <div class="update">
+                </div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
+         <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="False" 
+                   UpdateMode="Conditional">
             <ContentTemplate>
                 <table class="auto-style11">
                     <tr>
@@ -77,11 +95,19 @@
                             <asp:Button ID="BTN_AntecComerciales" runat="server" CssClass="botones" 
                                 Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" 
+                                onclientclick="CierraVentana();return false; " />
                         </td>
                     </tr>
                 </table>                       
-        <br />    
+        <br />   
+           </ContentTemplate>                                               
+         
+             <Triggers>
+                 <asp:AsyncPostBackTrigger ControlID="BTN_AntecComerciales" EventName="Click" />
+             </Triggers>
+         
+        </asp:UpdatePanel>  
     </div>
     </form>
     </body>

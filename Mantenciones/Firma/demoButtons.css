@@ -44,12 +44,12 @@
   float:left;
   margin-right:15px;
     width: 441px;
-    height: 220px;
+    height: 164px;
 }
 
 #signatureImage {
-  width:420px;
-  height:200px;
+  width:360px;
+  height:150px;
   border:1px solid black;
 }
 

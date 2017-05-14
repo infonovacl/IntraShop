@@ -29,13 +29,31 @@
              background-color: white;
          }
          </style>
+          <script script language="javascript" type="text/javascript">
+              function CierraVentana() {
+                  var prm = Sys.WebForms.PageRequestManager.getInstance();
+                  prm.dispose();
+                  self.close();
+              }
+    </script>
     </head>
 <body style="width: 761px; height: 6px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
     <div class="auto-style10">    
+               <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="120" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
+               </asp:ScriptManager>
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="20">
+            <ProgressTemplate>
+                <div class="update">
+                </div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="False" 
+                   UpdateMode="Conditional">
+            <ContentTemplate>
                 <asp:Label ID="Label1" runat="server" CssClass="etiquetasimportante" 
                     Text="ANTECEDENTES COMERCIALES"></asp:Label>
-                <br />              
+                <br />                          
                 <asp:Panel ID="Panel_ConsultasDB" runat="server" CssClass="panel_tab" Height="220px" ScrollBars="Vertical" Width="754px">
                     <asp:GridView ID="Grilla_ConsultasDB" runat="server" AutoGenerateColumns="False" CssClass="grillaschicas_tab" Height="16px" Width="737px">
                         <Columns>
@@ -62,14 +80,19 @@
                     <tr>
                         <td class="auto-style9">
                             <asp:Button ID="BTN_AntecComerciales" runat="server" CssClass="botones" 
-                                Enabled="False" Text="ANTEC. COMERCIALES" Width="180px" />
+                                Text="ANTEC. COMERCIALES" Width="180px" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" />
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" 
+                                onclientclick="CierraVentana();return false;" />
                         </td>
                     </tr>
-                </table>
-                                           
-        <br />    
+                </table>                                          
+        <br />   
+        </ContentTemplate>                 
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="BTN_AntecComerciales" EventName="Click" />
+            </Triggers>
+        </asp:UpdatePanel>            
     </div>
     </form>
     </body>

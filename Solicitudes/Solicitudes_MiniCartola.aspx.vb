@@ -1,6 +1,8 @@
-﻿Partial Class Solicitudes_MiniCartola
+﻿
+
+Partial Class Solicitudes_MiniCartola
     Inherits System.Web.UI.Page
-    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Me.LBL_MiniCartolaError.Visible = False
         If IsPostBack = False Then
             ObtieneMiniCartola()
@@ -122,6 +124,8 @@
                     End If
                 Catch ex As Exception
                 End Try
+
+                '*************************************************************************************
                 'Response.Write("<script>printDiv();</script>")
                 'Page.ClientScript.RegisterStartupScript(Me.GetType(), "MyKey", "printDiv();", True)
                 Response.Write("<script>window.print();window.onfocus=function(){ window.close();}</script>")
