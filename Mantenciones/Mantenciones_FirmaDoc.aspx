@@ -53,15 +53,22 @@
               return true;
           }
       }
+      function initDemoPEP() {
+          var signatureForm = new SignatureForm(document.getElementById("signatureImagePEP"));
+          signatureForm.connect();
+      }
+      function signFormPEP(estado) {
+          var _signatureImage = document.getElementById("signatureImagePEP");
+          document.getElementById("_hdnSignaturePEP").value = _signatureImage.src;
+          if (_signatureImage.src == "") {
+              alert("FIRMA NO VÁLIDA, REINTENTE CAPTURAR FIRMA");
+          }
+          else {
+              return true;
+          }
+      }
    </script>
      <style type="text/css">
-         .auto-style3 {
-             height: 89px;
-             width: 654px;
-         }
-         .auto-style4 {
-             height: 20px;
-         }
          .auto-style7 {
              height: 28px;
              width: 628px;
@@ -73,70 +80,15 @@
              text-align: center;
              margin-left: 40px;
          }
-         .auto-style11 {
-             height: 20px;
-             width: 189px;
-         }
          .auto-style12 {
              width: 690px;
              background-color: whitesmoke;
              height: 625px;
          }
-         .auto-style17 {
-             height: 22px;
-             width: 219px;
-         }
-         .auto-style19 {
-             width: 145px;
-         }
-         .auto-style20 {
-             height: 20px;
-             width: 145px;
-         }
-         .auto-style21 {
-             width: 189px;
-         }
-         .auto-style22 {
-             width: 154px;
-         }
-         .auto-style23 {
-             height: 20px;
-             width: 154px;
-         }
-         .auto-style24 {
-             height: 17px;
-         }
-         .auto-style25 {
-             width: 248px;
-         }
-         .auto-style26 {
-             height: 22px;
-             width: 248px;
-         }
-         .auto-style27 {
-             height: 24px;
-         }
-         .auto-style28 {
-             height: 16px;
-         }
-         .auto-style29 {
-             width: 219px;
-         }
-        
+                 
          .auto-style32 {
              height: 22px;
              width: 180px;
-         }
-         .auto-style33 {
-             height: 10px;
-             width: 693px;
-             align: center;
-         }
-         .auto-style34 {
-             position: absolute;
-             left: 14px;
-             top: 1558px;
-             width: 692px;
          }
          #signatureDiv0
          {
@@ -225,6 +177,34 @@
          {
              width: 239px;
          }
+         .auto-style33 {
+             width: 308px;
+             height: 17px;
+         }
+         .auto-style35 {
+             font-family: Arial;
+             font-size: 12px;
+             font-weight: bold;
+             color: black;
+         }
+         .auto-style36 {
+             width: 124px;
+             height: 17px;
+         }
+         .auto-style37 {
+             width: 167px;
+             height: 17px;
+         }
+         .auto-style38 {
+             height: 17px;
+         }
+         .auto-style39 {
+             position: absolute;
+             left: 691px;
+             top: 94px;
+             width: 325px;
+             height: 34px;
+         }
          </style>
      </head>
 <body style="width: 689px; height: 624px;">
@@ -237,25 +217,25 @@
                                     Text="FIRMA DOCUMENTACION FAMILYSHOP"></asp:Label>
                                 <br />              
                         <asp:Panel ID="Panel_Central" runat="server" Height="450px">
-                            &nbsp;<asp:RadioButtonList ID="RBL_Documentos" runat="server" AutoPostBack="True" 
-                                CssClass="etiquetas_tab" RepeatDirection="Horizontal" Width="678px" 
-                                Height="16px" style="z-index: 1; text-align: center">
-                                <asp:ListItem Value="0" Enabled="False">Contrato</asp:ListItem>
-                                <asp:ListItem Value="1" Enabled="False">Seguro Protección (Desgravamen)</asp:ListItem>
-                                <asp:ListItem Value="2" Enabled="False">Seguro Vida</asp:ListItem>
-                            </asp:RadioButtonList>
+                            &nbsp;<div class="style7">
+                                <asp:RadioButtonList ID="RBL_Documentos" runat="server" AutoPostBack="True" CssClass="auto-style35" Height="16px" RepeatDirection="Horizontal" style="z-index: 1; " Width="678px">
+                                    <asp:ListItem Enabled="False" Value="0">Contrato</asp:ListItem>
+                                    <asp:ListItem Enabled="False" Value="1">Seguro Protección (Desgravamen)</asp:ListItem>
+                                    <asp:ListItem Enabled="False" Value="2">Seguro Vida</asp:ListItem>
+                                    <asp:ListItem Enabled="False" Value="3">P.E.P.</asp:ListItem>
+                                </asp:RadioButtonList>
+                            </div>
                             <div >
                                 <table class="style2">
                                     <tr>
-                                        <td class="style17">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <asp:Image ID="IMG_ContratoFirmado" runat="server" Height="25px" 
+                                        <td class="auto-style37">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<asp:Image ID="IMG_ContratoFirmado" runat="server" Height="25px" 
                                                 ImageUrl="~/Imagenes/ok.png" Visible="False" Width="25px" />
 &nbsp;
                                             <asp:Image ID="IMG_ContratoRechazado" runat="server" Height="25px" 
                                                 ImageUrl="~/Imagenes/cancela.png" Visible="False" Width="25px" />
                                         </td>
-                                        <td class="style16">
+                                        <td class="auto-style33">
                                             &nbsp;
                                             <asp:Image ID="IMG_SeguroProteccionFirmado" runat="server" Height="25px" 
                                                 ImageUrl="~/Imagenes/ok.png" Visible="False" Width="25px" />
@@ -263,7 +243,7 @@
                                             <asp:Image ID="IMG_SeguroProteccionRechazado" runat="server" Height="25px" 
                                                 ImageUrl="~/Imagenes/cancela.png" Visible="False" Width="25px" />
                                         </td>
-                                        <td>
+                                        <td class="auto-style36">
                                             &nbsp;&nbsp;
                                             <asp:Image ID="IMG_SeguroVidaFirmado" runat="server" Height="25px" 
                                                 ImageUrl="~/Imagenes/ok.png" Visible="False" Width="25px" />
@@ -271,9 +251,38 @@
                                             <asp:Image ID="IMG_SeguroVidaRechazado" runat="server" Height="25px" 
                                                 ImageUrl="~/Imagenes/cancela.png" Visible="False" Width="25px" />
                                         </td>
+                                        <td class="auto-style38">
+                                            <asp:Image ID="IMG_PEPFirmado" runat="server" Height="25px" ImageUrl="~/Imagenes/ok.png" Visible="False" Width="25px" />
+                                            &nbsp;
+                                            <asp:Image ID="IMG_PEPRechazado" runat="server" Height="25px" ImageUrl="~/Imagenes/cancela.png" Visible="False" Width="25px" />
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
+                        </asp:Panel>
+                <br />
+                <br />
+                <br />
+                <br />
+                <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>             
+                <br />
+                <table class="style12">
+                    <tr>
+                        <td style="text-align: center">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones_ancho" 
+                                Text="CERRAR" Width="110px" />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_ImprimeTarjeta" runat="server" CssClass="botones_ancho" 
+                                Text="TARJETA" Width="110px" Visible="False" />
+                            <br />
+                            <asp:HiddenField runat="server" ID="_hdnSignature"></asp:HiddenField>
+                            <asp:HiddenField runat="server" ID="_hdnSignatureSV"></asp:HiddenField>                                                                                  
+                            <asp:HiddenField runat="server" ID="_hdnSignatureSP"></asp:HiddenField>                                                                                  
+                            <asp:HiddenField runat="server" ID="_hdnSignaturePEP"></asp:HiddenField>                                                                                  
+                        </td>
+                    </tr>
+                </table>
+              <div class="auto-style39">
                             <asp:MultiView ID="MultiView_FirmaDocs" runat="server">
                                 <asp:View ID="ViewContrato" runat="server">
                                     <asp:Panel ID="Panel_IntroContrato" runat="server" Height="124px" Width="667px">
@@ -298,6 +307,7 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                  
                                     </asp:Panel>
                                     <asp:Panel ID="Panel_FirmaContrato" runat="server" Height="68px" 
                                         Visible="False">
@@ -468,29 +478,73 @@
                                         </table>
                                     </asp:Panel>
                                 </asp:View>
+                                <asp:View ID="ViewPEP" runat="server">
+                                    <asp:Panel ID="Panel_PEP" runat="server" Height="124px" Width="667px">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <asp:Label ID="Label1" runat="server" CssClass="etiquetas_titulo" 
+                                            Text="FIRMA P.E.P. "></asp:Label>
+                                <br />
+                                <br />
+                                        <asp:TextBox ID="TXT_IntroPEP" runat="server" BorderStyle="None" 
+                                            CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" 
+                                            TextMode="MultiLine" Width="680px"></asp:TextBox>
+                                <br />
+                                        <table class="style2">
+                                            <tr>
+                                                <td class="style7">
+                                                    <asp:Button ID="BTN_PEPAcepta" runat="server" CssClass="botones_anchoX2" 
+                                                        Height="22px" Text="ACEPTA" />
+                                                </td>
+                                                <td class="style7">
+                                                    <asp:Button ID="BTN_PEPRechaza" runat="server" CssClass="botones_anchoX2" 
+                                                        Height="22px" Text="RECHAZA" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                  
+                                    </asp:Panel>
+                                    <asp:Panel ID="Panel_FirmaPEP" runat="server" Height="68px" 
+                                        Visible="False">
+                                        <div ID="PEP">
+                                    <br />
+                                            <asp:Label ID="Label2" runat="server" CssClass="etiquetas_popup" 
+                                                Text="Firma Capturada "></asp:Label>
+                                    <br/>
+                                    <img id="signatureImagePEP" border="1"/>
+                                            <object ID="wgssSTUPEP" type="application/x-wgssSTU">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </object>
+                                        </div>
+                                <br />
+                                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                            <ContentTemplate>
+                                                <asp:Label ID="LBL_PEPError" runat="server" 
+                                                    CssClass="etiquetasmensajeerror"></asp:Label>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                <br />
+                                        <table align="center" class="auto-style7">
+                                            <tr>
+                                                <td class="style1">
+                                            <input type="button" id="BTN_CAPFirmaPEP" runat="server" value="CAPTURAR FIRMA" 
+                                            onClick="javascript: initDemoPEP()" class="auto-style32" />
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <asp:Button ID="BTN_FirmarPEP" runat="server" CssClass="botones_anchoX2" 
+                                                        OnClientClick="javascript:return signFormPEP();" Text="FIRMAR P.E.P." />
+                                                    <br />
+                                                    &nbsp;&nbsp;<br />
+                                                    <asp:LinkButton ID="LINK_VerPEP" runat="server"                                                 
+                                                        onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver P.E.P.</asp:LinkButton>
+                                                    &nbsp;&nbsp;
+                                                    <br />
+                                                    <br />
+                                                    </td>
+                                            </tr>
+                                        </table>
+                                    </asp:Panel>
+                                </asp:View>
                             </asp:MultiView>
-                        </asp:Panel>
-                <br />
-                <br />
-                <br />
-                <br />
-                <asp:Label ID="LBL_DatosClienteError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>             
-                <br />
-                <table class="style12">
-                    <tr>
-                        <td style="text-align: center">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones_ancho" 
-                                Text="CERRAR" Width="110px" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="BTN_ImprimeTarjeta" runat="server" CssClass="botones_ancho" 
-                                Text="TARJETA" Width="110px" Visible="False" />
-                            <br />
-                            <asp:HiddenField runat="server" ID="_hdnSignature"></asp:HiddenField>
-                            <asp:HiddenField runat="server" ID="_hdnSignatureSV"></asp:HiddenField>                                                                                  
-                            <asp:HiddenField runat="server" ID="_hdnSignatureSP"></asp:HiddenField>                                                                                  
-                        </td>
-                    </tr>
-                </table>
+                                        </div>
     </div>
     </form>
     </body>

@@ -405,15 +405,8 @@ Partial Class Mantencion_FirmaDoc
             Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/Contrato/"), "Contrato_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
             If (ExisteContrato.Length > 0) Then
                 Me.LINK_VerContrato.Enabled = True
-                ' Me.LBL_ContratoError.Text = "CLIENTE YA TIENE FIRMADO CONTRATO"
-                'Me.IMG_ContratoFirmado.Visible = True
-                'Me.IMG_ContratoRechazado.Visible = False
-                'Me.BTN_CAPFirmaCON.Disabled = True
-                'Me.BTN_VerPREContrato.Enabled = False
-                'Me.BTN_FirmarContrato.Enabled = False
             Else
                 Me.LINK_VerContrato.Enabled = False
-                ' Me.LBL_ContratoError.Text = "CLIENTE NO TIENE FIRMADO CONTRATO"  
             End If
         Catch ex As Exception
             Me.LBL_ContratoError.Text = ex.Message
@@ -424,14 +417,8 @@ Partial Class Mantencion_FirmaDoc
             Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/"), "seguro_proteccion_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
             If (ExisteContrato.Length > 0) Then
                 Me.LINK_VerSP.Enabled = True
-                ' Me.LBL_SeguroProteccionError.Text = "CLIENTE YA TIENE FIRMADO SEGURO PROTECCION (DESGRAVAMEN)"
-                ' Me.IMG_SeguroProteccionFirmado.Visible = True
-                ' Me.IMG_SeguroProteccionRechazado.Visible = False
-                ' Me.BTN_CAPFirmaSP.Disabled = True
-                ' Me.BTN_FirmarSP.Enabled = False
             Else
                 Me.LINK_VerSP.Enabled = False
-                'Me.LBL_SeguroProteccionError.Text = "CLIENTE NO TIENE FIRMADO SEGURO PROTECCION (DESGRAVAMEN)"             
             End If
         Catch ex As Exception
             Me.LBL_SeguroProteccionError.Text = ex.Message
@@ -442,14 +429,8 @@ Partial Class Mantencion_FirmaDoc
             Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/"), "seguro_vida_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
             If (ExisteContrato.Length > 0) Then
                 Me.LINK_VerSV.Enabled = True
-                'Me.LBL_SeguroVidaError.Text = "CLIENTE YA TIENE FIRMADO SEGURO VIDA"
-                'Me.IMG_SeguroVidaFirmado.Visible = True
-                'Me.IMG_SeguroVidaRechazado.Visible = False
-                'Me.BTN_FirmarSV.Enabled = False
-                'Me.BTN_CAPFirmaSV.Disabled = True
             Else
                 Me.LINK_VerSV.Enabled = False
-                'Me.LBL_SeguroVidaError.Text = "CLIENTE NO TIENE FIRMADO SEGURO VIDA"
             End If
         Catch ex As Exception
             Me.LBL_SeguroVidaError.Text = ex.Message
@@ -643,5 +624,109 @@ Partial Class Mantencion_FirmaDoc
             Me.LBL_DatosClienteError.Text = "ERROR PRE-VISUALIZANDO CONTRATO"
         End Try
 
+    End Sub
+    Protected Sub BTN_PEPAcepta_Click(sender As Object, e As EventArgs) Handles BTN_PEPAcepta.Click
+        ObtieneDatosCliente()
+        Try
+            If Me._hdnSignature.Value <> Nothing Then
+                Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_template.pdf") ' PDF fuente      
+                Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
+                Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
+                Dim Pg As Integer       'copio pdf original y lo guardo con otro nombre 
+                For Pg = 0 To PDFDoc.Pages.Count - 1
+                    PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
+                Next
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
+                Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
+                Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
+                Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
+                gfx.DrawString(Trim(ClienteNombres), font, XBrushes.Black, New XVector(355, 126))
+                gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno), font, XBrushes.Black, New XVector(65, 139))
+                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
+                gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(170, 152))
+                gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(80, 166))
+
+                'pp = PDFDoc2.Pages(8) ' Pagina nro. 9
+                'gfx = XGraphics.FromPdfPage(pp)
+                gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(130, 740))
+                gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(170, 740))
+                gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
+                '****************************************************
+                Dim _sImage As String = _hdnSignature.Value.Replace("data:image/jpeg;base64,", "")
+                Dim _rgbBytes As Byte() = Convert.FromBase64String(_sImage)
+                Dim _sImageFile As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
+                _sImageFile += ".jpg"
+
+                Using imageFile As FileStream = New FileStream(Server.MapPath("~/Doc/PEP/" + _sImageFile), FileMode.Create)
+                    imageFile.Write(_rgbBytes, 0, _rgbBytes.Length)
+                    imageFile.Flush()
+                    imageFile.Dispose()
+                End Using
+
+                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFile)) ' inserta firma          
+                gfx.DrawImage(XImage, 210, 535, 200, 100)
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+
+                Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFile) 'BORRAR IMAGEN 64 
+                BorraFirmaUsada(Img64PEP)
+                Me.IMG_PEPFirmado.Visible = True
+                Me.IMG_PEPRechazado.Visible = False
+                Me.LINK_VerPEP.Enabled = True
+                Me.BTN_FirmarPEP.Enabled = False
+                Me.BTN_CAPFirmaCON.Disabled = True
+                GrabaFirmaPEP()
+                If Not IsClientScriptBlockRegistered("popup") Then
+                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                End If
+            Else
+                Me.LBL_PEPError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
+                Me.IMG_PEPRechazado.Visible = True
+                Me.IMG_PEPFirmado.Visible = False
+            End If
+        Catch ex As Exception
+            Me.LBL_PEPError.Text = ex.Message
+            Me.IMG_PEPRechazado.Visible = True
+        End Try
+    End Sub
+    Private Sub GrabaFirmaPEP()
+        Dim DataDSGrabaFirmaPEP As New Data.DataSet
+        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
+        Dim CodAutorizacion As String
+        RutCliente = Session("rut")
+        CodSucursal = Session("sucursal")
+        CodCaja = Session("caja")
+        Responsable = Session("usuario")
+        CodAutorizacion = "" ' despues se dara algoritmo para este item 
+        Try
+            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current year to day," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
+            Dim DATAGrabaFirmaPEP As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaPEP, Globales.conn)
+            DATAGrabaFirmaPEP.Fill(DataDSGrabaFirmaPEP, "PRUEBA")
+            If DataDSGrabaFirmaPEP.Tables(0).Rows(0)(0) = 1 Then
+                Me.LBL_PEPError.Visible = True
+                Me.LBL_PEPError.Text = DataDSGrabaFirmaPEP.Tables(0).Rows(0)(1) ' mensaje de error
+            Else
+                Me.LBL_PEPError.Visible = True
+                Me.LBL_PEPError.Text = DataDSGrabaFirmaPEP.Tables(0).Rows(0)(1) ' mensaje exito
+                ValidaDocsAFirmar()
+            End If
+        Catch ex As Exception
+            Me.LBL_PEPError.Visible = True
+            Me.LBL_PEPError.Text = "ERROR GUARDANDO PEP"
+        End Try
+    End Sub
+    Protected Sub RevisoArchivoPEP()
+        Try
+            Dim ExistePEP() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/PEP/"), "Declaracion_vinculo_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            If (ExistePEP.Length > 0) Then
+                Me.LINK_VerPEP.Enabled = True
+            Else
+                Me.LINK_VerPEP.Enabled = False
+            End If
+        Catch ex As Exception
+            Me.LBL_PEPError.Text = ex.Message
+        End Try
     End Sub
 End Class
