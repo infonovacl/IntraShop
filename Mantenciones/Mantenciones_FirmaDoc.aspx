@@ -69,27 +69,12 @@
       }
    </script>
      <style type="text/css">
-         .auto-style7 {
-             height: 28px;
-             width: 628px;
-             align: center;
-         }         
-         .auto-style9 {
-             height: 20px;
-             width: 700px;
-             text-align: center;
-             margin-left: 40px;
-         }
          .auto-style12 {
              width: 690px;
              background-color: whitesmoke;
              height: 625px;
          }
                  
-         .auto-style32 {
-             height: 22px;
-             width: 180px;
-         }
          #signatureDiv0
          {
              height: 251px;
@@ -200,10 +185,26 @@
          }
          .auto-style39 {
              position: absolute;
-             left: 691px;
-             top: 94px;
+             left: 713px;
+             top: 91px;
              width: 325px;
              height: 34px;
+         }
+         .auto-style7 {
+             height: 28px;
+             width: 628px;
+             align: center;
+         }         
+                          
+         .auto-style32 {
+             height: 22px;
+             width: 180px;
+         }
+         .auto-style9 {
+             height: 20px;
+             width: 700px;
+             text-align: center;
+             margin-left: 40px;
          }
          </style>
      </head>
@@ -258,6 +259,221 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <asp:MultiView ID="MultiView_FirmaDocs" runat="server">
+                                    <asp:View ID="ViewContrato" runat="server">
+                                        <asp:Panel ID="Panel_IntroContrato" runat="server" Height="124px" Width="667px">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <asp:Label ID="Label75" runat="server" CssClass="etiquetas_titulo" Text="FIRMA CONTRATO "></asp:Label>
+                                            <br />
+                                            <br />
+                                            <asp:TextBox ID="TXT_IntroContrato" runat="server" BorderStyle="None" CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" TextMode="MultiLine" Width="680px"></asp:TextBox>
+                                            <br />
+                                            <table class="style2">
+                                                <tr>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_ContratoAcepta" runat="server" CssClass="botones_anchoX2" Height="22px" Text="ACEPTA" />
+                                                    </td>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_RechazaContrato" runat="server" CssClass="botones_anchoX2" Height="22px" Text="RECHAZA" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                        <asp:Panel ID="Panel_FirmaContrato" runat="server" Height="68px" Visible="False">
+                                            <div id="CON">
+                                                <br />
+                                                <asp:Label ID="Label80" runat="server" CssClass="etiquetas_popup" Text="Firma Capturada "></asp:Label>
+                                                <br/>
+                                                <img id="signatureImageCON" border="1"/>
+                                                <object id="wgssSTUCON" type="application/x-wgssSTU">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </object>
+                                            </div>
+                                            <br />
+                                            <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:Label ID="LBL_ContratoError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                            <br />
+                                            <table align="center" class="auto-style7">
+                                                <tr>
+                                                    <td class="style1">
+                                                        <input type="button" id="BTN_CAPFirmaCON" runat="server" value="CAPTURAR FIRMA" 
+                                            onClick="javascript: initDemo()" class="auto-style32" />
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <asp:Button ID="BTN_FirmarContrato" runat="server" CssClass="botones_anchoX2" OnClientClick="javascript:return signForm();" Text="FIRMAR CONTRATO" />
+                                                        <br />
+                                                        &nbsp;&nbsp;<br />
+                                                        <asp:LinkButton ID="LINK_VerPREContrato" runat="server">Ver Pre-Contrato</asp:LinkButton>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <asp:LinkButton ID="LINK_VerContrato" runat="server" onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver Contrato</asp:LinkButton>
+                                                        &nbsp;&nbsp;
+                                                        <br />
+                                                        <br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                    </asp:View>
+                                    <asp:View ID="ViewSeguroProteccion" runat="server">
+                                        <asp:Panel ID="Panel_IntroSeguroProteccion" runat="server" Height="124px" Width="667px">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <asp:Label ID="Label76" runat="server" CssClass="etiquetas_titulo" Text="FIRMA SEGURO PROTECCIÓN"></asp:Label>
+                                            <br />
+                                            <br />
+                                            <asp:TextBox ID="TXT_IntroSeguroProteccion" runat="server" BorderStyle="None" CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" TextMode="MultiLine" Width="680px"></asp:TextBox>
+                                            <br />
+                                            <table class="style2">
+                                                <tr>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_SeguroProteccionAcepta" runat="server" CssClass="botones_anchoX2" Height="22px" Text="ACEPTA" />
+                                                    </td>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_RechazaSeguroProteccion" runat="server" CssClass="botones_anchoX2" Height="22px" Text="RECHAZA" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                        <asp:Panel ID="Panel_FirmaSeguroProteccion" runat="server" Height="68px" Visible="False">
+                                            <div id="SP">
+                                                <br />
+                                                <asp:Label ID="Label74" runat="server" CssClass="etiquetas_popup" Text="Firma Capturada "></asp:Label>
+                                                <br/>
+                                                <img id="signatureImageSP" border="1"/>
+                                                <object id="wgssSTUSP" type="application/x-wgssSTU">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </object>
+                                            </div>
+                                            <br />
+                                            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:Label ID="LBL_SeguroProteccionError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                            <br />
+                                            <table align="center" class="auto-style7">
+                                                <tr>
+                                                    <td class="auto-style9">
+                                                        <input type="button" id="BTN_CAPFirmaSP" runat="server" value="CAPTURAR FIRMA" 
+                onClick="javascript: initDemoSP()" class="auto-style32" />
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <asp:Button ID="BTN_FirmarSP" runat="server" CssClass="botones_anchoX2" OnClientClick="javascript:return signFormSP();" Text="FIRMAR SEGURO" />
+                                                        <br />
+                                                        &nbsp;&nbsp;&nbsp;<br />
+                                                        <asp:LinkButton ID="LINK_VerSP" runat="server" onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerSeguroProteccion.aspx','VerSeguroProteccion','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver Seguro Protección</asp:LinkButton>
+                                                        &nbsp;&nbsp; </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                    </asp:View>
+                                    <br />
+                                    <asp:View ID="ViewSeguroVida" runat="server">
+                                        <asp:Panel ID="Panel_IntroSeguroVida" runat="server" Height="124px" Width="667px">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                            <asp:Label ID="Label77" runat="server" CssClass="etiquetas_titulo" Text="FIRMA SEGURO VIDA"></asp:Label>
+                                            <br />
+                                            <br />
+                                            <asp:TextBox ID="TXT_IntroSeguroVida" runat="server" BorderStyle="None" CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" TextMode="MultiLine" Width="680px"></asp:TextBox>
+                                            <br />
+                                            <table class="style2">
+                                                <tr>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_SeguroVidaAcepta" runat="server" CssClass="botones_anchoX2" Height="22px" Text="ACEPTA" />
+                                                    </td>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_RechazaSeguroVida" runat="server" CssClass="botones_anchoX2" Height="22px" Text="RECHAZA" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                        <asp:Panel ID="Panel_FirmaSeguroVida" runat="server" Height="99px" Visible="False">
+                                            <div id="SV">
+                                                <br />
+                                                <asp:Label ID="Label79" runat="server" CssClass="etiquetas_popup" Text="Firma Capturada "></asp:Label>
+                                                <br/>
+                                                <img id="signatureImageSV" border="1"/>
+                                                <object id="wgssSTUSV" type="application/x-wgssSTU">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </object>
+                                            </div>
+                                            <br />
+                                            <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:Label ID="LBL_SeguroVidaError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                            <br />
+                                            <table align="center" class="auto-style7">
+                                                <tr>
+                                                    <td class="auto-style9">
+                                                        <input type="button" id="BTN_CAPFirmaSV" runat="server" value="CAPTURAR FIRMA" 
+                                            onClick="javascript: initDemoSV()" class="auto-style32"/>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <asp:Button ID="BTN_FirmarSV" runat="server" CssClass="botones_anchoX2" OnClientClick="javascript:return signFormSV();" Text="FIRMAR SEGURO" />
+                                                        <br />
+                                                        &nbsp;<br />
+                                                        <asp:LinkButton ID="LINK_VerSV" runat="server" onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerSeguroVida.aspx','VerSeguroVida','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver Seguro Vida</asp:LinkButton>
+                                                        &nbsp;&nbsp; </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                    </asp:View>
+                                    <asp:View ID="ViewPEP" runat="server">
+                                        <asp:Panel ID="Panel_PEP" runat="server" Height="124px" Width="667px">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <asp:Label ID="Label1" runat="server" CssClass="etiquetas_titulo" Text="FIRMA P.E.P. "></asp:Label>
+                                            <br />
+                                            <br />
+                                            <asp:TextBox ID="TXT_IntroPEP" runat="server" BorderStyle="None" CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" TextMode="MultiLine" Width="680px"></asp:TextBox>
+                                            <br />
+                                            <table class="style2">
+                                                <tr>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_PEPAcepta" runat="server" CssClass="botones_anchoX2" Height="22px" Text="ACEPTA" />
+                                                    </td>
+                                                    <td class="style7">
+                                                        <asp:Button ID="BTN_RechazaPEP" runat="server" CssClass="botones_anchoX2" Height="22px" Text="RECHAZA" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                        <asp:Panel ID="Panel_FirmaPEP" runat="server" Height="68px" Visible="False">
+                                            <div id="PEP">
+                                                <br />
+                                                <asp:Label ID="Label2" runat="server" CssClass="etiquetas_popup" Text="Firma Capturada "></asp:Label>
+                                                <br/>
+                                                <img id="signatureImagePEP" border="1"/>
+                                                <object id="wgssSTUPEP" type="application/x-wgssSTU">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </object>
+                                            </div>
+                                            <br />
+                                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:Label ID="LBL_PEPError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                            <br />
+                                            <table align="center" class="auto-style7">
+                                                <tr>
+                                                    <td class="style1">
+                                                        <input type="button" id="BTN_CAPFirmaPEP" runat="server" value="CAPTURAR FIRMA" 
+                                            onClick="javascript: initDemoPEP()" class="auto-style32" />
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <asp:Button ID="BTN_FirmarPEP" runat="server" CssClass="botones_anchoX2" OnClientClick="javascript:return signFormPEP();" Text="FIRMAR P.E.P." />
+                                                        <br />
+                                                        &nbsp;&nbsp;<br />
+                                                        <asp:LinkButton ID="LINK_VerPEP" runat="server" onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver P.E.P.</asp:LinkButton>
+                                                        &nbsp;&nbsp;
+                                                        <br />
+                                                        <br />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                    </asp:View>
+                                </asp:MultiView>
                             </div>
                         </asp:Panel>
                 <br />
@@ -283,267 +499,6 @@
                     </tr>
                 </table>
               <div class="auto-style39">
-                            <asp:MultiView ID="MultiView_FirmaDocs" runat="server">
-                                <asp:View ID="ViewContrato" runat="server">
-                                    <asp:Panel ID="Panel_IntroContrato" runat="server" Height="124px" Width="667px">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <asp:Label ID="Label75" runat="server" CssClass="etiquetas_titulo" 
-                                            Text="FIRMA CONTRATO "></asp:Label>
-                                <br />
-                                <br />
-                                        <asp:TextBox ID="TXT_IntroContrato" runat="server" BorderStyle="None" 
-                                            CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" 
-                                            TextMode="MultiLine" Width="680px"></asp:TextBox>
-                                <br />
-                                        <table class="style2">
-                                            <tr>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_ContratoAcepta" runat="server" CssClass="botones_anchoX2" 
-                                                        Height="22px" Text="ACEPTA" />
-                                                </td>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_RechazaContrato" runat="server" CssClass="botones_anchoX2" 
-                                                        Height="22px" Text="RECHAZA" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                  
-                                    </asp:Panel>
-                                    <asp:Panel ID="Panel_FirmaContrato" runat="server" Height="68px" 
-                                        Visible="False">
-                                        <div ID="CON">
-                                    <br />
-                                            <asp:Label ID="Label80" runat="server" CssClass="etiquetas_popup" 
-                                                Text="Firma Capturada "></asp:Label>
-                                    <br/>
-                                    <img id="signatureImageCON" border="1"/>
-                                            <object ID="wgssSTUCON" type="application/x-wgssSTU">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </object>
-                                        </div>
-                                <br />
-                                        <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-                                            <ContentTemplate>
-                                                <asp:Label ID="LBL_ContratoError" runat="server" 
-                                                    CssClass="etiquetasmensajeerror"></asp:Label>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                <br />
-                                        <table align="center" class="auto-style7">
-                                            <tr>
-                                                <td class="style1">
-                                            <input type="button" id="BTN_CAPFirmaCON" runat="server" value="CAPTURAR FIRMA" 
-                                            onClick="javascript: initDemo()" class="auto-style32" />
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <asp:Button ID="BTN_FirmarContrato" runat="server" CssClass="botones_anchoX2" 
-                                                        OnClientClick="javascript:return signForm();" Text="FIRMAR CONTRATO" />
-                                                    <br />
-                                                    &nbsp;&nbsp;<br />
-                                                    <asp:LinkButton ID="LINK_VerPREContrato" runat="server">Ver Pre-Contrato</asp:LinkButton>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <asp:LinkButton ID="LINK_VerContrato" runat="server" 
-                                                        onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver Contrato</asp:LinkButton>
-                                                    &nbsp;&nbsp;
-                                                    <br />
-                                                    <br />
-                                                    </td>
-                                            </tr>
-                                        </table>
-                                    </asp:Panel>
-                                </asp:View>
-                                <asp:View ID="ViewSeguroProteccion" runat="server">
-                                    <asp:Panel ID="Panel_IntroSeguroProteccion" runat="server" Height="124px" 
-                                        Width="667px">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <asp:Label ID="Label76" runat="server" CssClass="etiquetas_titulo" 
-                                            Text="FIRMA SEGURO PROTECCIÓN"></asp:Label>
-                                <br />
-                                <br />
-                                        <asp:TextBox ID="TXT_IntroSeguroProteccion" runat="server" BorderStyle="None" 
-                                            CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" 
-                                            TextMode="MultiLine" Width="680px"></asp:TextBox>
-                                <br />
-                                        <table class="style2">
-                                            <tr>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_SeguroProteccionAcepta" runat="server" 
-                                                        CssClass="botones_anchoX2" Height="22px" Text="ACEPTA" />
-                                                </td>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_RechazaSeguroProteccion" runat="server" 
-                                                        CssClass="botones_anchoX2" Height="22px" Text="RECHAZA" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </asp:Panel>
-                                    <asp:Panel ID="Panel_FirmaSeguroProteccion" runat="server" Height="68px" 
-                                        Visible="False">
-                                        <div ID="SP">
-                                    <br />
-                                            <asp:Label ID="Label74" runat="server" CssClass="etiquetas_popup" 
-                                                Text="Firma Capturada "></asp:Label>
-                                    <br/>
-                                    <img id="signatureImageSP" border="1"/>
-                                            <object ID="wgssSTUSP" type="application/x-wgssSTU">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </object>
-                                        </div>
-                                <br />
-                                        <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-                                            <ContentTemplate>
-                                                <asp:Label ID="LBL_SeguroProteccionError" runat="server" 
-                                                    CssClass="etiquetasmensajeerror"></asp:Label>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                <br />
-                                        <table align="center" class="auto-style7">
-                                            <tr>
-                                                <td class="auto-style9">
-                                            <input type="button" id="BTN_CAPFirmaSP" runat="server" value="CAPTURAR FIRMA" 
-                onClick="javascript: initDemoSP()" class="auto-style32" />
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <asp:Button ID="BTN_FirmarSP" runat="server" CssClass="botones_anchoX2" 
-                                                        OnClientClick="javascript:return signFormSP();" Text="FIRMAR SEGURO" />
-                                                    <br />
-                                                    &nbsp;&nbsp;&nbsp;<br />
-                                                    <asp:LinkButton ID="LINK_VerSP" runat="server" 
-                                                        onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerSeguroProteccion.aspx','VerSeguroProteccion','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver Seguro Protección</asp:LinkButton>
-                                                    &nbsp;&nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </asp:Panel>
-                                </asp:View>
-                        <br />
-                                <asp:View ID="ViewSeguroVida" runat="server">
-                                    <asp:Panel ID="Panel_IntroSeguroVida" runat="server" Height="124px" 
-                                        Width="667px">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-                                        <asp:Label ID="Label77" runat="server" CssClass="etiquetas_titulo" 
-                                            Text="FIRMA SEGURO VIDA"></asp:Label>
-                                <br />
-                                <br />
-                                        <asp:TextBox ID="TXT_IntroSeguroVida" runat="server" BorderStyle="None" 
-                                            CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" 
-                                            TextMode="MultiLine" Width="680px"></asp:TextBox>
-                                <br />
-                                        <table class="style2">
-                                            <tr>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_SeguroVidaAcepta" runat="server" CssClass="botones_anchoX2" 
-                                                        Height="22px" Text="ACEPTA" />
-                                                </td>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_RechazaSeguroVida" runat="server" 
-                                                        CssClass="botones_anchoX2" Height="22px" Text="RECHAZA" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </asp:Panel>
-                                    <asp:Panel ID="Panel_FirmaSeguroVida" runat="server" Height="99px" 
-                                        Visible="False">
-                                        <div ID="SV">
-                                    <br />
-                                            <asp:Label ID="Label79" runat="server" CssClass="etiquetas_popup" 
-                                                Text="Firma Capturada "></asp:Label>
-                                    <br/>
-                                    <img id="signatureImageSV" border="1"/>
-                                            <object ID="wgssSTUSV" type="application/x-wgssSTU">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </object>
-                                        </div>
-                                <br />
-                                        <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-                                            <ContentTemplate>
-                                                <asp:Label ID="LBL_SeguroVidaError" runat="server" 
-                                                    CssClass="etiquetasmensajeerror"></asp:Label>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                <br />
-                                        <table align="center" class="auto-style7">
-                                            <tr>
-                                                <td class="auto-style9">
-                                            <input type="button" id="BTN_CAPFirmaSV" runat="server" value="CAPTURAR FIRMA" 
-                                            onClick="javascript: initDemoSV()" class="auto-style32"/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <asp:Button ID="BTN_FirmarSV" runat="server" CssClass="botones_anchoX2" 
-                                                        OnClientClick="javascript:return signFormSV();" Text="FIRMAR SEGURO" />
-                                                    <br />
-                                                    &nbsp;<br />
-                                                    <asp:LinkButton ID="LINK_VerSV" runat="server" 
-                                                        onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerSeguroVida.aspx','VerSeguroVida','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver Seguro Vida</asp:LinkButton>
-                                                    &nbsp;&nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </asp:Panel>
-                                </asp:View>
-                                <asp:View ID="ViewPEP" runat="server">
-                                    <asp:Panel ID="Panel_PEP" runat="server" Height="124px" Width="667px">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <asp:Label ID="Label1" runat="server" CssClass="etiquetas_titulo" 
-                                            Text="FIRMA P.E.P. "></asp:Label>
-                                <br />
-                                <br />
-                                        <asp:TextBox ID="TXT_IntroPEP" runat="server" BorderStyle="None" 
-                                            CssClass="etiquetas_introdoc" Height="80px" ReadOnly="True" Rows="3" 
-                                            TextMode="MultiLine" Width="680px"></asp:TextBox>
-                                <br />
-                                        <table class="style2">
-                                            <tr>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_PEPAcepta" runat="server" CssClass="botones_anchoX2" 
-                                                        Height="22px" Text="ACEPTA" />
-                                                </td>
-                                                <td class="style7">
-                                                    <asp:Button ID="BTN_PEPRechaza" runat="server" CssClass="botones_anchoX2" 
-                                                        Height="22px" Text="RECHAZA" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                  
-                                    </asp:Panel>
-                                    <asp:Panel ID="Panel_FirmaPEP" runat="server" Height="68px" 
-                                        Visible="False">
-                                        <div ID="PEP">
-                                    <br />
-                                            <asp:Label ID="Label2" runat="server" CssClass="etiquetas_popup" 
-                                                Text="Firma Capturada "></asp:Label>
-                                    <br/>
-                                    <img id="signatureImagePEP" border="1"/>
-                                            <object ID="wgssSTUPEP" type="application/x-wgssSTU">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            </object>
-                                        </div>
-                                <br />
-                                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                            <ContentTemplate>
-                                                <asp:Label ID="LBL_PEPError" runat="server" 
-                                                    CssClass="etiquetasmensajeerror"></asp:Label>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-                                <br />
-                                        <table align="center" class="auto-style7">
-                                            <tr>
-                                                <td class="style1">
-                                            <input type="button" id="BTN_CAPFirmaPEP" runat="server" value="CAPTURAR FIRMA" 
-                                            onClick="javascript: initDemoPEP()" class="auto-style32" />
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <asp:Button ID="BTN_FirmarPEP" runat="server" CssClass="botones_anchoX2" 
-                                                        OnClientClick="javascript:return signFormPEP();" Text="FIRMAR P.E.P." />
-                                                    <br />
-                                                    &nbsp;&nbsp;<br />
-                                                    <asp:LinkButton ID="LINK_VerPEP" runat="server"                                                 
-                                                        onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver P.E.P.</asp:LinkButton>
-                                                    &nbsp;&nbsp;
-                                                    <br />
-                                                    <br />
-                                                    </td>
-                                            </tr>
-                                        </table>
-                                    </asp:Panel>
-                                </asp:View>
-                            </asp:MultiView>
                                         </div>
     </div>
     </form>

@@ -440,6 +440,7 @@ Partial Class Mantencion_FirmaDoc
         Me.Panel_FirmaContrato.Visible = False
         Me.Panel_FirmaSeguroProteccion.Visible = False
         Me.Panel_FirmaSeguroVida.Visible = False
+        Me.Panel_FirmaPEP.Visible = False
         If Me.RBL_Documentos.SelectedValue = 0 Then 'CONTRATO
             IntroDocumento("CON")
             RevisoArchivoContrato()
@@ -449,6 +450,9 @@ Partial Class Mantencion_FirmaDoc
         ElseIf Me.RBL_Documentos.SelectedValue = 2 Then ' SEGURO VIDA
             IntroDocumento("SVI")
             RevisoArchivoSeguroVida()
+        ElseIf Me.RBL_Documentos.SelectedValue = 3 Then ' P.E.P.
+            IntroDocumento("PEP")
+            RevisoArchivoPEP()
         End If
         MultiView_FirmaDocs.ActiveViewIndex = Int32.Parse(Me.RBL_Documentos.SelectedValue)
     End Sub
@@ -501,6 +505,10 @@ Partial Class Mantencion_FirmaDoc
         Me.BTN_RechazaSeguroVida.Enabled = False
         Me.Panel_FirmaSeguroVida.Visible = True
     End Sub
+    Protected Sub BTN_PEPAcepta_Click(sender As Object, e As EventArgs) Handles BTN_PEPAcepta.Click
+        Me.BTN_RechazaPEP.Enabled = False
+        Me.Panel_FirmaPEP.Visible = True
+    End Sub
     Protected Sub BTN_RechazaSeguroProteccion_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_RechazaSeguroProteccion.Click
         RechazoDocumento("SDE")
     End Sub
@@ -509,6 +517,9 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub BTN_RechazaContrato_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_RechazaContrato.Click
         RechazoDocumento("CON")
+    End Sub
+    Protected Sub BTN_RechazaPEP_Click(sender As Object, e As EventArgs) Handles BTN_RechazaPEP.Click
+        RechazoDocumento("PEP")
     End Sub
     Private Sub RechazoDocumento(ByVal TipoDoc As String)
         Dim DataDSRechazaDoc As New Data.DataSet
@@ -552,35 +563,43 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_DatosClienteError.Visible = True
                 Me.LBL_DatosClienteError.Text = DataDSDocsFirmados.Tables(0).Rows(0)(1) ' mensaje de error                  
             Else
-                If DataDSDocsFirmados.Tables(0).Rows(0)(2) = 0 Then ' Contrato si 0 = firmado
-                    Me.IMG_ContratoFirmado.Visible = True
-                    Me.IMG_ContratoRechazado.Visible = False
+                If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 0 Then ' PEP si 0 = firmado
+                    Me.IMG_PEPFirmado.Visible = True
+                    Me.IMG_PEPRechazado.Visible = False
                     Me.RBL_Documentos.Items(0).Enabled = False
-                    Me.RBL_Documentos.Items(1).Enabled = True
-                    If DataDSDocsFirmados.Tables(0).Rows(0)(3) = 0 Then ' Seguro Desgravamen si 0 = firmado
-                        Me.IMG_SeguroProteccionFirmado.Visible = True
-                        Me.IMG_SeguroProteccionRechazado.Visible = False
-                        Me.RBL_Documentos.Items(1).Enabled = False
-                        If DataDSDocsFirmados.Tables(0).Rows(0)(4) = 0 Then ' Seguro Vida si 0 = firmado
-                            Me.IMG_SeguroVidaFirmado.Visible = True
-                            Me.IMG_SeguroVidaRechazado.Visible = False
-                            Me.RBL_Documentos.Items(2).Enabled = False
-                        Else                                             'si es mayor a 0 indica el código del contrato pendiente de firma
-                            Me.IMG_SeguroVidaFirmado.Visible = False
-                            Me.IMG_SeguroVidaRechazado.Visible = True
-                            Me.RBL_Documentos.Items(2).Enabled = True   ' se habilita solo si firmo en contrato y el seg. desgravamen
-                        End If
-                    Else                                                'si es mayor a 0 indica el código del contrato pendiente de firma
-                        Me.IMG_SeguroProteccionFirmado.Visible = False
-                        Me.IMG_SeguroProteccionRechazado.Visible = True
+                    Me.RBL_Documentos.Items(3).Enabled = True
+                Else
+
+                    If DataDSDocsFirmados.Tables(0).Rows(0)(2) = 0 Then ' Contrato si 0 = firmado
+                        Me.IMG_ContratoFirmado.Visible = True
+                        Me.IMG_ContratoRechazado.Visible = False
+                        Me.RBL_Documentos.Items(0).Enabled = False
                         Me.RBL_Documentos.Items(1).Enabled = True
+                        If DataDSDocsFirmados.Tables(0).Rows(0)(3) = 0 Then ' Seguro Desgravamen si 0 = firmado
+                            Me.IMG_SeguroProteccionFirmado.Visible = True
+                            Me.IMG_SeguroProteccionRechazado.Visible = False
+                            Me.RBL_Documentos.Items(1).Enabled = False
+                            If DataDSDocsFirmados.Tables(0).Rows(0)(4) = 0 Then ' Seguro Vida si 0 = firmado
+                                Me.IMG_SeguroVidaFirmado.Visible = True
+                                Me.IMG_SeguroVidaRechazado.Visible = False
+                                Me.RBL_Documentos.Items(2).Enabled = False
+                            Else                                             'si es mayor a 0 indica el código del contrato pendiente de firma
+                                Me.IMG_SeguroVidaFirmado.Visible = False
+                                Me.IMG_SeguroVidaRechazado.Visible = True
+                                Me.RBL_Documentos.Items(2).Enabled = True   ' se habilita solo si firmo en contrato y el seg. desgravamen
+                            End If
+                        Else                                                'si es mayor a 0 indica el código del contrato pendiente de firma
+                            Me.IMG_SeguroProteccionFirmado.Visible = False
+                            Me.IMG_SeguroProteccionRechazado.Visible = True
+                            Me.RBL_Documentos.Items(1).Enabled = True
+                        End If
+                    Else            'SINO TIENE FIRMADO CONTRATO  'si es mayor a 0 indica el código del contrato pendiente de firma
+                        Me.IMG_ContratoFirmado.Visible = False
+                        Me.IMG_ContratoRechazado.Visible = True
+                        Me.RBL_Documentos.Items(0).Enabled = True
+                        Me.RBL_Documentos.Items(1).Enabled = False
+                        Me.RBL_Documentos.Items(2).Enabled = False
                     End If
-                Else            'SINO TIENE FIRMADO CONTRATO  'si es mayor a 0 indica el código del contrato pendiente de firma
-                    Me.IMG_ContratoFirmado.Visible = False
-                    Me.IMG_ContratoRechazado.Visible = True
-                    Me.RBL_Documentos.Items(0).Enabled = True
-                    Me.RBL_Documentos.Items(1).Enabled = False
-                    Me.RBL_Documentos.Items(2).Enabled = False
                 End If
             End If
         Catch ex As Exception
@@ -625,7 +644,45 @@ Partial Class Mantencion_FirmaDoc
         End Try
 
     End Sub
-    Protected Sub BTN_PEPAcepta_Click(sender As Object, e As EventArgs) Handles BTN_PEPAcepta.Click
+    Private Sub GrabaFirmaPEP()
+        Dim DataDSGrabaFirmaPEP As New Data.DataSet
+        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
+        Dim CodAutorizacion As String
+        RutCliente = Session("rut")
+        CodSucursal = Session("sucursal")
+        CodCaja = Session("caja")
+        Responsable = Session("usuario")
+        CodAutorizacion = "" ' despues se dara algoritmo para este item 
+        Try
+            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current year to day," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
+            Dim DATAGrabaFirmaPEP As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaPEP, Globales.conn)
+            DATAGrabaFirmaPEP.Fill(DataDSGrabaFirmaPEP, "PRUEBA")
+            If DataDSGrabaFirmaPEP.Tables(0).Rows(0)(0) = 1 Then
+                Me.LBL_PEPError.Visible = True
+                Me.LBL_PEPError.Text = DataDSGrabaFirmaPEP.Tables(0).Rows(0)(1) ' mensaje de error
+            Else
+                Me.LBL_PEPError.Visible = True
+                Me.LBL_PEPError.Text = DataDSGrabaFirmaPEP.Tables(0).Rows(0)(1) ' mensaje exito
+                ValidaDocsAFirmar()
+            End If
+        Catch ex As Exception
+            Me.LBL_PEPError.Visible = True
+            Me.LBL_PEPError.Text = "ERROR GUARDANDO P.E.P."
+        End Try
+    End Sub
+    Protected Sub RevisoArchivoPEP()
+        Try
+            Dim ExistePEP() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/PEP/"), "Declaracion_vinculo_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            If (ExistePEP.Length > 0) Then
+                Me.LINK_VerPEP.Enabled = True
+            Else
+                Me.LINK_VerPEP.Enabled = False
+            End If
+        Catch ex As Exception
+            Me.LBL_PEPError.Text = ex.Message
+        End Try
+    End Sub
+    Protected Sub BTN_FirmarPEP_Click(sender As Object, e As EventArgs) Handles BTN_FirmarPEP.Click
         ObtieneDatosCliente()
         Try
             If Me._hdnSignature.Value <> Nothing Then
@@ -676,7 +733,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.IMG_PEPRechazado.Visible = False
                 Me.LINK_VerPEP.Enabled = True
                 Me.BTN_FirmarPEP.Enabled = False
-                Me.BTN_CAPFirmaCON.Disabled = True
+                Me.BTN_CAPFirmaPEP.Disabled = True
                 GrabaFirmaPEP()
                 If Not IsClientScriptBlockRegistered("popup") Then
                     RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
@@ -689,44 +746,6 @@ Partial Class Mantencion_FirmaDoc
         Catch ex As Exception
             Me.LBL_PEPError.Text = ex.Message
             Me.IMG_PEPRechazado.Visible = True
-        End Try
-    End Sub
-    Private Sub GrabaFirmaPEP()
-        Dim DataDSGrabaFirmaPEP As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
-        Dim CodAutorizacion As String
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
-        CodAutorizacion = "" ' despues se dara algoritmo para este item 
-        Try
-            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current year to day," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
-            Dim DATAGrabaFirmaPEP As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaPEP, Globales.conn)
-            DATAGrabaFirmaPEP.Fill(DataDSGrabaFirmaPEP, "PRUEBA")
-            If DataDSGrabaFirmaPEP.Tables(0).Rows(0)(0) = 1 Then
-                Me.LBL_PEPError.Visible = True
-                Me.LBL_PEPError.Text = DataDSGrabaFirmaPEP.Tables(0).Rows(0)(1) ' mensaje de error
-            Else
-                Me.LBL_PEPError.Visible = True
-                Me.LBL_PEPError.Text = DataDSGrabaFirmaPEP.Tables(0).Rows(0)(1) ' mensaje exito
-                ValidaDocsAFirmar()
-            End If
-        Catch ex As Exception
-            Me.LBL_PEPError.Visible = True
-            Me.LBL_PEPError.Text = "ERROR GUARDANDO PEP"
-        End Try
-    End Sub
-    Protected Sub RevisoArchivoPEP()
-        Try
-            Dim ExistePEP() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/PEP/"), "Declaracion_vinculo_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
-            If (ExistePEP.Length > 0) Then
-                Me.LINK_VerPEP.Enabled = True
-            Else
-                Me.LINK_VerPEP.Enabled = False
-            End If
-        Catch ex As Exception
-            Me.LBL_PEPError.Text = ex.Message
         End Try
     End Sub
 End Class
