@@ -533,7 +533,7 @@
         Return valido
     End Function
     Protected Sub ButtonAut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonAut.Click
-        If Me.ErcRes.Value = "0" Then
+        If Me.ErcRes.Value <> "0" Then    'DEBE SER 0 PARA SER VALIDO
             GestionAutentia()
             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta(); </script>")
         Else
@@ -553,7 +553,7 @@
         Responsable = Session("usuario")
         Try
             Dim STRIngresaGestionAutentia As String = "INSERT INTO auten_huella (rut_cliente,auten_fec,auten_hor,auten_tip,auten_res,auten_det,auten_usu,auten_lin,auten_audit,auten_desc,auten_suc,auten_caj) VALUES " &
-                                                      " ('" & RutCliente & "',current year to day,current hour to second,'TAR'," & Me.ErcRes.Value & "," & Me.ErcDet.Value & "," & Responsable & ",'0','" & Me.NroAudit.Value & "','" & Me.Mensaje.Value & "'," & CodSucursal & "," & CodCaja & ")"
+                                                      " ('" & RutCliente & "',current year to day,current hour to second,'TAR','" & Me.ErcRes.Value & "','" & Me.ErcDet.Value & "'," & Responsable & ",'0','" & Me.NroAudit.Value & "','" & Me.Mensaje.Value & "'," & CodSucursal & "," & CodCaja & ")"
             Dim DATASTRRechazaDoc As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRIngresaGestionAutentia, Globales.conn)
             DATASTRRechazaDoc.Fill(DataDSIngresaGestionAutentia, "PRUEBA")
         Catch ex As Exception

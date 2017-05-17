@@ -206,6 +206,10 @@
              text-align: center;
              margin-left: 40px;
          }
+         .auto-style40 {
+             width: 360px;
+             height: 150px;
+         }
          </style>
      </head>
 <body style="width: 689px; height: 624px;">
@@ -443,7 +447,7 @@
                                                 <br />
                                                 <asp:Label ID="Label2" runat="server" CssClass="etiquetas_popup" Text="Firma Capturada "></asp:Label>
                                                 <br/>
-                                                <img id="signatureImagePEP" border="1"/>
+                                                <img id="signatureImagePEP" border="1" class="auto-style40"/>
                                                 <object id="wgssSTUPEP" type="application/x-wgssSTU">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </object>

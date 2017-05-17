@@ -563,13 +563,12 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_DatosClienteError.Visible = True
                 Me.LBL_DatosClienteError.Text = DataDSDocsFirmados.Tables(0).Rows(0)(1) ' mensaje de error                  
             Else
-                If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 0 Then ' PEP si 0 = firmado
+                If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 1 Then ' si = 1 debe firmar PEP
                     Me.IMG_PEPFirmado.Visible = True
                     Me.IMG_PEPRechazado.Visible = False
                     Me.RBL_Documentos.Items(0).Enabled = False
                     Me.RBL_Documentos.Items(3).Enabled = True
                 Else
-
                     If DataDSDocsFirmados.Tables(0).Rows(0)(2) = 0 Then ' Contrato si 0 = firmado
                         Me.IMG_ContratoFirmado.Visible = True
                         Me.IMG_ContratoRechazado.Visible = False
@@ -685,7 +684,7 @@ Partial Class Mantencion_FirmaDoc
     Protected Sub BTN_FirmarPEP_Click(sender As Object, e As EventArgs) Handles BTN_FirmarPEP.Click
         ObtieneDatosCliente()
         Try
-            If Me._hdnSignature.Value <> Nothing Then
+            If Me._hdnSignaturePEP.Value <> Nothing Then
                 Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_template.pdf") ' PDF fuente      
                 Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
                 Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
@@ -700,34 +699,33 @@ Partial Class Mantencion_FirmaDoc
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
-                gfx.DrawString(Trim(ClienteNombres), font, XBrushes.Black, New XVector(355, 126))
-                gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno), font, XBrushes.Black, New XVector(65, 139))
-                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
-                gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(170, 152))
-                gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(80, 166))
+                gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & " " & Trim(ClienteNombres), font, XBrushes.Black, New XVector(125, 188))
+                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(340, 205))
+                gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
 
                 'pp = PDFDoc2.Pages(8) ' Pagina nro. 9
                 'gfx = XGraphics.FromPdfPage(pp)
-                gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(130, 740))
-                gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(170, 740))
-                gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
+                gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(140, 730))
+                Dim mes As Integer = Now.Month
+                gfx.DrawString(MonthName(mes), font, XBrushes.Black, New XVector(190, 730))
+                gfx.DrawString(Now.Year.ToString().Substring(2, 2), font, XBrushes.Black, New XVector(325, 730))
                 '****************************************************
-                Dim _sImage As String = _hdnSignature.Value.Replace("data:image/jpeg;base64,", "")
-                Dim _rgbBytes As Byte() = Convert.FromBase64String(_sImage)
-                Dim _sImageFile As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
-                _sImageFile += ".jpg"
+                Dim _sImagePEP As String = _hdnSignaturePEP.Value.Replace("data:image/jpeg;base64,", "")
+                Dim _rgbBytesPEP As Byte() = Convert.FromBase64String(_sImagePEP)
+                Dim _sImageFilePEP As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
+                _sImageFilePEP += ".jpg"
 
-                Using imageFile As FileStream = New FileStream(Server.MapPath("~/Doc/PEP/" + _sImageFile), FileMode.Create)
-                    imageFile.Write(_rgbBytes, 0, _rgbBytes.Length)
-                    imageFile.Flush()
-                    imageFile.Dispose()
+                Using imageFilePEP As FileStream = New FileStream(Server.MapPath("~/Doc/PEP/" + _sImageFilePEP), FileMode.Create)
+                    imageFilePEP.Write(_rgbBytesPEP, 0, _rgbBytesPEP.Length)
+                    imageFilePEP.Flush()
+                    imageFilePEP.Dispose()
                 End Using
 
-                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFile)) ' inserta firma          
-                gfx.DrawImage(XImage, 210, 535, 200, 100)
+                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFilePEP)) ' inserta firma          
+                gfx.DrawImage(XImage, 250, 605, 120, 75) ' , abajo, , 
                 PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
-                Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFile) 'BORRAR IMAGEN 64 
+                Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFilePEP) 'BORRAR IMAGEN 64 
                 BorraFirmaUsada(Img64PEP)
                 Me.IMG_PEPFirmado.Visible = True
                 Me.IMG_PEPRechazado.Visible = False
