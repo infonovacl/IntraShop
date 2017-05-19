@@ -563,10 +563,12 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_DatosClienteError.Visible = True
                 Me.LBL_DatosClienteError.Text = DataDSDocsFirmados.Tables(0).Rows(0)(1) ' mensaje de error                  
             Else
-                If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 1 Then ' si = 1 debe firmar PEP
-                    Me.IMG_PEPFirmado.Visible = True
-                    Me.IMG_PEPRechazado.Visible = False
+                If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 1 Then ' si = 1 debe firmar PEP primero
+                    Me.IMG_PEPFirmado.Visible = False
+                    Me.IMG_PEPRechazado.Visible = True
                     Me.RBL_Documentos.Items(0).Enabled = False
+                    Me.RBL_Documentos.Items(1).Enabled = False
+                    Me.RBL_Documentos.Items(2).Enabled = False
                     Me.RBL_Documentos.Items(3).Enabled = True
                 Else
                     If DataDSDocsFirmados.Tables(0).Rows(0)(2) = 0 Then ' Contrato si 0 = firmado
@@ -598,6 +600,7 @@ Partial Class Mantencion_FirmaDoc
                         Me.RBL_Documentos.Items(0).Enabled = True
                         Me.RBL_Documentos.Items(1).Enabled = False
                         Me.RBL_Documentos.Items(2).Enabled = False
+                        Me.RBL_Documentos.Items(3).Enabled = False
                     End If
                 End If
             End If
@@ -699,7 +702,7 @@ Partial Class Mantencion_FirmaDoc
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
-                gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & " " & Trim(ClienteNombres), font, XBrushes.Black, New XVector(125, 188))
+                gfx.DrawString(Trim(ClienteNombres) & " " & Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & "", font, XBrushes.Black, New XVector(125, 188))
                 gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(340, 205))
                 gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
 
@@ -722,7 +725,7 @@ Partial Class Mantencion_FirmaDoc
                 End Using
 
                 Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFilePEP)) ' inserta firma          
-                gfx.DrawImage(XImage, 250, 605, 120, 75) ' , abajo, , 
+                gfx.DrawImage(XImage, 240, 605, 140, 62) 'izquierda , abajo,ancho , alto
                 PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
                 Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFilePEP) 'BORRAR IMAGEN 64 
