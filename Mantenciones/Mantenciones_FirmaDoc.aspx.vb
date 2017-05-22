@@ -705,42 +705,47 @@ Partial Class Mantencion_FirmaDoc
                 gfx.DrawString(Trim(ClienteNombres) & " " & Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & "", font, XBrushes.Black, New XVector(125, 188))
                 gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(340, 205))
                 gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
-
+                Session("PEP_Estado") = "NO SER"
+                If Session("PEP_Estado") = "SER" Then
+                    gfx.DrawString("X", font, XBrushes.Black, New XVector(320, 228)) 'ok
+                ElseIf Session("PEP_Estado") = "NO SER" Then
+                    gfx.DrawString("X", font, XBrushes.Black, New XVector(384, 228))
+                End If
                 'pp = PDFDoc2.Pages(8) ' Pagina nro. 9
                 'gfx = XGraphics.FromPdfPage(pp)
                 gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(140, 730))
-                Dim mes As Integer = Now.Month
-                gfx.DrawString(MonthName(mes), font, XBrushes.Black, New XVector(190, 730))
-                gfx.DrawString(Now.Year.ToString().Substring(2, 2), font, XBrushes.Black, New XVector(325, 730))
-                '****************************************************
-                Dim _sImagePEP As String = _hdnSignaturePEP.Value.Replace("data:image/jpeg;base64,", "")
-                Dim _rgbBytesPEP As Byte() = Convert.FromBase64String(_sImagePEP)
-                Dim _sImageFilePEP As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
-                _sImageFilePEP += ".jpg"
+                    Dim mes As Integer = Now.Month
+                    gfx.DrawString(MonthName(mes), font, XBrushes.Black, New XVector(190, 730))
+                    gfx.DrawString(Now.Year.ToString().Substring(2, 2), font, XBrushes.Black, New XVector(325, 730))
+                    '****************************************************
+                    Dim _sImagePEP As String = _hdnSignaturePEP.Value.Replace("data:image/jpeg;base64,", "")
+                    Dim _rgbBytesPEP As Byte() = Convert.FromBase64String(_sImagePEP)
+                    Dim _sImageFilePEP As String = Guid.NewGuid().ToString().Replace("-", String.Empty)
+                    _sImageFilePEP += ".jpg"
 
-                Using imageFilePEP As FileStream = New FileStream(Server.MapPath("~/Doc/PEP/" + _sImageFilePEP), FileMode.Create)
-                    imageFilePEP.Write(_rgbBytesPEP, 0, _rgbBytesPEP.Length)
-                    imageFilePEP.Flush()
-                    imageFilePEP.Dispose()
-                End Using
+                    Using imageFilePEP As FileStream = New FileStream(Server.MapPath("~/Doc/PEP/" + _sImageFilePEP), FileMode.Create)
+                        imageFilePEP.Write(_rgbBytesPEP, 0, _rgbBytesPEP.Length)
+                        imageFilePEP.Flush()
+                        imageFilePEP.Dispose()
+                    End Using
 
-                Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFilePEP)) ' inserta firma          
-                gfx.DrawImage(XImage, 240, 605, 140, 62) 'izquierda , abajo,ancho , alto
-                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                    Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFilePEP)) ' inserta firma          
+                    gfx.DrawImage(XImage, 240, 605, 140, 62) 'izquierda , abajo,ancho , alto
+                    PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
 
-                Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFilePEP) 'BORRAR IMAGEN 64 
-                BorraFirmaUsada(Img64PEP)
-                Me.IMG_PEPFirmado.Visible = True
-                Me.IMG_PEPRechazado.Visible = False
-                Me.LINK_VerPEP.Enabled = True
-                Me.BTN_FirmarPEP.Enabled = False
-                Me.BTN_CAPFirmaPEP.Disabled = True
-                GrabaFirmaPEP()
-                If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
-                End If
-            Else
-                Me.LBL_PEPError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
+                    Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFilePEP) 'BORRAR IMAGEN 64 
+                    BorraFirmaUsada(Img64PEP)
+                    Me.IMG_PEPFirmado.Visible = True
+                    Me.IMG_PEPRechazado.Visible = False
+                    Me.LINK_VerPEP.Enabled = True
+                    Me.BTN_FirmarPEP.Enabled = False
+                    Me.BTN_CAPFirmaPEP.Disabled = True
+                    GrabaFirmaPEP()
+                    If Not IsClientScriptBlockRegistered("popup") Then
+                        RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                    End If
+                Else
+                    Me.LBL_PEPError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
                 Me.IMG_PEPRechazado.Visible = True
                 Me.IMG_PEPFirmado.Visible = False
             End If
