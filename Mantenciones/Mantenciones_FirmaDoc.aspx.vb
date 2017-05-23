@@ -488,9 +488,18 @@ Partial Class Mantencion_FirmaDoc
                     Me.TXT_IntroSeguroVida.Visible = True
                     Me.TXT_IntroSeguroVida.Text = Trim(DataDSIntroDocumento.Tables(0).Rows(0)(1)) ' mensaje seguro vida
                 End If
+            ElseIf TipoDoc = "PEP" Then
+                If DataDSIntroDocumento.Tables(0).Rows(0)(0) = 0 Then
+                    Me.TXT_IntroPEP.Visible = True
+                    Me.TXT_IntroPEP.Text = Trim(DataDSIntroDocumento.Tables(0).Rows(0)(2)) + Environment.NewLine + Trim(DataDSIntroDocumento.Tables(0).Rows(0)(3)) + Environment.NewLine + Trim(DataDSIntroDocumento.Tables(0).Rows(0)(4))
+                ElseIf DataDSIntroDocumento.Tables(0).Rows(0)(0) = 1 Then
+                    Me.TXT_IntroPEP.Visible = True
+                    Me.TXT_IntroPEP.Text = Trim(DataDSIntroDocumento.Tables(0).Rows(0)(1)) ' mensaje PEP
+                End If
             End If
         Catch ex As Exception
-
+            Me.LBL_DatosClienteError.Visible = True
+            Me.LBL_DatosClienteError.Text = ex.Message
         End Try
     End Sub
     Protected Sub BTN_ContratoAcepta_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_ContratoAcepta.Click
@@ -564,6 +573,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_DatosClienteError.Text = DataDSDocsFirmados.Tables(0).Rows(0)(1) ' mensaje de error                  
             Else
                 If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 1 Then ' si = 1 debe firmar PEP primero
+                    Session("PEP_Estado") = Trim(DataDSDocsFirmados.Tables(0).Rows(0)(6))
                     Me.IMG_PEPFirmado.Visible = False
                     Me.IMG_PEPRechazado.Visible = True
                     Me.RBL_Documentos.Items(0).Enabled = False
@@ -705,10 +715,9 @@ Partial Class Mantencion_FirmaDoc
                 gfx.DrawString(Trim(ClienteNombres) & " " & Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & "", font, XBrushes.Black, New XVector(125, 188))
                 gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(340, 205))
                 gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
-                Session("PEP_Estado") = "NO SER"
-                If Session("PEP_Estado") = "SER" Then
+                If Session("PEP_Estado") = "ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(320, 228)) 'ok
-                ElseIf Session("PEP_Estado") = "NO SER" Then
+                ElseIf Session("PEP_Estado") = "no+ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(384, 228))
                 End If
                 'pp = PDFDoc2.Pages(8) ' Pagina nro. 9
