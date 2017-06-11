@@ -110,8 +110,8 @@ function validar_rut(source, arguments) {
                                                              Text="MiniCartola" Value="MiniCartola"></asp:TreeNode>
                                                      </asp:TreeNode>
                                                      <asp:TreeNode SelectAction="Expand" Text="Consultas" Value="Consultas">
-                                                         <asp:TreeNode NavigateUrl="http://www.familyshop.cl/estado-de-cuenta" 
-                                                             Target="_blank" Text="Estado de Pago" Value="Estado de Pago"></asp:TreeNode>
+                                                         <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_EstadoCuenta.aspx','EECC','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()" 
+                                                             Text="Estado de Pago" Value="Estado de Cuenta"></asp:TreeNode>
                                                          <asp:TreeNode NavigateUrl="javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()" 
                                                              Text="Gestion de Cobranza" Value="Gestion de Cobranza"></asp:TreeNode>
                                                      </asp:TreeNode>
