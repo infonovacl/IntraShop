@@ -48,7 +48,8 @@
                 Me.LBL_EECCError.Text = DataDSEECC.Tables(0).Rows(0)(1) ' mensaje de error
             Else
                 Me.LBL_EECCError.Visible = False
-                Me.TXT_Trama.Text = DataDSEECC.Tables(0).Rows(0)(2)
+                Me.Grilla_TramaEECC.DataSource = DataDSEECC.Tables(0).DefaultView
+                Me.Grilla_TramaEECC.DataBind()
                 ' Me.DDL_Facturaciones.DataTextField.Substring(0, length:=4)
                 ' Me.DDL_Facturaciones.DataValueField.Substring(0, length:=4)
             End If

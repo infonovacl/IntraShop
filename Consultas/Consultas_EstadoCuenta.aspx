@@ -134,7 +134,11 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <asp:TextBox ID="TXT_Trama" runat="server" Height="117px" ReadOnly="True" TextMode="MultiLine" Width="590px"></asp:TextBox>
+                            <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False">
+                                <Columns>
+                                    <asp:BoundField DataField="column3" HeaderText="Trama " />
+                                </Columns>
+                            </asp:GridView>
                         </td>
                     </tr>
                 </table>
