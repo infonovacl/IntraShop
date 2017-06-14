@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<!--
+  Para obtener más información sobre cómo configurar la aplicación ASP.NET, visite
+  https://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <connectionStrings>
+    <!--
+    <add name="ConnectionString_FamilyShop" connectionString="Dsn=DBdesa;uid=informix;pwd=informixdesa" providerName="System.Data.Odbc"/>
+   -->
+    <add name="ConnectionString_FamilyShop" connectionString="Dsn=dbdesa;uid=informix;pwd=lvame80d" providerName="System.Data.Odbc"/>
+ 
+  </connectionStrings>
+  <system.web>
+<!--
+<customErrors mode="Off"/>
+  -->
+    <compilation debug="true" targetFramework="4.0"/>
+    <httpRuntime/>
+  </system.web>
+</configuration>

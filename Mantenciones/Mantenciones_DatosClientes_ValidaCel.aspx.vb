@@ -533,12 +533,12 @@
         Return valido
     End Function
     Protected Sub ButtonAut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonAut.Click
-        ' If Me.ErcRes.Value <> "0" Then    'DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO
-        If Me.ErcRes.Value = "0" Then
-                GestionAutentia()
-                ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta(); </script>")
-            Else
-                Me.LBL_DatosClienteError.Visible = True
+        'If Me.ErcRes.Value <> "0" Then    'DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO - PARA PRUEBAS
+        If Me.ErcRes.Value = "0" Then ' PARA PRODUCCCION 
+            GestionAutentia()
+            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta(); </script>")
+        Else
+            Me.LBL_DatosClienteError.Visible = True
             Me.LBL_DatosClienteError.Text = "ERROR EN VALIDACION DE HUELLA DIGITAL"
             GestionAutentia()
             Me.ButtonAut.Enabled = False

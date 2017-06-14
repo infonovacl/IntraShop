@@ -596,6 +596,7 @@ Partial Class Mantencion_FirmaDoc
                                 Me.IMG_SeguroVidaFirmado.Visible = True
                                 Me.IMG_SeguroVidaRechazado.Visible = False
                                 Me.RBL_Documentos.Items(2).Enabled = False
+                                Me.BTN_ImprimeTarjeta.Visible = True            'SI ESTA TODO FIRMADO MUESTRA BOTON DE IMPRESION DE TARJETA
                             Else                                             'si es mayor a 0 indica el código del contrato pendiente de firma
                                 Me.IMG_SeguroVidaFirmado.Visible = False
                                 Me.IMG_SeguroVidaRechazado.Visible = True
@@ -764,5 +765,11 @@ Partial Class Mantencion_FirmaDoc
             Me.LBL_PEPError.Text = ex.Message
             Me.IMG_PEPRechazado.Visible = True
         End Try
+    End Sub
+    Protected Sub BTN_ImprimeTarjeta_Click(sender As Object, e As EventArgs) Handles BTN_ImprimeTarjeta.Click
+        Dim RutCliente, CodSucursal As Integer
+        RutCliente = Session("rut")
+        CodSucursal = Session("sucursal")
+        Response.Write("<script>window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & CodSucursal & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");</script>")
     End Sub
 End Class
