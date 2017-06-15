@@ -41,10 +41,6 @@
              width: 111px;
              height: 28px;
          }
-         .auto-style15 {
-             width: 274px;
-             height: 28px;
-         }
          .auto-style16 {
              width: 97px;
              height: 28px;
@@ -53,7 +49,15 @@
              height: 28px;
          }
          .auto-style18 {
-             width: 89%;
+             width: 97%;
+         }
+         .auto-style19 {
+             width: 225px;
+             height: 28px;
+         }
+         .auto-style20 {
+             width: 251px;
+             height: 28px;
          }
          </style>
      </head>
@@ -86,7 +90,7 @@
                             &nbsp;</td>
                         <td class="auto-style13">
                             &nbsp;</td>
-                        <td class="auto-style15">
+                        <td class="auto-style20">
                             <asp:Label ID="Label2" runat="server" CssClass="etiquetas" Text="FACTURACIONES CLIENTE"></asp:Label>
                         </td>
                         <td class="auto-style17">
@@ -95,7 +99,7 @@
                     <tr>
                         <td class="auto-style16">&nbsp;</td>
                         <td class="auto-style13">&nbsp;</td>
-                        <td class="auto-style15">&nbsp;</td>
+                        <td class="auto-style20">&nbsp;</td>
                         <td class="auto-style17">&nbsp;</td>
                     </tr>
                     <tr>
@@ -103,12 +107,12 @@
                         <td class="auto-style13">
                             <asp:Label ID="Label1" runat="server" CssClass="etiquetas" Text="Facturaciones "></asp:Label>
                         </td>
-                        <td class="auto-style15">
+                        <td class="auto-style20">
                             <asp:DropDownList ID="DDL_Facturaciones" runat="server" AutoPostBack="True" CssClass="dropdown_tab" DataTextFormatString="{0:dd/MM/yyyy}" ViewStateMode="Enabled" Width="100px">
                             </asp:DropDownList>
                         </td>
                         <td class="auto-style17">
-                            <asp:Button ID="BTN_VerEECC" runat="server" CssClass="botones" Text="BUSCAR" />
+                            <asp:Button ID="BTN_VerEECC" runat="server" CssClass="botones" Text="OBTENER EECC" Width="120px" />
                         </td>
                     </tr>
                     <tr>
