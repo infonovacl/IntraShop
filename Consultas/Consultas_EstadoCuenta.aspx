@@ -51,10 +51,6 @@
          .auto-style18 {
              width: 97%;
          }
-         .auto-style19 {
-             width: 225px;
-             height: 28px;
-         }
          .auto-style20 {
              width: 251px;
              height: 28px;
@@ -121,8 +117,7 @@
                             <asp:Label ID="LBL_FacturacionesError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                         </td>
                         <td>
-                            <asp:Label ID="LBL_FechaEECC" runat="server" CssClass="etiquetas"></asp:Label>
-                        </td>
+                            &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="style2">&nbsp;</td>

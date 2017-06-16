@@ -53,6 +53,7 @@ Partial Class Consultas_GestionCobranza
                 Me.LBL_EECCError.Visible = False
                 Me.Grilla_TramaEECC.DataSource = DataDSEECC.Tables(0).DefaultView
                 Me.Grilla_TramaEECC.DataBind()
+                GeneraPDFEECC()
                 ' Me.DDL_Facturaciones.DataTextField.Substring(0, length:=4)
                 ' Me.DDL_Facturaciones.DataValueField.Substring(0, length:=4)
             End If
@@ -76,13 +77,23 @@ Partial Class Consultas_GestionCobranza
         Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
         Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
         Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
-        If Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(1, 2) = "E1" Then
+        If Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(0, 2) = "E1" Then
             Dim rut As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(3, 9)
-            Me.LBL_EECCError.Visible = True
-            LBL_EECCError.Text = rut
+            gfx.DrawString(Trim(rut), font, XBrushes.Black, New XVector(355, 126))
+            Dim dv As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(12, 1)
+            gfx.DrawString(Trim(dv), font, XBrushes.Black, New XVector(355, 126))
+            Dim fecha_pago As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(13, 8)
+            Dim nombres As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(21, 50)
+            Dim direccion As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(71, 50)
+            'Dim villa As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(121, 50)
+            'Dim comuna As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(171, 50)
+            'Dim fecha_emision As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(21, 50)
+
+            Me.LBL_FacturacionesError.Visible = True
+            LBL_FacturacionesError.Text = nombres
 
         End If
-
+        PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
         'gfx.DrawString(Trim(ClienteNombres), font, XBrushes.Black, New XVector(355, 126))
         'gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno), font, XBrushes.Black, New XVector(65, 139))
         'gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
