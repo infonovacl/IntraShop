@@ -82,6 +82,7 @@ Partial Class Consultas_GestionCobranza
         Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
         Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
         Dim font As XFont = New XFont("Tahoma", 7, XFontStyle.Regular)
+        Dim font_grande As XFont = New XFont("Tahoma", 18, XFontStyle.Regular)
         Dim L As Integer
         For L = 0 To Grilla_TramaEECC.Rows.Count - 1
             If Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(0, 2) = "E1" Then
@@ -102,17 +103,19 @@ Partial Class Consultas_GestionCobranza
                 Dim cupo_aprobado_avance As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(255, 9)
                 Dim cupo_utilizado_avance As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(264, 9)
                 Dim cupo_disponible_avance As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(273, 9)
+                Dim cae_prepago As Decimal = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(291, 9)
                 gfx.DrawString(Trim(Format(cupo_aprobado_avance, "###,#0")), font, XBrushes.Black, New XRect(105, 120, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(cupo_utilizado_avance, "###,#0")), font, XBrushes.Black, New XRect(195, 120, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(cupo_disponible_avance, "###,#0")), font, XBrushes.Black, New XRect(285, 120, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(cae_prepago, "###,##0") & "%").Replace(".", ","), font_grande, XBrushes.Black, New XRect(440, 115, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 Dim tasa_interes_cuotas As Decimal = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(300, 9)
                 Dim tasa_interes_avance As Decimal = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(309, 9)
-                gfx.DrawString(Trim(Format(tasa_interes_cuotas, "###,##0") & "%"), font, XBrushes.Black, New XRect(115, 153, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
-                gfx.DrawString(Trim(Format(tasa_interes_avance, "###,##0") & "%"), font, XBrushes.Black, New XRect(245, 153, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(tasa_interes_cuotas, "###,##0") & "%").Replace(".", ","), font, XBrushes.Black, New XRect(115, 153, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(tasa_interes_avance, "###,##0") & "%").Replace(".", ","), font, XBrushes.Black, New XRect(245, 153, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 Dim cae_cuotas As Decimal = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(318, 9)
                 Dim cae_avance As Decimal = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(327, 9)
-                gfx.DrawString(Trim(Format(cae_cuotas, "###,##0") & "%"), font, XBrushes.Black, New XRect(115, 165, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
-                gfx.DrawString(Trim(Format(cae_avance, "###,##0") & "%"), font, XBrushes.Black, New XRect(245, 165, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(cae_cuotas, "###,##0") & "%").Replace(".", ","), font, XBrushes.Black, New XRect(115, 165, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(cae_avance, "###,##0") & "%").Replace(".", ","), font, XBrushes.Black, New XRect(245, 165, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 Dim fecha_fact_desde As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(336, 8)
                 ConvierteStringAFecha(fecha_fact_desde)
                 gfx.DrawString(Trim(fecha_fact_desde), font, XBrushes.Black, New XVector(475, 162))
@@ -134,10 +137,72 @@ Partial Class Consultas_GestionCobranza
                 gfx.DrawString(Trim(Format(monto_facturado_periodo_ant, "###,#0")), font, XBrushes.Black, New XRect(285, 244, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(monto_pagado_periodo_ant, "###,#0")), font, XBrushes.Black, New XRect(285, 257, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(saldo_adeudado_final_periodo_ant, "###,#0")), font, XBrushes.Black, New XRect(285, 269, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+
+                Dim costo_prepago As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(404, 9)
+                Dim pago_minimo As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(413, 9)
+                Dim a_cancelar As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(422, 9)
+                gfx.DrawString(Trim(Format(costo_prepago, "###,#0")), font, XBrushes.Black, New XRect(190, 587, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(pago_minimo, "###,#0")), font, XBrushes.Black, New XRect(190, 600, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(a_cancelar, "###,#0")), font, XBrushes.Black, New XRect(190, 612, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+
+                Try
+                    'Dim fecha_vecto1 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(431, 8)
+                    'ConvierteStringAFecha(fecha_vecto1)
+                    'gfx.DrawString(Trim(fecha_vecto1), font, XBrushes.Black, New XVector(290, 223))
+                    Dim monto_vecto1 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(439, 9)
+                    gfx.DrawString(Trim(Format(monto_vecto1, "###,#0")), font, XBrushes.Black, New XRect(0, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                    Dim fecha_vecto2 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(448, 8)
+                    ConvierteStringAFecha(fecha_vecto2)
+                    gfx.DrawString(Trim(fecha_vecto2), font, XBrushes.Black, New XVector(100, 648))
+                    Dim monto_vecto2 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(456, 9)
+                    gfx.DrawString(Trim(Format(monto_vecto2, "###,#0")), font, XBrushes.Black, New XRect(57, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                    Dim fecha_vecto3 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(465, 8)
+                    ConvierteStringAFecha(fecha_vecto3)
+                    gfx.DrawString(Trim(fecha_vecto3), font, XBrushes.Black, New XVector(160, 648))
+                    Dim monto_vecto3 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(473, 9)
+                    gfx.DrawString(Trim(Format(monto_vecto3, "###,#0")), font, XBrushes.Black, New XRect(122, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                    Dim fecha_vecto4 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(482, 8)
+                    ConvierteStringAFecha(fecha_vecto4)
+                    gfx.DrawString(Trim(fecha_vecto4), font, XBrushes.Black, New XVector(225, 648))
+                    Dim monto_vecto4 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(490, 9)
+                    gfx.DrawString(Trim(Format(monto_vecto4, "###,#0")), font, XBrushes.Black, New XRect(187, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                    Dim fecha_vecto5 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(499, 8)
+                    ConvierteStringAFecha(fecha_vecto5)
+                    gfx.DrawString(Trim(fecha_vecto5), font, XBrushes.Black, New XVector(280, 648))
+                    Dim monto_vecto5 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(507, 9)
+                    gfx.DrawString(Trim(Format(monto_vecto5, "###,#0")), font, XBrushes.Black, New XRect(152, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                Catch ex As Exception
+                End Try
+
+                Dim fecha_proxima_fact_desde As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(516, 8)
+                ConvierteStringAFecha(fecha_proxima_fact_desde)
+                gfx.DrawString(Trim(fecha_proxima_fact_desde), font, XBrushes.Black, New XVector(160, 690))
+                Dim fecha_proxima_fact_hasta As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(524, 8)
+                ConvierteStringAFecha(fecha_proxima_fact_hasta)
+                gfx.DrawString(Trim(fecha_proxima_fact_hasta), font, XBrushes.Black, New XVector(225, 690))
+
+                Dim interes_moratorio As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(532, 9)
+                gfx.DrawString(Trim(Format(interes_moratorio, "###,#0")), font, XBrushes.Black, New XRect(253, 713, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                Dim gastos_cobranza As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(541, 9)
+                gfx.DrawString(Trim(Format(gastos_cobranza, "###,#0")), font, XBrushes.Black, New XRect(253, 725, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+
+                Dim graf_fecha1 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(550, 8)
+                Dim fecha1 As Date = ConvierteStringAFecha(graf_fecha1)
+                gfx.DrawString(Trim(Format(fecha1, "MMM-yy")), font, XBrushes.Black, New XVector(397, 705))
+                Dim graf_fecha2 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(576, 8)
+                Dim fecha2 As Date = ConvierteStringAFecha(graf_fecha2)
+                gfx.DrawString(Trim(Format(fecha2, "MMM-yy")), font, XBrushes.Black, New XVector(434, 705))
+                Dim graf_fecha3 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(602, 8)
+                Dim fecha3 As Date = ConvierteStringAFecha(graf_fecha3)
+                gfx.DrawString(Trim(Format(fecha3, "MMM-yy")), font, XBrushes.Black, New XVector(471, 705))
+                Dim graf_fecha4 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(628, 8)
+                Dim fecha4 As Date = ConvierteStringAFecha(graf_fecha4)
+                gfx.DrawString(Trim(Format(fecha4, "MMM-yy")), font, XBrushes.Black, New XVector(508, 705))
+                Dim graf_fecha5 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(654, 8)
+                Dim fecha5 As Date = ConvierteStringAFecha(graf_fecha5)
+                gfx.DrawString(Trim(Format(fecha5, "MMM-yy")), font, XBrushes.Black, New XVector(545, 705))
             End If
         Next
-
-
         ' Dim RECT_D3_Monto_Operacion As New XRect(173, 140, 80, 10) 'izquierda,abajo,ancho,alto
         ' gfx.DrawRectangle(XBrushes.SeaShell, RECT_D3_Monto_Operacion)
 
@@ -215,13 +280,16 @@ Partial Class Consultas_GestionCobranza
         PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
     End Sub
     Private Function ConvierteStringAFecha(ByRef fecha As String) As Date
-        Dim dia As String
-        Dim mes As String
-        Dim año As Integer
-        dia = fecha.ToString.Substring(6, 2)
-        mes = fecha.ToString.Substring(4, 2)
-        año = fecha.ToString.Substring(0, 4)
-        fecha = dia & "-" & mes & "-" & año
-        Return fecha
+        Try
+            Dim dia As String
+            Dim mes As String
+            Dim año As Integer
+            dia = fecha.ToString.Substring(6, 2)
+            mes = fecha.ToString.Substring(4, 2)
+            año = fecha.ToString.Substring(0, 4)
+            fecha = dia & "-" & mes & "-" & año
+            Return fecha
+        Catch ex As Exception
+        End Try
     End Function
 End Class
