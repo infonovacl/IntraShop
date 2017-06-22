@@ -2,6 +2,7 @@
 Imports PdfSharp.Drawing
 Imports PdfSharp.Drawing.Layout
 Imports PdfSharp.Pdf.IO
+Imports m
 Partial Class Consultas_GestionCobranza
     Inherits System.Web.UI.Page
     Sub CargaInicial()
@@ -77,6 +78,8 @@ Partial Class Consultas_GestionCobranza
         FormatoDerecha.Alignment = XStringAlignment.Far
         FormatoDerecha.LineAlignment = XLineAlignment.Center
 
+        Dim mayor_vencimiento, mayor_pago As Integer
+
         Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf") ' PDF destino 
         Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
         Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
@@ -149,6 +152,8 @@ Partial Class Consultas_GestionCobranza
                     'Dim fecha_vecto1 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(431, 8)
                     'ConvierteStringAFecha(fecha_vecto1)
                     'gfx.DrawString(Trim(fecha_vecto1), font, XBrushes.Black, New XVector(290, 223))
+                    mayor_vencimiento = 0
+                    mayor_pago = 0
                     Dim monto_vecto1 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(439, 9)
                     gfx.DrawString(Trim(Format(monto_vecto1, "###,#0")), font, XBrushes.Black, New XRect(0, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                     Dim fecha_vecto2 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(448, 8)
@@ -173,6 +178,55 @@ Partial Class Consultas_GestionCobranza
                     gfx.DrawString(Trim(Format(monto_vecto5, "###,#0")), font, XBrushes.Black, New XRect(152, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 Catch ex As Exception
                 End Try
+
+                Dim monto_fact1 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(558, 9)
+                mayor_vencimiento = monto_fact1
+                Dim monto_fact2 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(584, 9)
+                If monto_fact2 > mayor_vencimiento Then
+                    mayor_vencimiento = monto_fact2
+                End If
+                Dim monto_fact3 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(610, 9)
+                If monto_fact3 > mayor_vencimiento Then
+                    mayor_vencimiento = monto_fact3
+                End If
+                Dim monto_fact4 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(637, 9)
+                If monto_fact4 > mayor_vencimiento Then
+                    mayor_vencimiento = monto_fact4
+                End If
+                Dim monto_fact5 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(662, 9)
+                If monto_fact5 > mayor_vencimiento Then
+                    mayor_vencimiento = monto_fact5
+                End If
+                Dim monto_pag1 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(567, 9)
+                mayor_pago = monto_pag1
+                Dim monto_pag2 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(593, 9)
+                If monto_pag2 > mayor_pago Then
+                    mayor_pago = monto_pag2
+                End If
+                Dim monto_pag3 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(619, 9)
+                If monto_pag3 > mayor_pago Then
+                    mayor_pago = monto_pag3
+                End If
+                Dim monto_pag4 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(645, 9)
+                If monto_pag4 > mayor_pago Then
+                    mayor_pago = monto_pag4
+                End If
+                Dim monto_pag5 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(671, 9)
+                If monto_pag5 > mayor_pago Then
+                    mayor_pago = monto_pag5
+                End If
+
+                Dim valor_tramo As Integer
+                If mayor_vencimiento > mayor_pago Then
+                    valor_tramo = (mayor_vencimiento / 4)
+                Else
+                    valor_tramo = (mayor_pago / 4)
+                End If
+                valor_tramo = Math.Round((valor_tramo / 10000) + 1) * 10000
+                gfx.DrawString(Trim(Format(valor_tramo, "###,#0")), font, XBrushes.Gray, New XRect(305, 670, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(valor_tramo * 2, "###,#0")), font, XBrushes.Gray, New XRect(305, 649, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(valor_tramo * 3, "###,#0")), font, XBrushes.Gray, New XRect(305, 629, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                gfx.DrawString(Trim(Format(valor_tramo * 4, "###,#0")), font, XBrushes.Gray, New XRect(305, 608, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
 
                 Dim fecha_proxima_fact_desde As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(516, 8)
                 ConvierteStringAFecha(fecha_proxima_fact_desde)
@@ -201,6 +255,7 @@ Partial Class Consultas_GestionCobranza
                 Dim graf_fecha5 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(654, 8)
                 Dim fecha5 As Date = ConvierteStringAFecha(graf_fecha5)
                 gfx.DrawString(Trim(Format(fecha5, "MMM-yy")), font, XBrushes.Black, New XVector(545, 705))
+
             End If
         Next
         ' Dim RECT_D3_Monto_Operacion As New XRect(173, 140, 80, 10) 'izquierda,abajo,ancho,alto
