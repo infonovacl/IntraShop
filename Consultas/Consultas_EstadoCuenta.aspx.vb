@@ -23,8 +23,6 @@ Partial Class Consultas_GestionCobranza
                 Me.DDL_Facturaciones.DataValueField = DataDSFacturaciones.Tables(0).Columns("column3").ToString() '.Substring(0, length:=4)
                 Me.DDL_Facturaciones.DataSource = DataDSFacturaciones.Tables(0)
                 Me.DDL_Facturaciones.DataBind()
-                ' Me.DDL_Facturaciones.DataTextField.Substring(0, length:=4)
-                ' Me.DDL_Facturaciones.DataValueField.Substring(0, length:=4)
             End If
         Catch EX As Exception
             Me.LBL_FacturacionesError.Visible = True
@@ -49,22 +47,39 @@ Partial Class Consultas_GestionCobranza
             Dim DATAEECC As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREECC, Globales.conn)
             DATAEECC.Fill(DataDSEECC, "PRUEBA")
             If DataDSEECC.Tables(0).Rows(0)(0) = 1 Or DataDSEECC.Tables(0).Rows.Count = 0 Then
-                Me.LBL_EECCError.Visible = True
-                Me.LBL_EECCError.Text = DataDSEECC.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.LBL_FacturacionesError.Visible = True
+                Me.LBL_FacturacionesError.Text = DataDSEECC.Tables(0).Rows(0)(1) ' mensaje de error
             Else
-                Me.LBL_EECCError.Visible = False
+                Me.LBL_FacturacionesError.Visible = False
                 Me.Grilla_TramaEECC.DataSource = DataDSEECC.Tables(0).DefaultView
                 Me.Grilla_TramaEECC.DataBind()
                 GeneraPDFEECC()
-                ' Me.DDL_Facturaciones.DataTextField.Substring(0, length:=4)
-                ' Me.DDL_Facturaciones.DataValueField.Substring(0, length:=4)
+                MuestraPDF()
             End If
         Catch EX As Exception
-            Me.LBL_EECCError.Visible = True
-            Me.LBL_EECCError.Text = EX.Message
+            Me.Literal1.Visible = False
+            Me.LBL_FacturacionesError.Visible = True
+            Me.LBL_FacturacionesError.Text = EX.Message
+        End Try
+    End Sub
+    Private Sub MuestraPDF()
+        Dim embed As String = "<object data=""{0}"" type=""application/pdf"" width=""670px"" height=""420px"">"
+        embed += "Si no puede ver el archivo, ud. puede descargar desde <a href = ""{0}"">Acá</a>"
+        embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
+        embed += "</object>"
+        Try
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf")
+            If (System.IO.File.Exists(File)) Then
+                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
+            Else
+                LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
+            End If
+        Catch ex As Exception
+            LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF"
         End Try
     End Sub
     Private Sub GeneraPDFEECC()
+        Me.Literal1.Visible = True
         Dim ruta_pdf_original As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_template.pdf") ' PDF fuente      
         Dim PDFDoc As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_original, PdfDocumentOpenMode.Import)
         Dim PDFNewDoc As PdfSharp.Pdf.PdfDocument = New PdfSharp.Pdf.PdfDocument() 'PDF destino con datos y firma de cliente 
@@ -173,12 +188,12 @@ Partial Class Consultas_GestionCobranza
                     gfx.DrawString(Trim(Format(monto_vecto4, "###,#0")), font, XBrushes.Black, New XRect(187, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                     Dim fecha_vecto5 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(499, 8)
                     ConvierteStringAFecha(fecha_vecto5)
-                    gfx.DrawString(Trim(fecha_vecto5), font, XBrushes.Black, New XVector(280, 648))
+                    gfx.DrawString(Trim(fecha_vecto5), font, XBrushes.Black, New XVector(290, 648))
                     Dim monto_vecto5 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(507, 9)
-                    gfx.DrawString(Trim(Format(monto_vecto5, "###,#0")), font, XBrushes.Black, New XRect(152, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                    gfx.DrawString(Trim(Format(monto_vecto5, "###,#0")), font, XBrushes.Black, New XRect(252, 653, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 Catch ex As Exception
                 End Try
-
+                '******************************GRAFICO********************************
                 Dim monto_fact1 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(558, 9)
                 mayor_vencimiento = monto_fact1
                 Dim monto_fact2 As Integer = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(584, 9)
@@ -222,12 +237,22 @@ Partial Class Consultas_GestionCobranza
                 Else
                     valor_tramo = (mayor_pago / 4)
                 End If
-                valor_tramo = Math.Round((valor_tramo / 10000) + 1) * 10000
-                gfx.DrawString(Trim(Format(valor_tramo, "###,#0")), font, XBrushes.Gray, New XRect(305, 670, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                valor_tramo = Math.Round((valor_tramo / 1000) + 1) * 1000
+                gfx.DrawString(Trim(Format(valor_tramo, "###,#0")), font, XBrushes.Gray, New XRect(305, 670, 80, 10), FormatoDerecha)     'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(valor_tramo * 2, "###,#0")), font, XBrushes.Gray, New XRect(305, 649, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(valor_tramo * 3, "###,#0")), font, XBrushes.Gray, New XRect(305, 629, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
                 gfx.DrawString(Trim(Format(valor_tramo * 4, "###,#0")), font, XBrushes.Gray, New XRect(305, 608, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
+                Dim graf_Facturado_1 As New XRect(395, 613, 10, 80)     'izquierda,abajo,ancho,alto '695 ES EL PISO - 613 ES EL TECHO = DIF 83
+                gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_1) 'fijo     , var ,fijo ,var
+                Dim graf_Pagado_1 As New XRect(405, 695, 10, 70)        'izquierda,abajo,ancho,alto
+                gfx.DrawRectangle(XBrushes.Black, graf_Pagado_1)
+                '*******************
+                ' valor_tramo * 4 = 100% = 83
+                ' monto_fact  = x
+                Dim diferencia As Integer
+                diferencia = (valor_tramo * 4) - monto_fact1
 
+                '*****************************************************************************
                 Dim fecha_proxima_fact_desde As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(516, 8)
                 ConvierteStringAFecha(fecha_proxima_fact_desde)
                 gfx.DrawString(Trim(fecha_proxima_fact_desde), font, XBrushes.Black, New XVector(160, 690))
@@ -255,12 +280,9 @@ Partial Class Consultas_GestionCobranza
                 Dim graf_fecha5 As String = Me.Grilla_TramaEECC.Rows(0).Cells(0).Text.Substring(654, 8)
                 Dim fecha5 As Date = ConvierteStringAFecha(graf_fecha5)
                 gfx.DrawString(Trim(Format(fecha5, "MMM-yy")), font, XBrushes.Black, New XVector(545, 705))
-
             End If
         Next
-        ' Dim RECT_D3_Monto_Operacion As New XRect(173, 140, 80, 10) 'izquierda,abajo,ancho,alto
-        ' gfx.DrawRectangle(XBrushes.SeaShell, RECT_D3_Monto_Operacion)
-
+        '**************************D1
         Dim L_D1 As Integer = 0
         For L = 0 To Grilla_TramaEECC.Rows.Count - 1
             If Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(0, 2) = "D1" Then
@@ -284,7 +306,7 @@ Partial Class Consultas_GestionCobranza
                 L_D1 = L_D1 + 8 ' SIGUIENTE LINEA
             End If
         Next
-
+        '**************************D2
         Dim L_D2 As Integer = 0
         For L = 0 To Grilla_TramaEECC.Rows.Count - 1
             If Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(0, 2) = "D2" Then
@@ -347,4 +369,7 @@ Partial Class Consultas_GestionCobranza
         Catch ex As Exception
         End Try
     End Function
+    Protected Sub DDL_Facturaciones_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_Facturaciones.SelectedIndexChanged
+        Me.Literal1.Visible = False
+    End Sub
 End Class

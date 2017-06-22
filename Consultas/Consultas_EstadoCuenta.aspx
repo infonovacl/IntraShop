@@ -6,20 +6,10 @@
     <link href="../css/EstilosShop.css" rel="stylesheet" />
     <title>Estados de Cuenta</title>
      <style type="text/css">
-         .auto-style7 {
-             height: 8px;
-             width: 667px;
-             align: center;
-         }         
-         .auto-style9 {
-             height: 20px;
-             width: 671px;
-             text-align: center;
-         }
          .auto-style12 {
-             width: 641px;
+             width: 678px;
              background-color: whitesmoke;
-             height: 619px;
+             height: 637px;
          }
          .style1
          {
@@ -50,10 +40,15 @@
          }
          .auto-style18 {
              width: 97%;
+             height: 190px;
          }
          .auto-style20 {
              width: 251px;
              height: 28px;
+         }
+         .auto-style21 {
+             text-align: center;
+             height: 61px;
          }
          </style>
      </head>
@@ -94,8 +89,9 @@
                     </tr>
                     <tr>
                         <td class="auto-style16">&nbsp;</td>
-                        <td class="auto-style13">&nbsp;</td>
-                        <td class="auto-style20">&nbsp;</td>
+                        <td class="auto-style17" colspan="2">
+                            <asp:Label ID="LBL_FacturacionesError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                        </td>
                         <td class="auto-style17">&nbsp;</td>
                     </tr>
                     <tr>
@@ -108,54 +104,43 @@
                             </asp:DropDownList>
                         </td>
                         <td class="auto-style17">
-                            <asp:Button ID="BTN_VerEECC" runat="server" CssClass="botones" Text="OBTENER EECC" Width="120px" />
+                            <asp:Button ID="BTN_VerEECC" runat="server" CssClass="botones" Text="OBTENER EECC" Width="130px" />
                         </td>
                     </tr>
                     <tr>
                         <td class="style2">&nbsp;</td>
                         <td colspan="2">
-                            <asp:Label ID="LBL_FacturacionesError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                            <asp:Label ID="LBL_VerPDFError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                         </td>
                         <td>
                             &nbsp;</td>
                     </tr>
                     <tr>
-                        <td class="style2">&nbsp;</td>
-                        <td colspan="2">&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="style2">&nbsp;</td>
-                        <td colspan="2">
-                            <asp:Label ID="LBL_EECCError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
                         <td colspan="4">
-                            <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False">
-                                <Columns>
-                                    <asp:BoundField DataField="column3" HeaderText="Trama " />
-                                </Columns>
-                            </asp:GridView>
+                            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                <ContentTemplate>
+                                    <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style21" colspan="4">
+                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" onclientclick="CierraVentana();return false;" Text="CERRAR" />
                         </td>
                     </tr>
                 </table>
+                <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False" Visible="False">
+                    <Columns>
+                        <asp:BoundField DataField="column3" HeaderText="Trama " />
+                    </Columns>
+                </asp:GridView>
                 <br />
-                                    <asp:Button ID="BTN_ProcesaTab" runat="server" Text="Button" style="display:none"  />
                                          </ContentTemplate>             
             <Triggers>
-                <asp:AsyncPostBackTrigger ControlID="BTN_ProcesaTab" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="BTN_VerEECC" EventName="Click" />
             </Triggers>
         </asp:UpdatePanel>  
-                <table class="auto-style7" align="center">
-                    <tr>
-                        <td class="auto-style9">                    
-                            <asp:Button ID="BTN_Cerrar" runat="server" CssClass="botones" Text="CERRAR" 
-                                onclientclick="CierraVentana();return false;" />
-                        </td>
-                    </tr>
-                </table>
     </div>   
     </form>
     </body>
