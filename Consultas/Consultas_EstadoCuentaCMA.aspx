@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Consultas_EstadoCuenta.aspx.vb" Inherits="Consultas_GestionCobranza" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Consultas_EstadoCuentaCMA.aspx.vb" Inherits="Consultas_GestionCobranza" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc3" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -130,7 +130,7 @@
                         </td>
                     </tr>
                 </table>
-                <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False" Visible="True">
+                <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False" Visible="False">
                     <Columns>
                         <asp:BoundField DataField="column3" HeaderText="Trama " />
                     </Columns>
