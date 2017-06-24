@@ -61,6 +61,9 @@
         Dim RutCliente As String
         RutCliente = Session("rut") + Session("dv")
         Dim respuesta As Integer = RevisaSinacofi(RutCliente)
+        Session("Antec") = ""
+        Session("Score") = ""
+        Session("ConsDB") = ""
         '''''If respuesta = 1 Then
         ObtieneConsultasDataBusiness()
 
@@ -74,7 +77,6 @@
         CodCaja = Session("caja")
         Responsable = Session("usuario")
         Antecedentes = Session("Antec")
-
         Try
             DataDSVerificacion.Clear()
             Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutClienteSinDv & "," & CodSucursal & "," & CodCaja & ",current year to day," & Responsable & ",'" & Antecedentes & "')"
