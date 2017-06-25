@@ -289,6 +289,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_1)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 1 : " & monto_fact1 & ""
                     End Try
                     Try
                         If monto_pag1 > 0 Then
@@ -298,6 +300,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_1)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO PAGADO 1 : " & monto_pag1 & ""
                     End Try
                     '*********************************************************
                     Try
@@ -308,6 +312,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_2)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 2 : " & monto_fact2 & ""
                     End Try
                     Try
                         If monto_pag2 > 0 Then
@@ -317,6 +323,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_2)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO PAGADO 2 : " & monto_pag2 & ""
                     End Try
                     '*********************************************************
                     Try
@@ -327,6 +335,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_3)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 3 : " & monto_fact3 & ""
                     End Try
                     Try
                         If monto_pag3 > 0 Then
@@ -336,6 +346,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_3)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO PAGADO 3 : " & monto_pag3 & ""
                     End Try
                     '**********************************************************
                     Try
@@ -346,6 +358,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_4)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 4 : " & monto_fact4 & ""
                     End Try
                     Try
                         If monto_pag4 > 0 Then
@@ -355,6 +369,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_4)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO PAGADO 4 : " & monto_pag4 & ""
                     End Try
                     '**********************************************************
                     Try
@@ -365,6 +381,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_5)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 5 : " & monto_fact5 & ""
                     End Try
                     Try
                         If monto_pag5 > 0 Then
@@ -374,6 +392,8 @@ Partial Class Consultas_GestionCobranza
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_5)
                         End If
                     Catch ex As Exception
+                        Me.LBL_FacturacionesError.Visible = True
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO PAGADO 5 : " & monto_pag5 & ""
                     End Try
                     Try
                         Dim graf_fecha1 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(332, 8)
