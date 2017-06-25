@@ -106,7 +106,7 @@ Partial Class Consultas_GestionCobranza
         Dim L As Integer
         For L = 0 To Grilla_TramaEECC.Rows.Count - 1
             If Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(0, 2) = "E1" Then
-                Me.Grilla_TramaEECC.Rows(L).Cells(0).Text = Trim(Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Replace(" ", "0"))
+                Me.Grilla_TramaEECC.Rows(L).Cells(0).Text = Trim(Me.Grilla_TramaEECC.Rows(L).Cells(0).Text).Replace(" ", "0")
                 Try
                     Dim rut As String = Session("rut")
                     Dim dv As String = Session("dv")
@@ -215,23 +215,7 @@ Partial Class Consultas_GestionCobranza
                     gfx.DrawString(Trim(fecha_proxima_fact_desde), font, XBrushes.Black, New XVector(160, 690))
                     gfx.DrawString(Trim(fecha_proxima_fact_hasta), font, XBrushes.Black, New XVector(225, 690))
                     gfx.DrawString(Trim(Format(interes_moratorio, "###,#0")), font, XBrushes.Black, New XRect(253, 713, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
-                    gfx.DrawString(Trim(Format(gastos_cobranza, "###,#0")), font, XBrushes.Black, New XRect(253, 725, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto
-
-                    Dim graf_fecha1 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(332, 8)
-                    Dim fecha1 As Date = ConvierteStringAFecha(graf_fecha1)
-                    gfx.DrawString(Trim(Format(fecha1, "MMM-yy")), font, XBrushes.Black, New XVector(397, 705))
-                    Dim graf_fecha2 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(358, 8)
-                    Dim fecha2 As Date = ConvierteStringAFecha(graf_fecha2)
-                    gfx.DrawString(Trim(Format(fecha2, "MMM-yy")), font, XBrushes.Black, New XVector(434, 705))
-                    Dim graf_fecha3 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(384, 8)
-                    Dim fecha3 As Date = ConvierteStringAFecha(graf_fecha3)
-                    gfx.DrawString(Trim(Format(fecha3, "MMM-yy")), font, XBrushes.Black, New XVector(471, 705))
-                    Dim graf_fecha4 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(410, 8)
-                    Dim fecha4 As Date = ConvierteStringAFecha(graf_fecha4)
-                    gfx.DrawString(Trim(Format(fecha4, "MMM-yy")), font, XBrushes.Black, New XVector(508, 705))
-                    Dim graf_fecha5 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(436, 8)
-                    Dim fecha5 As Date = ConvierteStringAFecha(graf_fecha5)
-                    gfx.DrawString(Trim(Format(fecha5, "MMM-yy")), font, XBrushes.Black, New XVector(545, 705))
+                    gfx.DrawString(Trim(Format(gastos_cobranza, "###,#0")), font, XBrushes.Black, New XRect(253, 725, 80, 10), FormatoDerecha) 'izquierda,abajo,ancho,alto               
                 Catch ex As Exception
                     Me.LBL_FacturacionesError.Visible = True
                     Me.LBL_FacturacionesError.Text = "ERROR EN DATOS DE CABECERA Y PIE"
@@ -297,70 +281,140 @@ Partial Class Consultas_GestionCobranza
                     Dim porcentaje As Integer
                     Dim porcentaje_columna As Integer
                     '*********************************************************
-                    If monto_fact1 > 0 Then
-                        porcentaje = (monto_fact1 / (valor_tramo * 4)) * 100 ' ((50260/ (45458*4))*100=27,64% --> 28%
-                        porcentaje_columna = 82 * (porcentaje / 100) '82 * (28/100) =22,96 % -->  23%
-                        Dim graf_Facturado_1 As New XRect(395, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_1)
-                    End If
-                    If monto_pag1 > 0 Then
-                        porcentaje = (monto_pag1 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Pagado_1 As New XRect(405, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.Black, graf_Pagado_1)
-                    End If
+                    Try
+                        If monto_fact1 > 0 Then
+                            porcentaje = (monto_fact1 / (valor_tramo * 4)) * 100 ' ((50260/ (45458*4))*100=27,64% --> 28%
+                            porcentaje_columna = 82 * (porcentaje / 100) '82 * (28/100) =22,96 % -->  23%
+                            Dim graf_Facturado_1 As New XRect(395, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_1)
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        If monto_pag1 > 0 Then
+                            porcentaje = (monto_pag1 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Pagado_1 As New XRect(405, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.Black, graf_Pagado_1)
+                        End If
+                    Catch ex As Exception
+                    End Try
                     '*********************************************************
-                    If monto_fact2 > 0 Then
-                        porcentaje = (monto_fact2 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Facturado_2 As New XRect(435, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_2)
-                    End If
-                    If monto_pag2 > 0 Then
-                        porcentaje = (monto_pag2 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Pagado_2 As New XRect(445, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.Black, graf_Pagado_2)
-                    End If
+                    Try
+                        If monto_fact2 > 0 Then
+                            porcentaje = (monto_fact2 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Facturado_2 As New XRect(435, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_2)
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        If monto_pag2 > 0 Then
+                            porcentaje = (monto_pag2 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Pagado_2 As New XRect(445, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.Black, graf_Pagado_2)
+                        End If
+                    Catch ex As Exception
+                    End Try
                     '*********************************************************
-                    If monto_fact3 > 0 Then
-                        porcentaje = (monto_fact3 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Facturado_3 As New XRect(470, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_3)
-                    End If
-                    If monto_pag3 > 0 Then
-                        porcentaje = (monto_pag3 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Pagado_3 As New XRect(480, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.Black, graf_Pagado_3)
-                    End If
+                    Try
+                        If monto_fact3 > 0 Then
+                            porcentaje = (monto_fact3 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Facturado_3 As New XRect(470, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_3)
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        If monto_pag3 > 0 Then
+                            porcentaje = (monto_pag3 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Pagado_3 As New XRect(480, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.Black, graf_Pagado_3)
+                        End If
+                    Catch ex As Exception
+                    End Try
                     '**********************************************************
-                    If monto_fact4 > 0 Then
-                        porcentaje = (monto_fact4 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Facturado_4 As New XRect(505, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_4)
-                    End If
-                    If monto_pag4 > 0 Then
-                        porcentaje = (monto_pag4 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Pagado_4 As New XRect(515, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.Black, graf_Pagado_4)
-                    End If
+                    Try
+                        If monto_fact4 > 0 Then
+                            porcentaje = (monto_fact4 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Facturado_4 As New XRect(505, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_4)
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        If monto_pag4 > 0 Then
+                            porcentaje = (monto_pag4 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Pagado_4 As New XRect(515, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.Black, graf_Pagado_4)
+                        End If
+                    Catch ex As Exception
+                    End Try
                     '**********************************************************
-                    If monto_fact5 > 0 Then
-                        porcentaje = (monto_fact5 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Facturado_5 As New XRect(547, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_5)
-                    End If
-                    If monto_pag5 > 0 Then
-                        porcentaje = (monto_pag5 / (valor_tramo * 4)) * 100
-                        porcentaje_columna = 82 * (porcentaje / 100)
-                        Dim graf_Pagado_5 As New XRect(557, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
-                        gfx.DrawRectangle(XBrushes.Black, graf_Pagado_5)
-                    End If
+                    Try
+                        If monto_fact5 > 0 Then
+                            porcentaje = (monto_fact5 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Facturado_5 As New XRect(547, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_5)
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        If monto_pag5 > 0 Then
+                            porcentaje = (monto_pag5 / (valor_tramo * 4)) * 100
+                            porcentaje_columna = 82 * (porcentaje / 100)
+                            Dim graf_Pagado_5 As New XRect(557, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
+                            gfx.DrawRectangle(XBrushes.Black, graf_Pagado_5)
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        Dim graf_fecha1 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(332, 8)
+                        Dim fecha1 As Date = ConvierteStringAFecha(graf_fecha1)
+                        If Trim(Format(fecha1, "MMM-yy")) <> "ene-01" Then
+                            gfx.DrawString(Trim(Format(fecha1, "MMM-yy")), font, XBrushes.Black, New XVector(397, 705))
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        Dim graf_fecha2 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(358, 8)
+                        Dim fecha2 As Date = ConvierteStringAFecha(graf_fecha2)
+                        If Trim(Format(fecha2, "MMM-yy")) <> "ene-01" Then
+                            gfx.DrawString(Trim(Format(fecha2, "MMM-yy")), font, XBrushes.Black, New XVector(434, 705))
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        Dim graf_fecha3 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(384, 8)
+                        Dim fecha3 As Date = ConvierteStringAFecha(graf_fecha3)
+                        If Trim(Format(fecha3, "MMM-yy")) <> "ene-01" Then
+                            gfx.DrawString(Trim(Format(fecha3, "MMM-yy")), font, XBrushes.Black, New XVector(471, 705))
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        Dim graf_fecha4 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(410, 8)
+                        Dim fecha4 As Date = ConvierteStringAFecha(graf_fecha4)
+                        If Trim(Format(fecha4, "MMM-yy")) <> "ene-01" Then
+                            gfx.DrawString(Trim(Format(fecha4, "MMM-yy")), font, XBrushes.Black, New XVector(508, 705))
+                        End If
+                    Catch ex As Exception
+                    End Try
+                    Try
+                        Dim graf_fecha5 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(436, 8)
+                        Dim fecha5 As Date = ConvierteStringAFecha(graf_fecha5)
+                        If Trim(Format(fecha5, "MMM-yy")) <> "ene-01" Then
+                            gfx.DrawString(Trim(Format(fecha5, "MMM-yy")), font, XBrushes.Black, New XVector(545, 705))
+                        End If
+                    Catch ex As Exception
+                    End Try
                 Catch ex As Exception
                     Me.LBL_FacturacionesError.Visible = True
                     Me.LBL_FacturacionesError.Text = "ERROR EN DATOS DE GRAFICO"
