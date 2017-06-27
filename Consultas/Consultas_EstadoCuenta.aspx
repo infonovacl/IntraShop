@@ -48,7 +48,14 @@
          }
          .auto-style21 {
              text-align: center;
-             height: 61px;
+             height: 26px;
+         }
+         .auto-style22 {
+             height: 450px;
+         }
+         .auto-style23 {
+             height: 28px;
+             text-align: center;
          }
          </style>
      </head>
@@ -77,22 +84,9 @@
                 <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas" style="display:none"></asp:Label>
                 <table class="auto-style18">
                     <tr>
-                        <td class="auto-style16">
-                            &nbsp;</td>
-                        <td class="auto-style13">
-                            &nbsp;</td>
-                        <td class="auto-style20">
+                        <td class="auto-style23" colspan="4">
                             <asp:Label ID="Label2" runat="server" CssClass="etiquetas" Text="FACTURACIONES CLIENTE"></asp:Label>
                         </td>
-                        <td class="auto-style17">
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style16">&nbsp;</td>
-                        <td class="auto-style17" colspan="2">
-                            <asp:Label ID="LBL_FacturacionesError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
-                        </td>
-                        <td class="auto-style17">&nbsp;</td>
                     </tr>
                     <tr>
                         <td class="auto-style16"></td>
@@ -108,18 +102,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="style2">&nbsp;</td>
-                        <td colspan="2">
-                            <asp:Label ID="LBL_VerPDFError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
+                        <td colspan="4">
+                            <asp:Label ID="LBL_FacturacionesError" runat="server" CssClass="etiquetasmensajeerror"></asp:Label>
                         </td>
-                        <td>
-                            &nbsp;</td>
                     </tr>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="4" class="auto-style22">
                             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                 <ContentTemplate>
-                                    <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                                    <asp:Literal ID="Literal1" runat="server"></asp:Literal>      
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
@@ -130,7 +121,7 @@
                         </td>
                     </tr>
                 </table>
-                <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False" Visible="True">
+                <asp:GridView ID="Grilla_TramaEECC" runat="server" AutoGenerateColumns="False" Visible="False">
                     <Columns>
                         <asp:BoundField DataField="column3" HeaderText="Trama " />
                     </Columns>

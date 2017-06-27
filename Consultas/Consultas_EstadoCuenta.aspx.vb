@@ -40,6 +40,8 @@ Partial Class Consultas_GestionCobranza
         ' Me.LBL_FechaEECC.Text = CType(Me.DDL_Facturaciones.SelectedItem.Text, Date).ToShortDateString
         Dim DataDSEECC As New Data.DataSet
         Dim RutCliente As Integer
+        Me.Grilla_TramaEECC.DataSource = Nothing
+        Me.Grilla_TramaEECC.DataBind()
         RutCliente = Session("rut")
         Try
             Dim STREECC As String = "execute procedure procw_imprime_eecc ('" & RutCliente & "','" & Me.DDL_Facturaciones.SelectedItem.Text & "')"
@@ -71,10 +73,10 @@ Partial Class Consultas_GestionCobranza
             If (System.IO.File.Exists(File)) Then
                 Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
             Else
-                LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
+                LBL_FacturacionesError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
             End If
         Catch ex As Exception
-            LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF"
+            LBL_FacturacionesError.Text = "ERROR CARGANDO ARCHIVO PDF"
         End Try
     End Sub
     Private Sub GeneraPDFEECC()
@@ -256,7 +258,7 @@ Partial Class Consultas_GestionCobranza
                     If monto_pag4 > mayor_pago Then
                         mayor_pago = monto_pag4
                     End If
-                    Dim monto_pag5 As Integer = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(444, 9)
+                    Dim monto_pag5 As Integer = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(453, 9)
                     If monto_pag5 > mayor_pago Then
                         mayor_pago = monto_pag5
                     End If
@@ -285,6 +287,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_fact1 > 0 Then
                             porcentaje = (monto_fact1 / (valor_tramo * 4)) * 100 ' ((50260/ (45458*4))*100=27,64% --> 28%
                             porcentaje_columna = 82 * (porcentaje / 100) '82 * (28/100) =22,96 % -->  23%
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2 ' minimo 2 porque sino da negativo en dibujo rectangulo
+                            End If
                             Dim graf_Facturado_1 As New XRect(395, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_1)
                         End If
@@ -296,6 +301,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_pag1 > 0 Then
                             porcentaje = (monto_pag1 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Pagado_1 As New XRect(405, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_1)
                         End If
@@ -308,6 +316,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_fact2 > 0 Then
                             porcentaje = (monto_fact2 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Facturado_2 As New XRect(435, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_2)
                         End If
@@ -319,6 +330,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_pag2 > 0 Then
                             porcentaje = (monto_pag2 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Pagado_2 As New XRect(445, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_2)
                         End If
@@ -331,17 +345,23 @@ Partial Class Consultas_GestionCobranza
                         If monto_fact3 > 0 Then
                             porcentaje = (monto_fact3 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Facturado_3 As New XRect(470, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_3)
                         End If
                     Catch ex As Exception
                         Me.LBL_FacturacionesError.Visible = True
-                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 3 : " & monto_fact3 & ""
+                        Me.LBL_FacturacionesError.Text = ex.Message & "MONTO FACTURADO 3 : " & monto_fact3 & " porcentaje :" & porcentaje_columna & ""
                     End Try
                     Try
                         If monto_pag3 > 0 Then
                             porcentaje = (monto_pag3 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Pagado_3 As New XRect(480, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_3)
                         End If
@@ -354,6 +374,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_fact4 > 0 Then
                             porcentaje = (monto_fact4 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Facturado_4 As New XRect(505, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_4)
                         End If
@@ -365,6 +388,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_pag4 > 0 Then
                             porcentaje = (monto_pag4 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Pagado_4 As New XRect(515, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_4)
                         End If
@@ -377,6 +403,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_fact5 > 0 Then
                             porcentaje = (monto_fact5 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Facturado_5 As New XRect(547, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.LightGray, graf_Facturado_5)
                         End If
@@ -388,6 +417,9 @@ Partial Class Consultas_GestionCobranza
                         If monto_pag5 > 0 Then
                             porcentaje = (monto_pag5 / (valor_tramo * 4)) * 100
                             porcentaje_columna = 82 * (porcentaje / 100)
+                            If porcentaje_columna < 1 Then
+                                porcentaje_columna = 2
+                            End If
                             Dim graf_Pagado_5 As New XRect(557, 613 + (82 - porcentaje_columna), 10, 80.7 - (82 - porcentaje_columna))
                             gfx.DrawRectangle(XBrushes.Black, graf_Pagado_5)
                         End If
@@ -395,6 +427,7 @@ Partial Class Consultas_GestionCobranza
                         Me.LBL_FacturacionesError.Visible = True
                         Me.LBL_FacturacionesError.Text = ex.Message & "MONTO PAGADO 5 : " & monto_pag5 & ""
                     End Try
+                    '*********************************************************
                     Try
                         Dim graf_fecha1 As String = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(332, 8)
                         Dim fecha1 As Date = ConvierteStringAFecha(graf_fecha1)
