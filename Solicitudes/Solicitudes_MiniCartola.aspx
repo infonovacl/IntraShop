@@ -4,21 +4,15 @@
 <head runat="server">
     <link href="../css/EstilosShop.css" rel="stylesheet" />
     <title>MiniCartola</title>    
-     <style type="text/css">   
-         @page 
-    {
-        size:  auto;   /* auto is the initial value */
-        margin: 0mm;  /* this affects the margin in the printer settings */
-    }
-   
+     <style type="text/css">      
          .auto-style1 {
              width: 346px;
              height: 447px;
-             left: 0px;
+             left: 5px;
          }
          .auto-style9 {
              width: 499px;
-             left: 0px;
+             left: 5px;
          }
          .auto-style11 {
              width: 99%;
@@ -105,17 +99,13 @@
              text-align: left;
              height: 16px;
          }
-         .style1
-         {
-             width: 123px;
-         }
          </style>   
     </head>
-<body   style="width: 506px; height: 18px; left: 0px;">
+<body style="width: 506px; height: 18px; left: 5px;">
     <form id="form1" runat="server" class="auto-style1">
-    <div   id="div_print">   
+    <div id="div_print">   
                 <table class="auto-style9">
-                    <caption style="top: 0px">
+                    <caption>
                         <table class="auto-style11">
                             <tr>
                                 <td class="auto-style74" colspan="4">
@@ -133,7 +123,7 @@
                                     <asp:Label ID="LBL_FechaEmision" runat="server" CssClass="etiquetas"></asp:Label>
                                 </td>
                                 <td class="auto-style56">&nbsp;</td>
-                                <td class="style1">&nbsp;</td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td class="auto-style44">
@@ -185,7 +175,7 @@
                                 <td class="auto-style32">
                                     <asp:Label ID="LBL_CargosMes" runat="server" CssClass="etiquetas"></asp:Label>
                                 </td>
-                                <td class="auto-style33" headers="0" style="top: 0px; height: 0px"></td>
+                                <td class="auto-style33"></td>
                             </tr>
                             <tr>
                                 <td class="auto-style70">

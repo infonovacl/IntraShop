@@ -51,7 +51,7 @@
              height: 26px;
          }
          .auto-style22 {
-             height: 450px;
+             height: 480px;
          }
          .auto-style23 {
              height: 28px;

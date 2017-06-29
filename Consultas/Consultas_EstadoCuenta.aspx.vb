@@ -40,9 +40,9 @@ Partial Class Consultas_GestionCobranza
         ' Me.LBL_FechaEECC.Text = CType(Me.DDL_Facturaciones.SelectedItem.Text, Date).ToShortDateString
         Dim DataDSEECC As New Data.DataSet
         Dim RutCliente As Integer
-        Me.Grilla_TramaEECC.DataSource = Nothing
-        Me.Grilla_TramaEECC.DataBind()
         RutCliente = Session("rut")
+  	Me.Grilla_TramaEECC.DataSource = Nothing
+        Me.Grilla_TramaEECC.DataBind()
         Try
             Dim STREECC As String = "execute procedure procw_imprime_eecc ('" & RutCliente & "','" & Me.DDL_Facturaciones.SelectedItem.Text & "')"
             Dim DATAEECC As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STREECC, Globales.conn)
@@ -64,7 +64,7 @@ Partial Class Consultas_GestionCobranza
         End Try
     End Sub
     Private Sub MuestraPDF()
-        Dim embed As String = "<object data=""{0}"" type=""application/pdf"" width=""670px"" height=""420px"">"
+        Dim embed As String = "<object data=""{0}"" type=""application/pdf"" width=""670px"" height=""480px"">"
         embed += "Si no puede ver el archivo, ud. puede descargar desde <a href = ""{0}"">Acá</a>"
         embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
         embed += "</object>"

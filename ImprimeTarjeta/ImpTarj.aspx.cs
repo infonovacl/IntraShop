@@ -150,7 +150,7 @@ public partial class ImpTarj : System.Web.UI.Page
                     }
                     else
                     {
-                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + MsjResultAdic + "');", true);
+                        //ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + MsjResultAdic + "');", true);
                     }
                     conn.Close();
                 }

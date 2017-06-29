@@ -59,7 +59,7 @@ function validar_rut(source, arguments) {
                                         </td>
                                         <td style="width: 309px; text-align: left;">&nbsp;&nbsp;&nbsp;
                                             <asp:TextBox ID="UserName" runat="server" CssClass="etiquetas_login" 
-                                                Font-Size="11pt" Width="120px" AutoCompleteType="Disabled"></asp:TextBox>
+                                                Font-Size="11pt" Width="120px"></asp:TextBox>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validar_rut" ControlToValidate="UserName" CssClass="etiquetasmensaje" Display="Dynamic" ErrorMessage="  RUT NO ES VÁLIDO" SetFocusOnError="True" TabIndex="5" ValidationGroup="login"></asp:CustomValidator>
                                         </td>
