@@ -257,6 +257,24 @@
                             Me.TXT_ConsultaDireccRegion.Text = DataDSDatosCliente.Tables(0).Rows(0)(45)
                         End If
                         Dim OpcionGeneral As Integer
+                        '***************ASIGNA URLS CON PARAMETRO PARA EVITAR VARIABLE SESSION
+
+                        menu.Nodes.Item(0).ChildNodes.Item(0).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=tarjeta&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Tarjeta','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+
+                        menu.Nodes.Item(0).ChildNodes.Item(1).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Comentarios','top=260,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(1).ChildNodes.Item(2).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','DatosClientes','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(1).ChildNodes.Item(3).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Adicionales','top=260,width=770,height=290,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Rechazos','top=130,width=770,height=520,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=bloqueo&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(3).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_AnulaVentaSeguros.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Seguros','top=220,width=770,height=420,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=verificacion&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(6).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartolaDetalle.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','MiniCartola','top=130,width=350,height=490,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+
+                        menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_EstadoCuenta.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','EECC','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(2).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"
+
                         If DataDSDatosCliente.Tables(0).Rows(0)(47) Is System.DBNull.Value Then  '********ESTADO GENERAL 
                             OpcionGeneral = 0
                         Else
@@ -266,7 +284,7 @@
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
                             End If
-                            If OpcionGeneral = 2 Then 'verificacion                                               
+                            If OpcionGeneral = 2 Then 'verificacion                                   
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Rechazo
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
