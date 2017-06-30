@@ -1,9 +1,13 @@
 ﻿Partial Class Mantencion_Comentarios
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
+    Dim Usuario As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Panel_Comentarios.Visible = True
         Me.LBL_ComentariosError.Visible = False
         If Not IsPostBack Then
+            RutCliente = Request.QueryString("rut")
+            Usuario = Request.QueryString("usuario")
             ObtieneComentarios()
         End If
     End Sub
@@ -12,10 +16,7 @@
             If Trim(Me.TXT_Comentario.Text) <> "" And IsNothing(Me.TXT_Comentario.Text) = False And Trim(Me.TXT_Comentario.Text).Length > 4 Then
                 Dim DATADSInsertaComentariosPopUp As New Data.DataSet
                 DATADSInsertaComentariosPopUp.Clear()
-                Dim RutCliente, usuario As Integer
-                RutCliente = Session("rut")
-                usuario = Session("usuario")
-                Dim STRInsertaComentarios As String = "execute procedure procw_ingr_comenta  ('" & RutCliente & "','" & Me.TXT_Comentario.Text.ToUpper & "','" & usuario & "')"
+                Dim STRInsertaComentarios As String = "execute procedure procw_ingr_comenta  ('" & RutCliente & "','" & Me.TXT_Comentario.Text.ToUpper & "','" & Usuario & "')"
                 Dim DATAInsertaComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRInsertaComentarios, Globales.conn)
                 DATAInsertaComentarios.Fill(DATADSInsertaComentariosPopUp, "PRUEBA")
                 If DATADSInsertaComentariosPopUp.Tables(0).Rows(0)(0) = 1 Then
@@ -47,8 +48,6 @@
             Me.Grilla_Comentarios.DataBind()
             Me.TXT_Comentario.Text = ""
             Me.TXT_Comentario.Focus()
-            Dim RutCliente As Integer
-            RutCliente = Session("rut")
             Dim STRComentarios As String = "execute procedure procw_cons_comenta ('" & RutCliente & "')"
             Dim DATAComentarios As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRComentarios, Globales.conn)
             DATAComentarios.Fill(DATADSComentariosPopUp, "PRUEBA")
@@ -61,7 +60,6 @@
                 Me.BTN_Grabar.Enabled = True                
                 Me.Grilla_Comentarios.DataSource = DATADSComentariosPopUp.Tables(0).DefaultView
                 Me.Grilla_Comentarios.DataBind()
-              
             End If
         Catch EX2 As Exception
             Me.LBL_ComentariosError.Visible = True
