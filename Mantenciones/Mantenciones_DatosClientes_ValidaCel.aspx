@@ -132,8 +132,8 @@
             ventana.opener = window.self;
             ventana.close();
         }      
-        function LLamaTarjeta() {
-            window.open('/Mantenciones/Mantenciones_FirmaDoc.aspx','Tarjetas','top=90,left=220,width=700,height=610',titlebar='NO',scrollbars='NO',resizable='NO',toolbar='NO');
+        function LLamaTarjeta(firmadocUrl) {
+            window.open(firmadocUrl,'Tarjetas','top=90,left=220,width=700,height=610',titlebar='NO',scrollbars='NO',resizable='NO',toolbar='NO');
             window.focus();
             ventana = window.self;
             ventana.opener = window.self;

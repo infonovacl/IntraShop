@@ -14,7 +14,7 @@ Partial Class Maestro
             'Response.Redirect("Cliente.aspx", "_self")
             'Response.Write("<script>window.alert('MENSAJE2');</script>")
             Me.UsuarioNombre.Text = Session("nombreusuario")
-            Me.CTienda.Text = Session("sucursal")
+            Me.CTienda.Text = Session("codtienda")
             Me.Caja.Text = Session("caja")
             Me.CajaNombreTienda.Text = Session("nombretienda")
         ElseIf IsPostBack = True Then

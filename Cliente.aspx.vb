@@ -1,8 +1,9 @@
 ﻿Partial Class Cliente
     Inherits System.Web.UI.Page
-    Dim Usuario As Integer
-    Dim Sucursal As Integer
+    Dim Usuario As String
+    Dim CodTienda As Integer
     Dim Caja As Integer
+    Dim NombreTienda As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsPostBack = False And Page.User.Identity.IsAuthenticated = True Then
             Dim menu As TreeView
@@ -16,11 +17,16 @@
             panelcerrarsesion = Master.FindControl("Panel_Login")
             panelcerrarsesion.Visible = True
             Usuario = Session("usuario")
-            Sucursal = Session("sucursal")
+            CodTienda = Session("codtienda")
             Caja = Session("caja")
+            NombreTienda = Session("nombretienda")
             Me.Focus()
             Me.TXT_ConsultaRutCliente.Focus()
         ElseIf IsPostBack = True Then
+            Usuario = Session("usuario")
+            CodTienda = Session("codtienda")
+            Caja = Session("caja")
+            NombreTienda = Session("nombretienda")
             Dim panelmenu As Panel
             panelmenu = Master.FindControl("Panel_menu")
             panelmenu.Visible = True
@@ -31,6 +37,7 @@
     End Sub
     Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
         Dim DeudaCast As Integer
+        Me.TXT_ConsultaRutCliente.Text = Trim(Me.TXT_ConsultaRutCliente.Text)
         If Page.User.Identity.IsAuthenticated = True Then
             If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
                 Me.TXT_ConsultaRutCliente.Enabled = False
@@ -39,7 +46,7 @@
                 Me.BTN_BuscaXNombre.Enabled = False
                 Dim DataDSDatosCliente As New Data.DataSet
                 Try
-                    Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Me.TXT_ConsultaRutCliente.Text & "')"
+                    Dim STRDatosCliente As String = "execute procedure procw_datos_personales ('" & Trim(Me.TXT_ConsultaRutCliente.Text) & "')"
                     Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
                     DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
                     If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
@@ -48,6 +55,8 @@
                         Me.LBL_MensajeContratos.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error    
                         Me.TXT_ConsultaRutCliente.Focus()
                     Else
+                        Me.LBL_MensajeContratos.Text = ""
+                        Me.LBL_MensajeAvance1.Text = ""
                         Dim menu As TreeView
                         menu = Master.FindControl("TVM_Principal")
                         menu.Enabled = True
@@ -264,8 +273,7 @@
                         End If
                         Dim OpcionGeneral As Integer
                         '***************ASIGNA URLS CON PARAMETRO PARA EVITAR VARIABLE SESSION
-
-                        menu.Nodes.Item(0).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=tarjeta&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Tarjeta','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=tarjeta&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & Caja & "&nombretienda=" & NombreTienda & "','Tarjeta','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
 
                         menu.Nodes.Item(0).ChildNodes.Item(1).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','DatosClientes','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(1).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_Comentarios.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&usuario=" & Usuario & "','Comentarios','top=260,width=770,height=320,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
@@ -278,7 +286,7 @@
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=verificacion&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartolaDetalle.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','MiniCartola','top=130,width=350,height=490,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
 
-                        menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_EstadoCuenta.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','EECC','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_EstadoCuenta.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "','EECC','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"
 
                         If DataDSDatosCliente.Tables(0).Rows(0)(47) Is System.DBNull.Value Then  '********ESTADO GENERAL 
@@ -304,8 +312,7 @@
                                 LBL_MensajeAvance1.Text = "Castigo Pendiente $ " & DeudaCast
                             End If
                         End If
-                        Session("rut") = Me.TXT_ConsultaRutCliente.Text '**********************Variables session
-                        Session("dv") = Me.TXT_ConsultaDV.Text
+                        '**********************Variables session                       
                         Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
                         Me.BTN_Buscar.Enabled = False
                     End If
@@ -336,9 +343,6 @@
     End Sub
     Protected Sub Tab_Consultas_ActiveTabChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Tab_Consultas.ActiveTabChanged
         If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
-            'Me.Tab_Consultas.Tabs(8).Enabled = True
-            'Me.LBL_MensajeContratos.Visible = False
-            'Me.LBL_MensajeContratos.Text = ""
             Select Case Me.Tab_Consultas.ActiveTabIndex.ToString
                 Case 0
                     Dim DataDSEstados As New Data.DataSet

@@ -391,7 +391,7 @@
                     Dim RutCliente, usuario, codigotienda As Integer
                     RutCliente = Session("rut")
                     usuario = Session("usuario")
-                    codigotienda = Session("sucursal")
+                    codigotienda = session("codtienda")
                     Dim region_empleador, region_cliente, region_referencia As Integer
                     If Me.DDL_RegionCliente.SelectedValue = "SIN REGION" Then
                         region_cliente = 0

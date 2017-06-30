@@ -14,7 +14,7 @@
             Dim RutCliente, usuario, caja, tienda As Integer
             RutCliente = Session("rut")
             usuario = Session("usuario")
-            tienda = Session("sucursal")
+            tienda = session("codtienda")
             caja = Session("caja")
             Dim STRSolicitaCambioDiaPago As String = "execute procedure procw_mod_diapago  ('" & RutCliente & "','" & usuario & "','" & tienda & "','" & DDL_NuevoDiaPago.SelectedValue & "')"
             Dim DATASolicitaCambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaCambioDiaPago, Globales.conn)

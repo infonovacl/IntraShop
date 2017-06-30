@@ -13,7 +13,7 @@
             Dim RutCliente, usuario, caja, tienda As Integer
             RutCliente = Session("rut")
             usuario = Session("usuario")
-            tienda = Session("sucursal")
+            tienda = session("codtienda")
             caja = Session("caja")
             Dim STRSolicitaAumentoCupo As String = "execute procedure procw_solic_aumcupo  ('" & RutCliente & "','" & tienda & "','" & caja & "','" & Today.ToShortDateString & "','" & usuario & "')"
             Dim DATASolicitaAumentoCupo As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaAumentoCupo, Globales.conn)

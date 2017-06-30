@@ -4,6 +4,15 @@ Imports PdfSharp.Drawing.Layout
 Imports PdfSharp.Pdf.IO
 Partial Class Consultas_GestionCobranza
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
+    Dim Dv As String
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
+        Dv = Request.QueryString("dv")
+        If Not IsPostBack Then
+            CargaInicial()
+        End If
+    End Sub
     Sub CargaInicial()
         Dim DataDSFacturaciones As New Data.DataSet
         Dim RutCliente As Integer
@@ -28,20 +37,13 @@ Partial Class Consultas_GestionCobranza
             Me.LBL_FacturacionesError.Text = EX.Message
         End Try
     End Sub
-    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If Not IsPostBack Then
-            CargaInicial()
-        End If
-    End Sub
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
         'Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
     Protected Sub BTN_VerEECC_Click(sender As Object, e As EventArgs) Handles BTN_VerEECC.Click
         ' Me.LBL_FechaEECC.Text = CType(Me.DDL_Facturaciones.SelectedItem.Text, Date).ToShortDateString
         Dim DataDSEECC As New Data.DataSet
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
-  	Me.Grilla_TramaEECC.DataSource = Nothing
+        Me.Grilla_TramaEECC.DataSource = Nothing
         Me.Grilla_TramaEECC.DataBind()
         Try
             Dim STREECC As String = "execute procedure procw_imprime_eecc ('" & RutCliente & "','" & Me.DDL_Facturaciones.SelectedItem.Text & "')"
@@ -69,9 +71,9 @@ Partial Class Consultas_GestionCobranza
         embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
         embed += "</object>"
         Try
-            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf")
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & RutCliente & "_" & Dv & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf")
             If (System.IO.File.Exists(File)) Then
-                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
+                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/EECC/eecc_" & RutCliente & "_" & Dv & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
             Else
                 LBL_FacturacionesError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
             End If
@@ -91,7 +93,7 @@ Partial Class Consultas_GestionCobranza
         For Pg = 0 To PDFDoc.Pages.Count - 1
             PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
         Next
-        PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
+        PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & RutCliente & "_" & Dv & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
 
         Dim FormatoDerecha As New XStringFormat
         FormatoDerecha.Alignment = XStringAlignment.Far
@@ -99,7 +101,7 @@ Partial Class Consultas_GestionCobranza
 
         Dim mayor_vencimiento, mayor_pago As Integer
 
-        Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf") ' PDF destino 
+        Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & RutCliente & "_" & Dv & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf") ' PDF destino 
         Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
         Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
         Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
@@ -552,7 +554,7 @@ Partial Class Consultas_GestionCobranza
             Me.LBL_FacturacionesError.Text = "ERROR EN DATOS DE DETALLE"
         End Try
         Try
-            PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & Session("rut") & "_" & Session("dv") & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
+            PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/EECC/eecc_" & RutCliente & "_" & Dv & "_" & DDL_Facturaciones.SelectedItem.Text & ".pdf"))
         Catch ex As Exception
             Me.LBL_FacturacionesError.Visible = True
             Me.LBL_FacturacionesError.Text = "ERROR GRABANDO PDF"

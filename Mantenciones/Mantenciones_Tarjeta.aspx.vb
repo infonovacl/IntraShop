@@ -393,7 +393,7 @@ Partial Class Mantencion_Tarjetas
                     Dim RutCliente, usuario, codigotienda As Integer
                     RutCliente = Session("rut")
                     usuario = Session("usuario")
-                    codigotienda = Session("sucursal")
+                    codigotienda = session("codtienda")
                     Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & RutCliente & "','" _
                                                             & Me.TXT_Nombres.Text.ToUpper & "','" & Me.TXT_APaterno.Text.ToUpper & "','" & Me.TXT_AMaterno.Text.ToUpper & "','" & Me.RBL_Sexo.SelectedValue & "','" _
                                                             & Me.DDL_EstadoCivil.SelectedValue & "','" & Me.TXT_CalleParticular.Text.ToUpper & "','" & Me.TXT_NumeroCasa.Text.ToUpper & "','" & Me.TXT_NumeroDepto.Text.ToUpper & "','" _

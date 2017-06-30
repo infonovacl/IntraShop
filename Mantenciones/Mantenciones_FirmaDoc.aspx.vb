@@ -5,11 +5,27 @@ Imports System
 Imports System.IO
 Partial Class Mantencion_FirmaDoc
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
+    Dim Dv As String
+    Dim CodTienda As String
+    Dim Caja As Integer
+    Dim Usuario As Integer
+    Dim NombreTienda As String
     Dim ClienteNombres, ClienteAPaterno, ClienteAMaterno, ClienteSexo, ClienteFechaNac, ClienteEstadoCivil As String
-    Dim ClienteCalleParticular, ClienteNumeroCasa, ClienteNumeroDepto, ClienteComuna, ClienteTelefonoFijo, ClienteTelefonoCelular, ClienteCorreoElectronico As String    
+    Dim ClienteCalleParticular, ClienteNumeroCasa, ClienteNumeroDepto, ClienteComuna, ClienteTelefonoFijo, ClienteTelefonoCelular, ClienteCorreoElectronico As String
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
+        Dv = Request.QueryString("dv")
+        CodTienda = Request.QueryString("codtienda")
+        Caja = Request.QueryString("caja")
+        Usuario = Request.QueryString("usuario")
+        NombreTienda = Request.QueryString("nombretienda")
+        If IsPostBack = False Then
+            ValidaDocsAFirmar()
+        End If
+    End Sub
     Private Sub ObtieneDatosCliente()
         Dim DataDSDatosCliente As New Data.DataSet
-        Dim RutCliente As Integer = Session("rut")
         Try
             Dim STRDatosCliente As String = "execute procedure procw_cons_mant ('" & RutCliente & "')"
             Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
@@ -17,11 +33,11 @@ Partial Class Mantencion_FirmaDoc
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_DatosClienteError.Visible = True
                 Me.LBL_DatosClienteError.Text = DataDSDatosCliente.Tables(0).Rows(0)(1) ' mensaje de error
-            Else               
+            Else
                 If DataDSDatosCliente.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
                     ClienteNombres = ""
                 Else
-                    ClienteNombres = Trim(DataDSDatosCliente.Tables(0).Rows(0)(4))                 
+                    ClienteNombres = Trim(DataDSDatosCliente.Tables(0).Rows(0)(4))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
                     ClienteAPaterno = ""
@@ -77,7 +93,7 @@ Partial Class Mantencion_FirmaDoc
                     ClienteCorreoElectronico = ""
                 Else
                     ClienteCorreoElectronico = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
-                End If             
+                End If
                 ClienteComuna = Session("comuna")
                 ClienteEstadoCivil = Session("estadocivil")
                 ClienteSexo = Session("sexo")
@@ -85,7 +101,7 @@ Partial Class Mantencion_FirmaDoc
         Catch EX As Exception
             Me.LBL_DatosClienteError.Text = EX.Message
         End Try
-    End Sub       
+    End Sub
     Protected Sub BTN_FirmarContrato_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_FirmarContrato.Click
         ObtieneDatosCliente()
         Try
@@ -97,16 +113,16 @@ Partial Class Mantencion_FirmaDoc
                 For Pg = 0 To PDFDoc.Pages.Count - 1
                     PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
                 Next
-                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & RutCliente & "_" & Dv & ".pdf"))
 
-                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & RutCliente & "_" & Dv & ".pdf") ' PDF destino 
                 Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
                 gfx.DrawString(Trim(ClienteNombres), font, XBrushes.Black, New XVector(355, 126))
                 gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno), font, XBrushes.Black, New XVector(65, 139))
-                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
+                gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(480, 139))
                 gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(170, 152))
                 gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(80, 166))
 
@@ -129,10 +145,10 @@ Partial Class Mantencion_FirmaDoc
 
                 Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/Contrato/" + _sImageFile)) ' inserta firma          
                 gfx.DrawImage(XImage, 210, 535, 200, 100)
-                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_" & RutCliente & "_" & Dv & ".pdf"))
 
                 Dim Img64Contrato As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/" & _sImageFile) 'BORRAR IMAGEN 64 
-                BorraFirmaUsada(Img64Contrato)                             
+                BorraFirmaUsada(Img64Contrato)
                 Me.IMG_ContratoFirmado.Visible = True
                 Me.IMG_ContratoRechazado.Visible = False
                 Me.LINK_VerContrato.Enabled = True
@@ -154,15 +170,10 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Private Sub GrabaFirmaContrato()
         Dim DataDSGrabaFirmaContrato As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
         Dim CodAutorizacion As String
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaContrato As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','CON',current year to day," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaContrato As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','CON',current year to day," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaContrato As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaContrato, Globales.conn)
             DATAGrabaFirmaContrato.Fill(DataDSGrabaFirmaContrato, "PRUEBA")
             If DataDSGrabaFirmaContrato.Tables(0).Rows(0)(0) = 1 Then
@@ -172,7 +183,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_ContratoError.Visible = True
                 Me.LBL_ContratoError.Text = DataDSGrabaFirmaContrato.Tables(0).Rows(0)(1) ' mensaje exito
                 ValidaDocsAFirmar()
-            End If        
+            End If
         Catch ex As Exception
             Me.LBL_ContratoError.Visible = True
             Me.LBL_ContratoError.Text = "ERROR GUARDANDO CONTRATO"
@@ -180,15 +191,10 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Private Sub GrabaFirmaSeguroProteccion()
         Dim DataDSGrabaFirmaSeguroProteccion As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
         Dim CodAutorizacion As String
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaSeguroProteccion As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SDE',current year to day," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaSeguroProteccion As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SDE',current year to day," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaSeguroProteccion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaSeguroProteccion, Globales.conn)
             DATAGrabaFirmaSeguroProteccion.Fill(DataDSGrabaFirmaSeguroProteccion, "PRUEBA")
             If DataDSGrabaFirmaSeguroProteccion.Tables(0).Rows(0)(0) = 1 Then
@@ -206,15 +212,10 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Private Sub GrabaFirmaSeguroVida()
         Dim DataDSGrabaFirmaSeguroVida As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
         Dim CodAutorizacion As String
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaSeguroVida As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SVI',current year to day," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaSeguroVida As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SVI',current year to day," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaSeguroVida As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaSeguroVida, Globales.conn)
             DATAGrabaFirmaSeguroVida.Fill(DataDSGrabaFirmaSeguroVida, "PRUEBA")
             If DataDSGrabaFirmaSeguroVida.Tables(0).Rows(0)(0) = 1 Then
@@ -232,7 +233,7 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Cerrar.Click
         Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>") 'CIERRA VENTANA POPUP   
-    End Sub     
+    End Sub
     Protected Sub BTN_FirmarSV_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_FirmarSV.Click
         ObtieneDatosCliente()
         Try
@@ -244,15 +245,15 @@ Partial Class Mantencion_FirmaDoc
                 For Pg = 0 To PDFDoc.Pages.Count - 1
                     PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
                 Next
-                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & RutCliente & "_" & Dv & ".pdf"))
 
-                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & RutCliente & "_" & Dv & ".pdf") ' PDF destino 
                 Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) ' pagina 1
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Arial", 10, XFontStyle.Regular)
                 gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & " " & Trim(ClienteNombres), font, XBrushes.Black, New XVector(65, 200))
-                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 200))
+                gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(480, 200))
                 gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(65, 225))
                 gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(380, 225))
 
@@ -297,7 +298,7 @@ Partial Class Mantencion_FirmaDoc
                 End Using
                 Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/" + _sImageFileSV)) ' inserta firma          
                 gfx.DrawImage(XImage, 465, 210, 120, 70)
-                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & RutCliente & "_" & Dv & ".pdf"))
 
                 Dim Img64SV As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/" & _sImageFileSV) 'BORRAR IMAGEN 64           
                 BorraFirmaUsada(Img64SV)
@@ -339,16 +340,16 @@ Partial Class Mantencion_FirmaDoc
                 For Pg = 0 To PDFDoc.Pages.Count - 1
                     PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
                 Next
-                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & RutCliente & "_" & Dv & ".pdf"))
 
-                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & RutCliente & "_" & Dv & ".pdf") ' PDF destino 
                 Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) ' pagina 1
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 10, XFontStyle.Regular)
-                gfx.DrawString(Trim(Session("nombretienda")), font, XBrushes.Black, New XVector(355, 228))
+                gfx.DrawString(Trim(NombreTienda), font, XBrushes.Black, New XVector(355, 228))
                 gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & " " & Trim(ClienteNombres), font, XBrushes.Black, New XVector(65, 278))
-                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(65, 305))
+                gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(65, 305))
                 gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(65, 355))
                 gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(450, 355))
 
@@ -378,7 +379,7 @@ Partial Class Mantencion_FirmaDoc
 
                 Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/" + _sImageFileSP)) ' inserta firma          
                 gfx.DrawImage(XImage, 210, 180, 200, 100)
-                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/seguro_proteccion_" & RutCliente & "_" & Dv & ".pdf"))
 
                 Dim Img64Sp As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/" & _sImageFileSP) 'BORRAR IMAGEN 64                            
                 BorraFirmaUsada(Img64Sp)
@@ -402,7 +403,7 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub RevisoArchivoContrato()
         Try
-            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/Contrato/"), "Contrato_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/Contrato/"), "Contrato_" & RutCliente & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & RutCliente & "*.pdf")
             If (ExisteContrato.Length > 0) Then
                 Me.LINK_VerContrato.Enabled = True
             Else
@@ -414,7 +415,7 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub RevisoArchivoSeguroProteccion()
         Try
-            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/"), "seguro_proteccion_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroProteccion/"), "seguro_proteccion_" & RutCliente & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & RutCliente & "*.pdf")
             If (ExisteContrato.Length > 0) Then
                 Me.LINK_VerSP.Enabled = True
             Else
@@ -426,7 +427,7 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub RevisoArchivoSeguroVida()
         Try
-            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/"), "seguro_vida_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            Dim ExisteContrato() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/"), "seguro_vida_" & RutCliente & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & RutCliente & "*.pdf")
             If (ExisteContrato.Length > 0) Then
                 Me.LINK_VerSV.Enabled = True
             Else
@@ -458,8 +459,6 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub IntroDocumento(ByVal TipoDoc As String)
         Dim DataDSIntroDocumento As New Data.DataSet
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
         Try
             Dim STRIntroDocumento As String = "execute procedure procw_mensaje_firma ('" & RutCliente & "','" & TipoDoc & "')"
             Dim DATAIntroDocumento As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRIntroDocumento, Globales.conn)
@@ -532,13 +531,8 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Private Sub RechazoDocumento(ByVal TipoDoc As String)
         Dim DataDSRechazaDoc As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         Try
-            Dim STRRechazaDoc As String = "execute procedure procw_rechaza_documento ('" & RutCliente & "','" & TipoDoc & "'," & Responsable & "," & CodSucursal & "," & CodCaja & ")"
+            Dim STRRechazaDoc As String = "execute procedure procw_rechaza_documento ('" & RutCliente & "','" & TipoDoc & "'," & Usuario & "," & CodTienda & "," & Caja & ")"
             'Me.TXT_IntroSeguroProteccion.Text = STRRechazaDoc
             Dim DATASTRRechazaDoc As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRechazaDoc, Globales.conn)
             DATASTRRechazaDoc.Fill(DataDSRechazaDoc, "PRUEBA")
@@ -553,17 +547,9 @@ Partial Class Mantencion_FirmaDoc
             Response.Write("<script>window.alert('ERROR : " & ex.Message & "');</script>")
         End Try
     End Sub
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If IsPostBack = False Then
-            ValidaDocsAFirmar()
-            'Dim RutCliente As String
-            'RutCliente = Trim(Session("rut")) + "-" + Trim(Session("dv"))
-            'Me.ruttitular.Text = RutCliente           
-        End If
-    End Sub
+
     Protected Sub ValidaDocsAFirmar()
         Dim DataDSDocsFirmados As New Data.DataSet
-        Dim RutCliente As Integer = Session("rut")
         Try
             Dim STRDocsFirmados As String = "execute procedure procw_doctos_pendientes ('" & RutCliente & "')"
             Dim DATADocsFirmados As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDocsFirmados, Globales.conn)
@@ -632,16 +618,16 @@ Partial Class Mantencion_FirmaDoc
             For Pg = 0 To PDFDoc.Pages.Count - 1
                 PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
             Next
-            PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+            PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & RutCliente & "_" & Dv & ".pdf"))
 
-            Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+            Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & RutCliente & "_" & Dv & ".pdf") ' PDF destino 
             Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
             Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
             Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
             Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
             gfx.DrawString(Trim(ClienteNombres), font, XBrushes.Black, New XVector(355, 126))
             gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno), font, XBrushes.Black, New XVector(65, 139))
-            gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(480, 139))
+            gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(480, 139))
             gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(170, 152))
             gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(80, 166))
 
@@ -650,26 +636,20 @@ Partial Class Mantencion_FirmaDoc
             gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(130, 740))
             gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(170, 740))
             gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
-            PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+            PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & RutCliente & "_" & Dv & ".pdf"))
             If Not IsClientScriptBlockRegistered("popup") Then
                 RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPreContrato.aspx','VerPREContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
             End If
         Catch ex As Exception
             Me.LBL_DatosClienteError.Text = "ERROR PRE-VISUALIZANDO CONTRATO"
         End Try
-
     End Sub
     Private Sub GrabaFirmaPEP()
         Dim DataDSGrabaFirmaPEP As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
         Dim CodAutorizacion As String
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current," & Responsable & "," & CodSucursal & "," & CodCaja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaPEP As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaPEP, Globales.conn)
             DATAGrabaFirmaPEP.Fill(DataDSGrabaFirmaPEP, "PRUEBA")
             If DataDSGrabaFirmaPEP.Tables(0).Rows(0)(0) = 1 Then
@@ -687,7 +667,7 @@ Partial Class Mantencion_FirmaDoc
     End Sub
     Protected Sub RevisoArchivoPEP()
         Try
-            Dim ExistePEP() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/PEP/"), "Declaracion_vinculo_" & Session("rut") & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & Session("rut") & "*.pdf")
+            Dim ExistePEP() = System.IO.Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Doc/PEP/"), "Declaracion_vinculo_" & RutCliente & "*.pdf", System.IO.SearchOption.TopDirectoryOnly) 'HttpContext.Current.Server.MapPath("~/Doc/Contrato/Contrato_FamilyShop_" & RutCliente & "*.pdf")
             If (ExistePEP.Length > 0) Then
                 Me.LINK_VerPEP.Enabled = True
             Else
@@ -708,15 +688,15 @@ Partial Class Mantencion_FirmaDoc
                 For Pg = 0 To PDFDoc.Pages.Count - 1
                     PDFNewDoc.AddPage(PDFDoc.Pages(Pg))
                 Next
-                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFNewDoc.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & RutCliente & "_" & Dv & ".pdf"))
 
-                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf") ' PDF destino 
+                Dim ruta_pdf_cliente As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & RutCliente & "_" & Dv & ".pdf") ' PDF destino 
                 Dim PDFDoc2 As PdfSharp.Pdf.PdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(ruta_pdf_cliente, PdfDocumentOpenMode.Modify)
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) '= PDFNewDoc.AddPage(PDFDoc.Pages(0))
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 12, XFontStyle.Regular)
                 gfx.DrawString(Trim(ClienteNombres) & " " & Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & "", font, XBrushes.Black, New XVector(125, 188))
-                gfx.DrawString(" " & Session("rut") & "-" & Session("dv"), font, XBrushes.Black, New XVector(340, 205))
+                gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(340, 205))
                 gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
                 If Session("PEP_Estado") = "ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(320, 228)) 'ok
@@ -743,7 +723,7 @@ Partial Class Mantencion_FirmaDoc
 
                 Dim XImage As XImage = XImage.FromFile(HttpContext.Current.Server.MapPath("~/Doc/PEP/" + _sImageFilePEP)) ' inserta firma          
                 gfx.DrawImage(XImage, 240, 605, 140, 62) 'izquierda , abajo,ancho , alto
-                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/PEP/Declaracion_vinculo_" & RutCliente & "_" & Dv & ".pdf"))
 
                 Dim Img64PEP As String = HttpContext.Current.Server.MapPath("~/Doc/PEP/" & _sImageFilePEP) 'BORRAR IMAGEN 64 
                 BorraFirmaUsada(Img64PEP)
@@ -767,9 +747,6 @@ Partial Class Mantencion_FirmaDoc
         End Try
     End Sub
     Protected Sub BTN_ImprimeTarjeta_Click(sender As Object, e As EventArgs) Handles BTN_ImprimeTarjeta.Click
-        Dim RutCliente, CodSucursal As Integer
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        Response.Write("<script>window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & CodSucursal & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");</script>")
+        Response.Write("<script>window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & CodTienda & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");</script>")
     End Sub
 End Class

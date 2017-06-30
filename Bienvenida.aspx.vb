@@ -36,7 +36,7 @@ Partial Class _Default
                     End If
                 End If
                 Session("nombreusuario") = nombre & " " & apellido
-                Session("sucursal") = Trim(DATADSLogin.Tables(0).Rows(0)(2)) ' codigo tienda
+                Session("codtienda") = Trim(DATADSLogin.Tables(0).Rows(0)(2)) ' codigo tienda
                 Session("caja") = Trim(DATADSLogin.Tables(0).Rows(0)(7)) 'nro caja
                 If DATADSLogin.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
                     nombretienda = ""
@@ -49,7 +49,6 @@ Partial Class _Default
                 End If
                 Session("nombretienda") = nombretienda
                 Session("usuario") = CType(partes(0), Integer) 'rut  
-
                 e.Authenticated = True
                 ' Response.Redirect("Cliente.aspx")
             End If

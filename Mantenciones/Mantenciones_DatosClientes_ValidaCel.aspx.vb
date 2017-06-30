@@ -1,14 +1,18 @@
 ﻿Partial Class Mantencion_DatosClientes_ValidaCel
     Inherits System.Web.UI.Page
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load    
+    Dim Usuario As String
+    Dim CodTienda As String
+    Dim Caja As Integer
+    Dim NombreTienda As String
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        Me.TXT_Rut.Text = Request.QueryString("rut")
+        Me.TXT_Dv.Text = Request.QueryString("dv")
+        Usuario = Request.QueryString("usuario")
+        CodTienda = Request.QueryString("codtienda")
+        Caja = Request.QueryString("caja")
+        NombreTienda = Request.QueryString("nombretienda")
         If Not IsPostBack Then
             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Popup", "<script>detectarPopupBlocker();</script>")
-            'If IsDBNull(Session("rut")) = True Or Session("rut") = "" Then
-            ' Response.Write("<script>window.alert('ERROR: SESION DE CONSULTA DE CLIENTE HA EXPIRADO, DEBE CONSULTAR NUEVAMENTE');</script>")
-            ' Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
-            'Else
-            Me.TXT_Rut.Text = Session("rut")
-            Me.TXT_Dv.Text = Session("dv")
             LlenaDDLEstadoCivil()
             LlenaDDLRegion()
             LlenaDDLDiaPago()
@@ -16,9 +20,7 @@
             ObtieneDatosCliente()
             '--------------------------------------
             Me.ButtonAut.Attributes.Add("OnClick", "Iniciar ( );")
-            Dim RutCliente As String
-            RutCliente = Trim(Session("rut")) + "-" + Trim(Session("dv"))
-            Me.ruttitular.Text = RutCliente
+            Me.ruttitular.Text = Trim(Me.TXT_Rut.Text) + "-" + Trim(Me.TXT_Dv.Text)
             '--------------------------------------
             Me.TXT_TelefonoFijo.MaxLength = CType(Me.LBL_MaximoDigitoTelefono.Text, Integer)
             Me.LBL_DatosClienteError.Visible = True
@@ -164,9 +166,8 @@
     End Sub
     Private Sub ObtieneDatosCliente()
         Dim DataDSDatosCliente As New Data.DataSet
-        Dim RutCliente As Integer = Session("rut")
         Try
-            Dim STRDatosCliente As String = "execute procedure procw_cons_mant ('" & RutCliente & "')"
+            Dim STRDatosCliente As String = "execute procedure procw_cons_mant ('" & Trim(Me.TXT_Rut.Text) & "')"
             Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
             DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
@@ -409,11 +410,7 @@
             If Page.IsValid = True Then              
                     Try
                         Dim DATADSModificaDatosPersonalesPopUp As New Data.DataSet
-                        DATADSModificaDatosPersonalesPopUp.Clear()
-                        Dim RutCliente, usuario, codigotienda As Integer
-                        RutCliente = Session("rut")
-                        usuario = Session("usuario")
-                    codigotienda = Session("sucursal")
+                    DATADSModificaDatosPersonalesPopUp.Clear()
                     Dim region_empleador, region_cliente, region_referencia As Integer
                     If Me.DDL_RegionCliente.SelectedValue = "SIN REGION" Then
                         region_cliente = 0
@@ -430,7 +427,7 @@
                     Else
                         region_empleador = DDL_EmpleadorRegion.SelectedValue
                     End If
-                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & RutCliente & "','" _
+                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & Trim(Me.TXT_Rut.Text) & "','" _
                                                             & Trim(Me.TXT_Nombres.Text.ToUpper) & "','" & Trim(Me.TXT_APaterno.Text.ToUpper) & "','" & Trim(Me.TXT_AMaterno.Text.ToUpper) & "','" & Me.RBL_Sexo.SelectedValue & "','" _
                                                             & Me.DDL_EstadoCivil.SelectedValue & "','" & Trim(Me.TXT_CalleParticular.Text.ToUpper) & "','" & Trim(Me.TXT_NumeroCasa.Text.ToUpper) & "','" & Trim(Me.TXT_NumeroDepto.Text.ToUpper) & "','" _
                                                             & Trim(Me.TXT_VillaPoblacion.Text.ToUpper) & "','" & Trim(Me.TXT_AlturaCalle.Text.ToUpper) & "','" & region_cliente & "','" & Me.DDL_ComunaCliente.SelectedValue & "','" _
@@ -438,7 +435,7 @@
                                                             & Me.DDL_ReferenciaComuna.Text.ToUpper & "','" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "','" & Me.TXT_ReferenciaTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorNombre.Text.ToUpper & "','" _
                                                             & Trim(Me.TXT_EmpleadorDireccion.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorNumero.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorOficina.Text.ToUpper) & "','" & region_empleador & "','" _
                                                             & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Trim(Me.TXT_EmpleadorTelefono.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorAnexo.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorCargo.Text.ToUpper) & "','" _
-                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & usuario & "','" & codigotienda & "')"
+                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & Usuario & "','" & CodTienda & "')"
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     Me.TXT_PROC.Visible = False
                     Me.TXT_PROC.Text = STRModificaDatosPersonales.ToString
@@ -450,7 +447,7 @@
                         Me.LBL_DatosClienteError.Visible = True
                         Me.LBL_DatosClienteError.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje exito
                         Session("estadocivil") = Trim(Me.DDL_EstadoCivil.SelectedItem.Text)
-                        Dim TipoConsulta As String                       
+                        Dim TipoConsulta As String
                         TipoConsulta = Request.QueryString("tipocon")
                         If TipoConsulta = "bloqueo" Then
                             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Bloqueo", "<script> LLamaBloqueos(); </script>")
@@ -459,18 +456,18 @@
                         ElseIf TipoConsulta = "tarjeta" Then
                             Me.ButtonAut.Visible = True
                             Me.ButtonAut.Enabled = True ' HABILITA BOTON AUTENTIA
-                            Me.ButtonAut.Focus()                          
+                            Me.ButtonAut.Focus()
                         End If
-                        End If
+                    End If
                 Catch EX As Exception
                     Me.LBL_DatosClienteError.Visible = True
                     Me.LBL_DatosClienteError.Text = EX.Message
-                End Try               
+                End Try
             Else
                 Me.LBL_DatosClienteError.Visible = True
                 Me.LBL_DatosClienteError.Text = "HAY DATOS ERRONEOS EN FORMULARIO"
             End If
-            End If            
+        End If
     End Sub
     Function ValidacionSecundaria(ByRef valido As String) As String
         Dim flag As Integer = 0
@@ -533,28 +530,22 @@
         Return valido
     End Function
     Protected Sub ButtonAut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonAut.Click
-        'If Me.ErcRes.Value <> "0" Then    'DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO - PARA PRUEBAS
-        If Me.ErcRes.Value = "0" Then ' PARA PRODUCCCION 
+        If Me.ErcRes.Value <> "0" Then    'DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO - PARA PRUEBAS
+            'If Me.ErcRes.Value = "0" Then ' PARA PRODUCCCION 
             GestionAutentia()
-            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta(); </script>")
+            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta('/Mantenciones/Mantenciones_FirmaDoc.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & Me.TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & Caja & "&nombretienda=" & NombreTienda & "'); </script>")
         Else
             Me.LBL_DatosClienteError.Visible = True
             Me.LBL_DatosClienteError.Text = "ERROR EN VALIDACION DE HUELLA DIGITAL"
             GestionAutentia()
             Me.ButtonAut.Enabled = False
         End If
-
     End Sub
     Private Sub GestionAutentia()
         Dim DataDSIngresaGestionAutentia As New Data.DataSet
-        Dim RutCliente, CodSucursal, CodCaja, Responsable As Integer
-        RutCliente = Session("rut")
-        CodSucursal = Session("sucursal")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         Try
             Dim STRIngresaGestionAutentia As String = "INSERT INTO auten_huella (rut_cliente,auten_fec,auten_hor,auten_tip,auten_res,auten_det,auten_usu,auten_lin,auten_audit,auten_desc,auten_suc,auten_caj) VALUES " &
-                                                      " ('" & RutCliente & "',current year to day,current hour to second,'TAR','" & Me.ErcRes.Value & "','" & Me.ErcDet.Value & "'," & Responsable & ",'0','" & Me.NroAudit.Value & "','" & Me.Mensaje.Value & "'," & CodSucursal & "," & CodCaja & ")"
+                                                      " ('" & Trim(Me.TXT_Rut.Text) & "',current year to day,current hour to second,'TAR','" & Me.ErcRes.Value & "','" & Me.ErcDet.Value & "'," & Usuario & ",'0','" & Me.NroAudit.Value & "','" & Me.Mensaje.Value & "'," & CodTienda & "," & Caja & ")"
             Dim DATASTRRechazaDoc As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRIngresaGestionAutentia, Globales.conn)
             DATASTRRechazaDoc.Fill(DataDSIngresaGestionAutentia, "PRUEBA")
         Catch ex As Exception

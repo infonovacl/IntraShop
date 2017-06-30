@@ -3,11 +3,11 @@
     Dim RutCliente As Integer
     Dim Usuario As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
+        Usuario = Request.QueryString("usuario")
         Me.Panel_Comentarios.Visible = True
         Me.LBL_ComentariosError.Visible = False
         If Not IsPostBack Then
-            RutCliente = Request.QueryString("rut")
-            Usuario = Request.QueryString("usuario")
             ObtieneComentarios()
         End If
     End Sub
