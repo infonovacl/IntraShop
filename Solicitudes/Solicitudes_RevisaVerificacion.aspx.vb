@@ -1,8 +1,16 @@
 ﻿Partial Class Solicitudes_RevisaVerificacion
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
+    Dim Dv As String
     Dim Ciudad As String
     Dim Direccion As String
-    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load       
+    Dim CodTienda, CodCaja, Usuario As Integer
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
+        Dv = Request.QueryString("dv")
+        CodTienda = Request.QueryString("codtienda")
+        CodCaja = Request.QueryString("caja")
+        Usuario = Request.QueryString("usuario")
         If Not IsPostBack Then
             ObtieneConsultasDataBusiness()
             HabilitaVerificacion()
@@ -10,8 +18,6 @@
     End Sub
     Private Sub HabilitaVerificacion()
         Dim DataDSLevantaRechazo As New Data.DataSet
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
         Try
             DataDSLevantaRechazo.Clear()
             Dim STRLevantaRechazo As String = "execute procedure procw_habi_verif ('" & RutCliente & "' )"
@@ -31,8 +37,6 @@
     End Sub
     Private Sub ObtieneConsultasDataBusiness()
         Dim DataDSConsultasDB As New Data.DataSet
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
         Try          
             DataDSConsultasDB.Clear()
             Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "' )"
@@ -53,37 +57,28 @@
             Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
     End Sub
-    'Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
-    'Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
-    'End Sub
     Protected Sub BTN_AntecComerciales_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
         Me.BTN_AntecComerciales.Enabled = False
-        Dim RutCliente As String
-        RutCliente = Session("rut") + Session("dv")
-        Dim respuesta As Integer = RevisaSinacofi(RutCliente)
+        Dim RutClienteCompleto As String
+        RutClienteCompleto = RutCliente & Dv
         Session("Antec") = ""
         Session("Score") = ""
         Session("ConsDB") = ""
+        Dim respuesta As Integer = RevisaSinacofi(RutClienteCompleto)
         '''''If respuesta = 1 Then
         ObtieneConsultasDataBusiness()
 
         '----------------------- agregado AA
         Dim DataDSVerificacion As New Data.DataSet
-        Dim CodSucursal, CodCaja, Responsable As Integer
         Dim Antecedentes As String
-        Dim RutClienteSinDv As Integer
-        RutClienteSinDv = Session("rut")
-        CodSucursal = session("codtienda")
-        CodCaja = Session("caja")
-        Responsable = Session("usuario")
         Antecedentes = Session("Antec")
         Try
             DataDSVerificacion.Clear()
-            Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutClienteSinDv & "," & CodSucursal & "," & CodCaja & ",current year to day," & Responsable & ",'" & Antecedentes & "')"
+            Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutCliente & "," & CodTienda & "," & CodCaja & ",current year to day," & Usuario & ",'" & Antecedentes & "')"
             Dim DATAVerificacion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRVerificacion, Globales.conn)
             DATAVerificacion.Fill(DataDSVerificacion, "PRUEBA")
             If DataDSVerificacion.Tables(0).Rows(0)(0) = 1 Then
-                Me.BTN_AntecComerciales.Enabled = False                
+                Me.BTN_AntecComerciales.Enabled = False
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = DataDSVerificacion.Tables(0).Rows(0)(1) ' mensaje de error          
             End If
@@ -93,7 +88,7 @@
         End Try
         '----------------------------------------
         Me.LBL_ConsultasDBError.Visible = True
-        Me.LBL_ConsultasDBError.Text = "CONSULTA FINALIZADA"      
+        Me.LBL_ConsultasDBError.Text = "CONSULTA FINALIZADA"
     End Sub
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
@@ -123,7 +118,7 @@
 
         'Reviso si hay consultas el mismo dia
         Try
-            Dim SQLDB = "SELECT DISTINCT antecedentes, edad, fec_nac , otros_datos1,score FROM consulta_db WHERE rut_cliente = " & Session("rut") & " AND fecha = today"
+            Dim SQLDB = "SELECT DISTINCT antecedentes, edad, fec_nac , otros_datos1,score FROM consulta_db WHERE rut_cliente = " & RutCliente & " AND fecha = today"
             Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
             DATADB.Fill(DATADSDB, "PRUEBA")
             If DATADSDB.Tables(0).Rows.Count > 0 Then
@@ -170,7 +165,7 @@
                 ' grabo en tabla de errores
                 Try
                     Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                    SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'VER'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ")"
+                    SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & CodTienda & "," & CodCaja & "," & Usuario & ")"
                     Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                     DATADBerr.Fill(DATADSErr, "PRUEBA")
                 Catch EX As Exception
@@ -207,7 +202,7 @@
                     ' grabo en tabla de errores
                     Try
                         Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                        SQLDBerr = SQLDBerr & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'VER'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ")"
+                        SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & CodTienda & "," & CodCaja & "," & Usuario & ")"
                         Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                         DATADBerr.Fill(DATADSErr, "PRUEBA")
                     Catch EX As Exception
@@ -242,7 +237,7 @@
             End If
             Try  ' la variable sesion "FechaTrx" es today u otra fecha ??
                 Dim SQLDB = "INSERT INTO consulta_db (rut_cliente,fecha,hora,motivo,score,edad,antecedentes,otros_datos1,otros_datos2,otros_datos3,fec_nac,sucursal,caja,rut_resp,origen)"
-                SQLDB = SQLDB & " VALUES ( " & Session("rut") & ",current year to day , current hour to second , 'VER'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ",'S')"
+                SQLDB = SQLDB & " VALUES ( " & RutCliente & ",current year to day , current hour to second , 'VER'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & CodTienda & "," & CodCaja & "," & Usuario & ",'S')"
                 Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
                 DATADB.Fill(DATADSCli2, "PRUEBA")
             Catch EX As Exception
@@ -251,7 +246,7 @@
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                '' IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
+                '' IngresaRechazo(RutCliente, FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If protestos > 0 Then
@@ -263,7 +258,7 @@
                     Monto = Mid(node.selectSingleNode("@Monto").text, 1, InStr(1, node.selectSingleNode("@Monto").text, "."))
                     Try
                         Dim SQLDBDet = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1,desc2)"
-                        SQLDBDet = SQLDBDet & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'VER','PR','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipDoc").text & "','" & Monto & "' )"
+                        SQLDBDet = SQLDBDet & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER','PR','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipDoc").text & "','" & Monto & "' )"
                         Dim DATADBDet As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet, Globales.conn)
                         DATADBDet.Fill(DATADSDet, "PRUEBA")
                     Catch EX As Exception
@@ -279,7 +274,7 @@
                     Monto = Mid(node.selectSingleNode("@Monto").text, 1, InStr(1, node.selectSingleNode("@Monto").text, "."))
                     Try
                         Dim SQLDBDet1 = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1,desc2)"
-                        SQLDBDet1 = SQLDBDet1 & " VALUES ( " & Session("rut") & ",  current year to day , current hour to second , 'VER','MO','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipCred").text & "','" & Monto & "' )"
+                        SQLDBDet1 = SQLDBDet1 & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER','MO','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@NomAcre").text) & "','" & node.selectSingleNode("@TipCred").text & "','" & Monto & "' )"
                         Dim DATADBDet1 As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet1, Globales.conn)
                         DATADBDet1.Fill(DATADSDet1, "PRUEBA")
                     Catch EX As Exception
@@ -295,7 +290,7 @@
                     fechadetalle = ArmaFecha(node.selectSingleNode("@FechaCons").text)
                     Try
                         Dim SQLDBDet2 = "INSERT INTO consulta_dbdet (rut_cliente,fecha,hora,motivo,tipo,fechacons,empresa,desc1)"
-                        SQLDBDet2 = SQLDBDet2 & " VALUES ( " & Session("rut") & ",current year to day, current hour to second , 'VER','CN','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "' )"
+                        SQLDBDet2 = SQLDBDet2 & " VALUES ( " & RutCliente & ",current year to day, current hour to second , 'VER','CN','" & fechadetalle & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "','" & CambiaN(node.selectSingleNode("@Instit").text) & "' )"
                         Dim DATADBDet2 As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet2, Globales.conn)
                         DATADBDet2.Fill(DATADSDet2, "PRUEBA")
                     Catch EX As Exception
@@ -315,7 +310,7 @@
         Else
             ' busco la cantidad de consultas
             Try
-                Dim SQLDBDet = "SELECT count(*) FROM consulta_dbdet WHERE rut_cliente = " & Session("rut") & " AND fecha =  current year to day  AND tipo = 'CN' "
+                Dim SQLDBDet = "SELECT count(*) FROM consulta_dbdet WHERE rut_cliente = " & RutCliente & " AND fecha =  current year to day  AND tipo = 'CN' "
                 Dim DATADBDet As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBDet, Globales.conn)
                 DATADBDet.Fill(DATADSDBDet, "PRUEBA")
                 If DATADSDBDet.Tables(0).Rows.Count = 0 Or DATADSDBDet.Tables(0).Rows(0)(0) Is System.DBNull.Value Then
@@ -331,7 +326,7 @@
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True
                 Me.LBL_ConsultasDBError.Text = "Cliente No Registra Edad ..."
-                ''  IngresaRechazo(Session("rut"), FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
+                ''  IngresaRechazo(RutCliente, FechaActual, HoraActual, "Cliente No Registra Edad ", Vedad) ''************** Falta funcion IngresaRechazo
                 Return -1
             End If
             If Antec = "NO" Then
@@ -400,7 +395,6 @@
     Private Function Desarma(ByVal NombreCompleto As String)
         Dim uno, dos, tres, mas As Integer
         Dim VNom, VAPat, VAMat As String
-
         uno = InStr(1, NombreCompleto, " ")
         If uno > 0 Then
             dos = InStr(uno + 1, NombreCompleto, " ")

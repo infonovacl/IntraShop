@@ -22,9 +22,9 @@ Partial Class Mantencion_Tarjetas_SeguroVida
         embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
         embed += "</object>"
         Try
-            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf")
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/SeguroVida/seguro_vida_" & Session("RutPDF") & "_" & Session("DvPDF") & ".pdf")
             If (System.IO.File.Exists(File)) Then
-                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/SeguroVida/seguro_vida_" & Session("rut") & "_" & Session("dv") & ".pdf"))
+                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/SeguroVida/seguro_vida_" & Session("RutPDF") & "_" & Session("DvPDF") & ".pdf"))
             Else
                 LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
             End If

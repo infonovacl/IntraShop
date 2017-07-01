@@ -450,9 +450,9 @@
                         Dim TipoConsulta As String
                         TipoConsulta = Request.QueryString("tipocon")
                         If TipoConsulta = "bloqueo" Then
-                            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Bloqueo", "<script> LLamaBloqueos(); </script>")
+                            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Bloqueo", "<script> LLamaBloqueos('/Solicitudes/Solicitudes_Bloqueos.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & TXT_Dv.Text & "&codtienda=" & CodTienda & "&caja=" & Caja & "&usuario=" & Usuario & "'); </script>")
                         ElseIf TipoConsulta = "verificacion" Then
-                            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Verificacion", "<script> LLamaVerificacion(); </script>")
+                            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Verificacion", "<script> LLamaVerificacion('/Solicitudes/Solicitudes_RevisaVerificacion.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & TXT_Dv.Text & "&codtienda=" & CodTienda & "&caja=" & Caja & "&usuario=" & Usuario & "'); </script>")
                         ElseIf TipoConsulta = "tarjeta" Then
                             Me.ButtonAut.Visible = True
                             Me.ButtonAut.Enabled = True ' HABILITA BOTON AUTENTIA

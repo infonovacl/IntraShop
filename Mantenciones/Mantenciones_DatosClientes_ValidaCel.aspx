@@ -111,21 +111,21 @@
             }
         }       
         //window.onload = detectarPopupBlocker;
-        function LLamaBloqueos() {          
-            window.open('/Solicitudes/Solicitudes_Bloqueos.aspx','_Bloqueo','top=130,width=770,height=500,left=220',scrollbars='NO',resizable='NO');
+        function LLamaBloqueos(BloqueoUrl) {          
+            window.open(BloqueoUrl,'_Bloqueo','top=130,width=770,height=500,left=220',scrollbars='NO',resizable='NO');
             window.focus();
             ventana = window.self;
             ventana.opener = window.self; 
             ventana.close();
         }
-        function LLamaVerificacion() {
-            window.open('/Solicitudes/Solicitudes_RevisaVerificacion.aspx', 'RevisaVerificacion', 'top=130,width=770,height=320,left=220', scrollbars = 'NO', resizable = 'NO');
+        function LLamaVerificacion(VerificacionUrl) {
+            window.open(VerificacionUrl, 'RevisaVerificacion', 'top=130,width=770,height=320,left=220', scrollbars = 'NO', resizable = 'NO');
             window.focus();
             ventana = window.self;
             ventana.opener = window.self;
             ventana.close();
         }
-        function LLamaAutentia() {
+       function LLamaAutentia() {
             window.open('/Mantenciones/Mantenciones_Autentia.aspx', 'Autentia', 'top=130,left=220,width=500,height=400', titlebar = 'NO', scrollbars = 'NO', resizable = 'NO', toolbar = 'NO');
             window.focus();
             ventana = window.self;

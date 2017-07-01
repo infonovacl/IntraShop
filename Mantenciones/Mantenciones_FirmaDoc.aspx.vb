@@ -21,6 +21,8 @@ Partial Class Mantencion_FirmaDoc
         Caja = Request.QueryString("caja")
         Usuario = Request.QueryString("usuario")
         NombreTienda = Request.QueryString("nombretienda")
+        Session("RutPDF") = RutCliente
+        Session("DvPDF") = Dv
         If IsPostBack = False Then
             ValidaDocsAFirmar()
         End If
