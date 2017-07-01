@@ -113,7 +113,6 @@
                             Me.TXT_ConsultaDiaPago.Text = ""
                         Else
                             Me.TXT_ConsultaDiaPago.Text = DataDSDatosCliente.Tables(0).Rows(0)(14)
-                            Session("diapago") = DataDSDatosCliente.Tables(0).Rows(0)(14)
                         End If
                         If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Then
                             Me.TXT_ConsultaLineaCredito.Text = ""
@@ -282,7 +281,7 @@
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Rechazos','top=130,width=770,height=520,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=bloqueo&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_AnulaVentaSeguros.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Seguros','top=220,width=770,height=420,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
-                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(3).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(3).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&diapago=" & TXT_ConsultaDiaPago.Text & "&caja=" & Caja & "&codtienda=" & CodTienda & "','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=verificacion&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartolaDetalle.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','MiniCartola','top=130,width=350,height=490,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
 
@@ -1410,7 +1409,7 @@
     End Sub
     Protected Sub BTN_BuscaXNombre_Click(sender As Object, e As ImageClickEventArgs) Handles BTN_BuscaXNombre.Click
         LimpiaControles(Me.Controls)
-        ' Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
+        'Response.Write("<script>window.open(""Cliente.aspx"", ""_self"")</script>")
     End Sub
     Protected Sub Grilla_ConsultasDB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Grilla_ConsultasDB.SelectedIndexChanged
         Dim DataDSDetConsultasDBDetalle As New Data.DataSet

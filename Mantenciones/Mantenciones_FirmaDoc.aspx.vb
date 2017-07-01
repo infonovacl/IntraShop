@@ -11,6 +11,7 @@ Partial Class Mantencion_FirmaDoc
     Dim Caja As Integer
     Dim Usuario As Integer
     Dim NombreTienda As String
+    Dim PEPEstado As String
     Dim ClienteNombres, ClienteAPaterno, ClienteAMaterno, ClienteSexo, ClienteFechaNac, ClienteEstadoCivil As String
     Dim ClienteCalleParticular, ClienteNumeroCasa, ClienteNumeroDepto, ClienteComuna, ClienteTelefonoFijo, ClienteTelefonoCelular, ClienteCorreoElectronico As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -547,7 +548,6 @@ Partial Class Mantencion_FirmaDoc
             Response.Write("<script>window.alert('ERROR : " & ex.Message & "');</script>")
         End Try
     End Sub
-
     Protected Sub ValidaDocsAFirmar()
         Dim DataDSDocsFirmados As New Data.DataSet
         Try
@@ -559,7 +559,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_DatosClienteError.Text = DataDSDocsFirmados.Tables(0).Rows(0)(1) ' mensaje de error                  
             Else
                 If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 1 Then ' si = 1 debe firmar PEP primero
-                    Session("PEP_Estado") = Trim(DataDSDocsFirmados.Tables(0).Rows(0)(6))
+                    PEPEstado = Trim(DataDSDocsFirmados.Tables(0).Rows(0)(6))
                     Me.IMG_PEPFirmado.Visible = False
                     Me.IMG_PEPRechazado.Visible = True
                     Me.RBL_Documentos.Items(0).Enabled = False
@@ -698,9 +698,9 @@ Partial Class Mantencion_FirmaDoc
                 gfx.DrawString(Trim(ClienteNombres) & " " & Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & "", font, XBrushes.Black, New XVector(125, 188))
                 gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(340, 205))
                 gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
-                If Session("PEP_Estado") = "ser" Then
+                If PEPEstado = "ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(320, 228)) 'ok
-                ElseIf Session("PEP_Estado") = "no+ser" Then
+                ElseIf PEPEstado = "no+ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(384, 228))
                 End If
                 'pp = PDFDoc2.Pages(8) ' Pagina nro. 9

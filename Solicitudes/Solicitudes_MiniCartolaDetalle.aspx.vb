@@ -2,11 +2,11 @@
 Imports System.Drawing
 Imports System.Drawing.Printing
 Imports System.IO
-
 Partial Class Solicitudes_MiniCartolaDetalle
     Inherits System.Web.UI.Page
-
+    Dim RutCliente As Integer
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
         Me.LBL_MiniCartolaError.Visible = False
         If IsPostBack = False Then
             ObtieneMiniCartola()
@@ -16,8 +16,6 @@ Partial Class Solicitudes_MiniCartolaDetalle
         Try
             Dim DATADSMiniCartolaPopUp As New Data.DataSet
             DATADSMiniCartolaPopUp.Clear()
-            Dim RutCliente As Integer
-            RutCliente = Session("rut")
             Dim STRMiniCartola As String = "execute procedure procw_cons_saldo ('" & RutCliente & "')"
             Dim DATAMiniCartola As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRMiniCartola, Globales.conn)
             DATAMiniCartola.Fill(DATADSMiniCartolaPopUp, "PRUEBA")
@@ -157,7 +155,7 @@ Partial Class Solicitudes_MiniCartolaDetalle
                 '  Dim HojaImpresion As New PrintDocument()
                 '  AddHandler HojaImpresion.PrintPage, AddressOf Me.HojaImpresion_PrintPage
                 ' HojaImpresion.DefaultPageSettings.PrinterSettings = PrintDialog1.PrinterSettings
-               
+
                 'PrintDialog1.Document = HojaImpresion
                 ' If PrintDialog1.ShowDialog = DialogResult.OK Then
                 ' HojaImpresion.Print()
@@ -171,7 +169,7 @@ Partial Class Solicitudes_MiniCartolaDetalle
         End Try
     End Sub
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_Cerrar.Click
-        ' Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
+        Response.Write("<script language='JavaScript'>ventana = window.self;ventana.opener = window.self;ventana.close();</script>")
     End Sub
     '    Private Sub HojaImpresion_PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles HojaImpresion.PrintPage
     Private Sub HojaImpresion_PrintPage(ByVal sender As Object, ByVal e As PrintPageEventArgs)
@@ -183,7 +181,7 @@ Partial Class Solicitudes_MiniCartolaDetalle
 
             'imprimimos la fecha y hora
             prFont = New Font("Arial", 8, FontStyle.Regular)
-            e.Graphics.DrawString(Date.Now.ToShortDateString.ToString & " " & _
+            e.Graphics.DrawString(Date.Now.ToShortDateString.ToString & " " &
                                 Date.Now.ToShortTimeString.ToString, prFont, Brushes.Black, 1, 3)
 
             'imprimimos el nombre del cliente

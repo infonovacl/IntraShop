@@ -1,9 +1,19 @@
 ﻿Partial Class Solicitudes_CambioDiaPago
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
+    Dim DiaPago As Integer
+    Dim Usuario As Integer
+    Dim Caja As Integer
+    Dim CodigoTienda As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
+        DiaPago = Request.QueryString("diapago")
+        Usuario = Request.QueryString("usuario")
+        Caja = Request.QueryString("caja") ' NO SE USA
+        CodigoTienda = Request.QueryString("codtienda")
         Me.LBL_CambioDiaPagoError.Visible = False
         If Not IsPostBack Then
-            Me.TXT_DiaActualPago.Text = Session("diapago")
+            Me.TXT_DiaActualPago.Text = DiaPago
             ObtieneDiasPago()
         End If
     End Sub
@@ -11,20 +21,17 @@
         Try
             Dim DATADSSolicitaCambioDiaPagoPopUp As New Data.DataSet
             DATADSSolicitaCambioDiaPagoPopUp.Clear()
-            Dim RutCliente, usuario, caja, tienda As Integer
-            RutCliente = Session("rut")
-            usuario = Session("usuario")
-            tienda = session("codtienda")
-            caja = Session("caja")
-            Dim STRSolicitaCambioDiaPago As String = "execute procedure procw_mod_diapago  ('" & RutCliente & "','" & usuario & "','" & tienda & "','" & DDL_NuevoDiaPago.SelectedValue & "')"
+            Dim STRSolicitaCambioDiaPago As String = "execute procedure procw_mod_diapago  ('" & RutCliente & "','" & Usuario & "','" & CodigoTienda & "','" & DDL_NuevoDiaPago.SelectedValue & "')"
             Dim DATASolicitaCambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaCambioDiaPago, Globales.conn)
             DATASolicitaCambioDiaPago.Fill(DATADSSolicitaCambioDiaPagoPopUp, "PRUEBA")
             If DATADSSolicitaCambioDiaPagoPopUp.Tables(0).Rows(0)(0) = 1 Then
                 Me.LBL_CambioDiaPagoError.Visible = True
                 Me.LBL_CambioDiaPagoError.Text = DATADSSolicitaCambioDiaPagoPopUp.Tables(0).Rows(0)(1) ' mensaje de error
+                Me.BTN_Grabar.Enabled = False
             Else
                 Me.LBL_CambioDiaPagoError.Visible = True
                 Me.LBL_CambioDiaPagoError.Text = "CAMBIO DE DIA DE PAGO CURSADO" ' mensaje de error
+                Me.BTN_Grabar.Enabled = False
             End If
         Catch EX As Exception
             Me.LBL_CambioDiaPagoError.Visible = True

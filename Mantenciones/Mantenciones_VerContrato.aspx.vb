@@ -5,6 +5,8 @@ Imports System
 Imports System.IO
 Partial Class Mantencion_Tarjetas
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
+    Dim Dv As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
             VerPDFContrato()

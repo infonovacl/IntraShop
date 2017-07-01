@@ -1,9 +1,17 @@
 ﻿Partial Class Mantencion_DatosClientes
     Inherits System.Web.UI.Page
+    Dim Usuario As String
+    Dim CodTienda As String
+    Dim Caja As Integer
+    Dim NombreTienda As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.TXT_Rut.Text = Request.QueryString("rut")
+        Me.TXT_Dv.Text = Request.QueryString("dv")
+        Usuario = Request.QueryString("usuario")
+        CodTienda = Request.QueryString("codtienda")
+        Caja = Request.QueryString("caja")
+        NombreTienda = Request.QueryString("nombretienda")
         If Not IsPostBack Then
-            Me.TXT_Rut.Text = Session("rut")
-            Me.TXT_Dv.Text = Session("dv")
             LlenaDDLEstadoCivil()
             LlenaDDLRegion()
             LlenaDDLDiaPago()
@@ -151,9 +159,8 @@
     End Sub
     Private Sub ObtieneDatosCliente()
         Dim DataDSDatosCliente As New Data.DataSet
-        Dim RutCliente As Integer = Session("rut")
         Try
-            Dim STRDatosCliente As String = "execute procedure procw_cons_mant ('" & RutCliente & "')"
+            Dim STRDatosCliente As String = "execute procedure procw_cons_mant ('" & Trim(Me.TXT_Rut.Text) & "')"
             Dim DATADatosCliente As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRDatosCliente, Globales.conn)
             DATADatosCliente.Fill(DataDSDatosCliente, "PRUEBA")
             If DataDSDatosCliente.Tables(0).Rows(0)(0) = 1 Then
@@ -388,10 +395,6 @@
                 Try
                     Dim DATADSModificaDatosPersonalesPopUp As New Data.DataSet
                     DATADSModificaDatosPersonalesPopUp.Clear()
-                    Dim RutCliente, usuario, codigotienda As Integer
-                    RutCliente = Session("rut")
-                    usuario = Session("usuario")
-                    codigotienda = session("codtienda")
                     Dim region_empleador, region_cliente, region_referencia As Integer
                     If Me.DDL_RegionCliente.SelectedValue = "SIN REGION" Then
                         region_cliente = 0
@@ -408,7 +411,7 @@
                     Else
                         region_empleador = DDL_EmpleadorRegion.SelectedValue
                     End If
-                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & RutCliente & "','" _
+                    Dim STRModificaDatosPersonales As String = "execute procedure procw_mod_cliente  ('" & Trim(Me.TXT_Rut.Text) & "','" _
                                                             & Trim(Me.TXT_Nombres.Text.ToUpper) & "','" & Trim(Me.TXT_APaterno.Text.ToUpper) & "','" & Trim(Me.TXT_AMaterno.Text.ToUpper) & "','" & Me.RBL_Sexo.SelectedValue & "','" _
                                                             & Me.DDL_EstadoCivil.SelectedValue & "','" & Trim(Me.TXT_CalleParticular.Text.ToUpper) & "','" & Trim(Me.TXT_NumeroCasa.Text.ToUpper) & "','" & Trim(Me.TXT_NumeroDepto.Text.ToUpper) & "','" _
                                                             & Trim(Me.TXT_VillaPoblacion.Text.ToUpper) & "','" & Trim(Me.TXT_AlturaCalle.Text.ToUpper) & "','" & region_cliente & "','" & Me.DDL_ComunaCliente.SelectedValue & "','" _
@@ -416,7 +419,7 @@
                                                             & Me.DDL_ReferenciaComuna.Text.ToUpper & "','" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "','" & Me.TXT_ReferenciaTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorNombre.Text.ToUpper & "','" _
                                                             & Trim(Me.TXT_EmpleadorDireccion.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorNumero.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorOficina.Text.ToUpper) & "','" & region_empleador & "','" _
                                                             & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Trim(Me.TXT_EmpleadorTelefono.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorAnexo.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorCargo.Text.ToUpper) & "','" _
-                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & usuario & "','" & codigotienda & "')"
+                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & Usuario & "','" & CodTienda & "')"
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then
