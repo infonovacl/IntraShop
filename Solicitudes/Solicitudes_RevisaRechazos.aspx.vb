@@ -159,7 +159,6 @@
         Dim ScoreXML As String
         Dim FechaNacXML As String
         Dim EdadXML As String
-
         'Reviso si hay consultas el mismo dia
         Try
             Dim SQLDB = "SELECT DISTINCT antecedentes, edad, fec_nac , otros_datos1,score FROM consulta_db WHERE rut_cliente = " & RutCliente & " AND fecha = today"
