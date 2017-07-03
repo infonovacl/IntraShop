@@ -1,6 +1,8 @@
 ﻿Partial Class Solicitudes_AnulaVentaSeguros
     Inherits System.Web.UI.Page
+    Dim RutCliente As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
         Me.LBL_SegurosXContratarError.Visible = False
         If Not IsPostBack Then
             LlenaSegurosXContratar()
@@ -8,8 +10,6 @@
         End If
     End Sub
     Private Sub LlenaSegurosXContratar()
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
         Try
             Dim DATADSSegurosXContratarPopUp As New Data.DataSet
             DATADSSegurosXContratarPopUp.Clear()
@@ -31,8 +31,6 @@
         End Try
     End Sub
     Private Sub LlenaSegurosPosiblesAnular()
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
         Try
             Dim DATADSSegurosXAnularPopUp As New Data.DataSet
             DATADSSegurosXAnularPopUp.Clear()

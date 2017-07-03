@@ -530,8 +530,8 @@
         Return valido
     End Function
     Protected Sub ButtonAut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonAut.Click
-        If Me.ErcRes.Value <> "0" Then    'DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO - PARA PRUEBAS
-            'If Me.ErcRes.Value = "0" Then ' PARA PRODUCCCION 
+        If Me.ErcRes.Value <> "0" Then    '- PARA PRUEBAS   -   DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO 
+            'If Me.ErcRes.Value = "0" Then '- PARA PRODUCCCION 
             GestionAutentia()
             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta('/Mantenciones/Mantenciones_FirmaDoc.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & Me.TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & Caja & "&nombretienda=" & NombreTienda & "'); </script>")
         Else

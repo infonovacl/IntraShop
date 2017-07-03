@@ -37,7 +37,7 @@
     End Sub
     Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
         Dim DeudaCast As Integer
-        Me.TXT_ConsultaRutCliente.Text = Trim(Me.TXT_ConsultaRutCliente.Text)
+        Me.TXT_ConsultaRutCliente.Text = CType(RTrim(Trim(Me.TXT_ConsultaRutCliente.Text)), Integer)
         If Page.User.Identity.IsAuthenticated = True Then
             If Me.TXT_ConsultaRutCliente.Text <> "" And IsNumeric(Me.TXT_ConsultaRutCliente.Text) = True And Me.TXT_ConsultaRutCliente.Text.Length > 4 Then
                 Me.TXT_ConsultaRutCliente.Enabled = False
@@ -57,6 +57,7 @@
                     Else
                         Me.LBL_MensajeContratos.Text = ""
                         Me.LBL_MensajeAvance1.Text = ""
+                        Me.LBL_MensajeError.Text = ""
                         Dim menu As TreeView
                         menu = Master.FindControl("TVM_Principal")
                         menu.Enabled = True
@@ -285,7 +286,7 @@
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=verificacion&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & Caja & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(5).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_MiniCartolaDetalle.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','MiniCartola','top=130,width=350,height=490,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
 
-                        menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_EstadoCuenta.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "','EECC','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_EstadoCuenta.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "&nombre=" & Trim(Me.TXT_ConsultaNombreCompleto.Text) & "','EECC','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(3).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Consultas/Consultas_GestionCobranza.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Cobranza','top=90 ,left=220,width=690,height=610',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()"
 
                         If DataDSDatosCliente.Tables(0).Rows(0)(47) Is System.DBNull.Value Then  '********ESTADO GENERAL 
@@ -312,7 +313,7 @@
                             End If
                         End If
                         '**********************Variables session                       
-                        Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
+                        'Session("nombrecliente") = Me.TXT_ConsultaNombreCompleto.Text
                         Me.BTN_Buscar.Enabled = False
                     End If
                 Catch ex As Exception

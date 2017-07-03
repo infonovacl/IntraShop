@@ -11,7 +11,7 @@ Partial Class Mantencion_FirmaDoc
     Dim Caja As Integer
     Dim Usuario As Integer
     Dim NombreTienda As String
-    Dim PEPEstado As String
+    'Private pepEstadoPrueba As String
     Dim ClienteNombres, ClienteAPaterno, ClienteAMaterno, ClienteSexo, ClienteFechaNac, ClienteEstadoCivil As String
     Dim ClienteCalleParticular, ClienteNumeroCasa, ClienteNumeroDepto, ClienteComuna, ClienteTelefonoFijo, ClienteTelefonoCelular, ClienteCorreoElectronico As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -561,7 +561,8 @@ Partial Class Mantencion_FirmaDoc
                 Me.LBL_DatosClienteError.Text = DataDSDocsFirmados.Tables(0).Rows(0)(1) ' mensaje de error                  
             Else
                 If DataDSDocsFirmados.Tables(0).Rows(0)(5) = 1 Then ' si = 1 debe firmar PEP primero
-                    PEPEstado = Trim(DataDSDocsFirmados.Tables(0).Rows(0)(6))
+                    Session("pepestado") = Trim(DataDSDocsFirmados.Tables(0).Rows(0)(6).ToString) ' ser o no ser
+                    'pepEstadoPrueba = Trim(DataDSDocsFirmados.Tables(0).Rows(0)(6).ToString)
                     Me.IMG_PEPFirmado.Visible = False
                     Me.IMG_PEPRechazado.Visible = True
                     Me.RBL_Documentos.Items(0).Enabled = False
@@ -700,9 +701,9 @@ Partial Class Mantencion_FirmaDoc
                 gfx.DrawString(Trim(ClienteNombres) & " " & Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & "", font, XBrushes.Black, New XVector(125, 188))
                 gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(340, 205))
                 gfx.DrawString("CHILENO(A)", font, XBrushes.Black, New XVector(125, 222))
-                If PEPEstado = "ser" Then
+                If Session("pepestado") = "ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(320, 228)) 'ok
-                ElseIf PEPEstado = "no+ser" Then
+                ElseIf Session("pepestado") = "no+ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(384, 228))
                 End If
                 'pp = PDFDoc2.Pages(8) ' Pagina nro. 9
@@ -735,6 +736,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_FirmarPEP.Enabled = False
                 Me.BTN_CAPFirmaPEP.Disabled = True
                 GrabaFirmaPEP()
+                Session("pepestado") = ""
                 If Not IsClientScriptBlockRegistered("popup") Then
                     RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
                 End If

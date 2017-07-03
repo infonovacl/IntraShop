@@ -6,17 +6,17 @@ Partial Class Consultas_GestionCobranza
     Inherits System.Web.UI.Page
     Dim RutCliente As Integer
     Dim Dv As String
+    Dim NombreCliente As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         RutCliente = Request.QueryString("rut")
         Dv = Request.QueryString("dv")
+        NombreCliente = Request.QueryString("nombre")
         If Not IsPostBack Then
             CargaInicial()
         End If
     End Sub
     Sub CargaInicial()
         Dim DataDSFacturaciones As New Data.DataSet
-        Dim RutCliente As Integer
-        RutCliente = Session("rut")
         Try
             Dim STRFacturaciones As String = "execute procedure procw_fechas_eecc ('" & RutCliente & "')"
             Dim DATAFacturaciones As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRFacturaciones, Globales.conn)
@@ -112,13 +112,10 @@ Partial Class Consultas_GestionCobranza
             If Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(0, 2) = "E1" Then
                 Me.Grilla_TramaEECC.Rows(L).Cells(0).Text = Trim(Me.Grilla_TramaEECC.Rows(L).Cells(0).Text).Replace(" ", "0")
                 Try
-                    Dim rut As String = Session("rut")
-                    Dim dv As String = Session("dv")
-                    Dim nombres As String = Session("nombrecliente")
                     Dim fecha_pago As String = DDL_Facturaciones.SelectedItem.Text
                     ConvierteStringAFecha(fecha_pago)
-                    gfx.DrawString(Trim(nombres), font, XBrushes.Black, New XVector(180, 50))
-                    gfx.DrawString(Trim(rut) & "-" & Trim(dv), font, XBrushes.Black, New XVector(180, 62))
+                    gfx.DrawString(Trim(NombreCliente), font, XBrushes.Black, New XVector(180, 50))
+                    gfx.DrawString(Trim(RutCliente) & "-" & Trim(Dv), font, XBrushes.Black, New XVector(180, 62))
                     gfx.DrawString(Trim(fecha_pago), font, XBrushes.Black, New XVector(180, 75))
 
                     Dim cupo_aprobado As Integer = Me.Grilla_TramaEECC.Rows(L).Cells(0).Text.Substring(10, 9) '228

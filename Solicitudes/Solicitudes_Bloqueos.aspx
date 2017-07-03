@@ -36,15 +36,6 @@
                      prm.dispose();
                      self.close();
                  }   
-                   //  try {
-                   //      setTimeout(function () {
-                   //          self.close();
-                   //      }, 500);
-                   //  }
-                   //  catch (e) {
-                         //alert(e.name + " - " + e.message);
-                   //  }
-                 //}
     </script>
     </head>
 <body style="width: 761px; height: 6px; left: 5px;">

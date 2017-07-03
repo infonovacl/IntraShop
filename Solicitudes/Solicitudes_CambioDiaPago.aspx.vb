@@ -42,8 +42,6 @@
         Try
             Dim DATADSCambioDiaPagoPopUp As New Data.DataSet
             DATADSCambioDiaPagoPopUp.Clear()
-            Dim RutCliente As Integer
-            RutCliente = Session("rut")
             Dim STRCambioDiaPago As String = "execute procedure procw_cons_diapago ('" & RutCliente & "' )"
             Dim DATACambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRCambioDiaPago, Globales.conn)
             DATACambioDiaPago.Fill(DATADSCambioDiaPagoPopUp, "PRUEBA")
