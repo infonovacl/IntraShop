@@ -530,8 +530,8 @@
         Return valido
     End Function
     Protected Sub ButtonAut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonAut.Click
-        If Me.ErcRes.Value <> "0" Then    '- PARA PRUEBAS   -   DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO 
-            'If Me.ErcRes.Value = "0" Then '- PARA PRODUCCCION 
+        ' If Me.ErcRes.Value <> "0" Then    '- PARA PRUEBAS   -   DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO 
+        If Me.ErcRes.Value = "0" Then '- PARA PRODUCCCION 
             GestionAutentia()
             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta('/Mantenciones/Mantenciones_FirmaDoc.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & Me.TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & Caja & "&nombretienda=" & NombreTienda & "'); </script>")
         Else
@@ -548,8 +548,10 @@
                                                       " ('" & Trim(Me.TXT_Rut.Text) & "',current year to day,current hour to second,'TAR','" & Me.ErcRes.Value & "','" & Me.ErcDet.Value & "'," & Usuario & ",'0','" & Me.NroAudit.Value & "','" & Me.Mensaje.Value & "'," & CodTienda & "," & Caja & ")"
             Dim DATASTRRechazaDoc As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRIngresaGestionAutentia, Globales.conn)
             DATASTRRechazaDoc.Fill(DataDSIngresaGestionAutentia, "PRUEBA")
+            Me.LBL_DatosClienteError.Visible = True
+            Me.LBL_DatosClienteError.Text = STRIngresaGestionAutentia
         Catch ex As Exception
-            Response.Write("<script>window.alert('ERROR GESTION AUTENTIA : " & ex.Message & "');</script>")
+            'Response.Write("<script>window.alert('ERROR GESTION AUTENTIA " & STRIngresaGestionAutentia & "');</script>")
         End Try
     End Sub
 End Class

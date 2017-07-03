@@ -125,13 +125,13 @@
             ventana.opener = window.self;
             ventana.close();
         }
-       function LLamaAutentia() {
-            window.open('/Mantenciones/Mantenciones_Autentia.aspx', 'Autentia', 'top=130,left=220,width=500,height=400', titlebar = 'NO', scrollbars = 'NO', resizable = 'NO', toolbar = 'NO');
-            window.focus();
-            ventana = window.self;
-            ventana.opener = window.self;
-            ventana.close();
-        }      
+     //  function LLamaAutentia() {
+     //       window.open('/Mantenciones/Mantenciones_Autentia.aspx', 'Autentia', 'top=130,left=220,width=500,height=400', titlebar = 'NO', scrollbars = 'NO', resizable = 'NO', toolbar = 'NO');
+     //       window.focus();
+     //       ventana = window.self;
+     //       ventana.opener = window.self;
+     //       ventana.close();
+      //  }      
         function LLamaTarjeta(firmadocUrl) {
             window.open(firmadocUrl,'Tarjetas','top=90,left=220,width=700,height=610',titlebar='NO',scrollbars='NO',resizable='NO',toolbar='NO');
             window.focus();
