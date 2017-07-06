@@ -58,7 +58,7 @@ Partial Class _Default
         End Try
     End Sub
     Protected Sub Login1_LoggedIn(ByVal sender As Object, ByVal e As System.EventArgs) Handles Login1.LoggedIn
-        Response.Redirect("Cliente.aspx")
+        Response.Redirect("Cliente.aspx", False)
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         'Me.Focus()

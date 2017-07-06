@@ -4,13 +4,15 @@
     Dim Dv As String
     Dim Ciudad As String
     Dim Direccion As String
-    Dim CodTienda, CodCaja, Usuario As Integer
+    'Dim usuario As String
+    'Dim CodTienda, CodCaja As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         RutCliente = Request.QueryString("rut")
         Dv = Request.QueryString("dv")
-        CodTienda = Request.QueryString("codtienda")
-        CodCaja = Request.QueryString("caja")
-        Usuario = Request.QueryString("usuario")
+
+        'CodTienda = Request.QueryString("codtienda")
+        'CodCaja = Request.QueryString("caja")
+        'usuario = Request.QueryString("usuario")
         If Not IsPostBack Then
             ObtieneConsultasDataBusiness()
             HabilitaVerificacion()
@@ -74,7 +76,7 @@
         Antecedentes = Session("Antec")
         Try
             DataDSVerificacion.Clear()
-            Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutCliente & "," & CodTienda & "," & CodCaja & ",current year to day," & Usuario & ",'" & Antecedentes & "')"
+            Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutCliente & "," & Session("codtienda") & "," & Session("caja") & ",current year to day," & Session("usuario") & ",'" & Antecedentes & "')"
             Dim DATAVerificacion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRVerificacion, Globales.conn)
             DATAVerificacion.Fill(DataDSVerificacion, "PRUEBA")
             If DataDSVerificacion.Tables(0).Rows(0)(0) = 1 Then
@@ -165,7 +167,7 @@
                 ' grabo en tabla de errores
                 Try
                     Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                    SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & CodTienda & "," & CodCaja & "," & Usuario & ")"
+                    SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & Session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ")"
                     Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                     DATADBerr.Fill(DATADSErr, "PRUEBA")
                 Catch EX As Exception
@@ -202,7 +204,7 @@
                     ' grabo en tabla de errores
                     Try
                         Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                        SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & CodTienda & "," & CodCaja & "," & Usuario & ")"
+                        SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & Session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ")"
                         Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                         DATADBerr.Fill(DATADSErr, "PRUEBA")
                     Catch EX As Exception
@@ -237,7 +239,7 @@
             End If
             Try  ' la variable sesion "FechaTrx" es today u otra fecha ??
                 Dim SQLDB = "INSERT INTO consulta_db (rut_cliente,fecha,hora,motivo,score,edad,antecedentes,otros_datos1,otros_datos2,otros_datos3,fec_nac,sucursal,caja,rut_resp,origen)"
-                SQLDB = SQLDB & " VALUES ( " & RutCliente & ",current year to day , current hour to second , 'VER'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & CodTienda & "," & CodCaja & "," & Usuario & ",'S')"
+                SQLDB = SQLDB & " VALUES ( " & RutCliente & ",current year to day , current hour to second , 'VER'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & Session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ",'S')"
                 Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
                 DATADB.Fill(DATADSCli2, "PRUEBA")
             Catch EX As Exception

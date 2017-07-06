@@ -7,20 +7,20 @@ Partial Class Mantencion_FirmaDoc
     Inherits System.Web.UI.Page
     Dim RutCliente As Integer
     Dim Dv As String
-    Dim CodTienda As String
-    Dim Caja As Integer
-    Dim Usuario As Integer
-    Dim NombreTienda As String
+    'Dim session("codtienda") As String
+    'Dim session("caja") As Integer
+    'Dim session("usuario") As Integer
+    'Dim NombreTienda As String
     'Private pepEstadoPrueba As String
     Dim ClienteNombres, ClienteAPaterno, ClienteAMaterno, ClienteSexo, ClienteFechaNac, ClienteEstadoCivil As String
     Dim ClienteCalleParticular, ClienteNumeroCasa, ClienteNumeroDepto, ClienteComuna, ClienteTelefonoFijo, ClienteTelefonoCelular, ClienteCorreoElectronico As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         RutCliente = Request.QueryString("rut")
         Dv = Request.QueryString("dv")
-        CodTienda = Request.QueryString("codtienda")
-        Caja = Request.QueryString("caja")
-        Usuario = Request.QueryString("usuario")
-        NombreTienda = Request.QueryString("nombretienda")
+        'session("codtienda") = Request.QueryString("session("codtienda")")
+        'session("caja") = Request.QueryString("session("caja")")
+        'session("usuario") = Request.QueryString("session("usuario")")
+        'NombreTienda = Request.QueryString("nombretienda")
         Session("RutPDF") = RutCliente
         Session("DvPDF") = Dv
         If IsPostBack = False Then
@@ -176,7 +176,7 @@ Partial Class Mantencion_FirmaDoc
         Dim CodAutorizacion As String
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaContrato As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','CON',current year to day," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaContrato As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','CON',current year to day," & Session("usuario") & "," & Session("codtienda") & "," & Session("caja") & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaContrato As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaContrato, Globales.conn)
             DATAGrabaFirmaContrato.Fill(DataDSGrabaFirmaContrato, "PRUEBA")
             If DataDSGrabaFirmaContrato.Tables(0).Rows(0)(0) = 1 Then
@@ -197,7 +197,7 @@ Partial Class Mantencion_FirmaDoc
         Dim CodAutorizacion As String
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaSeguroProteccion As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SDE',current year to day," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaSeguroProteccion As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SDE',current year to day," & Session("usuario") & "," & Session("codtienda") & "," & Session("caja") & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaSeguroProteccion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaSeguroProteccion, Globales.conn)
             DATAGrabaFirmaSeguroProteccion.Fill(DataDSGrabaFirmaSeguroProteccion, "PRUEBA")
             If DataDSGrabaFirmaSeguroProteccion.Tables(0).Rows(0)(0) = 1 Then
@@ -218,7 +218,7 @@ Partial Class Mantencion_FirmaDoc
         Dim CodAutorizacion As String
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaSeguroVida As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SVI',current year to day," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaSeguroVida As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','SVI',current year to day," & Session("usuario") & "," & Session("codtienda") & "," & Session("caja") & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaSeguroVida As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaSeguroVida, Globales.conn)
             DATAGrabaFirmaSeguroVida.Fill(DataDSGrabaFirmaSeguroVida, "PRUEBA")
             If DataDSGrabaFirmaSeguroVida.Tables(0).Rows(0)(0) = 1 Then
@@ -350,7 +350,7 @@ Partial Class Mantencion_FirmaDoc
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) ' pagina 1
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 10, XFontStyle.Regular)
-                gfx.DrawString(Trim(NombreTienda), font, XBrushes.Black, New XVector(355, 228))
+                gfx.DrawString(Trim(Session("nombretienda")), font, XBrushes.Black, New XVector(355, 228))
                 gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & " " & Trim(ClienteNombres), font, XBrushes.Black, New XVector(65, 278))
                 gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(65, 305))
                 gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(65, 355))
@@ -535,7 +535,7 @@ Partial Class Mantencion_FirmaDoc
     Private Sub RechazoDocumento(ByVal TipoDoc As String)
         Dim DataDSRechazaDoc As New Data.DataSet
         Try
-            Dim STRRechazaDoc As String = "execute procedure procw_rechaza_documento ('" & RutCliente & "','" & TipoDoc & "'," & Usuario & "," & CodTienda & "," & Caja & ")"
+            Dim STRRechazaDoc As String = "execute procedure procw_rechaza_documento ('" & RutCliente & "','" & TipoDoc & "'," & Session("usuario") & "," & Session("codtienda") & "," & Session("caja") & ")"
             'Me.TXT_IntroSeguroProteccion.Text = STRRechazaDoc
             Dim DATASTRRechazaDoc As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRRechazaDoc, Globales.conn)
             DATASTRRechazaDoc.Fill(DataDSRechazaDoc, "PRUEBA")
@@ -652,7 +652,7 @@ Partial Class Mantencion_FirmaDoc
         Dim CodAutorizacion As String
         CodAutorizacion = "" ' despues se dara algoritmo para este item 
         Try
-            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current," & Usuario & "," & CodTienda & "," & Caja & ",'" & CodAutorizacion & "')"
+            Dim STRGrabaFirmaPEP As String = "execute procedure procw_guarda_documento ('" & RutCliente & "','PEP',current," & Session("usuario") & "," & Session("codtienda") & "," & Session("caja") & ",'" & CodAutorizacion & "')"
             Dim DATAGrabaFirmaPEP As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRGrabaFirmaPEP, Globales.conn)
             DATAGrabaFirmaPEP.Fill(DataDSGrabaFirmaPEP, "PRUEBA")
             If DataDSGrabaFirmaPEP.Tables(0).Rows(0)(0) = 1 Then
@@ -751,6 +751,6 @@ Partial Class Mantencion_FirmaDoc
         End Try
     End Sub
     Protected Sub BTN_ImprimeTarjeta_Click(sender As Object, e As EventArgs) Handles BTN_ImprimeTarjeta.Click
-        Response.Write("<script>window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & CodTienda & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");</script>")
+        Response.Write("<script>window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & Session("codtienda") & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");</script>")
     End Sub
 End Class

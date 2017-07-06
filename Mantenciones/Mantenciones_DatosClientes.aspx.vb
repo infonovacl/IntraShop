@@ -1,16 +1,16 @@
 ﻿Partial Class Mantencion_DatosClientes
     Inherits System.Web.UI.Page
-    Dim Usuario As String
-    Dim CodTienda As String
-    Dim Caja As Integer
-    Dim NombreTienda As String
+    'Dim Usuario As String
+    'Dim CodTienda As String
+    'Dim Caja As Integer
+    'Dim NombreTienda As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.TXT_Rut.Text = Request.QueryString("rut")
         Me.TXT_Dv.Text = Request.QueryString("dv")
-        Usuario = Request.QueryString("usuario")
-        CodTienda = Request.QueryString("codtienda")
-        Caja = Request.QueryString("caja")
-        NombreTienda = Request.QueryString("nombretienda")
+        'Usuario = Request.QueryString("usuario")
+        'CodTienda = Request.QueryString("codtienda")
+        'Caja = Request.QueryString("caja")
+        'NombreTienda = Request.QueryString("nombretienda")
         If Not IsPostBack Then
             LlenaDDLEstadoCivil()
             LlenaDDLRegion()
@@ -419,7 +419,7 @@
                                                             & Me.DDL_ReferenciaComuna.Text.ToUpper & "','" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "','" & Me.TXT_ReferenciaTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorNombre.Text.ToUpper & "','" _
                                                             & Trim(Me.TXT_EmpleadorDireccion.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorNumero.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorOficina.Text.ToUpper) & "','" & region_empleador & "','" _
                                                             & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Trim(Me.TXT_EmpleadorTelefono.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorAnexo.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorCargo.Text.ToUpper) & "','" _
-                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & Usuario & "','" & CodTienda & "')"
+                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & Session("usuario") & "','" & Session("codtienda") & "')"
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then

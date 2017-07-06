@@ -240,7 +240,7 @@
       }
     </script>
 <body style="width: 694px; height: 313px;">
-    <form  id="form1" defaultfocus="TXT_TelefonoCelular"  runat="server">
+    <form id="form1" defaultfocus="TXT_TelefonoCelular" defaultbutton="BTN_Grabar" runat="server">
     <div class="auto-style12">                 
         <asp:ScriptManager runat="server" ID="ScriptManagerDatosClientesValidaCel" 
             EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">

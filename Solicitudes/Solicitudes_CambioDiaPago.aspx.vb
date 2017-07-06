@@ -2,15 +2,15 @@
     Inherits System.Web.UI.Page
     Dim RutCliente As Integer
     Dim DiaPago As Integer
-    Dim Usuario As Integer
-    Dim Caja As Integer
-    Dim CodigoTienda As Integer
+    'Dim Usuario As Integer
+    'Dim Caja As Integer
+    'Dim CodigoTienda As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         RutCliente = Request.QueryString("rut")
         DiaPago = Request.QueryString("diapago")
-        Usuario = Request.QueryString("usuario")
-        Caja = Request.QueryString("caja") ' NO SE USA
-        CodigoTienda = Request.QueryString("codtienda")
+        'Usuario = Request.QueryString("usuario")
+        'Caja = Request.QueryString("caja") ' NO SE USA
+        'CodigoTienda = Request.QueryString("codtienda")
         Me.LBL_CambioDiaPagoError.Visible = False
         If Not IsPostBack Then
             Me.TXT_DiaActualPago.Text = DiaPago
@@ -21,7 +21,7 @@
         Try
             Dim DATADSSolicitaCambioDiaPagoPopUp As New Data.DataSet
             DATADSSolicitaCambioDiaPagoPopUp.Clear()
-            Dim STRSolicitaCambioDiaPago As String = "execute procedure procw_mod_diapago  ('" & RutCliente & "','" & Usuario & "','" & CodigoTienda & "','" & DDL_NuevoDiaPago.SelectedValue & "')"
+            Dim STRSolicitaCambioDiaPago As String = "execute procedure procw_mod_diapago  ('" & RutCliente & "','" & Session("usuario") & "','" & Session("codtienda") & "','" & DDL_NuevoDiaPago.SelectedValue & "')"
             Dim DATASolicitaCambioDiaPago As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRSolicitaCambioDiaPago, Globales.conn)
             DATASolicitaCambioDiaPago.Fill(DATADSSolicitaCambioDiaPagoPopUp, "PRUEBA")
             If DATADSSolicitaCambioDiaPagoPopUp.Tables(0).Rows(0)(0) = 1 Then
