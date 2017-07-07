@@ -203,8 +203,11 @@
                     <asp:TextBox ID="TXT_ConsultaMontoAPago" runat="server" CssClass="cajastextonumerico" Width="120px" ReadOnly="True">0</asp:TextBox>
                 </td>
                 <td>
+                        <asp:Label ID="LBL_Usuario" runat="server" CssClass="etiquetas" Visible="False"></asp:Label>
                         </td>
-                <td></td>
+                <td>
+                    <asp:Label ID="LBL_NombreTienda" runat="server" CssClass="etiquetas" Visible="False"></asp:Label>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -238,8 +241,10 @@
                 </td>
                 <td>
                         <asp:Label ID="LBL_TabIndice" runat="server" CssClass="etiquetas" style="display:none"></asp:Label>
+                        <asp:Label ID="LBL_CodTienda" runat="server" CssClass="etiquetas" Visible="False"></asp:Label>
                     </td>
                 <td>                          
+                    <asp:Label ID="LBL_Caja" runat="server" CssClass="etiquetas" Visible="False"></asp:Label>
                 </td>
             </tr>
         </table>

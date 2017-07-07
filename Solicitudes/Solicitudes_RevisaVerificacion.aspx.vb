@@ -4,20 +4,21 @@
     Dim Dv As String
     Dim Ciudad As String
     Dim Direccion As String
-    'Dim usuario As String
-    'Dim CodTienda, CodCaja As Integer
+    Dim usuario As Integer = 0
+    Dim CodTienda As Integer = 0
+    Dim CodCaja As Integer = 0
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         RutCliente = Request.QueryString("rut")
         Dv = Request.QueryString("dv")
-
-        'CodTienda = Request.QueryString("codtienda")
-        'CodCaja = Request.QueryString("caja")
-        'usuario = Request.QueryString("usuario")
+        usuario = Request.QueryString("usuario")
+        CodTienda = Request.QueryString("codtienda")
+        CodCaja = Request.QueryString("caja")
         If Not IsPostBack Then
             ObtieneConsultasDataBusiness()
             HabilitaVerificacion()
         End If
     End Sub
+
     Private Sub HabilitaVerificacion()
         Dim DataDSLevantaRechazo As New Data.DataSet
         Try
@@ -39,7 +40,7 @@
     End Sub
     Private Sub ObtieneConsultasDataBusiness()
         Dim DataDSConsultasDB As New Data.DataSet
-        Try          
+        Try
             DataDSConsultasDB.Clear()
             Dim STRConsultasDB As String = "execute procedure procw_cons_db ('" & RutCliente & "' )"
             Dim DATAConsultasDB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRConsultasDB, Globales.conn)
@@ -59,6 +60,7 @@
             Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
     End Sub
+
     Protected Sub BTN_AntecComerciales_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
         Me.BTN_AntecComerciales.Enabled = False
         Dim RutClienteCompleto As String
@@ -76,7 +78,7 @@
         Antecedentes = Session("Antec")
         Try
             DataDSVerificacion.Clear()
-            Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutCliente & "," & Session("codtienda") & "," & Session("caja") & ",current year to day," & Session("usuario") & ",'" & Antecedentes & "')"
+            Dim STRVerificacion As String = "execute procedure procw_solicitud (" & RutCliente & "," & CodTienda & "," & CodCaja & ",current year to day," & usuario & ",'" & Antecedentes & "')"
             Dim DATAVerificacion As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRVerificacion, Globales.conn)
             DATAVerificacion.Fill(DataDSVerificacion, "PRUEBA")
             If DataDSVerificacion.Tables(0).Rows(0)(0) = 1 Then
@@ -92,6 +94,7 @@
         Me.LBL_ConsultasDBError.Visible = True
         Me.LBL_ConsultasDBError.Text = "CONSULTA FINALIZADA"
     End Sub
+
     Private Function RevisaSinacofi(ByVal Rutdigito As String) As Integer
         Dim Sxml, Antec, URL, VNombre, RutResp, sexo, direcc As String
         Dim Vedad As Integer
@@ -167,11 +170,12 @@
                 ' grabo en tabla de errores
                 Try
                     Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                    SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & Session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ")"
+                    SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & XMLRespuesta.parseError.errorCode & ",'" & myErr.srcText & "'," & CodTienda & "," & CodCaja & "," & usuario & ")"
                     Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                     DATADBerr.Fill(DATADSErr, "PRUEBA")
                 Catch EX As Exception
-                    MsgBox(EX.Message)
+                    Me.LBL_ConsultasDBError.Visible = True
+                    Me.LBL_ConsultasDBError.Text = EX.Message
                 End Try
                 Return -1
             Else
@@ -182,33 +186,39 @@
                     Me.LBL_ConsultasDBError.Text = node.selectSingleNode("@stds").text
                 Next node
                 If RetornoWS = 0 Then
-                    RutResp = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//RUT").text
-                    ScoreXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Score").text
-                    protestos = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Protestos/NumProtestos").text
-                    morosidad = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Protestos/NumMOrosidades").text
-                    objNodeListP = XMLRespuesta.getElementsByTagName("soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//XCInformacionComplementaria/ConsultasRut")
-                    If objNodeListP.length >= 0 Then
-                        consultas = objNodeListP.length
-                    Else
-                        consultas = 0
-                    End If
-                    NombreRazonSocialXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//NombreRSocial").text
-                    FechaNacXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//FechaNacimiento").text
-                    EdadXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Edad").text
-                    direcc = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//DireccionPpal").text
-                    sexo = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//CodSexo").text
-                    direcc = CambiaN(direcc)
-                    NombreRazonSocialXML = CambiaN(NombreRazonSocialXML)
-                    BuscaCiudad(direcc)
+                    Try
+                        RutResp = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//RUT").text
+                        ScoreXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Score").text
+                        protestos = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Protestos/NumProtestos").text
+                        morosidad = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Protestos/NumMOrosidades").text
+                        objNodeListP = XMLRespuesta.getElementsByTagName("soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//XCInformacionComplementaria/ConsultasRut")
+                        If objNodeListP.length >= 0 Then
+                            consultas = objNodeListP.length
+                        Else
+                            consultas = 0
+                        End If
+                        NombreRazonSocialXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//NombreRSocial").text
+                        FechaNacXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//FechaNacimiento").text
+                        EdadXML = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//Edad").text
+                        direcc = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//DireccionPpal").text
+                        sexo = XMLRespuesta.selectSingleNode("/soap:Envelope/soap:Body/ejecutaServicioResponse/ejecutaServicioResult/XCRspQry//CodSexo").text
+                        direcc = CambiaN(direcc)
+                        NombreRazonSocialXML = CambiaN(NombreRazonSocialXML)
+                        BuscaCiudad(direcc)
+                    Catch ex As Exception
+                        Me.LBL_ConsultasDBError.Visible = True
+                        Me.LBL_ConsultasDBError.Text = "CONSULTA HA DEVUELTO UN ERROR O SERVICIO NO ESTA DISPONIBLE"
+                    End Try
                 Else
                     ' grabo en tabla de errores
                     Try
                         Dim SQLDBerr = "INSERT INTO consulta_dberr (rut_cliente,fecha,hora,motivo,error,mensaje,sucursal,caja,rut_resp)"
-                        SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & Session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ")"
+                        SQLDBerr = SQLDBerr & " VALUES ( " & RutCliente & ",  current year to day , current hour to second , 'VER'," & RetornoWS & ",'" & Me.LBL_ConsultasDBError.Text & "'," & CodTienda & "," & CodCaja & "," & usuario & ")"
                         Dim DATADBerr As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDBerr, Globales.conn)
                         DATADBerr.Fill(DATADSErr, "PRUEBA")
                     Catch EX As Exception
-                        '   MsgBox(EX.Message)
+                        Me.LBL_ConsultasDBError.Visible = True
+                        Me.LBL_ConsultasDBError.Text = EX.Message
                     End Try
                     Return -1
                 End If
@@ -237,13 +247,21 @@
                 Edad = EdadXML
                 Vedad = EdadXML
             End If
+            ' Arreglo provisorio
+            'IF usuario Is System.DBNull.Value OR usuario = "" THEN
+            'CodTienda = 1
+            'CodCaja = 1000
+            'usuario = 1
+            'END IF
+
             Try  ' la variable sesion "FechaTrx" es today u otra fecha ??
                 Dim SQLDB = "INSERT INTO consulta_db (rut_cliente,fecha,hora,motivo,score,edad,antecedentes,otros_datos1,otros_datos2,otros_datos3,fec_nac,sucursal,caja,rut_resp,origen)"
-                SQLDB = SQLDB & " VALUES ( " & RutCliente & ",current year to day , current hour to second , 'VER'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & Session("codtienda") & "," & Session("caja") & "," & Session("usuario") & ",'S')"
+                SQLDB = SQLDB & " VALUES ( " & RutCliente & ",current year to day , current hour to second , 'VER'," & ScoreXML & "," & EdadXML & ",'" & Session("Antec") & "','" & VNombre & "','" & Direccion & "','" & Ciudad & "','" & Vfecnac & "'," & CodTienda & "," & CodCaja & "," & usuario & ",'S')"
                 Dim DATADB As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(SQLDB, Globales.conn)
                 DATADB.Fill(DATADSCli2, "PRUEBA")
             Catch EX As Exception
-                'MsgBox(EX.Message)
+                Me.LBL_ConsultasDBError.Visible = True
+                Me.LBL_ConsultasDBError.Text = EX.Message
             End Try
             If Vedad = 0 Or Format(CType(Vfecnac, Date), "dd/MM/yyyy") = "01-01-1900" Or Vfecnac = "" Then
                 Me.LBL_ConsultasDBError.Visible = True

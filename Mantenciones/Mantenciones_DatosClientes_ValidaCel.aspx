@@ -173,6 +173,7 @@
                           if (Params.Erc != 0 || Params.Erc == null) // hay algun error
                           {
                               document.getElementById('Descripcion').innerText = Params.ErcDesc;
+				erc = -1;
                           }
                           else {
                               alert("Validación Completada Exitosamente");
@@ -180,11 +181,13 @@
                           }
                       }
                       else {
+			  erc = -1;
                           if (erc == 3) {
                               //LBL_DatosClienteError
                               document.getElementById('Descripcion').innerText = "Sensor de Huellas No Accesable";
                           }
-                          else {
+                          else 
+			      {
                               if (erc == 1) {
                                   document.getElementById('Descripcion').innerText = "Huella ha sido Rechazada";
                               }
@@ -240,7 +243,7 @@
       }
     </script>
 <body style="width: 694px; height: 313px;">
-    <form id="form1" defaultfocus="TXT_TelefonoCelular" defaultbutton="BTN_Grabar" runat="server">
+    <form  id="form1" defaultfocus="TXT_TelefonoCelular" defaultbuton="BTN_Grabar" runat="server">
     <div class="auto-style12">                 
         <asp:ScriptManager runat="server" ID="ScriptManagerDatosClientesValidaCel" 
             EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
