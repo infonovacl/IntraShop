@@ -1,11 +1,6 @@
 ﻿Partial Class Cliente
     Inherits System.Web.UI.Page
-    Dim Usuario As Integer
-    Dim CodTienda As Integer
-    Dim Caja As Integer
-    Dim NombreTienda As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'Dim CajaMaster As String =
         If IsPostBack = False And Page.User.Identity.IsAuthenticated = True Then
             Dim menu As TreeView
             menu = Master.FindControl("TVM_Principal")
@@ -17,7 +12,7 @@
             Dim panelcerrarsesion As Panel
             panelcerrarsesion = Master.FindControl("Panel_Login")
             panelcerrarsesion.Visible = True
-            If Session("usuario") Is System.DBNull.Value And Me.LBL_Usuario.Text = "" Then
+            If Session("usuario") Is System.DBNull.Value Then
             Else
                 Me.LBL_Usuario.Text = Session("usuario")
                 Me.LBL_NombreTienda.Text = Session("nombretienda")
@@ -27,13 +22,6 @@
             Me.Focus()
             Me.TXT_ConsultaRutCliente.Focus()
         ElseIf IsPostBack = True Then
-            If Session("usuario") Is System.DBNull.Value And Me.LBL_Usuario.Text = "" Then
-            Else
-                Me.LBL_Usuario.Text = Session("usuario")
-                Me.LBL_NombreTienda.Text = Session("nombretienda")
-                Me.LBL_CodTienda.Text = Session("codtienda")
-                Me.LBL_Caja.Text = Session("caja")
-            End If
             Dim panelmenu As Panel
             panelmenu = Master.FindControl("Panel_menu")
             panelmenu.Visible = True

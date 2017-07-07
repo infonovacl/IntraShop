@@ -14,6 +14,9 @@
         CodTienda = Request.QueryString("codtienda")
         CodCaja = Request.QueryString("caja")
         If Not IsPostBack Then
+            If Dv Is System.DBNull.Value Or RutCliente = "0" Then
+                Response.Write("<script>window.alert('ERROR EN DATOS DE USUARIO, REINGRESE AL SISTEMA');</script>")
+            End If
             ObtieneConsultasDataBusiness()
             HabilitaVerificacion()
         End If
