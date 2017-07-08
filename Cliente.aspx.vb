@@ -29,9 +29,6 @@
             panelcerrarsesion = Master.FindControl("Panel_Login")
             panelcerrarsesion.Visible = True
         End If
-        'Dim mpLabel As Label
-        'mpLabel = CType(Master.FindControl("ctienda"), Label)
-        'Caja = mpLabel.Text
     End Sub
     Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
         Dim DeudaCast As Integer
