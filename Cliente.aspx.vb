@@ -63,7 +63,7 @@
                         If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                             Me.TXT_ConsultaNombreCompleto.Text = ""
                         Else
-                            Me.TXT_ConsultaNombreCompleto.Text = DataDSDatosCliente.Tables(0).Rows(0)(2)
+                            Me.TXT_ConsultaNombreCompleto.Text = Globales.SacaCaracteresEspeciales(DataDSDatosCliente.Tables(0).Rows(0)(2))
                         End If
                         If DataDSDatosCliente.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
                             Me.TXT_ConsultaDireccCalle.Text = ""
