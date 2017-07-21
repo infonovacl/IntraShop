@@ -79,7 +79,7 @@
     <div class="auto-style12">                 
         <asp:ScriptManager runat="server" ID="ScriptManagerDatosClientes" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
         </asp:ScriptManager>        
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales

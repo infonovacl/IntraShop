@@ -16,12 +16,12 @@
         If Not IsPostBack Then
             If Dv Is System.DBNull.Value Or RutCliente = "0" Then
                 Response.Write("<script>window.alert('ERROR EN DATOS DE USUARIO, REINGRESE AL SISTEMA');</script>")
+            Else
+                ObtieneConsultasDataBusiness()
+                HabilitaVerificacion()
             End If
-            ObtieneConsultasDataBusiness()
-            HabilitaVerificacion()
         End If
     End Sub
-
     Private Sub HabilitaVerificacion()
         Dim DataDSLevantaRechazo As New Data.DataSet
         Try
@@ -63,7 +63,6 @@
             Me.LBL_ConsultasDBError.Text = EX2.Message
         End Try
     End Sub
-
     Protected Sub BTN_AntecComerciales_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BTN_AntecComerciales.Click
         Me.BTN_AntecComerciales.Enabled = False
         Dim RutClienteCompleto As String

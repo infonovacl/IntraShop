@@ -29,9 +29,6 @@
             panelcerrarsesion = Master.FindControl("Panel_Login")
             panelcerrarsesion.Visible = True
         End If
-        'Dim mpLabel As Label
-        'mpLabel = CType(Master.FindControl("ctienda"), Label)
-        'Caja = mpLabel.Text
     End Sub
     Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
         Dim DeudaCast As Integer
@@ -66,7 +63,7 @@
                         If DataDSDatosCliente.Tables(0).Rows(0)(2) Is System.DBNull.Value Then
                             Me.TXT_ConsultaNombreCompleto.Text = ""
                         Else
-                            Me.TXT_ConsultaNombreCompleto.Text = DataDSDatosCliente.Tables(0).Rows(0)(2)
+                            Me.TXT_ConsultaNombreCompleto.Text = Globales.SacaCaracteresEspeciales(DataDSDatosCliente.Tables(0).Rows(0)(2))
                         End If
                         If DataDSDatosCliente.Tables(0).Rows(0)(3) Is System.DBNull.Value Then
                             Me.TXT_ConsultaDireccCalle.Text = ""
