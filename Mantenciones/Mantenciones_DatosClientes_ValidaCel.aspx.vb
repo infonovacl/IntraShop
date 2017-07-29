@@ -3,6 +3,7 @@
     Dim Usuario As Integer = 0
     Dim CodTienda As Integer = 0
     Dim CodCaja As Integer = 0
+    Dim NombreTienda As String = ""
     'Dim NombreTienda As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         Me.TXT_Rut.Text = Request.QueryString("rut")
@@ -10,6 +11,7 @@
         Usuario = Request.QueryString("usuario")
         CodTienda = Request.QueryString("codtienda")
         CodCaja = Request.QueryString("caja")
+        NombreTienda = Request.QueryString("nombretienda")
         If Not IsPostBack Then
             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Popup", "<script>detectarPopupBlocker();</script>")
             LlenaDDLEstadoCivil()
@@ -34,8 +36,8 @@
         If Me.DDL_RegionCliente.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0", "cliente")
         ElseIf Me.DDL_RegionCliente.SelectedValue = 0 Then
-            'LlenaDDLComuna("0", "0", "cliente")
-            Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
+            LlenaDDLComuna("0", "0", "cliente")
+            'Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_ReferenciaRegion_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles DDL_ReferenciaRegion.SelectedIndexChanged
@@ -45,8 +47,8 @@
         If Me.DDL_ReferenciaRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_ReferenciaRegion.SelectedValue, "0", "referencia")
         ElseIf Me.DDL_ReferenciaRegion.SelectedValue = 0 Then
-            'LlenaDDLComuna("0", "0", "referencia")
-            Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
+            LlenaDDLComuna("0", "0", "referencia")
+            'Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
@@ -56,8 +58,8 @@
         If Me.DDL_EmpleadorRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
         ElseIf Me.DDL_EmpleadorRegion.SelectedValue = 0 Then
-            'LlenaDDLComuna("0", "0", "empleador")
-            Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
+            LlenaDDLComuna("0", "0", "empleador")
+            '.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Cerrar.Click
@@ -390,9 +392,6 @@
                 LlenaDDLComuna(RegionEmpleador, ComunaEmpleador, "empleador")
                 '****************************************
             End If
-            Session("comuna") = Trim(Me.DDL_ComunaCliente.SelectedItem.Text)
-            Session("estadocivil") = Trim(Me.DDL_EstadoCivil.SelectedItem.Text)
-            Session("sexo") = Trim(Me.RBL_Sexo.SelectedItem.Text.ToUpper)
             Me.TXT_TelefonoCelular.Text = ""
             Me.TXT_TelefonoCelular.Focus()          
         Catch EX As Exception
@@ -448,7 +447,7 @@
                     Else
                         Me.LBL_DatosClienteError.Visible = True
                         Me.LBL_DatosClienteError.Text = DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(1) ' mensaje exito
-                        Session("estadocivil") = Trim(Me.DDL_EstadoCivil.SelectedItem.Text)
+                        'Session("estadocivil") = Trim(Me.DDL_EstadoCivil.SelectedItem.Text)
                         Dim TipoConsulta As String
                         TipoConsulta = Request.QueryString("tipocon")
                         If TipoConsulta = "bloqueo" Then
@@ -532,10 +531,10 @@
         Return valido
     End Function
     Protected Sub ButtonAut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonAut.Click
-        'If Me.ErcRes.Value <> "0" Then    '- PARA PRUEBAS   -   DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO 
-        If Me.ErcRes.Value = "0" Then '- PARA PRODUCCCION 
-                GestionAutentia()
-            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta('/Mantenciones/Mantenciones_FirmaDoc.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & Me.TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & CodCaja & "'); </script>")
+        If Me.ErcRes.Value <> "0" Then    '- PARA PRUEBAS   -   DEBE SER 0 PARA SER VALIDO, SE NECESITA HUELLERO 
+            'If Me.ErcRes.Value = "0" Then '- PARA PRODUCCCION 
+            GestionAutentia()
+            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Tarjeta", "<script> LLamaTarjeta('/Mantenciones/Mantenciones_FirmaDoc.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & Me.TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & CodCaja & "&nombretienda=" & NombreTienda & "&comuna=" & Trim(Me.DDL_ComunaCliente.SelectedItem.Text) & "&estadocivil=" & Trim(Me.DDL_EstadoCivil.SelectedItem.Text) & "&sexo=" & Trim(Me.RBL_Sexo.SelectedItem.Text.ToUpper) & "'); </script>")
         Else
                 Me.LBL_DatosClienteError.Visible = True
             Me.LBL_DatosClienteError.Text = "ERROR EN VALIDACION DE HUELLA DIGITAL"
@@ -550,8 +549,6 @@
                                                       " ('" & Trim(Me.TXT_Rut.Text) & "',current year to day,current hour to second,'TAR','" & Me.ErcRes.Value & "','" & Me.ErcDet.Value & "'," & Usuario & ",'0','" & Me.NroAudit.Value & "','" & Me.Mensaje.Value & "'," & CodTienda & "," & CodCaja & ")"
             Dim DATASTRRechazaDoc As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRIngresaGestionAutentia, Globales.conn)
             DATASTRRechazaDoc.Fill(DataDSIngresaGestionAutentia, "PRUEBA")
-            'Me.LBL_DatosClienteError.Visible = True
-            'Me.LBL_DatosClienteError.Text = STRIngresaGestionAutentia
         Catch ex As Exception
             Response.Write("<script>window.alert('ERROR GESTION AUTENTIA " & ex.Message & "');</script>")
         End Try

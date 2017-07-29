@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_VerPreContrato.aspx.vb" Inherits="Mantencion_Tarjetas_PreContrato" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_VerPreContrato.aspx.vb" Inherits="VerPREContrato" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

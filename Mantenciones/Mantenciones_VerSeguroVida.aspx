@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_VerSeguroVida.aspx.vb" Inherits="Mantencion_Tarjetas_SeguroVida" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_VerSeguroVida.aspx.vb" Inherits="VerSeguroVida" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

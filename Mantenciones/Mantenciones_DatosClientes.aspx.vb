@@ -1,16 +1,12 @@
 ﻿Partial Class Mantencion_DatosClientes
     Inherits System.Web.UI.Page
     Dim Usuario As String
-    'Dim CodTienda As String
-    'Dim Caja As Integer
-    'Dim NombreTienda As String
+    Dim CodTienda As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.TXT_Rut.Text = Request.QueryString("rut")
         Me.TXT_Dv.Text = Request.QueryString("dv")
-        'Usuario = Request.QueryString("usuario")
-        'CodTienda = Request.QueryString("codtienda")
-        'Caja = Request.QueryString("caja")
-        'NombreTienda = Request.QueryString("nombretienda")
+        Usuario = Request.QueryString("usuario")
+        CodTienda = Request.QueryString("codtienda")
         If Not IsPostBack Then
             LlenaDDLEstadoCivil()
             LlenaDDLRegion()
@@ -28,7 +24,8 @@
         If Me.DDL_RegionCliente.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0", "cliente")
         ElseIf Me.DDL_RegionCliente.SelectedValue = 0 Then
-            Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
+            LlenaDDLComuna("0", "0", "cliente")
+            'Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_ReferenciaRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_ReferenciaRegion.SelectedIndexChanged
@@ -38,7 +35,8 @@
         If Me.DDL_ReferenciaRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_ReferenciaRegion.SelectedValue, "0", "referencia")
         ElseIf Me.DDL_ReferenciaRegion.SelectedValue = 0 Then
-            Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
+            LlenaDDLComuna("0", "0", "referencia")
+            'Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
@@ -48,7 +46,8 @@
         If Me.DDL_EmpleadorRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
         ElseIf Me.DDL_EmpleadorRegion.SelectedValue = 0 Then
-            Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
+            LlenaDDLComuna("0", "0", "empleador")
+            'Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
@@ -389,7 +388,7 @@
     End Sub
     Protected Sub BTN_Grabar_Click(sender As Object, e As EventArgs) Handles BTN_Grabar.Click
         If Page.IsValid = True Then
-            Dim valido As String
+            Dim valido As String = ""
             ValidacionSecundaria(valido)
             If valido = "OK" Then
                 Try
@@ -419,7 +418,7 @@
                                                             & Me.DDL_ReferenciaComuna.Text.ToUpper & "','" & Me.RBL_ReferenciaTipoTelefono.SelectedValue & "','" & Me.TXT_ReferenciaTelefono.Text.ToUpper & "','" & Me.TXT_EmpleadorNombre.Text.ToUpper & "','" _
                                                             & Trim(Me.TXT_EmpleadorDireccion.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorNumero.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorOficina.Text.ToUpper) & "','" & region_empleador & "','" _
                                                             & Me.DDL_EmpleadorComuna.SelectedValue & "','" & Trim(Me.TXT_EmpleadorTelefono.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorAnexo.Text.ToUpper) & "','" & Trim(Me.TXT_EmpleadorCargo.Text.ToUpper) & "','" _
-                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & Session("usuario") & "','" & Session("codtienda") & "')"
+                                                            & Trim(Me.TXT_CorreoElectronico.Text.ToUpper) & "','" & Usuario & "','" & CodTienda & "')"
                     Dim DATAModificaDatosPersonales As System.Data.Odbc.OdbcDataAdapter = New System.Data.Odbc.OdbcDataAdapter(STRModificaDatosPersonales, Globales.conn)
                     DATAModificaDatosPersonales.Fill(DATADSModificaDatosPersonalesPopUp, "PRUEBA")
                     If DATADSModificaDatosPersonalesPopUp.Tables(0).Rows(0)(0) = 1 Then

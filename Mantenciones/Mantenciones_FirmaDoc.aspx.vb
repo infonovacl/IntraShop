@@ -10,6 +10,7 @@ Partial Class Mantencion_FirmaDoc
     Dim Usuario As Integer = 0
     Dim CodTienda As Integer = 0
     Dim CodCaja As Integer = 0
+    Dim NombreTienda As String = ""
     Dim ClienteNombres, ClienteAPaterno, ClienteAMaterno, ClienteSexo, ClienteFechaNac, ClienteEstadoCivil As String
     Dim ClienteCalleParticular, ClienteNumeroCasa, ClienteNumeroDepto, ClienteComuna, ClienteTelefonoFijo, ClienteTelefonoCelular, ClienteCorreoElectronico As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -18,6 +19,10 @@ Partial Class Mantencion_FirmaDoc
         Usuario = Request.QueryString("usuario")
         CodTienda = Request.QueryString("codtienda")
         CodCaja = Request.QueryString("caja")
+        NombreTienda = Request.QueryString("nombretienda")
+        ClienteComuna = Request.QueryString("comuna")
+        ClienteEstadoCivil = Request.QueryString("estadocivil")
+        ClienteSexo = Request.QueryString("sexo")
         If IsPostBack = False Then
             ValidaDocsAFirmar()
         End If
@@ -92,9 +97,6 @@ Partial Class Mantencion_FirmaDoc
                 Else
                     ClienteCorreoElectronico = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
                 End If
-                ClienteComuna = Session("comuna")
-                ClienteEstadoCivil = Session("estadocivil")
-                ClienteSexo = Session("sexo")
             End If
         Catch EX As Exception
             Me.LBL_DatosClienteError.Text = EX.Message
@@ -154,7 +156,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_CAPFirmaCON.Disabled = True
                 GrabaFirmaContrato()
                 If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
                 End If
             Else
                 Me.LBL_ContratoError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
@@ -254,20 +256,15 @@ Partial Class Mantencion_FirmaDoc
                 gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(480, 200))
                 gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(65, 225))
                 gfx.DrawString(Trim(ClienteComuna), font, XBrushes.Black, New XVector(380, 225))
-
                 gfx.DrawString(Trim(ClienteTelefonoFijo), font, XBrushes.Black, New XVector(65, 250))
                 gfx.DrawString(Trim(ClienteTelefonoCelular), font, XBrushes.Black, New XVector(270, 250))
                 gfx.DrawString(Trim(ClienteCorreoElectronico), font, XBrushes.Black, New XVector(380, 250))
-
                 gfx.DrawString(Trim(ClienteFechaNac.ToString.Replace("-", "   ")), font, XBrushes.Black, New XVector(63, 273))
-
                 If Trim(ClienteSexo) = "FEMENINO" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(187, 273))
                 ElseIf Trim(ClienteSexo) = "MASCULINO" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(150, 273))
                 End If
-                'gfx.DrawString(Trim(ClienteSexo), font, XBrushes.Black, New XVector(190, 273)) Then
-
                 If Trim(ClienteEstadoCivil) = "SOLTERO (A)" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(300, 273))
                 ElseIf Trim(ClienteEstadoCivil) = "CASADO (A)" Then
@@ -275,8 +272,6 @@ Partial Class Mantencion_FirmaDoc
                 ElseIf Trim(ClienteEstadoCivil) = "VIUDO (A)" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(345, 273))
                 End If
-                'gfx.DrawString(Trim(ClienteEstadoCivil), font, XBrushes.Black, New XVector(255, 273))
-
                 pp = PDFDoc2.Pages(1) ' Pagina nro. 2
                 gfx = XGraphics.FromPdfPage(pp)
                 gfx.DrawString(Now.Day & "     " & Now.Month & "         " & Now.Year, font, XBrushes.Black, New XVector(78, 283))
@@ -307,7 +302,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_CAPFirmaSV.Disabled = True
                 GrabaFirmaSeguroVida()
                 If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroVida.aspx','VerSeguroVida','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroVida.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerSeguroVida','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
                 End If
             Else
                 Me.LBL_SeguroVidaError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
@@ -345,7 +340,7 @@ Partial Class Mantencion_FirmaDoc
                 Dim pp As PdfSharp.Pdf.PdfPage = PDFDoc2.Pages(0) ' pagina 1
                 Dim gfx As XGraphics = XGraphics.FromPdfPage(pp)
                 Dim font As XFont = New XFont("Times New Roman", 10, XFontStyle.Regular)
-                gfx.DrawString(Trim(Session("nombretienda")), font, XBrushes.Black, New XVector(355, 228))
+                gfx.DrawString(Trim(NombreTienda), font, XBrushes.Black, New XVector(355, 228))
                 gfx.DrawString(Trim(ClienteAPaterno) & " " & Trim(ClienteAMaterno) & " " & Trim(ClienteNombres), font, XBrushes.Black, New XVector(65, 278))
                 gfx.DrawString(" " & RutCliente & "-" & Dv, font, XBrushes.Black, New XVector(65, 305))
                 gfx.DrawString(Trim(ClienteCalleParticular) & " NRO " & Trim(ClienteNumeroCasa) & " " & Trim(ClienteNumeroDepto), font, XBrushes.Black, New XVector(65, 355))
@@ -388,7 +383,7 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_CAPFirmaSP.Disabled = True
                 GrabaFirmaSeguroProteccion()
                 If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroProteccion.aspx','VerSeguroProteccion','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroProteccion.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerSeguroProteccion','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
                 End If
             Else
                 Me.LBL_SeguroProteccionError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
@@ -636,7 +631,7 @@ Partial Class Mantencion_FirmaDoc
             gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
             PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & RutCliente & "_" & Dv & ".pdf"))
             If Not IsClientScriptBlockRegistered("popup") Then
-                RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPreContrato.aspx','VerPREContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPreContrato.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerPREContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
             End If
         Catch ex As Exception
             Me.LBL_DatosClienteError.Text = "ERROR PRE-VISUALIZANDO CONTRATO"
@@ -733,7 +728,7 @@ Partial Class Mantencion_FirmaDoc
                 GrabaFirmaPEP()
                 Session("pepestado") = ""
                 If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
                 End If
             Else
                 Me.LBL_PEPError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"

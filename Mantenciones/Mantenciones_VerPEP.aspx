@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_VerPEP.aspx.vb" Inherits="Mantencion_Tarjetas" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Mantenciones_VerPEP.aspx.vb" Inherits="VerPEP" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

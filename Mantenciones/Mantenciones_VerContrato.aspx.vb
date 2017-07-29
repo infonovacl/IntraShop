@@ -3,11 +3,13 @@ Imports PdfSharp.Drawing
 Imports PdfSharp.Pdf.IO
 Imports System
 Imports System.IO
-Partial Class Mantencion_Tarjetas
+Partial Class VerContrato
     Inherits System.Web.UI.Page
     Dim RutCliente As Integer
     Dim Dv As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RutCliente = Request.QueryString("rut")
+        Dv = Request.QueryString("dv")
         If Not IsPostBack Then
             VerPDFContrato()
         End If
@@ -24,9 +26,9 @@ Partial Class Mantencion_Tarjetas
         embed += " o descargar desde <a target = ""_blank"" href = ""http://get.adobe.com/reader/"">Adobe PDF Reader</a> para ver el archivo."
         embed += "</object>"
         Try
-            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_" & Session("RutPDF") & "_" & Session("DvPDF") & ".pdf")
+            Dim File As String = HttpContext.Current.Server.MapPath("~/Doc/Contrato/contrato_" & RutCliente & "_" & Dv & ".pdf")
             If (System.IO.File.Exists(File)) Then
-                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/contrato_" & Session("RutPDF") & "_" & Session("DvPDF") & ".pdf"))
+                Me.Literal1.Text = String.Format(embed, ResolveUrl("~/Doc/Contrato/contrato_" & RutCliente & "_" & Dv & ".pdf"))
             Else
                 LBL_VerPDFError.Text = "ERROR CARGANDO ARCHIVO PDF : ARCHIVO NO EXISTE"
             End If
