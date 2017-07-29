@@ -1,6 +1,6 @@
 ﻿Partial Class Mantencion_DatosClientes
     Inherits System.Web.UI.Page
-    'Dim Usuario As String
+    Dim Usuario As String
     'Dim CodTienda As String
     'Dim Caja As Integer
     'Dim NombreTienda As String
@@ -28,8 +28,7 @@
         If Me.DDL_RegionCliente.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0", "cliente")
         ElseIf Me.DDL_RegionCliente.SelectedValue = 0 Then
-            LlenaDDLComuna("0", "0", "cliente")
-            'Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
+            Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_ReferenciaRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_ReferenciaRegion.SelectedIndexChanged
@@ -39,8 +38,7 @@
         If Me.DDL_ReferenciaRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_ReferenciaRegion.SelectedValue, "0", "referencia")
         ElseIf Me.DDL_ReferenciaRegion.SelectedValue = 0 Then
-            LlenaDDLComuna("0", "0", "referencia") 
-		'Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
+            Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
@@ -50,8 +48,7 @@
         If Me.DDL_EmpleadorRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
         ElseIf Me.DDL_EmpleadorRegion.SelectedValue = 0 Then
-            LlenaDDLComuna("0", "0", "empleador") 
- 	    'Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
+            Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub BTN_Cerrar_Click(sender As Object, e As EventArgs) Handles BTN_Cerrar.Click
@@ -93,7 +90,7 @@
             End If
         Catch EX As Exception
             'MsgBox(EX)
-            Response.Write("<script>window.alert('Error al Obtener Comuna DatosClientees');</script>")
+            'Response.Write("<script>window.alert('Error al Obtener Datos DatosClientees');</script>")
         End Try
     End Sub
     Private Sub LlenaDDLEstadoCivil()
@@ -184,17 +181,17 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(4) Is System.DBNull.Value Then
                     Me.TXT_Nombres.Text = ""
                 Else
-                    Me.TXT_Nombres.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(4))
+                    Me.TXT_Nombres.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(4)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(5) Is System.DBNull.Value Then
                     Me.TXT_APaterno.Text = ""
                 Else
-                    Me.TXT_APaterno.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(5))
+                    Me.TXT_APaterno.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(5)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(6) Is System.DBNull.Value Then
                     Me.TXT_AMaterno.Text = ""
                 Else
-                    Me.TXT_AMaterno.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(6))
+                    Me.TXT_AMaterno.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(6)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(7) Is System.DBNull.Value Then 'sexo                  
                     Me.RBL_Sexo.SelectedValue = 0
@@ -227,7 +224,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     Me.TXT_CalleParticular.Text = ""
                 Else
-                    Me.TXT_CalleParticular.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(10))
+                    Me.TXT_CalleParticular.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(10)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(11) Is System.DBNull.Value Then 'n casa
                     Me.TXT_NumeroCasa.Text = ""
@@ -239,19 +236,18 @@
                 Else
                     Me.TXT_NumeroDepto.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(12))
                 End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(13) Is System.DBNull.Value Then 'n depto
+                If DataDSDatosCliente.Tables(0).Rows(0)(13) Is System.DBNull.Value Then 'villa
                     Me.TXT_VillaPoblacion.Text = ""
                 Else
-                    Me.TXT_VillaPoblacion.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(13))
+                    Me.TXT_VillaPoblacion.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(13)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(14) Is System.DBNull.Value Then 'altura/calle
                     Me.TXT_AlturaCalle.Text = ""
                 Else
-                    Me.TXT_AlturaCalle.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(14))
+                    Me.TXT_AlturaCalle.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(14)))
                 End If
                 Dim RegionCliente As Integer
-                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(15) = 0 Then 
-		    'REGION CLIENTE
+                If DataDSDatosCliente.Tables(0).Rows(0)(15) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(15) = 0 Then 'REGION CLIENTE
                     Me.DDL_RegionCliente.Items.Insert(0, "SIN REGION")
                     RegionCliente = 0
                 Else
@@ -271,7 +267,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(19) Is System.DBNull.Value Then 'n telefono referencia
                     Me.TXT_ReferenciaNombre.Text = ""
                 Else
-                    Me.TXT_ReferenciaNombre.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(19))
+                    Me.TXT_ReferenciaNombre.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(19)))
                 End If
                 Dim RegionReferencia As Integer
                 If DataDSDatosCliente.Tables(0).Rows(0)(20) Is System.DBNull.Value Or DataDSDatosCliente.Tables(0).Rows(0)(20) = 0 Then 'REGION REFERENCIA
@@ -295,12 +291,12 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(24) Is System.DBNull.Value Then 'nombre empleador
                     Me.TXT_EmpleadorNombre.Text = ""
                 Else
-                    Me.TXT_EmpleadorNombre.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(24))
+                    Me.TXT_EmpleadorNombre.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(24)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(25) Is System.DBNull.Value Then 'direccion empleador
                     Me.TXT_EmpleadorDireccion.Text = ""
                 Else
-                    Me.TXT_EmpleadorDireccion.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(25))
+                    Me.TXT_EmpleadorDireccion.Text = Globales.SacaCaracteresEspeciales(Trim(DataDSDatosCliente.Tables(0).Rows(0)(25)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(26) Is System.DBNull.Value Then 'numero direccion empleador
                     Me.TXT_EmpleadorNumero.Text = ""
@@ -351,7 +347,7 @@
                 If DataDSDatosCliente.Tables(0).Rows(0)(35) Is System.DBNull.Value Then 'mail
                     Me.TXT_CorreoElectronico.Text = ""
                 Else
-                    Me.TXT_CorreoElectronico.Text = Trim(DataDSDatosCliente.Tables(0).Rows(0)(35))
+                    Me.TXT_CorreoElectronico.Text = Globales.VerificaCorreo(Trim(DataDSDatosCliente.Tables(0).Rows(0)(35)))
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(36) Is System.DBNull.Value Then 'edad
                     Me.TXT_Edad.Text = ""

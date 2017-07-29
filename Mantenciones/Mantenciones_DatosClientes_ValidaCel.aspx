@@ -156,14 +156,10 @@
           Params.ErcDesc = "";
           erc = 200;
           //Ret = document.form1.Retorno.value;
-//erc = 0;
-//Params.Erc = 0;
-//Params.ErcRes = "0";
-
           if (Ret == 1) {
               if (Params.pRut != 0) {
                   alert("Por favor active Sensor de Huella ...");
-                  erc = Autentia.Transaccion("verificadatos", Params); 
+                  erc = Autentia.Transaccion("verificadatos", Params); ;
                   //alert(erc)
                   if (erc == null) {                     
                       document.getElementById('ErcRes').innerText = "-1";
@@ -337,7 +333,7 @@
                                 </tr>
                                 <tr>
                                     <td class="auto-style11">
-                                        <asp:RadioButtonList ID="RBL_Sexo" runat="server" CssClass="radiobuton_tab" Height="16px" RepeatDirection="Horizontal" Width="171px" Enabled="True">
+                                        <asp:RadioButtonList ID="RBL_Sexo" runat="server" CssClass="radiobuton_tab" Height="16px" RepeatDirection="Horizontal" Width="171px" Enabled="False">
                                             <asp:ListItem Value="F">Femenino</asp:ListItem>
                                             <asp:ListItem Value="M">Masculino</asp:ListItem>
                                         </asp:RadioButtonList>

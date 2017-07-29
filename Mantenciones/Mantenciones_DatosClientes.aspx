@@ -79,7 +79,7 @@
     <div class="auto-style12">                 
         <asp:ScriptManager runat="server" ID="ScriptManagerDatosClientes" EnableViewState="False" LoadScriptsBeforeUI="False" ScriptMode="Release">
         </asp:ScriptManager>        
-                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="0" Height="510px" Width="680px">
+                <cc2:TabContainer ID="Tab_DatosClientes" runat="server" ActiveTabIndex="1" Height="510px" Width="680px">
                     <cc2:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
                         <HeaderTemplate>
                             Datos Personales
@@ -164,7 +164,7 @@
                                 </tr>
                                 <tr>
                                     <td class="auto-style11">
-                                        <asp:RadioButtonList ID="RBL_Sexo" runat="server" CssClass="radiobuton_tab" Height="16px" RepeatDirection="Horizontal" Width="171px" Enabled="True">
+                                        <asp:RadioButtonList ID="RBL_Sexo" runat="server" CssClass="radiobuton_tab" Height="16px" RepeatDirection="Horizontal" Width="171px" Enabled="False">
                                             <asp:ListItem Value="F">Femenino</asp:ListItem>
                                             <asp:ListItem Value="M">Masculino</asp:ListItem>
                                         </asp:RadioButtonList>
