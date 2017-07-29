@@ -34,8 +34,7 @@
         If Me.DDL_RegionCliente.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_RegionCliente.SelectedValue, "0", "cliente")
         ElseIf Me.DDL_RegionCliente.SelectedValue = 0 Then
-            LlenaDDLComuna("0", "0", "cliente")
-	'Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
+            Me.DDL_ComunaCliente.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_ReferenciaRegion_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles DDL_ReferenciaRegion.SelectedIndexChanged
@@ -45,8 +44,7 @@
         If Me.DDL_ReferenciaRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_ReferenciaRegion.SelectedValue, "0", "referencia")
         ElseIf Me.DDL_ReferenciaRegion.SelectedValue = 0 Then
-            LlenaDDLComuna("0", "0", "referencia")
-	'Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
+            Me.DDL_ReferenciaComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub DDL_EmpleadorRegion_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles DDL_EmpleadorRegion.SelectedIndexChanged
@@ -56,8 +54,7 @@
         If Me.DDL_EmpleadorRegion.SelectedValue <> 0 Then
             LlenaDDLComuna(Me.DDL_EmpleadorRegion.SelectedValue, "0", "empleador")
         ElseIf Me.DDL_EmpleadorRegion.SelectedValue = 0 Then
-            LlenaDDLComuna("0", "0", "empleador")
-	'Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
+            Me.DDL_EmpleadorComuna.Items.Insert(0, "SIN COMUNA")
         End If
     End Sub
     Protected Sub BTN_Cerrar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Cerrar.Click
@@ -452,7 +449,7 @@
                         Dim TipoConsulta As String
                         TipoConsulta = Request.QueryString("tipocon")
                         If TipoConsulta = "bloqueo" Then
-                            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Bloqueo", "<script> LLamaBloqueos('/Solicitudes/Solicitudes_Bloqueos.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & CodCaja & "'); </script>")
+                            ClientScript.RegisterClientScriptBlock(Me.GetType(), "Bloqueo", "<script> LLamaBloqueos('/Solicitudes/Solicitudes_Bloqueos.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & TXT_Dv.Text & "'); </script>")
                         ElseIf TipoConsulta = "verificacion" Then
                             ClientScript.RegisterClientScriptBlock(Me.GetType(), "Verificacion", "<script> LLamaVerificacion('/Solicitudes/Solicitudes_RevisaVerificacion.aspx?rut=" & Me.TXT_Rut.Text & "&dv=" & TXT_Dv.Text & "&usuario=" & Usuario & "&codtienda=" & CodTienda & "&caja=" & CodCaja & "'); </script>")
                         ElseIf TipoConsulta = "tarjeta" Then

@@ -29,9 +29,6 @@
             panelcerrarsesion = Master.FindControl("Panel_Login")
             panelcerrarsesion.Visible = True
         End If
-        'Dim mpLabel As Label
-        'mpLabel = CType(Master.FindControl("ctienda"), Label)
-        'Caja = mpLabel.Text
     End Sub
     Protected Sub BTN_Buscar_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BTN_Buscar.Click
         Dim DeudaCast As Integer
@@ -278,7 +275,7 @@
                         menu.Nodes.Item(0).ChildNodes.Item(1).ChildNodes.Item(2).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_Adicionales.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Adicionales','top=260,width=770,height=290,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
 
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_RevisaRechazos.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "','Rechazos','top=130,width=770,height=520,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
-                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=bloqueo&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "&usuario=" & Trim(Me.LBL_Usuario.Text) & "&codtienda=" & Trim(Me.LBL_CodTienda.Text) & "&caja=" & Trim(Me.LBL_Caja.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
+                        menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=bloqueo&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_AnulaVentaSeguros.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "','Seguros','top=220,width=770,height=420,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(3).NavigateUrl = "javascript:my_window=window.open('/Solicitudes/Solicitudes_CambioDiaPago.aspx?rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&diapago=" & TXT_ConsultaDiaPago.Text & "','CambioDiaPago','top=200,width=345,height=235,left=220',scrollbars='NO',resizable='NO');my_window.focus()"
                         menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).NavigateUrl = "javascript:my_window=window.open('/Mantenciones/Mantenciones_DatosClientes_ValidaCel.aspx?tipocon=verificacion&rut=" & Trim(Me.TXT_ConsultaRutCliente.Text) & "&dv=" & Me.TXT_ConsultaDV.Text & "&usuario=" & Trim(Me.LBL_Usuario.Text) & "&codtienda=" & Trim(Me.LBL_CodTienda.Text) & "&caja=" & Trim(Me.LBL_Caja.Text) & "','Bloqueos','top=90,left=220,width=690,height=610',scrollbars='NO',resizable='NO');my_window.focus()"
@@ -306,17 +303,8 @@
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).SelectAction = TreeNodeSelectAction.None ' Verificacion
                                 menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
                             End If
-                            If OpcionGeneral = 1 Then 'Bloqueado                                            
-                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).SelectAction = TreeNodeSelectAction.None ' Revisa Verificacion
-				menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Rechazo
-                            End If
-
                             If OpcionGeneral = 6 Then 'Bloqueado 
                                 LBL_MensajeAvance1.Text = "Castigo Pendiente $ " & DeudaCast
-                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(1).SelectAction = TreeNodeSelectAction.None ' Bloqueo/Desbloqueo
-                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(0).SelectAction = TreeNodeSelectAction.None ' Revisa Rechazo
-                                menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(4).SelectAction = TreeNodeSelectAction.None ' Verificacion
-				menu.Nodes.Item(0).ChildNodes.Item(2).ChildNodes.Item(2).SelectAction = TreeNodeSelectAction.None ' Venta/Seguro
                             End If
                         End If
                         '**********************Variables session                       

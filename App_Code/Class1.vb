@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.VisualBasic
-Imports System.Text.RegularExpressions
 Public Class Globales
     'Public Shared connSTR As String = "dsn=dbdesa;uid=informix;pwd=informixdesa"
     'Public Shared connSTR As String = "dsn=desaweb;uid=desaweb;pwd=Dsa.web"
