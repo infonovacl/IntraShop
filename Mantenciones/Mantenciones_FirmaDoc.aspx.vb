@@ -52,20 +52,10 @@ Partial Class Mantencion_FirmaDoc
                 Else
                     ClienteAMaterno = Trim(DataDSDatosCliente.Tables(0).Rows(0)(6))
                 End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(7) Is System.DBNull.Value Then 'sexo                  
-                    ClienteSexo = 0
-                Else
-                    ClienteSexo = DataDSDatosCliente.Tables(0).Rows(0)(7)
-                End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(8) Is System.DBNull.Value Then ' fecha nacimiento
                     ClienteFechaNac = ""
                 Else
                     ClienteFechaNac = DataDSDatosCliente.Tables(0).Rows(0)(8)
-                End If
-                If DataDSDatosCliente.Tables(0).Rows(0)(9) Is System.DBNull.Value Then 'estado civil                  
-                    ClienteEstadoCivil = 0
-                Else
-                    ClienteEstadoCivil = DataDSDatosCliente.Tables(0).Rows(0)(9)
                 End If
                 If DataDSDatosCliente.Tables(0).Rows(0)(10) Is System.DBNull.Value Then 'calle
                     ClienteCalleParticular = ""
@@ -155,9 +145,6 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_FirmarContrato.Enabled = False
                 Me.BTN_CAPFirmaCON.Disabled = True
                 GrabaFirmaContrato()
-                If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
-                End If
             Else
                 Me.LBL_ContratoError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
                 Me.IMG_ContratoRechazado.Visible = True
@@ -301,9 +288,6 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_FirmarSV.Enabled = False
                 Me.BTN_CAPFirmaSV.Disabled = True
                 GrabaFirmaSeguroVida()
-                If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroVida.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerSeguroVida','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
-                End If
             Else
                 Me.LBL_SeguroVidaError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
                 Me.IMG_SeguroVidaFirmado.Visible = False
@@ -382,9 +366,6 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_FirmarSP.Enabled = False
                 Me.BTN_CAPFirmaSP.Disabled = True
                 GrabaFirmaSeguroProteccion()
-                If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroProteccion.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerSeguroProteccion','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
-                End If
             Else
                 Me.LBL_SeguroProteccionError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
                 Me.IMG_SeguroProteccionRechazado.Visible = True
@@ -630,9 +611,7 @@ Partial Class Mantencion_FirmaDoc
             gfx.DrawString(Now.Month, font, XBrushes.Black, New XVector(170, 740))
             gfx.DrawString(Now.Year, font, XBrushes.Black, New XVector(220, 740))
             PDFDoc2.Save(HttpContext.Current.Server.MapPath("~/Doc/Contrato/Pre_Contrato_" & RutCliente & "_" & Dv & ".pdf"))
-            If Not IsClientScriptBlockRegistered("popup") Then
-                RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPreContrato.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerPREContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
-            End If
+            Response.Write("<script>my_window=window.open('/Mantenciones/Mantenciones_VerPreContrato.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "','VerPREContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
         Catch ex As Exception
             Me.LBL_DatosClienteError.Text = "ERROR PRE-VISUALIZANDO CONTRATO"
         End Try
@@ -696,8 +675,6 @@ Partial Class Mantencion_FirmaDoc
                 ElseIf Session("pepestado") = "no+ser" Then
                     gfx.DrawString("X", font, XBrushes.Black, New XVector(384, 228))
                 End If
-                'pp = PDFDoc2.Pages(8) ' Pagina nro. 9
-                'gfx = XGraphics.FromPdfPage(pp)
                 gfx.DrawString(Now.Day, font, XBrushes.Black, New XVector(140, 730))
                 Dim mes As Integer = Now.Month
                 gfx.DrawString(MonthName(mes), font, XBrushes.Black, New XVector(190, 730))
@@ -727,9 +704,6 @@ Partial Class Mantencion_FirmaDoc
                 Me.BTN_CAPFirmaPEP.Disabled = True
                 GrabaFirmaPEP()
                 Session("pepestado") = ""
-                If Not IsClientScriptBlockRegistered("popup") Then
-                    RegisterClientScriptBlock("popup", "<script language='javascript'>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "'','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
-                End If
             Else
                 Me.LBL_PEPError.Text = "FIRMA NO VALIDA, POR FAVOR REINTENTE"
                 Me.IMG_PEPRechazado.Visible = True
@@ -741,6 +715,18 @@ Partial Class Mantencion_FirmaDoc
         End Try
     End Sub
     Protected Sub BTN_ImprimeTarjeta_Click(sender As Object, e As EventArgs) Handles BTN_ImprimeTarjeta.Click
-        Response.Write("<script>window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & CodTienda & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");</script>")
+        Response.Write("<script>my_window=window.open(""/ImprimeTarjeta/ImpTarj.aspx?Rut=" & RutCliente & "&Sucursal=" & CodTienda & """, ""TARJETA "",""width=1100,height=350,top=250,left=150,scrollbars=NO"");my_window.focus()</script>")
+    End Sub
+    Protected Sub LINK_VerPEP_Click(sender As Object, e As EventArgs) Handles LINK_VerPEP.Click
+        Response.Write("<script>my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "','VerPEP','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+    End Sub
+    Protected Sub LINK_VerSV_Click(sender As Object, e As EventArgs) Handles LINK_VerSV.Click
+        Response.Write("<script>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroVida.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "','VerSeguroVida','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+    End Sub
+    Protected Sub LINK_VerContrato_Click(sender As Object, e As EventArgs) Handles LINK_VerContrato.Click
+        Response.Write("<script>my_window=window.open('/Mantenciones/Mantenciones_VerContrato.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
+    End Sub
+    Protected Sub LINK_VerSP_Click(sender As Object, e As EventArgs) Handles LINK_VerSP.Click
+        Response.Write("<script>my_window=window.open('/Mantenciones/Mantenciones_VerSeguroProteccion.aspx?rut=" & Trim(RutCliente) & "&dv=" & Trim(Dv) & "','VerSeguroProteccion','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()</script>")
     End Sub
 End Class

@@ -468,7 +468,7 @@
                                                         <asp:Button ID="BTN_FirmarPEP" runat="server" CssClass="botones_anchoX2" OnClientClick="javascript:return signFormPEP();" Text="FIRMAR P.E.P." />
                                                         <br />
                                                         &nbsp;&nbsp;<br />
-                                                        <asp:LinkButton ID="LINK_VerPEP" runat="server" onclientclick="javascript:my_window=window.open('/Mantenciones/Mantenciones_VerPEP.aspx','VerContrato','top=120 ,left=240,width=600,height=580',scrollbars='NO',resizable='NO',toolbar='NO');my_window.focus()">Ver P.E.P.</asp:LinkButton>
+                                                        <asp:LinkButton ID="LINK_VerPEP" runat="server">Ver P.E.P.</asp:LinkButton>
                                                         &nbsp;&nbsp;
                                                         <br />
                                                         <br />
